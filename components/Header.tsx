@@ -6,6 +6,15 @@ import { Bars3Icon, XMarkIcon, BriefcaseIcon } from '@heroicons/react/24/outline
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isEmployer, setIsEmployer] = useState(false)
+
+  useEffect(() => {
+    // Check if user is logged in as employer
+    if (typeof window !== 'undefined') {
+      const employerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
+      setIsEmployer(!!employerLoggedIn)
+    }
+  }, [])
 
   const navigation = [
     { name: 'Home', href: '/' },
