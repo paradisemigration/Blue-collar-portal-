@@ -854,8 +854,8 @@ Please check your email and bookmark these credentials for future login.`)
               </div>
 
               {/* About Me */}
-              <div className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-6">
-                <h2 className="text-2xl font-bold text-navy-900 mb-6">
+              <div className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-4 sm:p-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-6">
                   📝 About Me
                 </h2>
                 <textarea
