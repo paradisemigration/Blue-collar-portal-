@@ -49,9 +49,9 @@ export default function Header() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fae655e15f41d4e2a843beb5ac79ab8d2?format=webp&width=500"
+                src="https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2F7dfeb24366b045dfa6f9c1b8aebdc773?format=webp&width=800"
                 alt="Go Get Hire Logo"
-                className="h-32 w-auto sm:h-40 md:h-48 lg:h-56 xl:h-64 2xl:h-72"
+                className="h-10 w-auto sm:h-12 md:h-14"
               />
             </Link>
           </div>
