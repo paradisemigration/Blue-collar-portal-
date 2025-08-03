@@ -91,8 +91,8 @@ const faqs = [
 ]
 
 export const metadata = {
-  title: 'Pricing Plans - Gulf Hiring Platform',
-  description: 'Choose the perfect plan for your hiring needs. Access verified blue-collar worker profiles across the Gulf region.',
+  title: 'Pricing Plans - Go Get Hire | Gulf Hiring Platform',
+  description: 'Choose the perfect plan for your hiring needs with Go Get Hire. Access verified blue-collar worker profiles across the Gulf region.',
 }
 
 export default function Pricing() {
