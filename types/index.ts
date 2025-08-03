@@ -8,7 +8,7 @@ export interface Worker {
   country: Country;
   languagesSpoken: string[];
   expectedSalary: number;
-  visaStatus: 'Available' | 'Not Available';
+  visaStatus: 'Work Visa' | 'Visit Visa' | 'Freelance Visa' | 'Expired Visa' | 'No Visa';
   availability: boolean;
   aboutMe: string;
   phoneNumber: string; // Hidden from public

@@ -17,7 +17,7 @@ interface WorkerFormData {
   country: Country
   languagesSpoken: string[]
   expectedSalary: number
-  visaStatus: 'Available' | 'Not Available'
+  visaStatus: 'Work Visa' | 'Visit Visa' | 'Freelance Visa' | 'Expired Visa' | 'No Visa'
   aboutMe: string
   phoneNumber: string
   email: string
@@ -166,7 +166,7 @@ export default function CreateProfile() {
       jobProfile: '',
       yearsExperience: 0,
       expectedSalary: 1500,
-      visaStatus: 'Available',
+      visaStatus: 'Work Visa',
       country: '' as Country,
       city: '' as City,
       aboutMe: '',
@@ -685,7 +685,7 @@ Please check your email and bookmark these credentials for future login.`)
                     />
                     {errors.yearsExperience && (
                       <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
-                        <span className="text-red-500">⚠��</span>{errors.yearsExperience.message}
+                        <span className="text-red-500">⚠️</span>{errors.yearsExperience.message}
                       </p>
                     )}
                   </div>
@@ -732,8 +732,11 @@ Please check your email and bookmark these credentials for future login.`)
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
                     >
                       <option value="">Select visa status</option>
-                      <option value="Available">✅ Available</option>
-                      <option value="Not Available">❌ Not Available</option>
+                      <option value="Work Visa">🟢 Work Visa</option>
+                      <option value="Visit Visa">🔵 Visit Visa</option>
+                      <option value="Freelance Visa">🟡 Freelance Visa</option>
+                      <option value="Expired Visa">🔴 Expired Visa</option>
+                      <option value="No Visa">❌ No Visa</option>
                     </select>
                     {errors.visaStatus && (
                       <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
