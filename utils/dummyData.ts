@@ -1107,44 +1107,73 @@ function generateWorkerProfile(
   city: City,
   nameIndex: number
 ): Worker {
-  const country = getCountryForCity(city)
-  const jobDetails = JOB_DETAILS[jobTitle]
-  const isMale = Math.random() > 0.5
-  const nameArray = isMale ? WORKER_NAMES.male : WORKER_NAMES.female
-  const pictureArray = isMale ? PROFILE_PICTURES.male : PROFILE_PICTURES.female
+  try {
+    const country = getCountryForCity(city)
+    const jobDetails = JOB_DETAILS[jobTitle]
 
-  // Use a combination of nameIndex and id hash for better distribution
-  const nameHashIndex = (nameIndex + parseInt(id.replace(/\D/g, ''), 10)) % nameArray.length
-  const fullName = nameArray[nameHashIndex]
+    if (!jobDetails) {
+      throw new Error(`No job details found for ${jobTitle}`)
+    }
 
-  // Use picture index based on id for consistency
-  const pictureIndex = (parseInt(id.replace(/\D/g, ''), 10) + nameHashIndex) % pictureArray.length
-  const profilePicture = pictureArray[pictureIndex]
-  
-  const yearsExperience = getRandomRange(jobDetails.experience.min, jobDetails.experience.max)
-  const baseSalary = getRandomRange(jobDetails.salaryRange.min, jobDetails.salaryRange.max)
-  const localSalary = convertSalaryToLocalCurrency(baseSalary, city)
-  
-  const visaStatuses: Worker['visaStatus'][] = ['Work Visa', 'Freelance Visa', 'Visit Visa', 'Expired Visa', 'No Visa']
-  const visaStatus = getRandomElement(visaStatuses)
-  
-  return {
-    id,
-    fullName,
-    profilePicture,
-    jobTitle,
-    yearsExperience,
-    city,
-    country,
-    languagesSpoken: getRandomElement(jobDetails.languages),
-    expectedSalary: localSalary,
-    visaStatus,
-    availability: Math.random() > 0.1, // 90% available
-    aboutMe: getRandomElement(jobDetails.descriptions),
-    phoneNumber: generatePhoneNumber(country),
-    email: `${fullName.toLowerCase().replace(/\s+/g, '.')}@email.com`,
-    createdAt: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000), // Random date within last 90 days
-    updatedAt: new Date()
+    const isMale = Math.random() > 0.5
+    const nameArray = isMale ? WORKER_NAMES.male : WORKER_NAMES.female
+    const pictureArray = isMale ? PROFILE_PICTURES.male : PROFILE_PICTURES.female
+
+    // Use a combination of nameIndex and id hash for better distribution
+    const idNum = parseInt(id.replace(/\D/g, ''), 10) || 1
+    const nameHashIndex = (nameIndex + idNum) % nameArray.length
+    const fullName = nameArray[nameHashIndex] || 'Default Worker'
+
+    // Use picture index based on id for consistency
+    const pictureIndex = (idNum + nameHashIndex) % pictureArray.length
+    const profilePicture = pictureArray[pictureIndex] || pictureArray[0]
+
+    const yearsExperience = getRandomRange(jobDetails.experience.min, jobDetails.experience.max)
+    const baseSalary = getRandomRange(jobDetails.salaryRange.min, jobDetails.salaryRange.max)
+    const localSalary = convertSalaryToLocalCurrency(baseSalary, city)
+
+    const visaStatuses: Worker['visaStatus'][] = ['Work Visa', 'Freelance Visa', 'Visit Visa', 'Expired Visa', 'No Visa']
+    const visaStatus = getRandomElement(visaStatuses)
+
+    return {
+      id,
+      fullName,
+      profilePicture,
+      jobTitle,
+      yearsExperience,
+      city,
+      country,
+      languagesSpoken: getRandomElement(jobDetails.languages),
+      expectedSalary: localSalary,
+      visaStatus,
+      availability: Math.random() > 0.1, // 90% available
+      aboutMe: getRandomElement(jobDetails.descriptions),
+      phoneNumber: generatePhoneNumber(country),
+      email: `${fullName.toLowerCase().replace(/\s+/g, '.')}@email.com`,
+      createdAt: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000), // Random date within last 90 days
+      updatedAt: new Date()
+    }
+  } catch (error) {
+    console.error(`Error generating worker profile for ${jobTitle} in ${city}:`, error)
+    // Return fallback profile
+    return {
+      id,
+      fullName: 'Default Worker',
+      profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+      jobTitle,
+      yearsExperience: 3,
+      city,
+      country: getCountryForCity(city),
+      languagesSpoken: ['English'],
+      expectedSalary: 2500,
+      visaStatus: 'Work Visa',
+      availability: true,
+      aboutMe: 'Experienced professional worker.',
+      phoneNumber: '+971501234567',
+      email: 'worker@email.com',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
   }
 }
 
