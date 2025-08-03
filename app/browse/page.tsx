@@ -19,21 +19,24 @@ const loadAllWorkers = (): Worker[] => {
   try {
     const workers: Worker[] = []
 
-    // Load individual profile
-    const userProfile = localStorage.getItem('userProfile')
-    if (userProfile) {
-      workers.push(JSON.parse(userProfile))
-    }
+    // Only access localStorage in browser environment
+    if (typeof window !== 'undefined') {
+      // Load individual profile
+      const userProfile = localStorage.getItem('userProfile')
+      if (userProfile) {
+        workers.push(JSON.parse(userProfile))
+      }
 
-    // Load all profiles
-    const allProfiles = localStorage.getItem('allUserProfiles')
-    if (allProfiles) {
-      const profiles = JSON.parse(allProfiles)
-      profiles.forEach((profile: Worker) => {
-        if (!workers.find(w => w.id === profile.id)) {
-          workers.push(profile)
-        }
-      })
+      // Load all profiles
+      const allProfiles = localStorage.getItem('allUserProfiles')
+      if (allProfiles) {
+        const profiles = JSON.parse(allProfiles)
+        profiles.forEach((profile: Worker) => {
+          if (!workers.find(w => w.id === profile.id)) {
+            workers.push(profile)
+          }
+        })
+      }
     }
 
     // Add comprehensive dummy data
