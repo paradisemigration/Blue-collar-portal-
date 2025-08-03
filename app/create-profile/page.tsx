@@ -604,15 +604,15 @@ Please check your email and bookmark these credentials for future login.`)
               </div>
 
               {/* Job Information */}
-              <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6">
-                <h2 className="text-2xl font-bold text-navy-900 mb-6 flex items-center">
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 sm:p-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-6 flex items-center">
                   <div className="bg-green-600 p-2 rounded-lg mr-3">
-                    <UserIcon className="h-6 w-6 text-white" />
+                    <UserIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
                   Job Information
                 </h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div className="space-y-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-800 mb-3">
                       Job Title *
