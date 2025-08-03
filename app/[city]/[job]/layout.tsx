@@ -83,7 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    keywords: `${jobDisplay} ${cityDisplay}, hire ${jobDisplay.toLowerCase()} ${country}, ${jobDisplay.toLowerCase()} jobs ${cityDisplay}, skilled ${jobDisplay.toLowerCase()} ${country}, verified ${jobDisplay.toLowerCase()}s ${cityDisplay}, ${jobDisplay.toLowerCase()} recruitment ${country}, Paradise Workers Hub`,
+    keywords: `${jobDisplay} ${cityDisplay}, hire ${jobDisplay.toLowerCase()} ${country}, ${jobDisplay.toLowerCase()} jobs ${cityDisplay}, skilled ${jobDisplay.toLowerCase()} ${country}, verified ${jobDisplay.toLowerCase()}s ${cityDisplay}, ${jobDisplay.toLowerCase()} recruitment ${country}, Go Get Hire`,
     alternates: {
       canonical: cityJobUrl,
     },
