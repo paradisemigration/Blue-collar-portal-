@@ -1,6 +1,6 @@
 'use client'
 
-import { notFound } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import {
@@ -112,26 +112,21 @@ interface PageProps {
   }
 }
 
-export async function generateMetadata({ params }: PageProps) {
-  const cityName = formatCityName(params.city)
-  const jobTitle = formatJobTitle(params.job)
-
-  return {
-    title: `Hire Verified ${jobTitle}s in ${cityName} | Gulf Hiring Platform`,
-    description: `Find experienced ${jobTitle.toLowerCase()}s in ${cityName}. Browse verified profiles, check reviews, and hire skilled professionals for your business needs.`,
-    keywords: `${jobTitle.toLowerCase()}, ${cityName.toLowerCase()}, hire, jobs, workers, gulf`,
-  }
-}
+// Metadata will be handled by layout or parent component
 
 export default function CityJobPage({ params }: PageProps) {
   const [workers, setWorkers] = useState<Worker[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
+  const router = useRouter()
+
   // Validate URL parameters
-  if (!validCities.includes(params.city.toLowerCase() as City) ||
-      !validJobs.includes(params.job.toLowerCase() as JobTitle)) {
-    notFound()
-  }
+  useEffect(() => {
+    if (!validCities.includes(params.city.toLowerCase() as City) ||
+        !validJobs.includes(params.job.toLowerCase() as JobTitle)) {
+      router.push('/browse')
+    }
+  }, [params.city, params.job, router])
 
   const cityDisplay = citySlugToDisplayName(params.city)
   const jobDisplay = jobSlugToDisplayName(params.job)
