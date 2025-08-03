@@ -44,6 +44,8 @@ export default function EmployerDashboard() {
   const [employerData, setEmployerData] = useState<any>(null)
   const [showContactPopup, setShowContactPopup] = useState<Worker | null>(null)
   const [unlockedProfiles, setUnlockedProfiles] = useState<string[]>([])
+  const [activeTab, setActiveTab] = useState<'search' | 'plan' | 'history' | 'saved'>('search')
+  const [savedProfiles, setSavedProfiles] = useState<Worker[]>([])
 
   useEffect(() => {
     // Check if employer is logged in
