@@ -9,64 +9,43 @@ export default function SafeScriptManager() {
       return
     }
 
-    // Prevent FullStory and other analytics scripts from interfering in development
-    const originalFetch = window.fetch
-    window.fetch = function(...args) {
-      const url = args[0]?.toString() || ''
-      
-      // Block known problematic domains in development
-      const blockedDomains = [
-        'fullstory.com',
-        'edge.fullstory.com',
-        'analytics.google.com',
-        'googletagmanager.com',
-        'facebook.com',
-        'twitter.com'
-      ]
-      
-      const isBlockedDomain = blockedDomains.some(domain => url.includes(domain))
-      
-      if (isBlockedDomain) {
-        console.log(`[Dev Mode] Blocked fetch to: ${url}`)
-        return Promise.reject(new Error(`Blocked in development: ${url}`))
+    // Simple error suppression without interfering with fetch
+    const handleError = (event: ErrorEvent) => {
+      const errorMessage = event.message || ''
+      const filename = event.filename || ''
+
+      // Only suppress specific analytics errors, not fetch errors
+      const isAnalyticsScript = filename.includes('fullstory.com') ||
+                               filename.includes('analytics') ||
+                               filename.includes('gtag') ||
+                               filename.includes('facebook.com')
+
+      if (isAnalyticsScript) {
+        console.log('[Dev Mode] Suppressed analytics script error:', errorMessage)
+        event.preventDefault()
+        return false
       }
-      
-      return originalFetch.apply(this, args)
     }
 
-    // Override window.addEventListener to catch and prevent analytics script errors
-    const originalAddEventListener = window.addEventListener
-    window.addEventListener = function(type, listener, options) {
-      if (type === 'error' || type === 'unhandledrejection') {
-        const wrappedListener = (event: any) => {
-          // Check if error is from blocked analytics scripts
-          const errorMessage = event.message || event.reason?.message || ''
-          const isAnalyticsError = errorMessage.includes('fullstory') || 
-                                 errorMessage.includes('Failed to fetch') ||
-                                 errorMessage.includes('analytics')
-          
-          if (isAnalyticsError) {
-            console.log('[Dev Mode] Suppressed analytics error:', errorMessage)
-            event.preventDefault?.()
-            return false
-          }
-          
-          // Call original listener for legitimate errors
-          if (typeof listener === 'function') {
-            return listener(event)
-          }
-        }
-        
-        return originalAddEventListener.call(this, type, wrappedListener, options)
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      const reason = event.reason?.toString() || ''
+
+      // Only suppress analytics-related promise rejections
+      if (reason.includes('fullstory') && reason.includes('analytics')) {
+        console.log('[Dev Mode] Suppressed analytics rejection:', reason)
+        event.preventDefault()
+        return false
       }
-      
-      return originalAddEventListener.call(this, type, listener, options)
     }
+
+    // Add error listeners without overriding fetch
+    window.addEventListener('error', handleError)
+    window.addEventListener('unhandledrejection', handleUnhandledRejection)
 
     // Cleanup function
     return () => {
-      window.fetch = originalFetch
-      window.addEventListener = originalAddEventListener
+      window.removeEventListener('error', handleError)
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection)
     }
   }, [])
 
