@@ -69,11 +69,12 @@ const cities: City[] = [
 export default function BrowseWorkers() {
   const [searchTerm, setSearchTerm] = useState('')
   const [showFilters, setShowFilters] = useState(false)
-  const [isSubscribed, setIsSubscribed] = useState(false) // Mock subscription status
+  const [isSubscribed, setIsSubscribed] = useState(true) // Enable all profiles for testing
   const [filters, setFilters] = useState<FilterOptions>({})
   const [workers, setWorkers] = useState<Worker[]>([])
   const [displayCount, setDisplayCount] = useState(30)
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null)
 
   useEffect(() => {
     // Load all workers (real + dummy data)
