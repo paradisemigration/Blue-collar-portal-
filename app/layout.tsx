@@ -71,6 +71,61 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* JSON-LD Structured Data for Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Paradise Workers Hub",
+              "url": "https://paradiseworkershub.com",
+              "logo": "https://paradiseworkershub.com/logo.png",
+              "description": "Paradise Workers Hub connects employers with verified blue-collar workers across the Gulf region",
+              "address": {
+                "@type": "PostalAddress",
+                "addressRegion": "Gulf Region",
+                "addressCountry": "AE"
+              },
+              "sameAs": [
+                "https://www.facebook.com/paradiseworkershub",
+                "https://www.linkedin.com/company/paradiseworkershub",
+                "https://twitter.com/paradiseworkers"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+971-XXX-XXXX",
+                "contactType": "customer service",
+                "areaServed": ["AE", "QA", "SA", "OM", "KW", "BH"],
+                "availableLanguage": ["English", "Arabic"]
+              }
+            })
+          }}
+        />
+        
+        {/* JSON-LD for WebSite */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Paradise Workers Hub",
+              "url": "https://paradiseworkershub.com",
+              "description": "Premier blue-collar worker platform connecting employers with verified workers across Gulf region",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://paradiseworkershub.com/browse?q={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+      </head>
       <body className="bg-gray-50 min-h-screen flex flex-col">
         <PageLoader />
         <Header />
