@@ -52,13 +52,17 @@ export default function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              <Link
+              <button
                 key={item.name}
-                href={item.href}
-                className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+                onClick={() => handleNavigation(item.href)}
+                className="text-gray-700 hover:text-primary-600 font-medium transition-colors flex items-center gap-2"
+                disabled={loadingLink === item.href}
               >
+                {loadingLink === item.href && (
+                  <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+                )}
                 {item.name}
-              </Link>
+              </button>
             ))}
           </div>
 
