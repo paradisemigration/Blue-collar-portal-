@@ -18,11 +18,11 @@ export default function Header() {
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="flex w-full items-center justify-between py-4">
+        <div className="flex w-full items-center justify-between py-3 sm:py-4">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <BriefcaseIcon className="h-8 w-8 text-primary-600" />
-              <span className="text-2xl font-bold text-navy-900">Go Get Hire</span>
+              <BriefcaseIcon className="h-6 w-6 sm:h-8 sm:w-8 text-primary-600" />
+              <span className="text-lg sm:text-2xl font-bold text-navy-900">Go Get Hire</span>
             </Link>
           </div>
           
