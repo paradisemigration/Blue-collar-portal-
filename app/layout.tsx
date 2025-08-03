@@ -7,12 +7,12 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import SafeScriptManager from '../components/SafeScriptManager'
 
 export const metadata = {
-  title: 'Paradise Workers Hub - Premier Blue-Collar Worker Platform | Gulf Region',
-  description: 'Paradise Workers Hub connects employers with 15,000+ verified blue-collar workers across 43 cities in Gulf region. Browse 49 job categories including drivers, maids, electricians, construction workers. Fast hiring, verified profiles, instant contact access.',
-  keywords: 'Gulf workers, blue collar jobs, hire workers Gulf, UAE workers, Qatar workers, Saudi Arabia workers, Kuwait workers, Bahrain workers, Oman workers, drivers Gulf, maids Gulf, electricians Gulf, construction workers Gulf, skilled workers Middle East, Paradise Workers Hub',
-  authors: [{ name: 'Paradise Workers Hub' }],
-  creator: 'Paradise Workers Hub',
-  publisher: 'Paradise Workers Hub',
+  title: 'Go Get Hire - Premier Blue-Collar Worker Platform | Gulf Region',
+  description: 'Go Get Hire connects employers with 15,000+ verified blue-collar workers across 43 cities in Gulf region. Browse 49 job categories including drivers, maids, electricians, construction workers. Fast hiring, verified profiles, instant contact access.',
+  keywords: 'Gulf workers, blue collar jobs, hire workers Gulf, UAE workers, Qatar workers, Saudi Arabia workers, Kuwait workers, Bahrain workers, Oman workers, drivers Gulf, maids Gulf, electricians Gulf, construction workers Gulf, skilled workers Middle East, Go Get Hire',
+  authors: [{ name: 'Go Get Hire' }],
+  creator: 'Go Get Hire',
+  publisher: 'Go Get Hire',
   formatDetection: {
     email: false,
     address: false,
