@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
   const jobTitle = formatJobTitle(params.job)
 
   return {
-    title: `Hire Verified ${jobTitle}s in ${cityName} | Gulf Hiring Platform`,
-    description: `Find experienced ${jobTitle.toLowerCase()}s in ${cityName}. Browse verified profiles, check reviews, and hire skilled professionals for your business needs.`,
-    keywords: `${jobTitle.toLowerCase()}, ${cityName.toLowerCase()}, hire, jobs, workers, gulf`,
+    title: `Hire Verified ${jobTitle}s in ${cityName} | Go Get Hire`,
+    description: `Find experienced ${jobTitle.toLowerCase()}s in ${cityName} with Go Get Hire. Browse verified profiles, check reviews, and hire skilled professionals for your business needs.`,
+    keywords: `${jobTitle.toLowerCase()}, ${cityName.toLowerCase()}, hire, jobs, workers, gulf, go get hire`,
   }
 }
 
