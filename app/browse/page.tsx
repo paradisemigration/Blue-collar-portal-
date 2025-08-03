@@ -138,10 +138,9 @@ export default function BrowseWorkers() {
       alert('Please subscribe to view contact details. Visit our pricing page to get started!')
       return
     }
-    // Handle profile unlock logic here
     const worker = workers.find(w => w.id === workerId)
     if (worker) {
-      alert(`Profile unlocked!\n\nContact Details:\nName: ${worker.fullName}\nPhone: ${worker.phoneNumber}\nEmail: ${worker.email}`)
+      setShowContactPopup(worker)
     }
   }
 
