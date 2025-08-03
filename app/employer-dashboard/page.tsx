@@ -546,7 +546,7 @@ export default function EmployerDashboard() {
 
             {/* Database Statistics */}
             <div className="mt-8 bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-4 sm:p-6 border">
-              <h3 className="text-lg sm:text-xl font-bold text-navy-900 mb-4 text-center">📊 Platform Statistics</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-navy-900 mb-4 text-center">📊 Go Get Hire Platform Statistics</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
                 <div className="bg-white rounded-xl p-3 sm:p-4 border">
                   <div className="text-lg sm:text-2xl font-bold text-primary-600">{workers.length.toLocaleString()}</div>
