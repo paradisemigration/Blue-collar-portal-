@@ -58,8 +58,47 @@ export default function EmployerDashboard() {
       setEmployerData(JSON.parse(employerInfo))
     }
 
-    // Load all workers
-    const allWorkers = generateDummyWorkers()
+    // Load all workers (same as browse page)
+    const loadWorkers = () => {
+      try {
+        const workers: Worker[] = []
+
+        // Only access localStorage in browser environment
+        if (typeof window !== 'undefined') {
+          // Load individual profile
+          const userProfile = localStorage.getItem('userProfile')
+          if (userProfile) {
+            workers.push(JSON.parse(userProfile))
+          }
+
+          // Load all profiles
+          const allProfiles = localStorage.getItem('allUserProfiles')
+          if (allProfiles) {
+            const profiles = JSON.parse(allProfiles)
+            profiles.forEach((profile: Worker) => {
+              if (!workers.find(w => w.id === profile.id)) {
+                workers.push(profile)
+              }
+            })
+          }
+        }
+
+        // Add comprehensive dummy data
+        const dummyWorkers = generateDummyWorkers()
+        dummyWorkers.forEach((dummyWorker) => {
+          if (!workers.find(w => w.id === dummyWorker.id)) {
+            workers.push(dummyWorker)
+          }
+        })
+
+        return workers
+      } catch (error) {
+        console.error('Error loading workers:', error)
+        return generateDummyWorkers() // Fallback to dummy data
+      }
+    }
+
+    const allWorkers = loadWorkers()
     setWorkers(allWorkers)
 
     // Load unlocked profiles
