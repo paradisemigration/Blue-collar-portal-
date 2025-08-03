@@ -129,6 +129,23 @@ export default function EmployerDashboard() {
     setShowContactPopup(worker)
   }
 
+  const handleSaveProfile = (worker: Worker) => {
+    const newSaved = [...savedProfiles, worker]
+    setSavedProfiles(newSaved)
+    localStorage.setItem('savedProfiles', JSON.stringify(newSaved))
+    alert('✅ Profile saved to your favorites!')
+  }
+
+  const handleRemoveSaved = (workerId: string) => {
+    const newSaved = savedProfiles.filter(w => w.id !== workerId)
+    setSavedProfiles(newSaved)
+    localStorage.setItem('savedProfiles', JSON.stringify(newSaved))
+  }
+
+  const isProfileSaved = (workerId: string) => {
+    return savedProfiles.some(w => w.id === workerId)
+  }
+
   const handleViewProfile = (worker: Worker) => {
     setSelectedWorker(worker)
   }
