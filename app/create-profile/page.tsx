@@ -1,13 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { PhotoIcon, UserIcon } from '@heroicons/react/24/outline'
+import { PhotoIcon, UserIcon, CloudArrowUpIcon } from '@heroicons/react/24/outline'
+import { useRouter } from 'next/navigation'
 import { JobTitle, City, Country } from '../../types'
 
 interface WorkerFormData {
   fullName: string
-  profilePicture: string
+  profilePicture: File | null
   jobTitle: JobTitle
   yearsExperience: number
   city: City
@@ -21,16 +22,27 @@ interface WorkerFormData {
 }
 
 const jobTitles: JobTitle[] = [
-  'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter', 
-  'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic', 
-  'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy'
+  'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter',
+  'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic',
+  'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy',
+  'AC Technician', 'Welder', 'Mason', 'Tile Setter', 'Roofer', 'Glazier',
+  'Heavy Equipment Operator', 'Crane Operator', 'Forklift Operator', 'Steel Fixer',
+  'Pipe Fitter', 'HVAC Technician', 'Concrete Mixer', 'Excavator Operator',
+  'Road Worker', 'Building Maintenance', 'Pool Cleaner', 'Landscaper',
+  'Window Cleaner', 'Pest Control Technician', 'Laundry Worker', 'Dishwasher',
+  'Food Preparation Worker', 'Kitchen Helper', 'Waiter', 'Barista',
+  'Cashier', 'Shop Assistant', 'Inventory Clerk', 'Packer',
+  'Loading Worker', 'Moving Helper', 'Cleaning Supervisor', 'Maintenance Supervisor'
 ]
 
-const cities: City[] = [
-  'Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain',
-  'Doha', 'Al Rayyan', 'Al Wakrah', 'Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Medina',
-  'Muscat', 'Salalah', 'Sohar', 'Kuwait City', 'Hawalli', 'Manama', 'Riffa'
-]
+const citiesByCountry: Record<Country, City[]> = {
+  'UAE': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain', 'Al Ain'],
+  'Qatar': ['Doha', 'Al Rayyan', 'Al Wakrah', 'Umm Salal', 'Al Khor', 'Al Daayen'],
+  'Saudi Arabia': ['Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Medina', 'Khobar', 'Dhahran', 'Jubail', 'Yanbu', 'Taif'],
+  'Oman': ['Muscat', 'Salalah', 'Sohar', 'Nizwa', 'Sur', 'Rustaq', 'Buraimi'],
+  'Kuwait': ['Kuwait City', 'Hawalli', 'Salmiya', 'Jahra', 'Ahmadi', 'Farwaniya'],
+  'Bahrain': ['Manama', 'Riffa', 'Muharraq', 'Hamad Town', 'Isa Town', 'Sitra']
+}
 
 const countries: Country[] = ['UAE', 'Qatar', 'Saudi Arabia', 'Oman', 'Kuwait', 'Bahrain']
 
@@ -39,39 +51,149 @@ const commonLanguages = [
 ]
 
 export default function CreateProfile() {
+  const router = useRouter()
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([])
   const [customLanguage, setCustomLanguage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  
-  const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm<WorkerFormData>()
+  const [profileImage, setProfileImage] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string>('')
+  const [selectedCountry, setSelectedCountry] = useState<Country | ''>("")
+
+  const { register, handleSubmit, formState: { errors }, watch, setValue, setError, clearErrors } = useForm<WorkerFormData>({
+    defaultValues: {
+      fullName: '',
+      email: '',
+      phoneNumber: '',
+      jobTitle: '' as JobTitle,
+      yearsExperience: 0,
+      expectedSalary: 1500,
+      visaStatus: 'Available',
+      country: '' as Country,
+      city: '' as City,
+      aboutMe: '',
+      languagesSpoken: [],
+      profilePicture: null
+    }
+  })
 
   const handleLanguageToggle = (language: string) => {
+    let newLanguages: string[]
     if (selectedLanguages.includes(language)) {
-      setSelectedLanguages(selectedLanguages.filter(l => l !== language))
+      newLanguages = selectedLanguages.filter(l => l !== language)
     } else {
-      setSelectedLanguages([...selectedLanguages, language])
+      newLanguages = [...selectedLanguages, language]
     }
-    setValue('languagesSpoken', selectedLanguages)
+    setSelectedLanguages(newLanguages)
+    setValue('languagesSpoken', newLanguages)
+
+    // Clear language validation error if at least one language is selected
+    if (newLanguages.length > 0) {
+      clearErrors('languagesSpoken')
+    }
   }
 
   const addCustomLanguage = () => {
-    if (customLanguage && !selectedLanguages.includes(customLanguage)) {
-      setSelectedLanguages([...selectedLanguages, customLanguage])
+    if (customLanguage.trim() && !selectedLanguages.includes(customLanguage.trim())) {
+      const newLanguages = [...selectedLanguages, customLanguage.trim()]
+      setSelectedLanguages(newLanguages)
       setCustomLanguage('')
-      setValue('languagesSpoken', [...selectedLanguages, customLanguage])
+      setValue('languagesSpoken', newLanguages)
+
+      // Clear validation error
+      if (newLanguages.length > 0) {
+        clearErrors('languagesSpoken')
+      }
     }
   }
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError('profilePicture', { message: 'Please select a valid image file' })
+        return
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('profilePicture', { message: 'Image size must be less than 5MB' })
+        return
+      }
+
+      setProfileImage(file)
+      setValue('profilePicture', file)
+      clearErrors('profilePicture')
+
+      // Create image preview
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const country = e.target.value as Country
+    setSelectedCountry(country)
+    setValue('country', country)
+    setValue('city', '' as City) // Reset city when country changes
+    clearErrors('country')
+  }
+
+  // Validation functions
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email) || 'Please enter a valid email address'
+  }
+
+  const validatePhoneNumber = (phone: string) => {
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/
+    return phoneRegex.test(phone.replace(/\s/g, '')) || 'Please enter a valid phone number'
+  }
+
+  const validateFullName = (name: string) => {
+    if (name.length < 2) return 'Name must be at least 2 characters'
+    if (name.length > 50) return 'Name must be less than 50 characters'
+    if (!/^[a-zA-Z\s]+$/.test(name)) return 'Name can only contain letters and spaces'
+    return true
+  }
+
   const onSubmit = async (data: WorkerFormData) => {
+    // Additional validation before submit
+    if (selectedLanguages.length === 0) {
+      setError('languagesSpoken', { message: 'Please select at least one language' })
+      return
+    }
+
+    if (!profileImage) {
+      setError('profilePicture', { message: 'Please upload a profile picture' })
+      return
+    }
+
     setIsSubmitting(true)
     try {
-      // Here you would normally send to your API
-      console.log('Profile data:', { ...data, languagesSpoken: selectedLanguages })
-      
+      // In a real app, you would upload the image and send data to API
+      const formData = new FormData()
+      formData.append('profilePicture', profileImage)
+      formData.append('formData', JSON.stringify({ ...data, languagesSpoken: selectedLanguages }))
+
+      console.log('Profile data:', { ...data, languagesSpoken: selectedLanguages, profilePicture: profileImage })
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      alert('Profile created successfully! You will be redirected to your profile page.')
+
+      // Store profile data in localStorage for demo (in real app, this would come from API)
+      localStorage.setItem('userProfile', JSON.stringify({
+        ...data,
+        languagesSpoken: selectedLanguages,
+        profilePicture: imagePreview,
+        id: Date.now().toString()
+      }))
+
+      // Redirect to dashboard
+      router.push('/dashboard')
     } catch (error) {
       alert('Error creating profile. Please try again.')
     } finally {
@@ -106,7 +228,10 @@ export default function CreateProfile() {
                 </label>
                 <input
                   type="text"
-                  {...register('fullName', { required: 'Full name is required' })}
+                  {...register('fullName', {
+                    required: 'Full name is required',
+                    validate: validateFullName
+                  })}
                   className="input-field"
                   placeholder="Enter your full name"
                 />
@@ -115,16 +240,46 @@ export default function CreateProfile() {
                 )}
               </div>
 
-              <div>
+              {/* Profile Picture Upload */}
+              <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Profile Picture URL
+                  Professional Profile Picture *
                 </label>
-                <input
-                  type="url"
-                  {...register('profilePicture')}
-                  className="input-field"
-                  placeholder="https://example.com/photo.jpg"
-                />
+                <div className="flex items-center space-x-4">
+                  {imagePreview ? (
+                    <img
+                      src={imagePreview}
+                      alt="Profile preview"
+                      className="w-20 h-20 rounded-full object-cover border-2 border-gray-300"
+                    />
+                  ) : (
+                    <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center border-2 border-gray-300">
+                      <PhotoIcon className="h-8 w-8 text-gray-400" />
+                    </div>
+                  )}
+                  <div className="flex-1">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                      id="profile-image"
+                    />
+                    <label
+                      htmlFor="profile-image"
+                      className="cursor-pointer bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                    >
+                      <CloudArrowUpIcon className="h-4 w-4" />
+                      Upload Photo
+                    </label>
+                    <p className="text-xs text-gray-500 mt-1">
+                      JPG, PNG up to 5MB. Professional photo recommended.
+                    </p>
+                  </div>
+                </div>
+                {errors.profilePicture && (
+                  <p className="text-red-500 text-sm mt-1">{errors.profilePicture.message}</p>
+                )}
               </div>
 
               <div>
@@ -133,7 +288,10 @@ export default function CreateProfile() {
                 </label>
                 <input
                   type="email"
-                  {...register('email', { required: 'Email is required' })}
+                  {...register('email', {
+                    required: 'Email is required',
+                    validate: validateEmail
+                  })}
                   className="input-field"
                   placeholder="your.email@example.com"
                 />
@@ -148,7 +306,10 @@ export default function CreateProfile() {
                 </label>
                 <input
                   type="tel"
-                  {...register('phoneNumber', { required: 'Phone number is required' })}
+                  {...register('phoneNumber', {
+                    required: 'Phone number is required',
+                    validate: validatePhoneNumber
+                  })}
                   className="input-field"
                   placeholder="+971 50 123 4567"
                 />
@@ -192,9 +353,11 @@ export default function CreateProfile() {
                   type="number"
                   min="0"
                   max="50"
-                  {...register('yearsExperience', { 
+                  {...register('yearsExperience', {
                     required: 'Experience is required',
-                    min: { value: 0, message: 'Experience cannot be negative' }
+                    min: { value: 0, message: 'Experience cannot be negative' },
+                    max: { value: 50, message: 'Maximum experience is 50 years' },
+                    valueAsNumber: true
                   })}
                   className="input-field"
                   placeholder="5"
@@ -211,10 +374,13 @@ export default function CreateProfile() {
                 <input
                   type="number"
                   min="500"
+                  max="50000"
                   step="100"
-                  {...register('expectedSalary', { 
+                  {...register('expectedSalary', {
                     required: 'Expected salary is required',
-                    min: { value: 500, message: 'Minimum salary should be 500 AED' }
+                    min: { value: 500, message: 'Minimum salary should be 500 AED' },
+                    max: { value: 50000, message: 'Maximum salary should be 50,000 AED' },
+                    valueAsNumber: true
                   })}
                   className="input-field"
                   placeholder="3000"
@@ -256,6 +422,7 @@ export default function CreateProfile() {
                 </label>
                 <select
                   {...register('country', { required: 'Country is required' })}
+                  onChange={handleCountryChange}
                   className="input-field"
                 >
                   <option value="">Select country</option>
@@ -275,9 +442,10 @@ export default function CreateProfile() {
                 <select
                   {...register('city', { required: 'City is required' })}
                   className="input-field"
+                  disabled={!selectedCountry}
                 >
-                  <option value="">Select city</option>
-                  {cities.map(city => (
+                  <option value="">{selectedCountry ? 'Select city' : 'Select country first'}</option>
+                  {selectedCountry && citiesByCountry[selectedCountry]?.map(city => (
                     <option key={city} value={city}>{city}</option>
                   ))}
                 </select>
@@ -333,6 +501,9 @@ export default function CreateProfile() {
                 <p className="text-sm text-gray-600">Selected: {selectedLanguages.join(', ')}</p>
               </div>
             )}
+            {errors.languagesSpoken && (
+              <p className="text-red-500 text-sm mt-1">{errors.languagesSpoken.message}</p>
+            )}
           </div>
 
           {/* About Me */}
@@ -341,11 +512,17 @@ export default function CreateProfile() {
               About Me
             </label>
             <textarea
-              {...register('aboutMe')}
+              {...register('aboutMe', {
+                maxLength: { value: 500, message: 'About me must be less than 500 characters' }
+              })}
               rows={4}
               className="input-field"
               placeholder="Tell employers about your skills, experience, and what makes you a great hire..."
             />
+            {errors.aboutMe && (
+              <p className="text-red-500 text-sm mt-1">{errors.aboutMe.message}</p>
+            )}
+            <p className="text-xs text-gray-500 mt-1">Maximum 500 characters</p>
           </div>
 
           {/* Submit Button */}
