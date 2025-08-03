@@ -49,7 +49,7 @@ export default function Header() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               <BriefcaseIcon className="h-6 w-6 sm:h-8 sm:w-8 text-primary-600" />
-              <span className="text-lg sm:text-2xl font-bold text-navy-900">Go Get Hire</span>
+              <span className="text-lg sm:text-2xl font-bold text-navy-900">Paradise Workers Hub</span>
             </Link>
           </div>
           
