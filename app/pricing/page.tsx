@@ -114,18 +114,40 @@ export default function Pricing() {
 
   const handleEmployerSubmit = (e) => {
     e.preventDefault()
-    // Save employer data and redirect to payment
-    localStorage.setItem('employerData', JSON.stringify({
+
+    // Generate employer login credentials
+    const employerLoginId = `EMP${Date.now().toString().slice(-6)}`
+    const tempPassword = Math.random().toString(36).slice(-8).toUpperCase()
+
+    // Save employer data with credentials
+    const completeEmployerData = {
       ...employerData,
-      selectedPlan: selectedPlan
-    }))
-    // Here you would normally integrate with Stripe
-    alert(`Thank you! Redirecting to payment for ${selectedPlan.name} plan (${selectedPlan.currency} ${selectedPlan.price})\n\nAfter payment, you'll be redirected to your employer dashboard.`)
+      selectedPlan: selectedPlan,
+      loginId: employerLoginId,
+      password: tempPassword,
+      createdAt: new Date(),
+      subscriptionStatus: 'active'
+    }
+
+    localStorage.setItem('employerData', JSON.stringify(completeEmployerData))
+
+    // Simulate payment and email sending
+    alert(`🎉 Payment Successful!
+
+📧 Employer Login Credentials sent to ${employerData.email}:
+
+🆔 Login ID: ${employerLoginId}
+🔑 Password: ${tempPassword}
+📋 Plan: ${selectedPlan.name} (${selectedPlan.currency} ${selectedPlan.price})
+
+✅ Please check your email and bookmark these credentials.
+You can now login at the Employer Login page.`)
+
     // Simulate successful payment and redirect to employer dashboard
     setTimeout(() => {
       localStorage.setItem('isEmployerLoggedIn', 'true')
       window.location.href = '/employer-dashboard'
-    }, 2000)
+    }, 3000)
   }
 
   if (showEmployerForm) {
