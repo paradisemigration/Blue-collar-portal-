@@ -129,7 +129,7 @@ export default function Home() {
       </section>
 
       {/* Popular Jobs Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">
@@ -140,31 +140,42 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
             {popularJobs.map((job) => {
               const IconComponent = job.icon
               return (
                 <Link
                   key={job.title}
                   href={job.href}
-                  className="card hover:shadow-lg transition-all duration-300 cursor-pointer group hover:scale-105"
+                  className="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-100 p-4 sm:p-6 transition-all duration-300 cursor-pointer group hover:scale-105 hover:-translate-y-2"
                 >
                   <div className="flex flex-col items-center text-center">
-                    <div className={`${job.color} rounded-full w-16 h-16 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                      <IconComponent className="h-8 w-8 text-white" />
+                    <div className={`${job.color} rounded-2xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
+                      <IconComponent className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold text-navy-900 group-hover:text-primary-600 transition-colors mb-2">
+                    <h3 className="text-sm sm:text-lg font-semibold text-navy-900 group-hover:text-primary-600 transition-colors mb-1 sm:mb-2 leading-tight">
                       {job.title}
                     </h3>
-                    <span className="text-2xl font-bold text-primary-600 mb-2">{job.count}</span>
-                    <div className="flex items-center text-gray-600 text-sm">
-                      <MapPinIcon className="h-4 w-4 mr-1" />
-                      <span>{job.city}</span>
+                    <span className="text-lg sm:text-2xl font-bold text-primary-600 mb-1 sm:mb-2">{job.count}</span>
+                    <div className="flex items-center text-gray-600 text-xs sm:text-sm">
+                      <MapPinIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                      <span className="truncate">{job.city}</span>
                     </div>
                   </div>
                 </Link>
               )
             })}
+          </div>
+
+          {/* View All Jobs Button */}
+          <div className="text-center mt-10">
+            <Link
+              href="/browse"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-700 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-xl text-lg transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              <MagnifyingGlassIcon className="h-5 w-5" />
+              View All Jobs
+            </Link>
           </div>
         </div>
       </section>
