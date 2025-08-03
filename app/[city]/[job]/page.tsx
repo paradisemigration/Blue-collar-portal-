@@ -102,13 +102,38 @@ function citySlugToDisplayName(slug: string): City {
 
 function jobSlugToDisplayName(slug: string): JobTitle {
   const formatted = formatJobTitle(slug)
-  // Handle special cases
+  // Handle special cases and aliases
   const jobMap: Record<string, JobTitle> = {
     'Security Guard': 'Security Guard',
     'Construction Worker': 'Construction Worker',
     'Delivery Driver': 'Delivery Driver',
     'Warehouse Worker': 'Warehouse Worker',
-    'Office Boy': 'Office Boy'
+    'Office Boy': 'Office Boy',
+    'Chef': 'Cook', // Map chef to cook
+    'Ac Technician': 'AC Technician',
+    'Heavy Equipment Operator': 'Heavy Equipment Operator',
+    'Crane Operator': 'Crane Operator',
+    'Forklift Operator': 'Forklift Operator',
+    'Steel Fixer': 'Steel Fixer',
+    'Pipe Fitter': 'Pipe Fitter',
+    'Hvac Technician': 'HVAC Technician',
+    'Concrete Mixer': 'Concrete Mixer',
+    'Excavator Operator': 'Excavator Operator',
+    'Road Worker': 'Road Worker',
+    'Building Maintenance': 'Building Maintenance',
+    'Pool Cleaner': 'Pool Cleaner',
+    'Window Cleaner': 'Window Cleaner',
+    'Pest Control Technician': 'Pest Control Technician',
+    'Laundry Worker': 'Laundry Worker',
+    'Food Preparation Worker': 'Food Preparation Worker',
+    'Kitchen Helper': 'Kitchen Helper',
+    'Shop Assistant': 'Shop Assistant',
+    'Inventory Clerk': 'Inventory Clerk',
+    'Loading Worker': 'Loading Worker',
+    'Moving Helper': 'Moving Helper',
+    'Cleaning Supervisor': 'Cleaning Supervisor',
+    'Maintenance Supervisor': 'Maintenance Supervisor',
+    'Tile Setter': 'Tile Setter'
   }
   return (jobMap[formatted] as JobTitle) || (formatted as JobTitle)
 }
