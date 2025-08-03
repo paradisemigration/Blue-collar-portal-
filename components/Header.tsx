@@ -51,7 +51,7 @@ export default function Header() {
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fae655e15f41d4e2a843beb5ac79ab8d2?format=webp&width=200"
                 alt="Go Get Hire Logo"
-                className="h-8 w-auto sm:h-10"
+                className="h-12 w-auto sm:h-16 md:h-20"
               />
             </Link>
           </div>
