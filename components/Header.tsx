@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Bars3Icon, XMarkIcon, BriefcaseIcon } from '@heroicons/react/24/outline'
 
 export default function Header() {
