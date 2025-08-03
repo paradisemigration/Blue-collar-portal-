@@ -103,40 +103,50 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Enhanced Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden">
-            <div className="space-y-1 py-4 border-t border-gray-200">
-              {navigation.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavigation(item.href)}
-                  className="block w-full text-left px-3 py-2 text-gray-700 hover:text-primary-600 font-medium flex items-center gap-2"
-                  disabled={loadingLink === item.href}
-                >
-                  {loadingLink === item.href && (
-                    <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+            <div className="bg-white border-t border-gray-200 shadow-lg rounded-b-2xl mx-4 mb-4">
+              <div className="p-4 space-y-3">
+                {navigation.map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => handleNavigation(item.href)}
+                    className="w-full text-left px-4 py-3 text-gray-700 hover:text-primary-600 hover:bg-primary-50 font-medium rounded-xl transition-all duration-200 flex items-center gap-3"
+                    disabled={loadingLink === item.href}
+                  >
+                    {loadingLink === item.href && (
+                      <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+                    )}
+                    {item.name}
+                  </button>
+                ))}
+
+                <div className="border-t border-gray-200 pt-4 space-y-3">
+                  {isEmployer && (
+                    <button
+                      onClick={() => handleNavigation('/employer-dashboard')}
+                      className="w-full flex items-center justify-center gap-2 text-primary-600 hover:text-primary-700 hover:bg-primary-50 font-semibold py-3 rounded-xl transition-all duration-200"
+                    >
+                      <BriefcaseIcon className="h-5 w-5" />
+                      Employer Dashboard
+                    </button>
                   )}
-                  {item.name}
-                </button>
-              ))}
-              <div className="flex flex-col space-y-3 px-3 pt-4 border-t border-gray-200 mt-4">
-                {isEmployer ? (
-                  <Link href="/employer-dashboard" className="flex items-center justify-center gap-2 text-primary-600 hover:text-primary-700 font-semibold py-2">
-                    <BriefcaseIcon className="h-5 w-5" />
-                    Employer Dashboard
-                  </Link>
-                ) : (
-                  <Link href="/admin-login" className="text-gray-700 hover:text-primary-600 font-medium text-center py-2">
-                    Admin Login
-                  </Link>
-                )}
-                <Link href="/login" className="btn-secondary text-center">
-                  Login
-                </Link>
-                <Link href="/register" className="btn-primary text-center">
-                  Sign Up
-                </Link>
+
+                  <button
+                    onClick={() => handleNavigation('/login')}
+                    className="w-full btn-secondary text-center py-3 rounded-xl"
+                  >
+                    Worker Login
+                  </button>
+
+                  <button
+                    onClick={() => handleNavigation('/register')}
+                    className="w-full btn-primary text-center py-3 rounded-xl"
+                  >
+                    Sign Up
+                  </button>
+                </div>
               </div>
             </div>
           </div>
