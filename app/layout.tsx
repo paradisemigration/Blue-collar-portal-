@@ -113,14 +113,14 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "Paradise Workers Hub",
-              "url": "https://paradiseworkershub.com",
+              "name": "Go Get Hire",
+              "url": "https://gogethire.com",
               "description": "Premier blue-collar worker platform connecting employers with verified workers across Gulf region",
               "potentialAction": {
                 "@type": "SearchAction",
                 "target": {
                   "@type": "EntryPoint",
-                  "urlTemplate": "https://paradiseworkershub.com/browse?q={search_term_string}"
+                  "urlTemplate": "https://gogethire.com/browse?q={search_term_string}"
                 },
                 "query-input": "required name=search_term_string"
               }
