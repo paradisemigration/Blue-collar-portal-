@@ -58,9 +58,17 @@ const loadAllWorkers = (): Worker[] => {
 }
 
 const jobTitles: JobTitle[] = [
-  'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter', 
-  'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic', 
-  'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy'
+  'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter',
+  'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic',
+  'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy',
+  'AC Technician', 'Welder', 'Mason', 'Tile Setter', 'Roofer', 'Glazier',
+  'Heavy Equipment Operator', 'Crane Operator', 'Forklift Operator', 'Steel Fixer',
+  'Pipe Fitter', 'HVAC Technician', 'Concrete Mixer', 'Excavator Operator',
+  'Road Worker', 'Building Maintenance', 'Pool Cleaner', 'Landscaper',
+  'Window Cleaner', 'Pest Control Technician', 'Laundry Worker', 'Dishwasher',
+  'Food Preparation Worker', 'Kitchen Helper', 'Waiter', 'Barista', 'Cashier',
+  'Shop Assistant', 'Inventory Clerk', 'Packer', 'Loading Worker', 'Moving Helper',
+  'Cleaning Supervisor', 'Maintenance Supervisor'
 ]
 
 const cities: City[] = [
