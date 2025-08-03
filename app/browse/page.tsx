@@ -78,6 +78,7 @@ export default function BrowseWorkers() {
   const [displayCount, setDisplayCount] = useState(30)
   const [isLoading, setIsLoading] = useState(false)
   const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null)
+  const [showContactPopup, setShowContactPopup] = useState<Worker | null>(null)
 
   useEffect(() => {
     // Load all workers (real + dummy data)
