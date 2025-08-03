@@ -108,14 +108,17 @@ export default function Header() {
           <div className="md:hidden">
             <div className="space-y-1 py-4 border-t border-gray-200">
               {navigation.map((item) => (
-                <Link
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-gray-700 hover:text-primary-600 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => handleNavigation(item.href)}
+                  className="block w-full text-left px-3 py-2 text-gray-700 hover:text-primary-600 font-medium flex items-center gap-2"
+                  disabled={loadingLink === item.href}
                 >
+                  {loadingLink === item.href && (
+                    <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+                  )}
                   {item.name}
-                </Link>
+                </button>
               ))}
               <div className="flex flex-col space-y-3 px-3 pt-4 border-t border-gray-200 mt-4">
                 {isEmployer ? (
