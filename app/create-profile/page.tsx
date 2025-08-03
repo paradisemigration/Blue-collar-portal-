@@ -418,7 +418,7 @@ Please check your email and bookmark these credentials for future login.`)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-blue-50">
-      {/* Location Detection Banner */}
+      {/* Location Detection Banner - Only show when successfully detected */}
       {locationInfo?.detectedFromIP && (
         <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2">
           <div className="max-w-3xl mx-auto px-4 text-center">
@@ -685,7 +685,7 @@ Please check your email and bookmark these credentials for future login.`)
                     />
                     {errors.yearsExperience && (
                       <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
-                        <span className="text-red-500">⚠️</span>{errors.yearsExperience.message}
+                        <span className="text-red-500">⚠��</span>{errors.yearsExperience.message}
                       </p>
                     )}
                   </div>
