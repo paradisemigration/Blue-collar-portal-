@@ -1,29 +1,44 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { EyeIcon, EyeSlashIcon, BriefcaseIcon } from '@heroicons/react/24/outline'
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
-  const [userType, setUserType] = useState<'worker' | 'employer'>('worker')
   const [isLoading, setIsLoading] = useState(false)
+  const [userCredentials, setUserCredentials] = useState<any>(null)
   const [formData, setFormData] = useState({
-    email: '',
+    loginId: '',
     password: ''
   })
+
+  useEffect(() => {
+    // Check if user has credentials from profile creation
+    const credentials = localStorage.getItem('userCredentials')
+    if (credentials) {
+      setUserCredentials(JSON.parse(credentials))
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     
     try {
-      // Simulate API call
+      // Simulate login verification
       await new Promise(resolve => setTimeout(resolve, 1500))
       
-      // In real app, handle authentication here
-      console.log('Login attempt:', { ...formData, userType })
-      alert(`Login successful as ${userType}!`)
+      // Check credentials
+      if (userCredentials && 
+          formData.loginId === userCredentials.loginId && 
+          formData.password === userCredentials.tempPassword) {
+        alert('Login successful! Welcome back!')
+        // In real app, set authentication token and redirect
+        window.location.href = '/dashboard'
+      } else {
+        alert('Invalid credentials. Please check your Login ID and password.')
+      }
       
     } catch (error) {
       alert('Login failed. Please try again.')
@@ -39,97 +54,107 @@ export default function Login() {
     }))
   }
 
+  const handleGoogleLogin = () => {
+    // In real app, this would integrate with Google OAuth
+    alert('Google Login will be integrated with OAuth. For demo, use the credentials sent to your email after profile creation.')
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-blue-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <BriefcaseIcon className="h-12 w-12 text-primary-600" />
+          <div className="bg-gradient-to-r from-primary-600 to-blue-600 p-4 rounded-full">
+            <BriefcaseIcon className="h-12 w-12 text-white" />
+          </div>
         </div>
         <h2 className="mt-6 text-center text-3xl font-bold text-navy-900">
-          Sign in to your account
+          Welcome Back!
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Or{' '}
-          <Link href="/register" className="font-medium text-primary-600 hover:text-primary-500">
-            create a new account
-          </Link>
+          Sign in to your worker account
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
-          {/* User Type Selection */}
+        <div className="bg-white py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10 border">
+          
+          {/* Credentials Info */}
+          {userCredentials && (
+            <div className="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+              <h3 className="text-sm font-semibold text-blue-900 mb-2">📧 Your Login Credentials</h3>
+              <p className="text-sm text-blue-800">
+                <strong>Email:</strong> {userCredentials.email}<br/>
+                <strong>Login ID:</strong> {userCredentials.loginId}<br/>
+                <strong>Temp Password:</strong> {userCredentials.tempPassword}
+              </p>
+              <p className="text-xs text-blue-600 mt-2">
+                These credentials were sent to your email. Change your password after first login.
+              </p>
+            </div>
+          )}
+
+          {/* Google Login Button */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-3">
-              I am signing in as:
-            </label>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setUserType('worker')}
-                className={`py-2 px-4 rounded-lg border transition-colors ${
-                  userType === 'worker'
-                    ? 'bg-primary-600 text-white border-primary-600'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-primary-600'
-                }`}
-              >
-                Worker
-              </button>
-              <button
-                type="button"
-                onClick={() => setUserType('employer')}
-                className={`py-2 px-4 rounded-lg border transition-colors ${
-                  userType === 'employer'
-                    ? 'bg-primary-600 text-white border-primary-600'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-primary-600'
-                }`}
-              >
-                Employer
-              </button>
+            <button
+              onClick={handleGoogleLogin}
+              className="w-full flex justify-center items-center py-3 px-4 border-2 border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-200"
+            >
+              <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              Continue with Google
+            </button>
+          </div>
+
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Or sign in with credentials</span>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email */}
+            {/* Login ID */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
+              <label htmlFor="loginId" className="block text-sm font-semibold text-gray-800 mb-2">
+                Login ID
               </label>
-              <div className="mt-1">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="input-field"
-                  placeholder="Enter your email"
-                />
-              </div>
+              <input
+                id="loginId"
+                name="loginId"
+                type="text"
+                required
+                value={formData.loginId}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200"
+                placeholder="Enter your Login ID"
+              />
             </div>
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-semibold text-gray-800 mb-2">
                 Password
               </label>
-              <div className="mt-1 relative">
+              <div className="relative">
                 <input
                   id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
-                  autoComplete="current-password"
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="input-field pr-10"
+                  className="w-full px-4 py-3 pr-12 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200"
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -157,7 +182,7 @@ export default function Login() {
 
               <div className="text-sm">
                 <Link href="/forgot-password" className="font-medium text-primary-600 hover:text-primary-500">
-                  Forgot your password?
+                  Forgot password?
                 </Link>
               </div>
             </div>
@@ -167,43 +192,39 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className={`w-full btn-primary ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`w-full bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-700 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 shadow-lg ${
+                  isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               >
-                {isLoading ? 'Signing in...' : 'Sign in'}
+                {isLoading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Signing in...
+                  </div>
+                ) : (
+                  'Sign In'
+                )}
               </button>
             </div>
           </form>
 
-          {/* Divider */}
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
-              </div>
-            </div>
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{' '}
+              <Link href="/create-profile" className="font-medium text-primary-600 hover:text-primary-500">
+                Create your worker profile
+              </Link>
+            </p>
+          </div>
 
-            {/* Social Login */}
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                <span className="sr-only">Sign in with Google</span>
-                <svg className="w-5 h-5" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                </svg>
-              </button>
-
-              <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                <span className="sr-only">Sign in with Apple</span>
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M13.73 2.4c-.83.96-2.2 1.7-3.65 1.5-.16-1.39.58-2.87 1.34-3.81.84-.99 2.3-1.67 3.49-1.75.13 1.48-.4 2.95-1.18 4.06zM16.25 7.71c-1.61-.09-2.98.91-3.75.91-.78 0-1.96-.86-3.25-.84-1.67.03-3.22.97-4.07 2.48-1.74 3.02-.45 7.5 1.24 9.95.82 1.19 1.81 2.53 3.1 2.48 1.26-.05 1.73-.81 3.25-.81 1.51 0 1.94.81 3.25.78 1.35-.03 2.21-1.21 3.04-2.41.96-1.39 1.35-2.74 1.37-2.81-.03-.01-2.63-1.01-2.66-4.01-.03-2.5 2.04-3.69 2.14-3.76-1.17-1.71-2.99-1.91-3.66-1.96z"/>
-                </svg>
-              </button>
-            </div>
+          {/* Help */}
+          <div className="mt-6 p-4 bg-gray-50 rounded-xl">
+            <h4 className="text-sm font-semibold text-gray-900 mb-2">💡 Need Help?</h4>
+            <ul className="text-xs text-gray-600 space-y-1">
+              <li>• Your Login ID and password were sent to your email after profile creation</li>
+              <li>• Use Google login for faster access</li>
+              <li>• Contact support if you can't access your account</li>
+            </ul>
           </div>
         </div>
       </div>

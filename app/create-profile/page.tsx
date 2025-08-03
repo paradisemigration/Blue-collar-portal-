@@ -31,7 +31,7 @@ interface LocationInfo {
   detectedFromIP: boolean
 }
 
-const jobTitles: JobTitle[] = [
+const jobTitles: (JobTitle | 'Other')[] = [
   'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter',
   'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic',
   'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy',
@@ -42,7 +42,8 @@ const jobTitles: JobTitle[] = [
   'Window Cleaner', 'Pest Control Technician', 'Laundry Worker', 'Dishwasher',
   'Food Preparation Worker', 'Kitchen Helper', 'Waiter', 'Barista',
   'Cashier', 'Shop Assistant', 'Inventory Clerk', 'Packer',
-  'Loading Worker', 'Moving Helper', 'Cleaning Supervisor', 'Maintenance Supervisor'
+  'Loading Worker', 'Moving Helper', 'Cleaning Supervisor', 'Maintenance Supervisor',
+  'Other'
 ]
 
 const citiesByCountry: Record<Country, City[]> = {
@@ -75,6 +76,8 @@ export default function CreateProfile() {
       email: '',
       phoneNumber: '',
       jobTitle: '' as JobTitle,
+      customJobTitle: '',
+      jobProfile: '',
       yearsExperience: 0,
       expectedSalary: 1500,
       visaStatus: 'Available',
@@ -85,6 +88,30 @@ export default function CreateProfile() {
       profilePicture: null
     }
   })
+
+  const watchedJobTitle = watch('jobTitle')
+
+  useEffect(() => {
+    const initializeLocation = async () => {
+      const location = await detectUserLocation()
+      setLocationInfo(location)
+
+      // Auto-fill country and phone code if detected
+      if (location.detectedFromIP) {
+        setValue('country', location.country)
+        setSelectedCountry(location.country)
+        setValue('phoneNumber', location.phoneCode + ' ')
+      }
+
+      setIsLoadingLocation(false)
+    }
+
+    initializeLocation()
+  }, [setValue])
+
+  useEffect(() => {
+    setShowCustomJobTitle(watchedJobTitle === 'Other')
+  }, [watchedJobTitle])
 
   const handleLanguageToggle = (language: string) => {
     let newLanguages: string[]
