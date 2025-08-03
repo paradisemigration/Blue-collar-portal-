@@ -91,9 +91,9 @@ export default function RootLayout({
                 "addressCountry": "AE"
               },
               "sameAs": [
-                "https://www.facebook.com/paradiseworkershub",
-                "https://www.linkedin.com/company/paradiseworkershub",
-                "https://twitter.com/paradiseworkers"
+                "https://www.facebook.com/gogethire",
+                "https://www.linkedin.com/company/gogethire",
+                "https://twitter.com/gogethire"
               ],
               "contactPoint": {
                 "@type": "ContactPoint",
