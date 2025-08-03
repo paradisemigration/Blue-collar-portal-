@@ -40,11 +40,14 @@ export default function Header() {
           </div>
 
           {/* Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link href="/login" className="btn-secondary">
+          <div className="hidden md:flex items-center space-x-3">
+            <Link href="/admin-login" className="text-gray-700 hover:text-primary-600 font-medium transition-colors text-sm">
+              Admin
+            </Link>
+            <Link href="/login" className="btn-secondary text-sm">
               Login
             </Link>
-            <Link href="/register" className="btn-primary">
+            <Link href="/register" className="btn-primary text-sm">
               Sign Up
             </Link>
           </div>
