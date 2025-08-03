@@ -74,6 +74,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Block FullStory in development */}
+        {process.env.NODE_ENV === 'development' && (
+          <meta httpEquiv="Content-Security-Policy" content="connect-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none';" />
+        )}
         {/* JSON-LD Structured Data for Organization */}
         <script
           type="application/ld+json"
