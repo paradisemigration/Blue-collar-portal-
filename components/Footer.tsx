@@ -9,8 +9,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <BriefcaseIcon className="h-8 w-8 text-gold-400" />
-              <span className="text-2xl font-bold">Go Get Hire</span>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fae655e15f41d4e2a843beb5ac79ab8d2?format=webp&width=200"
+                alt="Go Get Hire Logo"
+                className="h-10 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-gray-300 max-w-md">
               Go Get Hire connects skilled blue-collar workers with employers across the Gulf region.
