@@ -48,7 +48,14 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    loadAdminData()
+    // Check authentication
+    const authStatus = localStorage.getItem('adminAuth')
+    if (authStatus === 'true') {
+      setIsAuthenticated(true)
+      loadAdminData()
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   useEffect(() => {
