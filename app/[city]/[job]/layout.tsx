@@ -93,7 +93,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: cityJobUrl,
       type: 'website',
       locale: 'en_US',
-      siteName: 'Paradise Workers Hub',
+      siteName: 'Go Get Hire',
       images: [
         {
           url: `/og-images/${params.city}-${params.job}.jpg`,
