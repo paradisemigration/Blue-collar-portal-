@@ -63,42 +63,48 @@ export default function Home() {
       company: 'Dubai Construction LLC',
       text: 'Found 5 skilled electricians within 2 days. The platform saved us weeks of recruitment time and costs.',
       rating: 5,
-      location: 'Dubai, UAE'
+      location: 'Dubai, UAE',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format'
     },
     {
       name: 'Sarah Johnson',
       company: 'Doha Facilities Management',
       text: 'Excellent service! The worker profiles are detailed and accurate. Highly recommend Go Get Hire.',
       rating: 5,
-      location: 'Doha, Qatar'
+      location: 'Doha, Qatar',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b6d2e9cd?w=150&h=150&fit=crop&crop=face&auto=format'
     },
     {
       name: 'Mohammed Al-Rashid',
       company: 'Riyadh Hospitality Group',
       text: 'We hired 12 housekeeping staff through Go Get Hire. All workers were professional and well-trained.',
       rating: 5,
-      location: 'Riyadh, Saudi Arabia'
+      location: 'Riyadh, Saudi Arabia',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format'
     },
     {
       name: 'Fatima Al-Zahra',
       company: 'Kuwait Commercial Center',
       text: 'Amazing platform! Found reliable security guards and maintenance staff quickly. Great value for money.',
       rating: 5,
-      location: 'Kuwait City, Kuwait'
+      location: 'Kuwait City, Kuwait',
+      avatar: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=150&h=150&fit=crop&crop=face&auto=format'
     },
     {
       name: 'Omar Hassan',
       company: 'Muscat Real Estate',
       text: 'Go Get Hire helped us find experienced plumbers and electricians for our new project. Very satisfied!',
       rating: 5,
-      location: 'Muscat, Oman'
+      location: 'Muscat, Oman',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face&auto=format'
     },
     {
       name: 'Aisha Al-Mansoori',
       company: 'Bahrain Hotels & Resorts',
       text: 'Professional service with verified workers. The hiring process is smooth and efficient.',
       rating: 5,
-      location: 'Manama, Bahrain'
+      location: 'Manama, Bahrain',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format'
     }
   ]
 
