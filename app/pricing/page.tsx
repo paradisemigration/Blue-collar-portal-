@@ -1,4 +1,7 @@
-import { CheckIcon, StarIcon } from '@heroicons/react/24/outline'
+'use client'
+
+import { useState } from 'react'
+import { CheckIcon, StarIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const plans = [
   {
@@ -96,6 +99,152 @@ export const metadata = {
 }
 
 export default function Pricing() {
+  const [selectedPlan, setSelectedPlan] = useState(null)
+  const [showEmployerForm, setShowEmployerForm] = useState(false)
+  const [employerData, setEmployerData] = useState({
+    companyName: '',
+    contactPerson: '',
+    email: '',
+    phoneNumber: '',
+    companySize: '',
+    industry: ''
+  })
+
+  const handleGetStarted = (plan) => {
+    setSelectedPlan(plan)
+    setShowEmployerForm(true)
+  }
+
+  const handleEmployerSubmit = (e) => {
+    e.preventDefault()
+    // Here you would normally integrate with Stripe
+    alert(`Thank you! Redirecting to payment for ${selectedPlan.name} plan (${selectedPlan.currency} ${selectedPlan.price})`)
+    setShowEmployerForm(false)
+  }
+
+  if (showEmployerForm) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-lg border p-6 sm:p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-navy-900">Employer Details</h2>
+              <button
+                onClick={() => setShowEmployerForm(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <XMarkIcon className="h-6 w-6" />
+              </button>
+            </div>
+
+            <div className="mb-6 p-4 bg-primary-50 rounded-lg">
+              <h3 className="font-semibold text-primary-900">Selected Plan: {selectedPlan?.name}</h3>
+              <p className="text-primary-700">{selectedPlan?.currency} {selectedPlan?.price} - {selectedPlan?.description}</p>
+            </div>
+
+            <form onSubmit={handleEmployerSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Company Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={employerData.companyName}
+                    onChange={(e) => setEmployerData({...employerData, companyName: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Contact Person *</label>
+                  <input
+                    type="text"
+                    required
+                    value={employerData.contactPerson}
+                    onChange={(e) => setEmployerData({...employerData, contactPerson: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                  <input
+                    type="email"
+                    required
+                    value={employerData.email}
+                    onChange={(e) => setEmployerData({...employerData, email: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                  <input
+                    type="tel"
+                    required
+                    value={employerData.phoneNumber}
+                    onChange={(e) => setEmployerData({...employerData, phoneNumber: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Company Size</label>
+                  <select
+                    value={employerData.companySize}
+                    onChange={(e) => setEmployerData({...employerData, companySize: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  >
+                    <option value="">Select size</option>
+                    <option value="1-10">1-10 employees</option>
+                    <option value="11-50">11-50 employees</option>
+                    <option value="51-200">51-200 employees</option>
+                    <option value="200+">200+ employees</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Industry</label>
+                  <select
+                    value={employerData.industry}
+                    onChange={(e) => setEmployerData({...employerData, industry: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  >
+                    <option value="">Select industry</option>
+                    <option value="construction">Construction</option>
+                    <option value="hospitality">Hospitality</option>
+                    <option value="manufacturing">Manufacturing</option>
+                    <option value="retail">Retail</option>
+                    <option value="logistics">Logistics</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowEmployerForm(false)}
+                  className="w-full sm:w-auto px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  className="w-full sm:flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                >
+                  Proceed to Payment
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -162,7 +311,8 @@ export default function Pricing() {
               </ul>
 
               {/* CTA Button */}
-              <button 
+              <button
+                onClick={() => handleGetStarted(plan)}
                 className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
                   plan.isPopular
                     ? 'bg-primary-600 hover:bg-primary-700 text-white'
@@ -275,9 +425,9 @@ export default function Pricing() {
           <p className="text-gray-600 mb-6">
             Our team is here to help you choose the right plan for your business.
           </p>
-          <button className="btn-primary text-lg px-8 py-3">
+          <a href="mailto:sales@gogethire.com" className="btn-primary text-lg px-8 py-3 inline-block">
             Contact Sales
-          </button>
+          </a>
         </div>
       </div>
     </div>
