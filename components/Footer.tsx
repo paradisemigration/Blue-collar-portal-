@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <BriefcaseIcon className="h-8 w-8 text-gold-400" />
-              <span className="text-2xl font-bold">Paradise Workers Hub</span>
+              <span className="text-2xl font-bold">Go Get Hire</span>
             </div>
             <p className="text-gray-300 max-w-md">
               Paradise Workers Hub connects skilled blue-collar workers with employers across the Gulf region.
