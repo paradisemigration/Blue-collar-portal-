@@ -236,46 +236,50 @@ export default function EmployerDashboard() {
           </div>
           
           {/* Tab Navigation */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1 sm:gap-2">
             <button
               onClick={() => setActiveTab('search')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-all text-sm sm:text-base ${
                 activeTab === 'search'
                   ? 'bg-white text-primary-600'
                   : 'bg-white/20 text-white hover:bg-white/30'
               }`}
             >
-              🔍 Search Workers
+              <span className="hidden sm:inline">🔍 Search Workers</span>
+              <span className="sm:hidden">🔍 Search</span>
             </button>
             <button
               onClick={() => setActiveTab('plan')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-all text-sm sm:text-base ${
                 activeTab === 'plan'
                   ? 'bg-white text-primary-600'
                   : 'bg-white/20 text-white hover:bg-white/30'
               }`}
             >
-              📋 My Plan
+              <span className="hidden sm:inline">📋 My Plan</span>
+              <span className="sm:hidden">📋 Plan</span>
             </button>
             <button
               onClick={() => setActiveTab('history')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-all text-sm sm:text-base ${
                 activeTab === 'history'
                   ? 'bg-white text-primary-600'
                   : 'bg-white/20 text-white hover:bg-white/30'
               }`}
             >
-              💳 Payment History
+              <span className="hidden sm:inline">💳 Payment History</span>
+              <span className="sm:hidden">💳 History</span>
             </button>
             <button
               onClick={() => setActiveTab('saved')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-all text-sm sm:text-base ${
                 activeTab === 'saved'
                   ? 'bg-white text-primary-600'
                   : 'bg-white/20 text-white hover:bg-white/30'
               }`}
             >
-              ⭐ Saved Profiles ({savedProfiles.length})
+              <span className="hidden sm:inline">⭐ Saved Profiles ({savedProfiles.length})</span>
+              <span className="sm:hidden">⭐ Saved ({savedProfiles.length})</span>
             </button>
           </div>
         </div>
