@@ -73,14 +73,21 @@ const detectUserLocation = async (): Promise<LocationInfo> => {
   }
 
   try {
-    // Create timeout controller
+    // Skip location detection in development to avoid fetch errors
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Skipping location detection in development mode')
+      return defaultLocation
+    }
+
+    // Create timeout controller with shorter timeout
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 5000)
+    const timeoutId = setTimeout(() => controller.abort(), 3000)
 
     const response = await fetch('https://ipapi.co/json/', {
       method: 'GET',
       headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'User-Agent': 'Paradise Workers Hub'
       },
       signal: controller.signal
     })
