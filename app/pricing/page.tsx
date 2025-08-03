@@ -114,33 +114,69 @@ export default function Pricing() {
 
   const handleEmployerSubmit = (e) => {
     e.preventDefault()
+    // Save employer data and redirect to payment
+    localStorage.setItem('employerData', JSON.stringify({
+      ...employerData,
+      selectedPlan: selectedPlan
+    }))
     // Here you would normally integrate with Stripe
-    alert(`Thank you! Redirecting to payment for ${selectedPlan.name} plan (${selectedPlan.currency} ${selectedPlan.price})`)
-    setShowEmployerForm(false)
+    alert(`Thank you! Redirecting to payment for ${selectedPlan.name} plan (${selectedPlan.currency} ${selectedPlan.price})\n\nAfter payment, you'll be redirected to your employer dashboard.`)
+    // Simulate successful payment and redirect to dashboard
+    setTimeout(() => {
+      localStorage.setItem('isEmployerLoggedIn', 'true')
+      window.location.href = '/dashboard'
+    }, 2000)
   }
 
   if (showEmployerForm) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-lg border p-6 sm:p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-navy-900">Employer Details</h2>
-              <button
-                onClick={() => setShowEmployerForm(false)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <XMarkIcon className="h-6 w-6" />
-              </button>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-xl border overflow-hidden">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-primary-600 to-blue-600 text-white p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-2">Complete Your Registration</h2>
+                  <p className="text-blue-100">Enter your details and proceed to secure payment</p>
+                </div>
+                <button
+                  onClick={() => setShowEmployerForm(false)}
+                  className="text-white/80 hover:text-white transition-colors"
+                >
+                  <XMarkIcon className="h-6 w-6" />
+                </button>
+              </div>
             </div>
 
-            <div className="mb-6 p-4 bg-primary-50 rounded-lg">
-              <h3 className="font-semibold text-primary-900">Selected Plan: {selectedPlan?.name}</h3>
-              <p className="text-primary-700">{selectedPlan?.currency} {selectedPlan?.price} - {selectedPlan?.description}</p>
-            </div>
+            <div className="p-6 sm:p-8">
+              {/* Selected Plan Display */}
+              <div className="mb-8 p-6 bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl border border-primary-200">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-primary-900 mb-2">Selected Plan: {selectedPlan?.name}</h3>
+                    <p className="text-primary-700 mb-2">{selectedPlan?.description}</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl font-bold text-navy-900">{selectedPlan?.currency} {selectedPlan?.price}</span>
+                      <span className="text-gray-600">/ {selectedPlan?.period}</span>
+                    </div>
+                  </div>
+                  <div className="mt-4 sm:mt-0">
+                    <div className="bg-white rounded-lg p-4 text-center">
+                      <div className="text-lg font-bold text-navy-900">{selectedPlan?.profileAccess}</div>
+                      <div className="text-sm text-gray-600">Profile Access</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-            <form onSubmit={handleEmployerSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Employer Details Form */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold text-navy-900 mb-4">Company Information</h3>
+              </div>
+
+              <form onSubmit={handleEmployerSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Company Name *</label>
                   <input
@@ -220,22 +256,43 @@ export default function Pricing() {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-6">
-                <button
-                  type="button"
-                  onClick={() => setShowEmployerForm(false)}
-                  className="w-full sm:w-auto px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  className="w-full sm:flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                >
-                  Proceed to Payment
-                </button>
-              </div>
-            </form>
+                {/* Payment Summary */}
+                <div className="mt-8 p-6 bg-gray-50 rounded-xl">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-4">Payment Summary</h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">{selectedPlan?.name} Plan</span>
+                      <span className="font-semibold">{selectedPlan?.currency} {selectedPlan?.price}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Processing Fee</span>
+                      <span className="font-semibold">Free</span>
+                    </div>
+                    <hr className="my-2" />
+                    <div className="flex justify-between text-lg font-bold text-navy-900">
+                      <span>Total</span>
+                      <span>{selectedPlan?.currency} {selectedPlan?.price}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-6">
+                  <button
+                    type="button"
+                    onClick={() => setShowEmployerForm(false)}
+                    className="w-full sm:w-auto px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Back to Plans
+                  </button>
+                  <button
+                    type="submit"
+                    className="w-full sm:flex-1 bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-700 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    🔐 Proceed to Secure Payment
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
