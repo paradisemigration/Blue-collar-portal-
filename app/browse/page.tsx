@@ -1,0 +1,392 @@
+'use client'
+
+import { useState, useMemo } from 'react'
+import { 
+  MagnifyingGlassIcon, 
+  FunnelIcon, 
+  MapPinIcon, 
+  BriefcaseIcon,
+  StarIcon,
+  EyeIcon,
+  LockClosedIcon,
+  CheckBadgeIcon
+} from '@heroicons/react/24/outline'
+import { Worker, JobTitle, City, FilterOptions } from '../../types'
+
+// Mock data - in real app this would come from API
+const mockWorkers: Worker[] = [
+  {
+    id: '1',
+    fullName: 'Ahmed Hassan',
+    profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+    jobTitle: 'Driver',
+    yearsExperience: 8,
+    city: 'Dubai',
+    country: 'UAE',
+    languagesSpoken: ['English', 'Arabic', 'Hindi'],
+    expectedSalary: 3500,
+    visaStatus: 'Available',
+    availability: true,
+    aboutMe: 'Experienced professional driver with clean driving record and excellent customer service skills.',
+    phoneNumber: '+971501234567',
+    email: 'ahmed.hassan@email.com',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: '2',
+    fullName: 'Maria Santos',
+    profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=150&h=150&fit=crop&crop=face',
+    jobTitle: 'Maid',
+    yearsExperience: 5,
+    city: 'Abu Dhabi',
+    country: 'UAE',
+    languagesSpoken: ['English', 'Tagalog', 'Arabic'],
+    expectedSalary: 2500,
+    visaStatus: 'Available',
+    availability: true,
+    aboutMe: 'Dedicated housekeeping professional with attention to detail and reliability.',
+    phoneNumber: '+971501234568',
+    email: 'maria.santos@email.com',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: '3',
+    fullName: 'Rajesh Kumar',
+    profilePicture: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    jobTitle: 'Electrician',
+    yearsExperience: 12,
+    city: 'Dubai',
+    country: 'UAE',
+    languagesSpoken: ['English', 'Hindi', 'Tamil'],
+    expectedSalary: 4500,
+    visaStatus: 'Available',
+    availability: true,
+    aboutMe: 'Certified electrician with extensive experience in residential and commercial projects.',
+    phoneNumber: '+971501234569',
+    email: 'rajesh.kumar@email.com',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: '4',
+    fullName: 'Omar Al-Rashid',
+    profilePicture: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
+    jobTitle: 'Security Guard',
+    yearsExperience: 6,
+    city: 'Doha',
+    country: 'Qatar',
+    languagesSpoken: ['Arabic', 'English'],
+    expectedSalary: 3200,
+    visaStatus: 'Not Available',
+    availability: true,
+    aboutMe: 'Professional security guard with military background and excellent vigilance skills.',
+    phoneNumber: '+97450123456',
+    email: 'omar.rashid@email.com',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+]
+
+const jobTitles: JobTitle[] = [
+  'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter', 
+  'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic', 
+  'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy'
+]
+
+const cities: City[] = [
+  'Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain',
+  'Doha', 'Al Rayyan', 'Al Wakrah', 'Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Medina',
+  'Muscat', 'Salalah', 'Sohar', 'Kuwait City', 'Hawalli', 'Manama', 'Riffa'
+]
+
+export default function BrowseWorkers() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [showFilters, setShowFilters] = useState(false)
+  const [isSubscribed, setIsSubscribed] = useState(false) // Mock subscription status
+  const [filters, setFilters] = useState<FilterOptions>({})
+
+  const filteredWorkers = useMemo(() => {
+    return mockWorkers.filter(worker => {
+      // Search term filter
+      if (searchTerm) {
+        const searchMatch = 
+          worker.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          worker.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          worker.city.toLowerCase().includes(searchTerm.toLowerCase())
+        if (!searchMatch) return false
+      }
+
+      // Filters
+      if (filters.jobTitle && worker.jobTitle !== filters.jobTitle) return false
+      if (filters.city && worker.city !== filters.city) return false
+      if (filters.minExperience && worker.yearsExperience < filters.minExperience) return false
+      if (filters.maxExperience && worker.yearsExperience > filters.maxExperience) return false
+      if (filters.minSalary && worker.expectedSalary < filters.minSalary) return false
+      if (filters.maxSalary && worker.expectedSalary > filters.maxSalary) return false
+      if (filters.visaStatus && worker.visaStatus !== filters.visaStatus) return false
+
+      return true
+    })
+  }, [searchTerm, filters])
+
+  const handleFilterChange = (key: keyof FilterOptions, value: any) => {
+    setFilters(prev => ({ ...prev, [key]: value }))
+  }
+
+  const clearFilters = () => {
+    setFilters({})
+    setSearchTerm('')
+  }
+
+  const handleUnlockProfile = (workerId: string) => {
+    if (!isSubscribed) {
+      alert('Please subscribe to view contact details. Visit our pricing page to get started!')
+      return
+    }
+    // Handle profile unlock logic here
+    alert('Profile unlocked! Contact details are now visible.')
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">
+            Browse Skilled Workers
+          </h1>
+          <p className="text-gray-600 text-lg">
+            Find the perfect candidate for your business needs
+          </p>
+        </div>
+
+        {/* Search and Filter Bar */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
+          <div className="flex flex-col lg:flex-row gap-4">
+            {/* Search */}
+            <div className="flex-1 relative">
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by name, job title, or city..."
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              />
+            </div>
+
+            {/* Filter Toggle */}
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="btn-secondary flex items-center gap-2"
+            >
+              <FunnelIcon className="h-5 w-5" />
+              Filters
+            </button>
+          </div>
+
+          {/* Advanced Filters */}
+          {showFilters && (
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Job Title</label>
+                  <select
+                    value={filters.jobTitle || ''}
+                    onChange={(e) => handleFilterChange('jobTitle', e.target.value || undefined)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                  >
+                    <option value="">All Jobs</option>
+                    {jobTitles.map(title => (
+                      <option key={title} value={title}>{title}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
+                  <select
+                    value={filters.city || ''}
+                    onChange={(e) => handleFilterChange('city', e.target.value || undefined)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                  >
+                    <option value="">All Cities</option>
+                    {cities.map(city => (
+                      <option key={city} value={city}>{city}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Experience</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      placeholder="Min"
+                      value={filters.minExperience || ''}
+                      onChange={(e) => handleFilterChange('minExperience', e.target.value ? parseInt(e.target.value) : undefined)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Max"
+                      value={filters.maxExperience || ''}
+                      onChange={(e) => handleFilterChange('maxExperience', e.target.value ? parseInt(e.target.value) : undefined)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Salary (AED)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      placeholder="Min"
+                      value={filters.minSalary || ''}
+                      onChange={(e) => handleFilterChange('minSalary', e.target.value ? parseInt(e.target.value) : undefined)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Max"
+                      value={filters.maxSalary || ''}
+                      onChange={(e) => handleFilterChange('maxSalary', e.target.value ? parseInt(e.target.value) : undefined)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center mt-4">
+                <button
+                  onClick={clearFilters}
+                  className="text-gray-600 hover:text-gray-800 text-sm"
+                >
+                  Clear all filters
+                </button>
+                <span className="text-sm text-gray-600">
+                  {filteredWorkers.length} workers found
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Results Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredWorkers.map((worker) => (
+            <div key={worker.id} className="card hover:shadow-lg transition-shadow">
+              {/* Profile Header */}
+              <div className="flex items-start gap-4 mb-4">
+                <img
+                  src={worker.profilePicture}
+                  alt={worker.fullName}
+                  className="w-16 h-16 rounded-full object-cover"
+                />
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-navy-900">{worker.fullName}</h3>
+                  <p className="text-primary-600 font-medium">{worker.jobTitle}</p>
+                  <div className="flex items-center text-gray-600 text-sm mt-1">
+                    <MapPinIcon className="h-4 w-4 mr-1" />
+                    {worker.city}, {worker.country}
+                  </div>
+                </div>
+                {worker.visaStatus === 'Available' && (
+                  <CheckBadgeIcon className="h-5 w-5 text-green-500" title="Visa Available" />
+                )}
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-navy-900">{worker.yearsExperience}</div>
+                  <div className="text-gray-600 text-sm">Years Exp.</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-navy-900">{worker.expectedSalary}</div>
+                  <div className="text-gray-600 text-sm">AED/Month</div>
+                </div>
+              </div>
+
+              {/* Languages */}
+              <div className="mb-4">
+                <div className="text-sm text-gray-700 mb-2">Languages:</div>
+                <div className="flex flex-wrap gap-1">
+                  {worker.languagesSpoken.slice(0, 3).map((lang) => (
+                    <span key={lang} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
+                      {lang}
+                    </span>
+                  ))}
+                  {worker.languagesSpoken.length > 3 && (
+                    <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
+                      +{worker.languagesSpoken.length - 3} more
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* About Me Preview */}
+              <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                {worker.aboutMe}
+              </p>
+
+              {/* Actions */}
+              <div className="flex gap-2">
+                <button className="btn-secondary flex-1 flex items-center justify-center gap-2">
+                  <EyeIcon className="h-4 w-4" />
+                  View Profile
+                </button>
+                <button
+                  onClick={() => handleUnlockProfile(worker.id)}
+                  className="btn-primary flex-1 flex items-center justify-center gap-2"
+                >
+                  <LockClosedIcon className="h-4 w-4" />
+                  Unlock Contact
+                </button>
+              </div>
+
+              {/* Subscription Notice */}
+              {!isSubscribed && (
+                <div className="mt-3 p-3 bg-gold-50 border border-gold-200 rounded-lg">
+                  <p className="text-gold-800 text-xs text-center">
+                    Subscribe to view contact details and unlock profiles
+                  </p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* No Results */}
+        {filteredWorkers.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-gray-400 mb-4">
+              <BriefcaseIcon className="h-16 w-16 mx-auto" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">No workers found</h3>
+            <p className="text-gray-600 mb-4">Try adjusting your search criteria or filters</p>
+            <button onClick={clearFilters} className="btn-primary">
+              Clear Filters
+            </button>
+          </div>
+        )}
+
+        {/* Subscription CTA */}
+        {!isSubscribed && filteredWorkers.length > 0 && (
+          <div className="mt-12 bg-primary-600 text-white rounded-lg p-8 text-center">
+            <h3 className="text-2xl font-bold mb-4">Unlock Full Access</h3>
+            <p className="text-lg mb-6 text-gray-200">
+              Subscribe to view contact details and connect with workers directly
+            </p>
+            <button className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-3 px-8 rounded-lg text-lg transition-colors">
+              View Pricing Plans
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
