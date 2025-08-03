@@ -61,15 +61,46 @@ const commonLanguages = [
   'English', 'Arabic', 'Hindi', 'Urdu', 'Tagalog', 'Bengali', 'Tamil', 'Malayalam'
 ]
 
-// Location detection helper
+// Location detection helper with fallback
 const detectUserLocation = async (): Promise<LocationInfo> => {
+  // Default fallback location
+  const defaultLocation: LocationInfo = {
+    country: 'UAE',
+    currency: 'AED',
+    currencySymbol: 'د.إ',
+    phoneCode: '+971',
+    detectedFromIP: false
+  }
+
   try {
-    // Try to get user's location from IP (using a free service)
-    const response = await fetch('https://ipapi.co/json/')
+    // Create timeout controller
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 5000)
+
+    const response = await fetch('https://ipapi.co/json/', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      },
+      signal: controller.signal
+    })
+
+    clearTimeout(timeoutId)
+
+    if (!response.ok) {
+      console.log('Location API response not OK:', response.status)
+      return defaultLocation
+    }
+
     const data = await response.json()
-    
+
+    if (!data || typeof data !== 'object') {
+      console.log('Invalid location API response format')
+      return defaultLocation
+    }
+
     const countryCode = data.country_code?.toLowerCase()
-    
+
     // Map country codes to our supported countries
     const countryMapping: Record<string, LocationInfo> = {
       'ae': { country: 'UAE', currency: 'AED', currencySymbol: 'د.إ', phoneCode: '+971', detectedFromIP: true },
@@ -79,23 +110,37 @@ const detectUserLocation = async (): Promise<LocationInfo> => {
       'kw': { country: 'Kuwait', currency: 'KWD', currencySymbol: 'د.ك', phoneCode: '+965', detectedFromIP: true },
       'bh': { country: 'Bahrain', currency: 'BHD', currencySymbol: 'د.ب', phoneCode: '+973', detectedFromIP: true }
     }
-    
-    return countryMapping[countryCode] || {
-      country: 'UAE', 
-      currency: 'AED', 
-      currencySymbol: 'د.إ', 
-      phoneCode: '+971', 
-      detectedFromIP: false 
+
+    if (countryCode && countryMapping[countryCode]) {
+      return countryMapping[countryCode]
     }
+
+    return defaultLocation
+
   } catch (error) {
-    // Default to UAE if detection fails
-    return {
-      country: 'UAE', 
-      currency: 'AED', 
-      currencySymbol: 'د.إ', 
-      phoneCode: '+971', 
-      detectedFromIP: false 
+    console.log('Location detection failed, using fallback:', error)
+
+    // Try timezone-based detection as fallback
+    try {
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+      const timezoneMapping: Record<string, LocationInfo> = {
+        'Asia/Dubai': { country: 'UAE', currency: 'AED', currencySymbol: 'د.إ', phoneCode: '+971', detectedFromIP: false },
+        'Asia/Qatar': { country: 'Qatar', currency: 'QAR', currencySymbol: 'ر.ق', phoneCode: '+974', detectedFromIP: false },
+        'Asia/Riyadh': { country: 'Saudi Arabia', currency: 'SAR', currencySymbol: 'ر.س', phoneCode: '+966', detectedFromIP: false },
+        'Asia/Muscat': { country: 'Oman', currency: 'OMR', currencySymbol: 'ر.ع.', phoneCode: '+968', detectedFromIP: false },
+        'Asia/Kuwait': { country: 'Kuwait', currency: 'KWD', currencySymbol: 'د.ك', phoneCode: '+965', detectedFromIP: false },
+        'Asia/Bahrain': { country: 'Bahrain', currency: 'BHD', currencySymbol: 'د.ب', phoneCode: '+973', detectedFromIP: false }
+      }
+
+      if (timezone && timezoneMapping[timezone]) {
+        return timezoneMapping[timezone]
+      }
+    } catch (timezoneError) {
+      console.log('Timezone detection also failed:', timezoneError)
     }
+
+    return defaultLocation
   }
 }
 
@@ -134,19 +179,32 @@ export default function CreateProfile() {
   
   useEffect(() => {
     const initializeLocation = async () => {
-      const location = await detectUserLocation()
-      setLocationInfo(location)
-      
-      // Auto-fill country and phone code if detected
-      if (location.detectedFromIP) {
-        setValue('country', location.country)
-        setSelectedCountry(location.country)
-        setValue('phoneNumber', location.phoneCode + ' ')
+      try {
+        const location = await detectUserLocation()
+        setLocationInfo(location)
+
+        // Auto-fill country and phone code if detected
+        if (location.detectedFromIP) {
+          setValue('country', location.country)
+          setSelectedCountry(location.country)
+          setValue('phoneNumber', location.phoneCode + ' ')
+        }
+      } catch (error) {
+        console.error('Failed to initialize location:', error)
+        // Set default location
+        const defaultLocation: LocationInfo = {
+          country: 'UAE',
+          currency: 'AED',
+          currencySymbol: 'د.إ',
+          phoneCode: '+971',
+          detectedFromIP: false
+        }
+        setLocationInfo(defaultLocation)
+      } finally {
+        setIsLoadingLocation(false)
       }
-      
-      setIsLoadingLocation(false)
     }
-    
+
     initializeLocation()
   }, [setValue])
   
