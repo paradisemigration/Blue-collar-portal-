@@ -81,10 +81,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "Paradise Workers Hub",
-              "url": "https://paradiseworkershub.com",
-              "logo": "https://paradiseworkershub.com/logo.png",
-              "description": "Paradise Workers Hub connects employers with verified blue-collar workers across the Gulf region",
+              "name": "Go Get Hire",
+              "url": "https://gogethire.com",
+              "logo": "https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fae655e15f41d4e2a843beb5ac79ab8d2?format=webp&width=400",
+              "description": "Go Get Hire connects employers with verified blue-collar workers across the Gulf region",
               "address": {
                 "@type": "PostalAddress",
                 "addressRegion": "Gulf Region",
