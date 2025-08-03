@@ -70,6 +70,12 @@ export default function EmployerDashboard() {
     if (unlocked) {
       setUnlockedProfiles(JSON.parse(unlocked))
     }
+
+    // Load saved profiles
+    const saved = localStorage.getItem('savedProfiles')
+    if (saved) {
+      setSavedProfiles(JSON.parse(saved))
+    }
   }, [])
 
   const filteredWorkers = useMemo(() => {
