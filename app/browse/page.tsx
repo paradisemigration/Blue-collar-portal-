@@ -1,15 +1,17 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { 
-  MagnifyingGlassIcon, 
-  FunnelIcon, 
-  MapPinIcon, 
+import {
+  MagnifyingGlassIcon,
+  FunnelIcon,
+  MapPinIcon,
   BriefcaseIcon,
   StarIcon,
   EyeIcon,
   LockClosedIcon,
-  CheckBadgeIcon
+  CheckBadgeIcon,
+  XMarkIcon,
+  PhoneIcon
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, FilterOptions } from '../../types'
 import { generateDummyWorkers } from '../../utils/dummyData'
