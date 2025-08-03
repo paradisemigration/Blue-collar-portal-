@@ -12,7 +12,7 @@ export default function Footer() {
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fae655e15f41d4e2a843beb5ac79ab8d2?format=webp&width=200"
                 alt="Go Get Hire Logo"
-                className="h-10 w-auto brightness-0 invert"
+                className="h-14 w-auto sm:h-16 brightness-0 invert"
               />
             </div>
             <p className="text-gray-300 max-w-md">
