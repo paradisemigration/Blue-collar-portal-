@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import DebugMetaTags from '../components/DebugMetaTags'
 import PageLoader from '../components/PageLoader'
 import ErrorBoundary from '../components/ErrorBoundary'
+import SafeScriptManager from '../components/SafeScriptManager'
 
 export const metadata = {
   title: 'Paradise Workers Hub - Premier Blue-Collar Worker Platform | Gulf Region',
