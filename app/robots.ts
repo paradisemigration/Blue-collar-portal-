@@ -27,7 +27,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://paradiseworkershub.com/sitemap.xml',
-    host: 'https://paradiseworkershub.com',
+    sitemap: 'https://gogethire.com/sitemap.xml',
+    host: 'https://gogethire.com',
   }
 }
