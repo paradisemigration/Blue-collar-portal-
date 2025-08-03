@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { PhotoIcon, UserIcon, CloudArrowUpIcon } from '@heroicons/react/24/outline'
+import { PhotoIcon, UserIcon, CloudArrowUpIcon, SparklesIcon, GlobeAltIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/navigation'
 import { JobTitle, City, Country } from '../../types'
 
 interface WorkerFormData {
   fullName: string
   profilePicture: File | null
-  jobTitle: JobTitle
+  jobTitle: JobTitle | 'Other'
+  customJobTitle?: string
+  jobProfile: string
   yearsExperience: number
   city: City
   country: Country
@@ -19,6 +21,14 @@ interface WorkerFormData {
   aboutMe: string
   phoneNumber: string
   email: string
+}
+
+interface LocationInfo {
+  country: Country
+  currency: string
+  currencySymbol: string
+  phoneCode: string
+  detectedFromIP: boolean
 }
 
 const jobTitles: JobTitle[] = [
