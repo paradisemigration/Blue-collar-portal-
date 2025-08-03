@@ -529,6 +529,98 @@ export default function BrowseWorkers() {
           </div>
         </div>
       )}
+
+      {/* Contact Details Popup */}
+      {showContactPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full">
+            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-5 rounded-t-3xl">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-bold flex items-center gap-2">
+                  🎉 Contact Unlocked!
+                </h3>
+                <button
+                  onClick={() => setShowContactPopup(null)}
+                  className="text-white/80 hover:text-white transition-colors"
+                >
+                  <XMarkIcon className="h-6 w-6" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="relative">
+                  <img
+                    src={showContactPopup.profilePicture}
+                    alt={showContactPopup.fullName}
+                    className="w-16 h-16 rounded-2xl object-cover"
+                  />
+                  <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-1">
+                    <CheckBadgeIcon className="h-4 w-4 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-navy-900">{showContactPopup.fullName}</h4>
+                  <p className="text-primary-600 font-medium">{showContactPopup.jobTitle}</p>
+                  <p className="text-gray-500 text-sm">{showContactPopup.city}, {showContactPopup.country}</p>
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <a
+                  href={`tel:${showContactPopup.phoneNumber}`}
+                  className="flex items-center gap-4 p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-2xl hover:from-green-100 hover:to-green-200 transition-all"
+                >
+                  <div className="bg-green-500 rounded-xl p-3">
+                    <PhoneIcon className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900">Phone Number</div>
+                    <div className="text-green-600 font-medium">{showContactPopup.phoneNumber}</div>
+                  </div>
+                </a>
+
+                <a
+                  href={`mailto:${showContactPopup.email}`}
+                  className="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl hover:from-blue-100 hover:to-blue-200 transition-all"
+                >
+                  <div className="bg-blue-500 rounded-xl p-3">
+                    <EnvelopeIcon className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900">Email Address</div>
+                    <div className="text-blue-600 font-medium">{showContactPopup.email}</div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <a
+                  href={`tel:${showContactPopup.phoneNumber}`}
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                >
+                  <PhoneIcon className="h-4 w-4" />
+                  Call
+                </a>
+                <a
+                  href={`mailto:${showContactPopup.email}`}
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                >
+                  <EnvelopeIcon className="h-4 w-4" />
+                  Email
+                </a>
+              </div>
+
+              <div className="mt-4 text-center">
+                <p className="text-xs text-gray-500">
+                  📱 Contact details are now available for direct communication
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
