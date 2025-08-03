@@ -412,6 +412,122 @@ export default function BrowseWorkers() {
           </div>
         )}
       </div>
+
+      {/* Profile Modal */}
+      {selectedWorker && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-navy-900">Worker Profile</h2>
+              <button
+                onClick={closeProfileModal}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <XMarkIcon className="h-6 w-6" />
+              </button>
+            </div>
+
+            <div className="p-6">
+              {/* Profile Header */}
+              <div className="flex flex-col sm:flex-row items-start gap-6 mb-6">
+                <img
+                  src={selectedWorker.profilePicture}
+                  alt={selectedWorker.fullName}
+                  className="w-24 h-24 rounded-full object-cover mx-auto sm:mx-0"
+                />
+                <div className="text-center sm:text-left flex-1">
+                  <h3 className="text-2xl font-bold text-navy-900 mb-2">{selectedWorker.fullName}</h3>
+                  <p className="text-lg text-primary-600 font-medium mb-2">{selectedWorker.jobTitle}</p>
+                  <div className="flex items-center justify-center sm:justify-start text-gray-600 mb-2">
+                    <MapPinIcon className="h-4 w-4 mr-1" />
+                    {selectedWorker.city}, {selectedWorker.country}
+                  </div>
+                  {(selectedWorker.visaStatus === 'Work Visa' || selectedWorker.visaStatus === 'Freelance Visa') && (
+                    <div className="flex items-center justify-center sm:justify-start gap-1">
+                      <CheckBadgeIcon className="h-5 w-5 text-green-500" />
+                      <span className="text-green-600 text-sm font-medium">{selectedWorker.visaStatus}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-navy-900">{selectedWorker.yearsExperience}</div>
+                  <div className="text-gray-600 text-sm">Years Experience</div>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-navy-900">{selectedWorker.expectedSalary}</div>
+                  <div className="text-gray-600 text-sm">Expected Salary</div>
+                </div>
+              </div>
+
+              {/* Languages */}
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold text-navy-900 mb-3">Languages</h4>
+                <div className="flex flex-wrap gap-2">
+                  {selectedWorker.languagesSpoken.map((lang) => (
+                    <span key={lang} className="bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-sm">
+                      {lang}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* About */}
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold text-navy-900 mb-3">About</h4>
+                <p className="text-gray-700 leading-relaxed">{selectedWorker.aboutMe}</p>
+              </div>
+
+              {/* Contact Information */}
+              {isSubscribed && (
+                <div className="mb-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                  <h4 className="text-lg font-semibold text-green-900 mb-3">Contact Information</h4>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <PhoneIcon className="h-4 w-4 text-green-600" />
+                      <span className="text-green-800">{selectedWorker.phoneNumber}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-600">✉</span>
+                      <span className="text-green-800">{selectedWorker.email}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                {!isSubscribed ? (
+                  <button
+                    onClick={() => handleUnlockProfile(selectedWorker.id)}
+                    className="btn-primary flex-1 flex items-center justify-center gap-2"
+                  >
+                    <LockClosedIcon className="h-4 w-4" />
+                    Unlock Contact Details
+                  </button>
+                ) : (
+                  <a
+                    href={`tel:${selectedWorker.phoneNumber}`}
+                    className="btn-primary flex-1 flex items-center justify-center gap-2"
+                  >
+                    <PhoneIcon className="h-4 w-4" />
+                    Call Now
+                  </a>
+                )}
+                <button
+                  onClick={closeProfileModal}
+                  className="btn-secondary flex-1"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
