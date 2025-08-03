@@ -135,7 +135,18 @@ export default function BrowseWorkers() {
       return
     }
     // Handle profile unlock logic here
-    alert('Profile unlocked! Contact details are now visible.')
+    const worker = workers.find(w => w.id === workerId)
+    if (worker) {
+      alert(`Profile unlocked!\n\nContact Details:\nName: ${worker.fullName}\nPhone: ${worker.phoneNumber}\nEmail: ${worker.email}`)
+    }
+  }
+
+  const handleViewProfile = (worker: Worker) => {
+    setSelectedWorker(worker)
+  }
+
+  const closeProfileModal = () => {
+    setSelectedWorker(null)
   }
 
   return (
