@@ -9,43 +9,79 @@ export default function SafeScriptManager() {
       return
     }
 
-    // Simple error suppression without interfering with fetch
-    const handleError = (event: ErrorEvent) => {
-      const errorMessage = event.message || ''
-      const filename = event.filename || ''
-
-      // Only suppress specific analytics errors, not fetch errors
-      const isAnalyticsScript = filename.includes('fullstory.com') ||
-                               filename.includes('analytics') ||
-                               filename.includes('gtag') ||
-                               filename.includes('facebook.com')
-
-      if (isAnalyticsScript) {
-        console.log('[Dev Mode] Suppressed analytics script error:', errorMessage)
-        event.preventDefault()
-        return false
+    // Completely disable FullStory in development
+    if (typeof window !== 'undefined') {
+      // Block FullStory from initializing
+      (window as any).FS = {
+        identify: () => {},
+        setUserVars: () => {},
+        event: () => {},
+        log: () => {},
+        restart: () => {},
+        shutdown: () => {},
+        consent: () => {},
+        clearUserCookie: () => {}
       }
-    }
 
-    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-      const reason = event.reason?.toString() || ''
+      // Remove any existing FullStory scripts
+      const scripts = document.querySelectorAll('script[src*="fullstory"]')
+      scripts.forEach(script => script.remove())
 
-      // Only suppress analytics-related promise rejections
-      if (reason.includes('fullstory') && reason.includes('analytics')) {
-        console.log('[Dev Mode] Suppressed analytics rejection:', reason)
-        event.preventDefault()
-        return false
+      // Block FullStory domain completely
+      const originalFetch = window.fetch
+      window.fetch = function(...args) {
+        const url = args[0]?.toString() || ''
+
+        if (url.includes('fullstory.com') || url.includes('edge.fullstory.com')) {
+          console.log('[Dev Mode] Blocked FullStory request:', url)
+          return Promise.resolve(new Response('{}', { status: 200 }))
+        }
+
+        return originalFetch.apply(this, args)
       }
-    }
 
-    // Add error listeners without overriding fetch
-    window.addEventListener('error', handleError)
-    window.addEventListener('unhandledrejection', handleUnhandledRejection)
+      // Block script loading
+      const originalAppendChild = document.head.appendChild
+      document.head.appendChild = function(child: any) {
+        if (child.tagName === 'SCRIPT' && child.src && child.src.includes('fullstory')) {
+          console.log('[Dev Mode] Blocked FullStory script loading')
+          return child
+        }
+        return originalAppendChild.call(this, child)
+      }
 
-    // Cleanup function
-    return () => {
-      window.removeEventListener('error', handleError)
-      window.removeEventListener('unhandledrejection', handleUnhandledRejection)
+      // Error suppression for any remaining FullStory references
+      const handleError = (event: ErrorEvent) => {
+        const errorMessage = event.message || ''
+        const filename = event.filename || ''
+
+        if (filename.includes('fullstory.com') || errorMessage.includes('FullStory')) {
+          console.log('[Dev Mode] Suppressed FullStory error:', errorMessage)
+          event.preventDefault()
+          return false
+        }
+      }
+
+      const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+        const reason = event.reason?.toString() || ''
+
+        if (reason.includes('fullstory') || reason.includes('FullStory')) {
+          console.log('[Dev Mode] Suppressed FullStory rejection:', reason)
+          event.preventDefault()
+          return false
+        }
+      }
+
+      window.addEventListener('error', handleError)
+      window.addEventListener('unhandledrejection', handleUnhandledRejection)
+
+      // Cleanup function
+      return () => {
+        window.fetch = originalFetch
+        document.head.appendChild = originalAppendChild
+        window.removeEventListener('error', handleError)
+        window.removeEventListener('unhandledrejection', handleUnhandledRejection)
+      }
     }
   }, [])
 
