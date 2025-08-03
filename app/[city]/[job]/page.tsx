@@ -9,8 +9,9 @@ import {
   LockClosedIcon 
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City } from '../../../types'
+import { generateDummyWorkers, getCurrencyDisplayForCity } from '../../../utils/dummyData'
 
-// Load actual user data from localStorage
+// Load actual user data from localStorage and combine with dummy data
 const loadWorkers = (): Worker[] => {
   try {
     const workers: Worker[] = []
@@ -32,52 +33,18 @@ const loadWorkers = (): Worker[] => {
       })
     }
 
-    // Add demo data if no real users exist
-    if (workers.length === 0) {
-      return [
-        {
-          id: 'demo1',
-          fullName: 'Ahmed Hassan',
-          profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-          jobTitle: 'Driver',
-          yearsExperience: 8,
-          city: 'Dubai',
-          country: 'UAE',
-          languagesSpoken: ['English', 'Arabic', 'Hindi'],
-          expectedSalary: 3500,
-          visaStatus: 'Work Visa',
-          availability: true,
-          aboutMe: 'Experienced professional driver with clean driving record and excellent customer service skills.',
-          phoneNumber: '+971501234567',
-          email: 'ahmed.hassan@email.com',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          id: 'demo2',
-          fullName: 'Maria Santos',
-          profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=150&h=150&fit=crop&crop=face',
-          jobTitle: 'Maid',
-          yearsExperience: 5,
-          city: 'Dubai',
-          country: 'UAE',
-          languagesSpoken: ['English', 'Tagalog', 'Arabic'],
-          expectedSalary: 2500,
-          visaStatus: 'Work Visa',
-          availability: true,
-          aboutMe: 'Dedicated housekeeping professional with attention to detail and reliability.',
-          phoneNumber: '+971501234568',
-          email: 'maria.santos@email.com',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      ]
-    }
+    // Add comprehensive dummy data
+    const dummyWorkers = generateDummyWorkers()
+    dummyWorkers.forEach((dummyWorker) => {
+      if (!workers.find(w => w.id === dummyWorker.id)) {
+        workers.push(dummyWorker)
+      }
+    })
 
     return workers
   } catch (error) {
     console.error('Error loading workers:', error)
-    return []
+    return generateDummyWorkers() // Fallback to dummy data
   }
 }
 
@@ -173,6 +140,7 @@ export default function CityJobPage({ params }: PageProps) {
 
   const cityDisplay = citySlugToDisplayName(params.city)
   const jobDisplay = jobSlugToDisplayName(params.job)
+  const localCurrency = getCurrencyDisplayForCity(params.city)
 
   // Load real workers and filter by city and job
   const allWorkers = loadWorkers()
@@ -188,7 +156,7 @@ export default function CityJobPage({ params }: PageProps) {
   const faqs = [
     {
       question: `How much does it cost to hire a ${jobDisplay.toLowerCase()} in ${cityDisplay}?`,
-      answer: `The average salary for ${jobDisplay.toLowerCase()}s in ${cityDisplay} ranges from AED 2,000 to AED 5,000 per month, depending on experience and qualifications.`
+      answer: `The average salary for ${jobDisplay.toLowerCase()}s in ${cityDisplay} ranges from ${localCurrency} 2,000 to ${localCurrency} 5,000 per month, depending on experience and qualifications.`
     },
     {
       question: `Are all ${jobDisplay.toLowerCase()} profiles verified?`,
@@ -225,7 +193,7 @@ export default function CityJobPage({ params }: PageProps) {
                 <div className="text-gray-200">Available {jobDisplay}s</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4">
-                <div className="text-2xl font-bold text-gold-400">AED {averageSalary}</div>
+                <div className="text-2xl font-bold text-gold-400">{localCurrency} {averageSalary}</div>
                 <div className="text-gray-200">Average Salary</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4">
@@ -286,7 +254,7 @@ export default function CityJobPage({ params }: PageProps) {
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-navy-900">{worker.expectedSalary}</div>
-                      <div className="text-gray-600 text-sm">AED/Month</div>
+                      <div className="text-gray-600 text-sm">{localCurrency}/Month</div>
                     </div>
                   </div>
 
