@@ -137,8 +137,8 @@ export default function CityJobLayout({ children, params }: Props) {
             "description": `Multiple ${formatJobTitle(params.job).toLowerCase()} positions available in ${formatCityName(params.city)}, ${getCountryForCity(params.city)}`,
             "hiringOrganization": {
               "@type": "Organization",
-              "name": "Paradise Workers Hub",
-              "sameAs": "https://paradiseworkershub.com"
+              "name": "Go Get Hire",
+              "sameAs": "https://gogethire.com"
             },
             "jobLocation": {
               "@type": "Place",
