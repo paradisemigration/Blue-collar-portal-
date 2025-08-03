@@ -439,6 +439,17 @@ Please check your email and bookmark these credentials for future login.`)
                 <SparklesIcon className="h-8 sm:h-12 w-8 sm:w-12 text-white" />
               </div>
             </div>
+
+            {/* Get Hired Promise Banner */}
+            <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl p-4 sm:p-6 mb-6 shadow-xl">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+                🚀 Get Hired in 7 Working Days
+              </h2>
+              <p className="text-green-100 text-sm sm:text-base">
+                Our verified workers get contacted by employers within a week of profile creation
+              </p>
+            </div>
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-navy-900 to-primary-600 bg-clip-text text-transparent mb-4">
               Create Your Professional Profile
             </h1>
