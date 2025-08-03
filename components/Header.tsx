@@ -6,8 +6,10 @@ import { useRouter } from 'next/navigation'
 import { Bars3Icon, XMarkIcon, BriefcaseIcon } from '@heroicons/react/24/outline'
 
 export default function Header() {
+  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isEmployer, setIsEmployer] = useState(false)
+  const [loadingLink, setLoadingLink] = useState<string | null>(null)
 
   useEffect(() => {
     // Check if user is logged in as employer
@@ -16,6 +18,17 @@ export default function Header() {
       setIsEmployer(!!employerLoggedIn)
     }
   }, [])
+
+  const handleNavigation = (href: string) => {
+    setLoadingLink(href)
+    setMobileMenuOpen(false)
+    router.push(href)
+
+    // Clear loading state after navigation
+    setTimeout(() => {
+      setLoadingLink(null)
+    }, 1000)
+  }
 
   const navigation = [
     { name: 'Home', href: '/' },
