@@ -21,8 +21,12 @@ export default function Header() {
 
   const handleNavigation = (href: string) => {
     setLoadingLink(href)
-    setMobileMenuOpen(false)
-    router.push(href)
+    setMobileMenuOpen(false) // Close mobile menu immediately
+
+    // Add small delay for smooth transition
+    setTimeout(() => {
+      router.push(href)
+    }, 100)
 
     // Clear loading state after navigation
     setTimeout(() => {
