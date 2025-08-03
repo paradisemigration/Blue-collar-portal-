@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Bars3Icon, XMarkIcon, BriefcaseIcon } from '@heroicons/react/24/outline'
 
 export default function Header() {
