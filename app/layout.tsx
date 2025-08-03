@@ -18,16 +18,16 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://paradiseworkershub.com'),
+  metadataBase: new URL('https://gogethire.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://paradiseworkershub.com',
-    siteName: 'Paradise Workers Hub',
-    title: 'Paradise Workers Hub - Premier Blue-Collar Worker Platform | Gulf Region',
+    url: 'https://gogethire.com',
+    siteName: 'Go Get Hire',
+    title: 'Go Get Hire - Premier Blue-Collar Worker Platform | Gulf Region',
     description: 'Connect with 15,000+ verified blue-collar workers across 43 Gulf cities. Browse 49 job categories, hire instantly with verified profiles and direct contact access.',
     images: [
       {
