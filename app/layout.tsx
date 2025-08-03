@@ -129,12 +129,14 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-50 min-h-screen flex flex-col">
         <PageLoader />
-        <Header />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <DebugMetaTags />
+        <ErrorBoundary>
+          <Header />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <DebugMetaTags />
+        </ErrorBoundary>
       </body>
     </html>
   )
