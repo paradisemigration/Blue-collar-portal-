@@ -33,6 +33,7 @@ interface CityJobStats {
 }
 
 export default function AdminDashboard() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [users, setUsers] = useState<Worker[]>([])
   const [filteredUsers, setFilteredUsers] = useState<Worker[]>([])
   const [stats, setStats] = useState<UserStats>({
