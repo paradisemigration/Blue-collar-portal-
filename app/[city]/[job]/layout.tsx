@@ -75,8 +75,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const jobDisplay = formatJobTitle(params.job)
   const country = getCountryForCity(params.city)
   
-  const title = `Hire ${jobDisplay}s in ${cityDisplay}, ${country} | Paradise Workers Hub`
-  const description = `Find and hire verified ${jobDisplay.toLowerCase()}s in ${cityDisplay}, ${country}. Browse professional profiles, view experience, and connect instantly. Paradise Workers Hub - your trusted platform for skilled workers in the Gulf region.`
+  const title = `Hire ${jobDisplay}s in ${cityDisplay}, ${country} | Go Get Hire`
+  const description = `Find and hire verified ${jobDisplay.toLowerCase()}s in ${cityDisplay}, ${country}. Browse professional profiles, view experience, and connect instantly. Go Get Hire - your trusted platform for skilled workers in the Gulf region.`
   
   const cityJobUrl = `https://gogethire.com/${params.city}/${params.job}`
   
