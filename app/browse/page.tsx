@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { 
   MagnifyingGlassIcon, 
   FunnelIcon, 
@@ -135,9 +135,20 @@ export default function BrowseWorkers() {
   const [showFilters, setShowFilters] = useState(false)
   const [isSubscribed, setIsSubscribed] = useState(false) // Mock subscription status
   const [filters, setFilters] = useState<FilterOptions>({})
+  const [workers, setWorkers] = useState<Worker[]>([])
+
+  useEffect(() => {
+    // Load real workers or fallback to demo
+    const realWorkers = loadRealWorkers()
+    if (realWorkers.length > 0) {
+      setWorkers(realWorkers)
+    } else {
+      setWorkers(demoWorkers)
+    }
+  }, [])
 
   const filteredWorkers = useMemo(() => {
-    return mockWorkers.filter(worker => {
+    return workers.filter(worker => {
       // Search term filter
       if (searchTerm) {
         const searchMatch = 
@@ -323,8 +334,8 @@ export default function BrowseWorkers() {
                     {worker.city}, {worker.country}
                   </div>
                 </div>
-                {worker.visaStatus === 'Available' && (
-                  <CheckBadgeIcon className="h-5 w-5 text-green-500" title="Visa Available" />
+                {(worker.visaStatus === 'Work Visa' || worker.visaStatus === 'Freelance Visa') && (
+                  <CheckBadgeIcon className="h-5 w-5 text-green-500" title={worker.visaStatus} />
                 )}
               </div>
 

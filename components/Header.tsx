@@ -14,6 +14,7 @@ export default function Header() {
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Job Postings', href: '/jobs' },
     { name: 'Pricing', href: '/pricing' },
+    { name: 'Admin', href: '/admin' },
   ]
 
   return (
