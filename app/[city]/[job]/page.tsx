@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City } from '../../../types'
 import { generateDummyWorkers, getCurrencyDisplayForCity } from '../../../utils/dummyData'
+import { generateCityJobFAQs } from '../../../utils/faqData'
 
 // Load actual user data from localStorage and combine with dummy data
 const loadWorkers = (): Worker[] => {
@@ -153,24 +154,8 @@ export default function CityJobPage({ params }: PageProps) {
     ? Math.round(filteredWorkers.reduce((sum, worker) => sum + worker.expectedSalary, 0) / filteredWorkers.length)
     : 0
 
-  const faqs = [
-    {
-      question: `How much does it cost to hire a ${jobDisplay.toLowerCase()} in ${cityDisplay}?`,
-      answer: `The average salary for ${jobDisplay.toLowerCase()}s in ${cityDisplay} ranges from ${localCurrency} 2,000 to ${localCurrency} 5,000 per month, depending on experience and qualifications.`
-    },
-    {
-      question: `Are all ${jobDisplay.toLowerCase()} profiles verified?`,
-      answer: `Yes, all worker profiles on our platform are verified with proper documentation, background checks, and skill assessments.`
-    },
-    {
-      question: `How quickly can I hire a ${jobDisplay.toLowerCase()}?`,
-      answer: `Most employers connect with suitable candidates within 24-48 hours. The hiring process can be completed within a week.`
-    },
-    {
-      question: `What if I'm not satisfied with the ${jobDisplay.toLowerCase()} I hired?`,
-      answer: `We offer support throughout the hiring process and can help you find alternative candidates if needed.`
-    }
-  ]
+  // Generate unique FAQs for this city and job combination
+  const faqs = generateCityJobFAQs(params.city, jobDisplay)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -318,15 +303,15 @@ export default function CityJobPage({ params }: PageProps) {
         )}
 
         {/* FAQ Section */}
-        <div className="bg-white rounded-lg shadow-sm border p-8">
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8">
           <h2 className="text-2xl font-bold text-navy-900 mb-6 text-center">
-            Frequently Asked Questions
+            Frequently Asked Questions About {jobDisplay}s in {cityDisplay}
           </h2>
           <div className="space-y-6">
             {faqs.map((faq, index) => (
-              <div key={index} className="border-b border-gray-200 pb-4 last:border-b-0">
-                <h3 className="text-lg font-semibold text-navy-900 mb-2">{faq.question}</h3>
-                <p className="text-gray-700">{faq.answer}</p>
+              <div key={index} className="border-b border-gray-200 pb-6 last:border-b-0 last:pb-0">
+                <h3 className="text-lg font-semibold text-navy-900 mb-3 leading-tight">{faq.question}</h3>
+                <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>
