@@ -7,15 +7,31 @@ import {
   StarIcon,
   MapPinIcon,
   PhoneIcon,
-  BuildingOfficeIcon
+  BuildingOfficeIcon,
+  TruckIcon,
+  HomeIcon,
+  BoltIcon,
+  WrenchScrewdriverIcon,
+  SparklesIcon,
+  HammerIcon,
+  PaintBrushIcon,
+  EyeIcon,
+  FireIcon,
+  ScissorsIcon
 } from '@heroicons/react/24/outline'
 
 export default function Home() {
   const popularJobs = [
-    { title: 'Maids', count: '1,234', city: 'Dubai', href: '/dubai/maid' },
-    { title: 'Drivers', count: '987', city: 'Doha', href: '/doha/driver' },
-    { title: 'Electricians', count: '456', city: 'Riyadh', href: '/riyadh/electrician' },
-    { title: 'Cleaners', count: '789', city: 'Abu Dhabi', href: '/abu-dhabi/cleaner' },
+    { title: 'Drivers', count: '1,234', city: 'Dubai', href: '/dubai/driver', icon: TruckIcon, color: 'bg-blue-500' },
+    { title: 'Maids', count: '987', city: 'Doha', href: '/doha/maid', icon: HomeIcon, color: 'bg-pink-500' },
+    { title: 'Electricians', count: '756', city: 'Riyadh', href: '/riyadh/electrician', icon: BoltIcon, color: 'bg-yellow-500' },
+    { title: 'Plumbers', count: '543', city: 'Abu Dhabi', href: '/abu-dhabi/plumber', icon: WrenchScrewdriverIcon, color: 'bg-blue-600' },
+    { title: 'Cleaners', count: '689', city: 'Kuwait City', href: '/kuwait-city/cleaner', icon: SparklesIcon, color: 'bg-green-500' },
+    { title: 'Carpenters', count: '432', city: 'Muscat', href: '/muscat/carpenter', icon: HammerIcon, color: 'bg-orange-500' },
+    { title: 'Painters', count: '378', city: 'Manama', href: '/manama/painter', icon: PaintBrushIcon, color: 'bg-purple-500' },
+    { title: 'Security Guards', count: '521', city: 'Jeddah', href: '/jeddah/security-guard', icon: EyeIcon, color: 'bg-gray-600' },
+    { title: 'Cooks', count: '298', city: 'Al Rayyan', href: '/al-rayyan/cook', icon: FireIcon, color: 'bg-red-500' },
+    { title: 'Gardeners', count: '345', city: 'Sharjah', href: '/sharjah/gardener', icon: ScissorsIcon, color: 'bg-green-600' }
   ]
 
   const features = [
@@ -45,14 +61,44 @@ export default function Home() {
     {
       name: 'Ahmed Al-Mansouri',
       company: 'Dubai Construction LLC',
-      text: 'Found 5 skilled electricians within 2 days. The platform saved us weeks of recruitment.',
-      rating: 5
+      text: 'Found 5 skilled electricians within 2 days. The platform saved us weeks of recruitment time and costs.',
+      rating: 5,
+      location: 'Dubai, UAE'
     },
     {
       name: 'Sarah Johnson',
       company: 'Doha Facilities Management',
-      text: 'Excellent service! The worker profiles are detailed and accurate.',
-      rating: 5
+      text: 'Excellent service! The worker profiles are detailed and accurate. Highly recommend Go Get Hire.',
+      rating: 5,
+      location: 'Doha, Qatar'
+    },
+    {
+      name: 'Mohammed Al-Rashid',
+      company: 'Riyadh Hospitality Group',
+      text: 'We hired 12 housekeeping staff through Go Get Hire. All workers were professional and well-trained.',
+      rating: 5,
+      location: 'Riyadh, Saudi Arabia'
+    },
+    {
+      name: 'Fatima Al-Zahra',
+      company: 'Kuwait Commercial Center',
+      text: 'Amazing platform! Found reliable security guards and maintenance staff quickly. Great value for money.',
+      rating: 5,
+      location: 'Kuwait City, Kuwait'
+    },
+    {
+      name: 'Omar Hassan',
+      company: 'Muscat Real Estate',
+      text: 'Go Get Hire helped us find experienced plumbers and electricians for our new project. Very satisfied!',
+      rating: 5,
+      location: 'Muscat, Oman'
+    },
+    {
+      name: 'Aisha Al-Mansoori',
+      company: 'Bahrain Hotels & Resorts',
+      text: 'Professional service with verified workers. The hiring process is smooth and efficient.',
+      rating: 5,
+      location: 'Manama, Bahrain'
     }
   ]
 
