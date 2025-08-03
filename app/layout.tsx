@@ -1,6 +1,7 @@
 import './globals.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import DebugMetaTags from '../components/DebugMetaTags'
 
 export const metadata = {
   title: 'Go Get Hire - Find Blue-Collar Workers Across Gulf Region',
@@ -21,6 +22,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <DebugMetaTags />
       </body>
     </html>
   )
