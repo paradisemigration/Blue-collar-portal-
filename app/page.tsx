@@ -228,20 +228,19 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="card">
+              <div key={index} className="card hover:shadow-lg transition-shadow">
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <StarIcon key={i} className="h-5 w-5 text-gold-500 fill-current" />
                   ))}
                 </div>
                 <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                <div className="flex items-center">
-                  <div>
-                    <div className="font-semibold text-navy-900">{testimonial.name}</div>
-                    <div className="text-gray-600 text-sm">{testimonial.company}</div>
-                  </div>
+                <div className="border-t pt-4">
+                  <div className="font-semibold text-navy-900">{testimonial.name}</div>
+                  <div className="text-gray-600 text-sm">{testimonial.company}</div>
+                  <div className="text-gray-500 text-xs mt-1">{testimonial.location}</div>
                 </div>
               </div>
             ))}
@@ -256,7 +255,7 @@ export default function Home() {
             Ready to Find Your Next Hire?
           </h2>
           <p className="text-xl mb-8 text-gray-200">
-            Join thousands of employers who trust GulfHire for their staffing needs
+            Join thousands of employers who trust Go Get Hire for their staffing needs
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/browse" className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-4 px-8 rounded-lg text-lg transition-colors">
