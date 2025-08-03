@@ -100,9 +100,16 @@ export default function Header() {
                 </Link>
               ))}
               <div className="flex flex-col space-y-3 px-3 pt-4 border-t border-gray-200 mt-4">
-                <Link href="/admin-login" className="text-gray-700 hover:text-primary-600 font-medium text-center py-2">
-                  Admin Login
-                </Link>
+                {isEmployer ? (
+                  <Link href="/employer-dashboard" className="flex items-center justify-center gap-2 text-primary-600 hover:text-primary-700 font-semibold py-2">
+                    <BriefcaseIcon className="h-5 w-5" />
+                    Employer Dashboard
+                  </Link>
+                ) : (
+                  <Link href="/admin-login" className="text-gray-700 hover:text-primary-600 font-medium text-center py-2">
+                    Admin Login
+                  </Link>
+                )}
                 <Link href="/login" className="btn-secondary text-center">
                   Login
                 </Link>
