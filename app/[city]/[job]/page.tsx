@@ -1,12 +1,15 @@
+'use client'
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  MapPinIcon, 
-  BriefcaseIcon, 
+import { useState, useEffect } from 'react'
+import {
+  MapPinIcon,
+  BriefcaseIcon,
   StarIcon,
   CheckBadgeIcon,
   EyeIcon,
-  LockClosedIcon 
+  LockClosedIcon
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City } from '../../../types'
 import { generateDummyWorkers, getCurrencyDisplayForCity } from '../../../utils/dummyData'
@@ -17,21 +20,24 @@ const loadWorkers = (): Worker[] => {
   try {
     const workers: Worker[] = []
 
-    // Load individual profile
-    const userProfile = localStorage.getItem('userProfile')
-    if (userProfile) {
-      workers.push(JSON.parse(userProfile))
-    }
+    // Only access localStorage in browser environment
+    if (typeof window !== 'undefined') {
+      // Load individual profile
+      const userProfile = localStorage.getItem('userProfile')
+      if (userProfile) {
+        workers.push(JSON.parse(userProfile))
+      }
 
-    // Load all profiles
-    const allProfiles = localStorage.getItem('allUserProfiles')
-    if (allProfiles) {
-      const profiles = JSON.parse(allProfiles)
-      profiles.forEach((profile: Worker) => {
-        if (!workers.find(w => w.id === profile.id)) {
-          workers.push(profile)
-        }
-      })
+      // Load all profiles
+      const allProfiles = localStorage.getItem('allUserProfiles')
+      if (allProfiles) {
+        const profiles = JSON.parse(allProfiles)
+        profiles.forEach((profile: Worker) => {
+          if (!workers.find(w => w.id === profile.id)) {
+            workers.push(profile)
+          }
+        })
+      }
     }
 
     // Add comprehensive dummy data
@@ -109,30 +115,18 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const cityName = formatCityName(params.city)
   const jobTitle = formatJobTitle(params.job)
-  const url = `/${params.city}/${params.job}`
-
-  // Try to load custom SEO data
-  let customSEO = null
-  try {
-    if (typeof window !== 'undefined') {
-      const savedSEO = localStorage.getItem('seoCustomizations')
-      if (savedSEO) {
-        const customizations = JSON.parse(savedSEO)
-        customSEO = customizations[url]
-      }
-    }
-  } catch (error) {
-    console.error('Error loading SEO data:', error)
-  }
 
   return {
-    title: customSEO?.title || `Hire Verified ${jobTitle}s in ${cityName} | Gulf Hiring Platform`,
-    description: customSEO?.description || `Find experienced ${jobTitle.toLowerCase()}s in ${cityName}. Browse verified profiles, check reviews, and hire skilled professionals for your business needs.`,
-    keywords: customSEO?.keywords || `${jobTitle.toLowerCase()}, ${cityName.toLowerCase()}, hire, jobs, workers, gulf`,
+    title: `Hire Verified ${jobTitle}s in ${cityName} | Gulf Hiring Platform`,
+    description: `Find experienced ${jobTitle.toLowerCase()}s in ${cityName}. Browse verified profiles, check reviews, and hire skilled professionals for your business needs.`,
+    keywords: `${jobTitle.toLowerCase()}, ${cityName.toLowerCase()}, hire, jobs, workers, gulf`,
   }
 }
 
 export default function CityJobPage({ params }: PageProps) {
+  const [workers, setWorkers] = useState<Worker[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
   // Validate URL parameters
   if (!validCities.includes(params.city.toLowerCase() as City) ||
       !validJobs.includes(params.job.toLowerCase() as JobTitle)) {
@@ -143,19 +137,45 @@ export default function CityJobPage({ params }: PageProps) {
   const jobDisplay = jobSlugToDisplayName(params.job)
   const localCurrency = getCurrencyDisplayForCity(params.city)
 
-  // Load real workers and filter by city and job
-  const allWorkers = loadWorkers()
-  const filteredWorkers = allWorkers.filter(worker =>
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const allWorkers = loadWorkers()
+        setWorkers(allWorkers)
+      } catch (error) {
+        console.error('Error loading workers:', error)
+        setWorkers(generateDummyWorkers())
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadData()
+  }, [])
+
+  // Filter workers by city and job
+  const filteredWorkers = workers.filter(worker =>
     worker.city.toLowerCase().replace(/\s+/g, '-') === params.city.toLowerCase() &&
     worker.jobTitle.toLowerCase().replace(/\s+/g, '-') === params.job.toLowerCase()
   )
 
-  const averageSalary = filteredWorkers.length > 0 
+  const averageSalary = filteredWorkers.length > 0
     ? Math.round(filteredWorkers.reduce((sum, worker) => sum + worker.expectedSalary, 0) / filteredWorkers.length)
     : 0
 
   // Generate unique FAQs for this city and job combination
   const faqs = generateCityJobFAQs(params.city, jobDisplay)
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading {jobDisplay}s in {cityDisplay}...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -321,16 +341,4 @@ export default function CityJobPage({ params }: PageProps) {
   )
 }
 
-// Generate static params for common routes
-export async function generateStaticParams() {
-  const commonRoutes = [
-    { city: 'dubai', job: 'maid' },
-    { city: 'dubai', job: 'driver' },
-    { city: 'abu-dhabi', job: 'cleaner' },
-    { city: 'doha', job: 'driver' },
-    { city: 'riyadh', job: 'electrician' },
-    { city: 'muscat', job: 'plumber' }
-  ]
-  
-  return commonRoutes
-}
+// Note: Removed generateStaticParams to prevent SSG issues with client-side data loading
