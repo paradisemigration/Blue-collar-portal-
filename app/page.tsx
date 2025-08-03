@@ -247,17 +247,24 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="card hover:shadow-lg transition-shadow">
+              <div key={index} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 hover:scale-105">
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <StarIcon key={i} className="h-5 w-5 text-gold-500 fill-current" />
                   ))}
                 </div>
-                <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                <div className="border-t pt-4">
-                  <div className="font-semibold text-navy-900">{testimonial.name}</div>
-                  <div className="text-gray-600 text-sm">{testimonial.company}</div>
-                  <div className="text-gray-500 text-xs mt-1">{testimonial.location}</div>
+                <p className="text-gray-700 mb-6 italic leading-relaxed">"{testimonial.text}"</p>
+                <div className="flex items-center gap-4 border-t pt-4">
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
+                  />
+                  <div>
+                    <div className="font-semibold text-navy-900">{testimonial.name}</div>
+                    <div className="text-gray-600 text-sm">{testimonial.company}</div>
+                    <div className="text-gray-500 text-xs mt-1">{testimonial.location}</div>
+                  </div>
                 </div>
               </div>
             ))}
