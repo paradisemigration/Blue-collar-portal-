@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { 
+import {
   MagnifyingGlassIcon,
   FunnelIcon,
   MapPinIcon,
@@ -13,21 +13,39 @@ import {
   XMarkIcon,
   PhoneIcon,
   EnvelopeIcon,
-  UserGroupIcon
+  UserGroupIcon,
+  ArrowRightOnRectangleIcon
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, FilterOptions } from '../../types'
 import { generateDummyWorkers } from '../../utils/dummyData'
 
 const jobTitles: JobTitle[] = [
-  'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter', 
-  'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic', 
-  'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy'
+  'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter',
+  'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic',
+  'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy',
+  'AC Technician', 'Welder', 'Mason', 'Tile Setter', 'Roofer', 'Glazier',
+  'Heavy Equipment Operator', 'Crane Operator', 'Forklift Operator', 'Steel Fixer',
+  'Pipe Fitter', 'HVAC Technician', 'Concrete Mixer', 'Excavator Operator',
+  'Road Worker', 'Building Maintenance', 'Pool Cleaner', 'Landscaper',
+  'Window Cleaner', 'Pest Control Technician', 'Laundry Worker', 'Dishwasher',
+  'Food Preparation Worker', 'Kitchen Helper', 'Waiter', 'Barista', 'Cashier',
+  'Shop Assistant', 'Inventory Clerk', 'Packer', 'Loading Worker', 'Moving Helper',
+  'Cleaning Supervisor', 'Maintenance Supervisor'
 ]
 
 const cities: City[] = [
-  'Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain',
-  'Doha', 'Al Rayyan', 'Al Wakrah', 'Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Medina',
-  'Muscat', 'Salalah', 'Sohar', 'Kuwait City', 'Hawalli', 'Manama', 'Riffa'
+  // UAE
+  'Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain', 'Al Ain',
+  // Qatar
+  'Doha', 'Al Rayyan', 'Al Wakrah', 'Umm Salal', 'Al Khor', 'Al Daayen',
+  // Saudi Arabia
+  'Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Medina', 'Khobar', 'Dhahran', 'Jubail', 'Yanbu', 'Taif',
+  // Oman
+  'Muscat', 'Salalah', 'Sohar', 'Nizwa', 'Sur', 'Rustaq', 'Buraimi',
+  // Kuwait
+  'Kuwait City', 'Hawalli', 'Salmiya', 'Jahra', 'Ahmadi', 'Farwaniya',
+  // Bahrain
+  'Manama', 'Riffa', 'Muharraq', 'Hamad Town', 'Isa Town', 'Sitra'
 ]
 
 export default function EmployerDashboard() {
@@ -281,6 +299,20 @@ export default function EmployerDashboard() {
               <span className="hidden sm:inline">⭐ Saved Profiles ({savedProfiles.length})</span>
               <span className="sm:hidden">⭐ Saved ({savedProfiles.length})</span>
             </button>
+            <button
+              onClick={() => {
+                localStorage.removeItem('isEmployerLoggedIn')
+                localStorage.removeItem('employerData')
+                window.location.href = '/employer-login'
+              }}
+              className="px-3 sm:px-4 py-2 rounded-lg font-medium transition-all text-sm sm:text-base bg-red-500/20 text-white hover:bg-red-500/30 border border-red-300/30"
+            >
+              <ArrowRightOnRectangleIcon className="h-4 w-4 sm:hidden" />
+              <span className="hidden sm:flex items-center gap-2">
+                <ArrowRightOnRectangleIcon className="h-4 w-4" />
+                Logout
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -525,7 +557,7 @@ export default function EmployerDashboard() {
                   <div className="text-xs sm:text-sm text-gray-600">Cities</div>
                 </div>
                 <div className="bg-white rounded-xl p-3 sm:p-4 border">
-                  <div className="text-lg sm:text-2xl font-bold text-purple-600">65</div>
+                  <div className="text-lg sm:text-2xl font-bold text-purple-600">47</div>
                   <div className="text-xs sm:text-sm text-gray-600">Job Types</div>
                 </div>
                 <div className="bg-white rounded-xl p-3 sm:p-4 border">
