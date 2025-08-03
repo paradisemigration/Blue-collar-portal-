@@ -13,8 +13,37 @@ import {
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, FilterOptions } from '../../types'
 
-// Mock data - in real app this would come from API
-const mockWorkers: Worker[] = [
+// Load real worker data from localStorage
+const loadRealWorkers = (): Worker[] => {
+  try {
+    const workers: Worker[] = []
+
+    // Load individual profile
+    const userProfile = localStorage.getItem('userProfile')
+    if (userProfile) {
+      workers.push(JSON.parse(userProfile))
+    }
+
+    // Load all profiles
+    const allProfiles = localStorage.getItem('allUserProfiles')
+    if (allProfiles) {
+      const profiles = JSON.parse(allProfiles)
+      profiles.forEach((profile: Worker) => {
+        if (!workers.find(w => w.id === profile.id)) {
+          workers.push(profile)
+        }
+      })
+    }
+
+    return workers
+  } catch (error) {
+    console.error('Error loading workers:', error)
+    return []
+  }
+}
+
+// Fallback demo data
+const demoWorkers: Worker[] = [
   {
     id: '1',
     fullName: 'Ahmed Hassan',

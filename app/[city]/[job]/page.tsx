@@ -10,63 +10,76 @@ import {
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City } from '../../../types'
 
-// Mock data - in real app this would come from API
-const mockWorkers: Worker[] = [
-  {
-    id: '1',
-    fullName: 'Ahmed Hassan',
-    profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-    jobTitle: 'Driver',
-    yearsExperience: 8,
-    city: 'Dubai',
-    country: 'UAE',
-    languagesSpoken: ['English', 'Arabic', 'Hindi'],
-    expectedSalary: 3500,
-    visaStatus: 'Available',
-    availability: true,
-    aboutMe: 'Experienced professional driver with clean driving record and excellent customer service skills.',
-    phoneNumber: '+971501234567',
-    email: 'ahmed.hassan@email.com',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '2',
-    fullName: 'Maria Santos',
-    profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=150&h=150&fit=crop&crop=face',
-    jobTitle: 'Maid',
-    yearsExperience: 5,
-    city: 'Dubai',
-    country: 'UAE',
-    languagesSpoken: ['English', 'Tagalog', 'Arabic'],
-    expectedSalary: 2500,
-    visaStatus: 'Available',
-    availability: true,
-    aboutMe: 'Dedicated housekeeping professional with attention to detail and reliability.',
-    phoneNumber: '+971501234568',
-    email: 'maria.santos@email.com',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '3',
-    fullName: 'Fatima Al-Zahra',
-    profilePicture: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
-    jobTitle: 'Maid',
-    yearsExperience: 7,
-    city: 'Dubai',
-    country: 'UAE',
-    languagesSpoken: ['Arabic', 'English', 'French'],
-    expectedSalary: 2800,
-    visaStatus: 'Available',
-    availability: true,
-    aboutMe: 'Professional housekeeping with experience in luxury homes and hotels.',
-    phoneNumber: '+971501234570',
-    email: 'fatima.zahra@email.com',
-    createdAt: new Date(),
-    updatedAt: new Date()
+// Load actual user data from localStorage
+const loadWorkers = (): Worker[] => {
+  try {
+    const workers: Worker[] = []
+
+    // Load individual profile
+    const userProfile = localStorage.getItem('userProfile')
+    if (userProfile) {
+      workers.push(JSON.parse(userProfile))
+    }
+
+    // Load all profiles
+    const allProfiles = localStorage.getItem('allUserProfiles')
+    if (allProfiles) {
+      const profiles = JSON.parse(allProfiles)
+      profiles.forEach((profile: Worker) => {
+        if (!workers.find(w => w.id === profile.id)) {
+          workers.push(profile)
+        }
+      })
+    }
+
+    // Add demo data if no real users exist
+    if (workers.length === 0) {
+      return [
+        {
+          id: 'demo1',
+          fullName: 'Ahmed Hassan',
+          profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+          jobTitle: 'Driver',
+          yearsExperience: 8,
+          city: 'Dubai',
+          country: 'UAE',
+          languagesSpoken: ['English', 'Arabic', 'Hindi'],
+          expectedSalary: 3500,
+          visaStatus: 'Work Visa',
+          availability: true,
+          aboutMe: 'Experienced professional driver with clean driving record and excellent customer service skills.',
+          phoneNumber: '+971501234567',
+          email: 'ahmed.hassan@email.com',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id: 'demo2',
+          fullName: 'Maria Santos',
+          profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=150&h=150&fit=crop&crop=face',
+          jobTitle: 'Maid',
+          yearsExperience: 5,
+          city: 'Dubai',
+          country: 'UAE',
+          languagesSpoken: ['English', 'Tagalog', 'Arabic'],
+          expectedSalary: 2500,
+          visaStatus: 'Work Visa',
+          availability: true,
+          aboutMe: 'Dedicated housekeeping professional with attention to detail and reliability.',
+          phoneNumber: '+971501234568',
+          email: 'maria.santos@email.com',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      ]
+    }
+
+    return workers
+  } catch (error) {
+    console.error('Error loading workers:', error)
+    return []
   }
-]
+}
 
 const validCities: City[] = [
   'dubai', 'abu-dhabi', 'sharjah', 'ajman', 'ras-al-khaimah', 'fujairah', 'umm-al-quwain',
@@ -128,25 +141,42 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const cityName = formatCityName(params.city)
   const jobTitle = formatJobTitle(params.job)
-  
+  const url = `/${params.city}/${params.job}`
+
+  // Try to load custom SEO data
+  let customSEO = null
+  try {
+    if (typeof window !== 'undefined') {
+      const savedSEO = localStorage.getItem('seoCustomizations')
+      if (savedSEO) {
+        const customizations = JSON.parse(savedSEO)
+        customSEO = customizations[url]
+      }
+    }
+  } catch (error) {
+    console.error('Error loading SEO data:', error)
+  }
+
   return {
-    title: `Hire Verified ${jobTitle}s in ${cityName} | Gulf Hiring Platform`,
-    description: `Find experienced ${jobTitle.toLowerCase()}s in ${cityName}. Browse verified profiles, check reviews, and hire skilled professionals for your business needs.`,
+    title: customSEO?.title || `Hire Verified ${jobTitle}s in ${cityName} | Gulf Hiring Platform`,
+    description: customSEO?.description || `Find experienced ${jobTitle.toLowerCase()}s in ${cityName}. Browse verified profiles, check reviews, and hire skilled professionals for your business needs.`,
+    keywords: customSEO?.keywords || `${jobTitle.toLowerCase()}, ${cityName.toLowerCase()}, hire, jobs, workers, gulf`,
   }
 }
 
 export default function CityJobPage({ params }: PageProps) {
   // Validate URL parameters
-  if (!validCities.includes(params.city.toLowerCase() as City) || 
+  if (!validCities.includes(params.city.toLowerCase() as City) ||
       !validJobs.includes(params.job.toLowerCase() as JobTitle)) {
     notFound()
   }
 
   const cityDisplay = citySlugToDisplayName(params.city)
   const jobDisplay = jobSlugToDisplayName(params.job)
-  
-  // Filter workers by city and job
-  const filteredWorkers = mockWorkers.filter(worker => 
+
+  // Load real workers and filter by city and job
+  const allWorkers = loadWorkers()
+  const filteredWorkers = allWorkers.filter(worker =>
     worker.city.toLowerCase().replace(/\s+/g, '-') === params.city.toLowerCase() &&
     worker.jobTitle.toLowerCase().replace(/\s+/g, '-') === params.job.toLowerCase()
   )
@@ -243,8 +273,8 @@ export default function CityJobPage({ params }: PageProps) {
                         {worker.city}, {worker.country}
                       </div>
                     </div>
-                    {worker.visaStatus === 'Available' && (
-                      <CheckBadgeIcon className="h-5 w-5 text-green-500" title="Visa Available" />
+                    {(worker.visaStatus === 'Work Visa' || worker.visaStatus === 'Freelance Visa') && (
+                      <CheckBadgeIcon className="h-5 w-5 text-green-500" title={worker.visaStatus} />
                     )}
                   </div>
 
