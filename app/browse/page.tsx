@@ -12,9 +12,10 @@ import {
   CheckBadgeIcon
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, FilterOptions } from '../../types'
+import { generateDummyWorkers } from '../../utils/dummyData'
 
-// Load real worker data from localStorage
-const loadRealWorkers = (): Worker[] => {
+// Load real worker data from localStorage and combine with dummy data
+const loadAllWorkers = (): Worker[] => {
   try {
     const workers: Worker[] = []
 
@@ -35,88 +36,20 @@ const loadRealWorkers = (): Worker[] => {
       })
     }
 
+    // Add comprehensive dummy data
+    const dummyWorkers = generateDummyWorkers()
+    dummyWorkers.forEach((dummyWorker) => {
+      if (!workers.find(w => w.id === dummyWorker.id)) {
+        workers.push(dummyWorker)
+      }
+    })
+
     return workers
   } catch (error) {
     console.error('Error loading workers:', error)
-    return []
+    return generateDummyWorkers() // Fallback to dummy data
   }
 }
-
-// Fallback demo data
-const demoWorkers: Worker[] = [
-  {
-    id: '1',
-    fullName: 'Ahmed Hassan',
-    profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-    jobTitle: 'Driver',
-    yearsExperience: 8,
-    city: 'Dubai',
-    country: 'UAE',
-    languagesSpoken: ['English', 'Arabic', 'Hindi'],
-    expectedSalary: 3500,
-    visaStatus: 'Available',
-    availability: true,
-    aboutMe: 'Experienced professional driver with clean driving record and excellent customer service skills.',
-    phoneNumber: '+971501234567',
-    email: 'ahmed.hassan@email.com',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '2',
-    fullName: 'Maria Santos',
-    profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=150&h=150&fit=crop&crop=face',
-    jobTitle: 'Maid',
-    yearsExperience: 5,
-    city: 'Abu Dhabi',
-    country: 'UAE',
-    languagesSpoken: ['English', 'Tagalog', 'Arabic'],
-    expectedSalary: 2500,
-    visaStatus: 'Available',
-    availability: true,
-    aboutMe: 'Dedicated housekeeping professional with attention to detail and reliability.',
-    phoneNumber: '+971501234568',
-    email: 'maria.santos@email.com',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '3',
-    fullName: 'Rajesh Kumar',
-    profilePicture: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    jobTitle: 'Electrician',
-    yearsExperience: 12,
-    city: 'Dubai',
-    country: 'UAE',
-    languagesSpoken: ['English', 'Hindi', 'Tamil'],
-    expectedSalary: 4500,
-    visaStatus: 'Available',
-    availability: true,
-    aboutMe: 'Certified electrician with extensive experience in residential and commercial projects.',
-    phoneNumber: '+971501234569',
-    email: 'rajesh.kumar@email.com',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '4',
-    fullName: 'Omar Al-Rashid',
-    profilePicture: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
-    jobTitle: 'Security Guard',
-    yearsExperience: 6,
-    city: 'Doha',
-    country: 'Qatar',
-    languagesSpoken: ['Arabic', 'English'],
-    expectedSalary: 3200,
-    visaStatus: 'Not Available',
-    availability: true,
-    aboutMe: 'Professional security guard with military background and excellent vigilance skills.',
-    phoneNumber: '+97450123456',
-    email: 'omar.rashid@email.com',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  }
-]
 
 const jobTitles: JobTitle[] = [
   'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter', 
@@ -138,13 +71,9 @@ export default function BrowseWorkers() {
   const [workers, setWorkers] = useState<Worker[]>([])
 
   useEffect(() => {
-    // Load real workers or fallback to demo
-    const realWorkers = loadRealWorkers()
-    if (realWorkers.length > 0) {
-      setWorkers(realWorkers)
-    } else {
-      setWorkers(demoWorkers)
-    }
+    // Load all workers (real + dummy data)
+    const allWorkers = loadAllWorkers()
+    setWorkers(allWorkers)
   }, [])
 
   const filteredWorkers = useMemo(() => {
@@ -280,7 +209,7 @@ export default function BrowseWorkers() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Salary (AED)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Salary (Local Currency)</label>
                   <div className="flex gap-2">
                     <input
                       type="number"
@@ -347,7 +276,7 @@ export default function BrowseWorkers() {
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-navy-900">{worker.expectedSalary}</div>
-                  <div className="text-gray-600 text-sm">AED/Month</div>
+                  <div className="text-gray-600 text-sm">Local Currency/Month</div>
                 </div>
               </div>
 
