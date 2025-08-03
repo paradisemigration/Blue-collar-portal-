@@ -1149,33 +1149,68 @@ function generateWorkerProfile(
 }
 
 export function generateDummyWorkers(): Worker[] {
-  const workers: Worker[] = []
-  let idCounter = 1
-  let nameIndex = 0
-  
-  // Generate workers for each city/job combination
-  Object.entries(GULF_REGIONS).forEach(([country, data]) => {
-    data.cities.forEach(city => {
-      Object.keys(JOB_DETAILS).forEach(jobTitle => {
-        // Generate 20-25 workers per city/job combination
-        const workersPerJob = getRandomRange(20, 25)
-        
-        for (let i = 0; i < workersPerJob; i++) {
-          const worker = generateWorkerProfile(
-            `dummy_${idCounter}`,
-            jobTitle as JobTitle,
-            city,
-            nameIndex
-          )
-          workers.push(worker)
-          idCounter++
-          nameIndex++
-        }
+  try {
+    const workers: Worker[] = []
+    let idCounter = 1
+    let nameIndex = 0
+
+    // Generate workers for each city/job combination with reduced count for performance
+    Object.entries(GULF_REGIONS).forEach(([country, data]) => {
+      data.cities.forEach(city => {
+        Object.keys(JOB_DETAILS).forEach(jobTitle => {
+          try {
+            // Generate 5-8 workers per city/job combination for better performance
+            const workersPerJob = getRandomRange(5, 8)
+
+            for (let i = 0; i < workersPerJob; i++) {
+              try {
+                const worker = generateWorkerProfile(
+                  `dummy_${idCounter}`,
+                  jobTitle as JobTitle,
+                  city,
+                  nameIndex
+                )
+                workers.push(worker)
+                idCounter++
+                nameIndex++
+              } catch (error) {
+                console.error(`Error generating worker profile ${idCounter}:`, error)
+                idCounter++
+              }
+            }
+          } catch (error) {
+            console.error(`Error generating workers for ${jobTitle} in ${city}:`, error)
+          }
+        })
       })
     })
-  })
-  
-  return workers
+
+    console.log(`Generated ${workers.length} dummy workers`)
+    return workers
+  } catch (error) {
+    console.error('Error in generateDummyWorkers:', error)
+    // Return minimal fallback data
+    return [
+      {
+        id: 'fallback_1',
+        fullName: 'Ahmed Hassan',
+        profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+        jobTitle: 'Driver',
+        yearsExperience: 5,
+        city: 'Dubai',
+        country: 'UAE',
+        languagesSpoken: ['English', 'Arabic'],
+        expectedSalary: 3000,
+        visaStatus: 'Work Visa',
+        availability: true,
+        aboutMe: 'Experienced professional worker.',
+        phoneNumber: '+971501234567',
+        email: 'ahmed.hassan@email.com',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ]
+  }
 }
 
 export function getCurrencyDisplayForCity(city: string): string {
