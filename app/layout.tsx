@@ -3,8 +3,9 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 export const metadata = {
-  title: 'Gulf Hiring Platform - Find Blue-Collar Workers',
-  description: 'Connect with verified blue-collar workers across the Gulf region. Browse profiles, hire talent, and grow your business.',
+  title: 'Go Get Hire - Find Blue-Collar Workers Across Gulf Region',
+  description: 'Go Get Hire connects employers with verified blue-collar workers across the Gulf region. Browse profiles, hire skilled talent, and grow your business with trusted professionals.',
+  keywords: 'Gulf hiring, blue collar workers, Gulf jobs, hire workers, skilled workers, UAE jobs, Qatar jobs, Saudi Arabia jobs'
 }
 
 export default function RootLayout({

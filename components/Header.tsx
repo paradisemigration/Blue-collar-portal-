@@ -13,7 +13,6 @@ export default function Header() {
     { name: 'Add Profile', href: '/create-profile' },
     { name: 'Job Postings', href: '/jobs' },
     { name: 'Pricing', href: '/pricing' },
-    { name: 'Admin', href: '/admin' },
   ]
 
   return (
@@ -23,7 +22,7 @@ export default function Header() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               <BriefcaseIcon className="h-8 w-8 text-primary-600" />
-              <span className="text-2xl font-bold text-navy-900">GulfHire</span>
+              <span className="text-2xl font-bold text-navy-900">Go Get Hire</span>
             </Link>
           </div>
           
