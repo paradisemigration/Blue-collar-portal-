@@ -72,18 +72,14 @@ export default function Header() {
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-3">
-            {isEmployer ? (
+            {isEmployer && (
               <Link href="/employer-dashboard" className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors">
                 <BriefcaseIcon className="h-5 w-5" />
                 Dashboard
               </Link>
-            ) : (
-              <Link href="/admin-login" className="text-gray-700 hover:text-primary-600 font-medium transition-colors text-sm">
-                Admin
-              </Link>
             )}
             <Link href="/login" className="btn-secondary text-sm">
-              Login
+              Worker Login
             </Link>
             <Link href="/register" className="btn-primary text-sm">
               Sign Up
