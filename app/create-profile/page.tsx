@@ -802,12 +802,12 @@ Please check your email and bookmark these credentials for future login.`)
               </div>
 
               {/* Languages */}
-              <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6">
-                <h2 className="text-2xl font-bold text-navy-900 mb-6">
+              <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-4 sm:p-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-6">
                   🌐 Languages Spoken *
                 </h2>
-                
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 mb-4">
                   {commonLanguages.map(language => (
                     <button
                       key={language}
