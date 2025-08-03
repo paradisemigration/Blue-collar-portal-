@@ -150,19 +150,19 @@ export default function EditProfile() {
   }
 
   const validateEmail = (email: string) => {
-    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email) || 'Please enter a valid email address'
   }
 
   const validatePhoneNumber = (phone: string) => {
-    const phoneRegex = /^\\+?[1-9]\\d{1,14}$/
-    return phoneRegex.test(phone.replace(/\\s/g, '')) || 'Please enter a valid phone number'
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/
+    return phoneRegex.test(phone.replace(/\s/g, '')) || 'Please enter a valid phone number'
   }
 
   const validateFullName = (name: string) => {
     if (name.length < 2) return 'Name must be at least 2 characters'
     if (name.length > 50) return 'Name must be less than 50 characters'
-    if (!/^[a-zA-Z\\s]+$/.test(name)) return 'Name can only contain letters and spaces'
+    if (!/^[a-zA-Z\s]+$/.test(name)) return 'Name can only contain letters and spaces'
     return true
   }
 
