@@ -13,7 +13,7 @@ export default function Footer() {
               <span className="text-2xl font-bold">Go Get Hire</span>
             </div>
             <p className="text-gray-300 max-w-md">
-              Paradise Workers Hub connects skilled blue-collar workers with employers across the Gulf region.
+              Go Get Hire connects skilled blue-collar workers with employers across the Gulf region.
               Find verified professionals and grow your business with trusted talent.
             </p>
           </div>
