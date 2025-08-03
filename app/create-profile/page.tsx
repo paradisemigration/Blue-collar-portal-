@@ -440,15 +440,7 @@ Please check your email and bookmark these credentials for future login.`)
               </div>
             </div>
 
-            {/* Get Hired Promise Banner */}
-            <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl p-4 sm:p-6 mb-6 shadow-xl">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-2">
-                🚀 Get Hired in 7 Working Days
-              </h2>
-              <p className="text-green-100 text-sm sm:text-base">
-                Our verified workers get contacted by employers within a week of profile creation
-              </p>
-            </div>
+
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-navy-900 to-primary-600 bg-clip-text text-transparent mb-4">
               Create Your Professional Profile
@@ -502,11 +494,11 @@ Please check your email and bookmark these credentials for future login.`)
                     </label>
                     <input
                       type="text"
-                      {...register('fullName', { 
+                      {...register('fullName', {
                         required: 'Full name is required',
                         validate: validateFullName
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                      className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                       placeholder="Enter your full name"
                     />
                     {errors.fullName && (
@@ -575,7 +567,7 @@ Please check your email and bookmark these credentials for future login.`)
                         required: 'Email is required',
                         validate: validateEmail
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                      className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                       placeholder="your.email@example.com"
                     />
                     {errors.email && (
@@ -596,7 +588,7 @@ Please check your email and bookmark these credentials for future login.`)
                         required: 'Phone number is required',
                         validate: validatePhoneNumber
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                      className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                       placeholder={locationInfo?.phoneCode ? `${locationInfo.phoneCode} 50 123 4567` : "+971 50 123 4567"}
                     />
                     {errors.phoneNumber && (
@@ -627,7 +619,7 @@ Please check your email and bookmark these credentials for future login.`)
                     </label>
                     <select
                       {...register('jobTitle', { required: 'Job title is required' })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                      className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                     >
                       <option value="">Select your job title</option>
                       {jobTitles.map(title => (
@@ -652,7 +644,7 @@ Please check your email and bookmark these credentials for future login.`)
                         {...register('customJobTitle', { 
                           required: showCustomJobTitle ? 'Please specify your job title' : false
                         })}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                        className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                         placeholder="Enter your specific job title"
                       />
                       {errors.customJobTitle && (
@@ -671,7 +663,7 @@ Please check your email and bookmark these credentials for future login.`)
                     <textarea
                       {...register('jobProfile')}
                       rows={3}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                      className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                       placeholder="Describe your job profile, key responsibilities, and expertise..."
                     />
                     <p className="text-xs text-gray-500 mt-1">💼 Help employers understand your specific role and skills</p>
@@ -691,7 +683,7 @@ Please check your email and bookmark these credentials for future login.`)
                         max: { value: 50, message: 'Maximum experience is 50 years' },
                         valueAsNumber: true
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                      className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                       placeholder="5"
                     />
                     {errors.yearsExperience && (
@@ -740,7 +732,7 @@ Please check your email and bookmark these credentials for future login.`)
                     </label>
                     <select
                       {...register('visaStatus', { required: 'Visa status is required' })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                      className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                     >
                       <option value="">Select visa status</option>
                       <option value="Work Visa">🟢 Work Visa</option>
@@ -772,7 +764,7 @@ Please check your email and bookmark these credentials for future login.`)
                     <select
                       {...register('country', { required: 'Country is required' })}
                       onChange={handleCountryChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                      className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                     >
                       <option value="">Select country</option>
                       {countries.map(country => (
@@ -792,7 +784,7 @@ Please check your email and bookmark these credentials for future login.`)
                     </label>
                     <select
                       {...register('city', { required: 'City is required' })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white"
+                      className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 bg-white text-sm sm:text-base"
                       disabled={!selectedCountry}
                     >
                       <option value="">{selectedCountry ? 'Select city' : 'Select country first'}</option>
@@ -909,8 +901,21 @@ Please check your email and bookmark these credentials for future login.`)
             </div>
           </form>
 
+          {/* Get Hired Promise Banner - Moved to bottom */}
+          <div className="mt-8 sm:mt-12 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl p-6 sm:p-8 shadow-xl text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+              🚀 Get Hired in 7 Working Days!
+            </h2>
+            <p className="text-green-100 text-base sm:text-lg mb-4">
+              Our verified workers get contacted by employers within a week of profile creation
+            </p>
+            <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm">
+              <p className="text-sm font-medium">✅ 94% of our workers receive their first job contact within 7 days</p>
+            </div>
+          </div>
+
           {/* Terms and Benefits */}
-          <div className="mt-8 sm:mt-12 space-y-6">
+          <div className="mt-8 space-y-6">
             {/* Benefits */}
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <h3 className="text-lg font-bold text-center text-navy-900 mb-4">🌟 What You Get</h3>
