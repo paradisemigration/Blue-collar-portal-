@@ -56,9 +56,18 @@ const loadWorkers = (): Worker[] => {
 }
 
 const validCities: City[] = [
-  'dubai', 'abu-dhabi', 'sharjah', 'ajman', 'ras-al-khaimah', 'fujairah', 'umm-al-quwain',
-  'doha', 'al-rayyan', 'al-wakrah', 'riyadh', 'jeddah', 'dammam', 'mecca', 'medina',
-  'muscat', 'salalah', 'sohar', 'kuwait-city', 'hawalli', 'manama', 'riffa'
+  // UAE
+  'dubai', 'abu-dhabi', 'sharjah', 'ajman', 'ras-al-khaimah', 'fujairah', 'umm-al-quwain', 'al-ain',
+  // Qatar
+  'doha', 'al-rayyan', 'al-wakrah', 'umm-salal', 'al-khor', 'al-daayen',
+  // Saudi Arabia
+  'riyadh', 'jeddah', 'dammam', 'mecca', 'medina', 'khobar', 'dhahran', 'jubail', 'yanbu', 'taif',
+  // Oman
+  'muscat', 'salalah', 'sohar', 'nizwa', 'sur', 'rustaq', 'buraimi',
+  // Kuwait
+  'kuwait-city', 'hawalli', 'salmiya', 'jahra', 'ahmadi', 'farwaniya',
+  // Bahrain
+  'manama', 'riffa', 'muharraq', 'hamad-town', 'isa-town', 'sitra'
 ]
 
 const validJobs: JobTitle[] = [
