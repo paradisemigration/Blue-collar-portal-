@@ -337,7 +337,10 @@ export default function BrowseWorkers() {
 
               {/* Actions */}
               <div className="flex gap-2">
-                <button className="btn-secondary flex-1 flex items-center justify-center gap-2">
+                <button
+                  onClick={() => handleViewProfile(worker)}
+                  className="btn-secondary flex-1 flex items-center justify-center gap-2"
+                >
                   <EyeIcon className="h-4 w-4" />
                   View Profile
                 </button>
