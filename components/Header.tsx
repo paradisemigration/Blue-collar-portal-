@@ -11,6 +11,7 @@ export default function Header() {
     { name: 'Home', href: '/' },
     { name: 'Browse Workers', href: '/browse' },
     { name: 'Add Profile', href: '/create-profile' },
+    { name: 'Dashboard', href: '/dashboard' },
     { name: 'Job Postings', href: '/jobs' },
     { name: 'Pricing', href: '/pricing' },
   ]
