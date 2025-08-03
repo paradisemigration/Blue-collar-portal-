@@ -553,11 +553,11 @@ export default function EmployerDashboard() {
                   <div className="text-xs sm:text-sm text-gray-600">Total Profiles</div>
                 </div>
                 <div className="bg-white rounded-xl p-3 sm:p-4 border">
-                  <div className="text-lg sm:text-2xl font-bold text-green-600">47</div>
+                  <div className="text-lg sm:text-2xl font-bold text-green-600">43</div>
                   <div className="text-xs sm:text-sm text-gray-600">Cities</div>
                 </div>
                 <div className="bg-white rounded-xl p-3 sm:p-4 border">
-                  <div className="text-lg sm:text-2xl font-bold text-purple-600">47</div>
+                  <div className="text-lg sm:text-2xl font-bold text-purple-600">49</div>
                   <div className="text-xs sm:text-sm text-gray-600">Job Types</div>
                 </div>
                 <div className="bg-white rounded-xl p-3 sm:p-4 border">
