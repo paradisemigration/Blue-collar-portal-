@@ -121,10 +121,10 @@ export default function Pricing() {
     }))
     // Here you would normally integrate with Stripe
     alert(`Thank you! Redirecting to payment for ${selectedPlan.name} plan (${selectedPlan.currency} ${selectedPlan.price})\n\nAfter payment, you'll be redirected to your employer dashboard.`)
-    // Simulate successful payment and redirect to dashboard
+    // Simulate successful payment and redirect to employer dashboard
     setTimeout(() => {
       localStorage.setItem('isEmployerLoggedIn', 'true')
-      window.location.href = '/dashboard'
+      window.location.href = '/employer-dashboard'
     }, 2000)
   }
 
