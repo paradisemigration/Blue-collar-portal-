@@ -62,9 +62,17 @@ const validCities: City[] = [
 ]
 
 const validJobs: JobTitle[] = [
-  'driver', 'maid', 'electrician', 'plumber', 'cleaner', 'carpenter', 
-  'painter', 'security-guard', 'cook', 'gardener', 'mechanic', 
-  'construction-worker', 'delivery-driver', 'warehouse-worker', 'office-boy'
+  'driver', 'maid', 'electrician', 'plumber', 'cleaner', 'carpenter',
+  'painter', 'security-guard', 'cook', 'chef', 'gardener', 'mechanic',
+  'construction-worker', 'delivery-driver', 'warehouse-worker', 'office-boy',
+  'ac-technician', 'welder', 'mason', 'tile-setter', 'roofer', 'glazier',
+  'heavy-equipment-operator', 'crane-operator', 'forklift-operator', 'steel-fixer',
+  'pipe-fitter', 'hvac-technician', 'concrete-mixer', 'excavator-operator',
+  'road-worker', 'building-maintenance', 'pool-cleaner', 'landscaper',
+  'window-cleaner', 'pest-control-technician', 'laundry-worker', 'dishwasher',
+  'food-preparation-worker', 'kitchen-helper', 'waiter', 'barista', 'cashier',
+  'shop-assistant', 'inventory-clerk', 'packer', 'loading-worker', 'moving-helper',
+  'cleaning-supervisor', 'maintenance-supervisor'
 ]
 
 function formatCityName(slug: string): string {
