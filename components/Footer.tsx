@@ -10,9 +10,9 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fae655e15f41d4e2a843beb5ac79ab8d2?format=webp&width=200"
+                src="https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2F7dfeb24366b045dfa6f9c1b8aebdc773?format=webp&width=800"
                 alt="Go Get Hire Logo"
-                className="h-14 w-auto sm:h-16 brightness-0 invert"
+                className="h-20 w-auto sm:h-24 md:h-28 brightness-0 invert"
               />
             </div>
             <p className="text-gray-300 max-w-md">
