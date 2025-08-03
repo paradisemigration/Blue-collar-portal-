@@ -491,19 +491,45 @@ export default function EmployerDashboard() {
                 <button
                   onClick={loadMoreWorkers}
                   disabled={isLoading}
-                  className="btn-primary px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-primary px-6 sm:px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 >
                   {isLoading ? (
                     <div className="flex items-center gap-2">
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Loading...
+                      <span className="hidden sm:inline">Loading...</span>
                     </div>
                   ) : (
-                    `Load More Workers (${filteredWorkers.length - displayedWorkers.length} remaining)`
+                    <>
+                      <span className="hidden sm:inline">{`Load More Workers (${filteredWorkers.length - displayedWorkers.length} remaining)`}</span>
+                      <span className="sm:hidden">{`Load More (${filteredWorkers.length - displayedWorkers.length})`}</span>
+                    </>
                   )}
                 </button>
               </div>
             )}
+
+            {/* Database Statistics */}
+            <div className="mt-8 bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-4 sm:p-6 border">
+              <h3 className="text-lg sm:text-xl font-bold text-navy-900 mb-4 text-center">📊 Platform Statistics</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
+                <div className="bg-white rounded-xl p-3 sm:p-4 border">
+                  <div className="text-lg sm:text-2xl font-bold text-primary-600">{workers.length.toLocaleString()}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Total Profiles</div>
+                </div>
+                <div className="bg-white rounded-xl p-3 sm:p-4 border">
+                  <div className="text-lg sm:text-2xl font-bold text-green-600">47</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Cities</div>
+                </div>
+                <div className="bg-white rounded-xl p-3 sm:p-4 border">
+                  <div className="text-lg sm:text-2xl font-bold text-purple-600">65</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Job Types</div>
+                </div>
+                <div className="bg-white rounded-xl p-3 sm:p-4 border">
+                  <div className="text-lg sm:text-2xl font-bold text-orange-600">6</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Countries</div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
         
