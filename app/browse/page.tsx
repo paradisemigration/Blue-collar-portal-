@@ -69,6 +69,8 @@ export default function BrowseWorkers() {
   const [isSubscribed, setIsSubscribed] = useState(false) // Mock subscription status
   const [filters, setFilters] = useState<FilterOptions>({})
   const [workers, setWorkers] = useState<Worker[]>([])
+  const [displayCount, setDisplayCount] = useState(30)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     // Load all workers (real + dummy data)
@@ -80,7 +82,7 @@ export default function BrowseWorkers() {
     return workers.filter(worker => {
       // Search term filter
       if (searchTerm) {
-        const searchMatch = 
+        const searchMatch =
           worker.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
           worker.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
           worker.city.toLowerCase().includes(searchTerm.toLowerCase())
@@ -98,7 +100,11 @@ export default function BrowseWorkers() {
 
       return true
     })
-  }, [searchTerm, filters])
+  }, [workers, searchTerm, filters])
+
+  const displayedWorkers = useMemo(() => {
+    return filteredWorkers.slice(0, displayCount)
+  }, [filteredWorkers, displayCount])
 
   const handleFilterChange = (key: keyof FilterOptions, value: any) => {
     setFilters(prev => ({ ...prev, [key]: value }))
@@ -107,6 +113,16 @@ export default function BrowseWorkers() {
   const clearFilters = () => {
     setFilters({})
     setSearchTerm('')
+    setDisplayCount(30)
+  }
+
+  const loadMoreWorkers = () => {
+    setIsLoading(true)
+    // Simulate loading delay
+    setTimeout(() => {
+      setDisplayCount(prev => prev + 30)
+      setIsLoading(false)
+    }, 500)
   }
 
   const handleUnlockProfile = (workerId: string) => {
@@ -132,26 +148,26 @@ export default function BrowseWorkers() {
         </div>
 
         {/* Search and Filter Bar */}
-        <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
-          <div className="flex flex-col lg:flex-row gap-4">
+        <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 mb-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             {/* Search */}
             <div className="flex-1 relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search by name, job title, or city..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               />
             </div>
 
             {/* Filter Toggle */}
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="btn-secondary flex items-center gap-2"
+              className="btn-secondary flex items-center justify-center gap-2 px-4 py-2.5 sm:py-3 text-sm sm:text-base whitespace-nowrap"
             >
-              <FunnelIcon className="h-5 w-5" />
+              <FunnelIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               Filters
             </button>
           </div>
@@ -229,7 +245,7 @@ export default function BrowseWorkers() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center mt-4">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mt-4">
                 <button
                   onClick={clearFilters}
                   className="text-gray-600 hover:text-gray-800 text-sm"
@@ -237,7 +253,7 @@ export default function BrowseWorkers() {
                   Clear all filters
                 </button>
                 <span className="text-sm text-gray-600">
-                  {filteredWorkers.length} workers found
+                  Showing {displayedWorkers.length} of {filteredWorkers.length} workers
                 </span>
               </div>
             </div>
@@ -246,7 +262,7 @@ export default function BrowseWorkers() {
 
         {/* Results Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredWorkers.map((worker) => (
+          {displayedWorkers.map((worker) => (
             <div key={worker.id} className="card hover:shadow-lg transition-shadow">
               {/* Profile Header */}
               <div className="flex items-start gap-4 mb-4">
@@ -329,6 +345,26 @@ export default function BrowseWorkers() {
           ))}
         </div>
 
+        {/* Load More Button */}
+        {displayedWorkers.length < filteredWorkers.length && (
+          <div className="text-center mt-8">
+            <button
+              onClick={loadMoreWorkers}
+              disabled={isLoading}
+              className="btn-primary px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Loading...
+                </div>
+              ) : (
+                `Load More Workers (${filteredWorkers.length - displayedWorkers.length} remaining)`
+              )}
+            </button>
+          </div>
+        )}
+
         {/* No Results */}
         {filteredWorkers.length === 0 && (
           <div className="text-center py-12">
@@ -344,7 +380,7 @@ export default function BrowseWorkers() {
         )}
 
         {/* Subscription CTA */}
-        {!isSubscribed && filteredWorkers.length > 0 && (
+        {!isSubscribed && displayedWorkers.length > 0 && (
           <div className="mt-12 bg-primary-600 text-white rounded-lg p-8 text-center">
             <h3 className="text-2xl font-bold mb-4">Unlock Full Access</h3>
             <p className="text-lg mb-6 text-gray-200">
