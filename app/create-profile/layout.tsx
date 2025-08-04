@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Create Your Worker Profile - GoGetHires',
     description: 'Join 15,000+ verified workers. Get hired by top Gulf employers.',
-    images: ['/twitter-image.jpg'],
+    images: ['https://www.gogethires.com/twitter-image.jpg'],
   },
 }
 
