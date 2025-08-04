@@ -5,6 +5,7 @@ import DebugMetaTags from '../components/DebugMetaTags'
 import PageLoader from '../components/PageLoader'
 import ErrorBoundary from '../components/ErrorBoundary'
 import SafeScriptManager from '../components/SafeScriptManager'
+import BottomCTAPopup from '../components/BottomCTAPopup'
 
 export const metadata = {
   title: 'Go Get Hires Now - Premier Blue-Collar Worker Platform | Gulf Region',
