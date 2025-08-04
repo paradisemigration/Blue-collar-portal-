@@ -98,6 +98,20 @@ export default function CreateProfile() {
     }
   })
 
+  // Check if user already has a profile and redirect
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const existingProfile = localStorage.getItem('userProfile')
+      const isLoggedIn = localStorage.getItem('isLoggedIn')
+
+      if (existingProfile && isLoggedIn) {
+        // User already has a profile, redirect to dashboard
+        router.push('/dashboard')
+        return
+      }
+    }
+  }, [router])
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [locationInfo, setLocationInfo] = useState<LocationInfo | null>(null)
