@@ -1,10 +1,10 @@
-// Go Get Hire - Deployment Validation Script
+// Go Get Hires Now - Deployment Validation Script
 // Run this to check if your deployment is ready
 
 const fs = require('fs');
 const path = require('path');
 
-console.log('🔍 Go Get Hire - Deployment Validation\n');
+console.log('🔍 Go Get Hires Now - Deployment Validation\n');
 
 // Check required files
 const requiredFiles = [
@@ -95,7 +95,7 @@ if (allFilesPresent) {
     console.log('2. Run: npm install --production');
     console.log('3. Run: npm run build');
     console.log('4. Run: node server.js');
-    console.log('\n🚀 Your Go Get Hire platform will be live!');
+    console.log('\n🚀 Your Go Get Hires Now platform will be live!');
 } else {
     console.log('❌ DEPLOYMENT NOT READY');
     console.log('\nPlease fix the missing files/folders above before deploying.');

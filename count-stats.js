@@ -37,7 +37,7 @@ try {
   const jobTypes = [...new Set(workers.map(w => w.jobTitle))];
   const totalJobTypes = jobTypes.length;
   
-  console.log('=== GO GET HIRE STATISTICS ===');
+  console.log('=== GO GET HIRES NOW STATISTICS ===');
   console.log('Total Job Profiles:', workers.length);
   console.log('Total Cities:', totalCities);
   console.log('Total Job Types:', totalJobTypes);
