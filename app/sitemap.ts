@@ -108,20 +108,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Generate all city/job combination pages (43 cities × 49 jobs = 2,107 pages)
   const cityJobPages = []
-  
+
+  // High priority cities (major economic centers)
+  const majorCities = ['Dubai', 'Riyadh', 'Doha', 'Kuwait City', 'Abu Dhabi', 'Muscat', 'Manama']
+  // High demand jobs
+  const popularJobs = ['Driver', 'Maid', 'Security Guard', 'Cook', 'Cleaner', 'Construction Worker']
+
   // Get all cities from GULF_REGIONS
   const allCities = Object.values(GULF_REGIONS).flatMap(region => region.cities)
-  
+
   for (const city of allCities) {
     for (const job of JOB_TITLES) {
       const citySlug = cityToSlug(city)
       const jobSlug = jobToSlug(job)
-      
+
+      // Determine priority based on city and job popularity
+      let priority = 0.6 // Base priority
+      if (majorCities.includes(city)) priority += 0.15
+      if (popularJobs.includes(job)) priority += 0.1
+
+      // Cap at 0.9 to keep homepage and browse as highest priority
+      priority = Math.min(priority, 0.9)
+
       cityJobPages.push({
         url: `${baseUrl}/${citySlug}/${jobSlug}`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
-        priority: 0.7,
+        priority: Math.round(priority * 100) / 100, // Round to 2 decimal places
       })
     }
   }
