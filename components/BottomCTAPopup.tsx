@@ -9,7 +9,13 @@ export default function BottomCTAPopup() {
   const [isDismissed, setIsDismissed] = useState(false)
 
   useEffect(() => {
-    // Check if user is already logged in
+    // Don't show on create-profile page itself
+    if (typeof window !== 'undefined' && window.location.pathname === '/create-profile') {
+      setIsDismissed(true)
+      return
+    }
+
+    // Check if user is already logged in or has profile
     const isLoggedIn = localStorage.getItem('isLoggedIn')
     const isEmployerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
     const userProfile = localStorage.getItem('userProfile')
