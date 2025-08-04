@@ -63,21 +63,21 @@ const validCities: City[] = [
   // Saudi Arabia
   'Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Medina', 'Khobar', 'Dhahran', 'Jubail', 'Yanbu', 'Taif',
   // Oman
-  'muscat', 'salalah', 'sohar', 'nizwa', 'sur', 'rustaq', 'buraimi',
+  'Muscat', 'Salalah', 'Sohar', 'Nizwa', 'Sur', 'Rustaq', 'Buraimi',
   // Kuwait
-  'kuwait-city', 'hawalli', 'salmiya', 'jahra', 'ahmadi', 'farwaniya',
+  'Kuwait City', 'Hawalli', 'Salmiya', 'Jahra', 'Ahmadi', 'Farwaniya',
   // Bahrain
-  'manama', 'riffa', 'muharraq', 'hamad-town', 'isa-town', 'sitra'
+  'Manama', 'Riffa', 'Muharraq', 'Hamad Town', 'Isa Town', 'Sitra'
 ]
 
 const validJobs: JobTitle[] = [
-  'driver', 'maid', 'electrician', 'plumber', 'cleaner', 'carpenter',
-  'painter', 'security-guard', 'cook', 'chef', 'gardener', 'mechanic',
-  'construction-worker', 'delivery-driver', 'warehouse-worker', 'office-boy',
-  'ac-technician', 'welder', 'mason', 'tile-setter', 'roofer', 'glazier',
-  'heavy-equipment-operator', 'crane-operator', 'forklift-operator', 'steel-fixer',
-  'pipe-fitter', 'hvac-technician', 'concrete-mixer', 'excavator-operator',
-  'road-worker', 'building-maintenance', 'pool-cleaner', 'landscaper',
+  'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter',
+  'Painter', 'Security Guard', 'Cook', 'Cook', 'Gardener', 'Mechanic',
+  'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy',
+  'AC Technician', 'Welder', 'Mason', 'Tile Setter', 'Roofer', 'Glazier',
+  'Heavy Equipment Operator', 'Crane Operator', 'Forklift Operator', 'Steel Fixer',
+  'Pipe Fitter', 'HVAC Technician', 'Concrete Mixer', 'Excavator Operator',
+  'Road Worker', 'Building Maintenance', 'Pool Cleaner', 'Landscaper',
   'window-cleaner', 'pest-control-technician', 'laundry-worker', 'dishwasher',
   'food-preparation-worker', 'kitchen-helper', 'waiter', 'barista', 'cashier',
   'shop-assistant', 'inventory-clerk', 'packer', 'loading-worker', 'moving-helper',
