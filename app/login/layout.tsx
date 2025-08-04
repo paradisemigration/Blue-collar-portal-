@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description: 'Login to your worker account and access job opportunities.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: 'https://www.gogethires.com/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'GoGetHires - Worker Login',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Worker Login - GoGetHires',
     description: 'Access your worker account and job opportunities.',
-    images: ['/twitter-image.jpg'],
+    images: ['https://www.gogethires.com/twitter-image.jpg'],
   },
 }
 
