@@ -27,22 +27,49 @@ export default function Header() {
   const [loadingLink, setLoadingLink] = useState<string | null>(null)
 
   useEffect(() => {
-    // Check authentication status
-    if (typeof window !== 'undefined') {
-      const employerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
-      const userLoggedIn = localStorage.getItem('isLoggedIn')
-      const profileData = localStorage.getItem('userProfile')
-      
-      setIsEmployer(!!employerLoggedIn)
-      setIsLoggedIn(!!userLoggedIn)
-      
-      if (profileData) {
-        try {
-          setUserProfile(JSON.parse(profileData))
-        } catch (error) {
-          console.error('Error parsing user profile:', error)
+    const checkAuthStatus = () => {
+      if (typeof window !== 'undefined') {
+        const employerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
+        const userLoggedIn = localStorage.getItem('isLoggedIn')
+        const profileData = localStorage.getItem('userProfile')
+
+        setIsEmployer(employerLoggedIn === 'true')
+        setIsLoggedIn(userLoggedIn === 'true')
+
+        if (profileData) {
+          try {
+            const profile = JSON.parse(profileData)
+            setUserProfile(profile)
+          } catch (error) {
+            console.error('Error parsing user profile:', error)
+            setUserProfile(null)
+          }
+        } else {
+          setUserProfile(null)
         }
       }
+    }
+
+    // Initial check
+    checkAuthStatus()
+
+    // Listen for storage changes
+    const handleStorageChange = () => {
+      checkAuthStatus()
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+
+    // Listen for custom auth state changes
+    const handleAuthChange = () => {
+      setTimeout(checkAuthStatus, 100)
+    }
+
+    window.addEventListener('authStateChanged', handleAuthChange)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('authStateChanged', handleAuthChange)
     }
   }, [])
 
@@ -66,13 +93,17 @@ export default function Header() {
     localStorage.removeItem('userProfile')
     localStorage.removeItem('authProvider')
     localStorage.removeItem('googleUser')
-    
+    localStorage.removeItem('ctaPopupDismissed')
+
     // Reset state
     setIsLoggedIn(false)
     setIsEmployer(false)
     setUserProfile(null)
     setMobileMenuOpen(false)
-    
+
+    // Dispatch custom event to notify other components
+    window.dispatchEvent(new Event('authStateChanged'))
+
     // Redirect to home
     router.push('/')
   }
