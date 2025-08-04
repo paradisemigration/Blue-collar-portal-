@@ -117,10 +117,40 @@ export default function CreateProfile() {
   // Auto-detect location
   useEffect(() => {
     const detectLocation = async () => {
+      // Set default values first
+      const setDefaults = () => {
+        const defaultInfo = countryInfo['UAE']
+        setLocationInfo({
+          country: 'UAE',
+          currency: defaultInfo.currency,
+          currencySymbol: defaultInfo.currencySymbol,
+          phoneCode: defaultInfo.phoneCode,
+          detectedFromIP: false
+        })
+        setValue('country', 'UAE')
+        setValue('phoneNumber', defaultInfo.phoneCode)
+      }
+
       try {
-        const response = await fetch('https://ipapi.co/json/')
+        // Add timeout to prevent hanging
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 5000)
+
+        const response = await fetch('https://ipapi.co/json/', {
+          signal: controller.signal,
+          headers: {
+            'Accept': 'application/json',
+          }
+        })
+
+        clearTimeout(timeoutId)
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
         const data = await response.json()
-        
+
         let detectedCountry: Country = 'UAE'
         if (data.country_name?.includes('Qatar')) detectedCountry = 'Qatar'
         else if (data.country_name?.includes('Saudi')) detectedCountry = 'Saudi Arabia'
@@ -140,21 +170,14 @@ export default function CreateProfile() {
         setValue('country', detectedCountry)
         setValue('phoneNumber', info.phoneCode)
       } catch (error) {
-        console.log('Could not detect location')
-        const defaultInfo = countryInfo['UAE']
-        setLocationInfo({
-          country: 'UAE',
-          currency: defaultInfo.currency,
-          currencySymbol: defaultInfo.currencySymbol,
-          phoneCode: defaultInfo.phoneCode,
-          detectedFromIP: false
-        })
-        setValue('country', 'UAE')
-        setValue('phoneNumber', defaultInfo.phoneCode)
+        console.log('Could not detect location:', error)
+        setDefaults()
       }
     }
 
-    detectLocation()
+    // Small delay to ensure form is ready
+    const timer = setTimeout(detectLocation, 100)
+    return () => clearTimeout(timer)
   }, [setValue])
 
   // Update location info when country changes
