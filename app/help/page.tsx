@@ -10,9 +10,9 @@ import {
 } from '@heroicons/react/24/outline'
 
 export const metadata = {
-  title: 'Help Center | Gulf Hiring Platform',
-  description: 'Get help and support for using Gulf Hiring Platform. Find answers to common questions and contact support.',
-  keywords: 'help, support, faq, gulf hiring, assistance'
+  title: 'Help Center | GoGetHires',
+  description: 'Get help and support for using GoGetHires. Find answers to common questions and contact support.',
+  keywords: 'help, support, faq, gogethires, assistance'
 }
 
 export default function HelpCenter() {
@@ -121,7 +121,7 @@ export default function HelpCenter() {
             Help Center
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Find answers to common questions and get the support you need to make the most of Gulf Hiring Platform
+            Find answers to common questions and get the support you need to make the most of GoGetHires
           </p>
         </div>
 
@@ -200,7 +200,7 @@ export default function HelpCenter() {
               Contact Support
             </Link>
             <a 
-              href="mailto:support@gulfhire.com" 
+              href="mailto:support@gogethires.com"
               className="bg-transparent border-2 border-white hover:bg-white hover:text-primary-600 font-bold py-3 px-6 rounded-lg transition-colors"
             >
               Email Us
