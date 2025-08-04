@@ -68,14 +68,14 @@ export default function EmployerLogin() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10 border">
           
-          {/* Demo Credentials Info */}
+          {/* Support Info */}
           <div className="mb-6 p-4 bg-purple-50 rounded-xl border border-purple-200">
-            <h3 className="text-sm font-semibold text-purple-900 mb-2">🧪 Demo Credentials</h3>
+            <h3 className="text-sm font-semibold text-purple-900 mb-2">💼 New Employer?</h3>
             <p className="text-sm text-purple-800">
-              Need help? Contact our support team for login assistance.
+              Contact our team to set up your business account and start hiring verified workers.
             </p>
             <p className="text-xs text-purple-600 mt-2">
-              Use these credentials to test the employer dashboard, or use your actual login details sent via email.
+              Existing users can login with credentials received during account setup.
             </p>
           </div>
 
