@@ -69,7 +69,7 @@ export default function Home() {
     {
       name: 'Sarah Johnson',
       company: 'Doha Facilities Management',
-      text: 'Excellent service! The worker profiles are detailed and accurate. Highly recommend Go Get Hire.',
+      text: 'Excellent service! The worker profiles are detailed and accurate. Highly recommend Go Get Hires Now.',
       rating: 5,
       location: 'Doha, Qatar',
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b6d2e9cd?w=150&h=150&fit=crop&crop=face&auto=format'
@@ -77,7 +77,7 @@ export default function Home() {
     {
       name: 'Mohammed Al-Rashid',
       company: 'Riyadh Hospitality Group',
-      text: 'We hired 12 housekeeping staff through Go Get Hire. All workers were professional and well-trained.',
+      text: 'We hired 12 housekeeping staff through Go Get Hires Now. All workers were professional and well-trained.',
       rating: 5,
       location: 'Riyadh, Saudi Arabia',
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format'
@@ -93,7 +93,7 @@ export default function Home() {
     {
       name: 'Omar Hassan',
       company: 'Muscat Real Estate',
-      text: 'Go Get Hire helped us find experienced plumbers and electricians for our new project. Very satisfied!',
+      text: 'Go Get Hires Now helped us find experienced plumbers and electricians for our new project. Very satisfied!',
       rating: 5,
       location: 'Muscat, Oman',
       avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face&auto=format'
@@ -191,7 +191,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">
-              Why Choose Go Get Hire?
+              Why Choose Go Get Hires Now?
             </h2>
             <p className="text-gray-600 text-lg">
               The most trusted platform for blue-collar hiring in the Gulf region
@@ -279,7 +279,7 @@ export default function Home() {
             Ready to Find Your Next Hire?
           </h2>
           <p className="text-xl mb-8 text-gray-200">
-            Join thousands of employers who trust Go Get Hire for their staffing needs
+            Join thousands of employers who trust Go Get Hires Now for their staffing needs
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/browse" className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-4 px-8 rounded-lg text-lg transition-colors">

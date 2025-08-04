@@ -75,15 +75,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const jobDisplay = formatJobTitle(params.job)
   const country = getCountryForCity(params.city)
   
-  const title = `Hire ${jobDisplay}s in ${cityDisplay}, ${country} | Go Get Hire`
-  const description = `Find and hire verified ${jobDisplay.toLowerCase()}s in ${cityDisplay}, ${country}. Browse professional profiles, view experience, and connect instantly. Go Get Hire - your trusted platform for skilled workers in the Gulf region.`
+  const title = `Hire ${jobDisplay}s in ${cityDisplay}, ${country} | Go Get Hires Now`
+  const description = `Find and hire verified ${jobDisplay.toLowerCase()}s in ${cityDisplay}, ${country}. Browse professional profiles, view experience, and connect instantly. Go Get Hires Now - your trusted platform for skilled workers in the Gulf region.`
   
   const cityJobUrl = `https://gogethire.com/${params.city}/${params.job}`
   
   return {
     title,
     description,
-    keywords: `${jobDisplay} ${cityDisplay}, hire ${jobDisplay.toLowerCase()} ${country}, ${jobDisplay.toLowerCase()} jobs ${cityDisplay}, skilled ${jobDisplay.toLowerCase()} ${country}, verified ${jobDisplay.toLowerCase()}s ${cityDisplay}, ${jobDisplay.toLowerCase()} recruitment ${country}, Go Get Hire`,
+    keywords: `${jobDisplay} ${cityDisplay}, hire ${jobDisplay.toLowerCase()} ${country}, ${jobDisplay.toLowerCase()} jobs ${cityDisplay}, skilled ${jobDisplay.toLowerCase()} ${country}, verified ${jobDisplay.toLowerCase()}s ${cityDisplay}, ${jobDisplay.toLowerCase()} recruitment ${country}, Go Get Hires Now`,
     alternates: {
       canonical: cityJobUrl,
     },
@@ -93,7 +93,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: cityJobUrl,
       type: 'website',
       locale: 'en_US',
-      siteName: 'Go Get Hire',
+      siteName: 'Go Get Hires Now',
       images: [
         {
           url: `/og-images/${params.city}-${params.job}.jpg`,
@@ -137,7 +137,7 @@ export default function CityJobLayout({ children, params }: Props) {
             "description": `Multiple ${formatJobTitle(params.job).toLowerCase()} positions available in ${formatCityName(params.city)}, ${getCountryForCity(params.city)}`,
             "hiringOrganization": {
               "@type": "Organization",
-              "name": "Go Get Hire",
+              "name": "Go Get Hires Now",
               "sameAs": "https://gogethire.com"
             },
             "jobLocation": {
