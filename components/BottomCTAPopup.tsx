@@ -9,35 +9,65 @@ export default function BottomCTAPopup() {
   const [isDismissed, setIsDismissed] = useState(false)
 
   useEffect(() => {
-    // Don't show on create-profile page itself
-    if (typeof window !== 'undefined' && window.location.pathname === '/create-profile') {
-      setIsDismissed(true)
-      return
+    const checkVisibility = () => {
+      // Don't show on create-profile page itself
+      if (typeof window !== 'undefined') {
+        const pathname = window.location.pathname
+        if (pathname === '/create-profile' ||
+            pathname === '/dashboard' ||
+            pathname === '/employer-dashboard' ||
+            pathname === '/edit-profile') {
+          setIsDismissed(true)
+          return
+        }
+      }
+
+      // Check if user is already logged in or has profile
+      const isLoggedIn = localStorage.getItem('isLoggedIn')
+      const isEmployerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
+      const userProfile = localStorage.getItem('userProfile')
+
+      // Hide popup if user is logged in as worker or employer
+      if (isLoggedIn === 'true' || isEmployerLoggedIn === 'true' || userProfile) {
+        setIsDismissed(true)
+        return
+      }
+
+      // Check if user has dismissed the popup
+      const dismissed = localStorage.getItem('ctaPopupDismissed')
+      if (dismissed === 'true') {
+        setIsDismissed(true)
+        return
+      }
+
+      // Show popup after 3 seconds
+      const timer = setTimeout(() => {
+        setIsVisible(true)
+      }, 3000)
+
+      return () => clearTimeout(timer)
     }
 
-    // Check if user is already logged in or has profile
-    const isLoggedIn = localStorage.getItem('isLoggedIn')
-    const isEmployerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
-    const userProfile = localStorage.getItem('userProfile')
+    checkVisibility()
 
-    if (isLoggedIn || isEmployerLoggedIn || userProfile) {
-      setIsDismissed(true)
-      return
+    // Listen for storage changes to hide popup when user logs in
+    const handleStorageChange = () => {
+      checkVisibility()
     }
 
-    // Check if user has dismissed the popup
-    const dismissed = localStorage.getItem('ctaPopupDismissed')
-    if (dismissed) {
-      setIsDismissed(true)
-      return
+    window.addEventListener('storage', handleStorageChange)
+
+    // Also listen for custom events when localStorage is updated in same tab
+    const handleAuthChange = () => {
+      setTimeout(checkVisibility, 100)
     }
 
-    // Show popup after 3 seconds
-    const timer = setTimeout(() => {
-      setIsVisible(true)
-    }, 3000)
+    window.addEventListener('authStateChanged', handleAuthChange)
 
-    return () => clearTimeout(timer)
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('authStateChanged', handleAuthChange)
+    }
   }, [])
 
   const handleDismiss = () => {
@@ -55,6 +85,17 @@ export default function BottomCTAPopup() {
         setIsVisible(true)
       }
     }, 30 * 60 * 1000)
+  }
+
+  // Double check auth state before rendering
+  if (typeof window !== 'undefined') {
+    const isLoggedIn = localStorage.getItem('isLoggedIn')
+    const isEmployerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
+    const userProfile = localStorage.getItem('userProfile')
+
+    if (isLoggedIn === 'true' || isEmployerLoggedIn === 'true' || userProfile) {
+      return null
+    }
   }
 
   if (!isVisible || isDismissed) return null
