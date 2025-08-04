@@ -1,13 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Vercel optimizations
-  reactStrictMode: true,
-  swcMinify: true,
-  
-  // Image optimization for Vercel
   images: {
     domains: ['images.unsplash.com', 'cdn.builder.io'],
-    formats: ['image/webp', 'image/avif'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -22,7 +17,7 @@ const nextConfig = {
     ]
   },
   
-  // Production optimizations
+  // Remove development-only components
   ...(process.env.NODE_ENV === 'production' && {
     compiler: {
       removeConsole: {
@@ -30,43 +25,6 @@ const nextConfig = {
       },
     },
   }),
-  
-  // General configurations
-  poweredByHeader: false,
-  
-  // Headers for better SEO and security
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-        ],
-      },
-    ]
-  },
-  
-  // Redirects for better SEO
-  async redirects() {
-    return [
-      {
-        source: '/home',
-        destination: '/',
-        permanent: true,
-      },
-    ]
-  },
 }
 
 module.exports = nextConfig
