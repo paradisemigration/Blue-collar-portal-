@@ -68,7 +68,6 @@ export default function SafeScriptManager() {
 
       // Cleanup function
       return () => {
-        window.fetch = originalFetch
         document.head.appendChild = originalAppendChild
         window.removeEventListener('error', handleError)
         window.removeEventListener('unhandledrejection', handleUnhandledRejection)
