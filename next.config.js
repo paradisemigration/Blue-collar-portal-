@@ -1,13 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Production optimizations
+  // Vercel optimizations
   reactStrictMode: true,
   swcMinify: true,
   
-  // Output configuration for static export (if needed)
-  output: 'standalone',
-  
-  // Image optimization for production
+  // Image optimization for Vercel
   images: {
     domains: ['images.unsplash.com', 'cdn.builder.io'],
     formats: ['image/webp', 'image/avif'],
@@ -15,57 +12,23 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'cdn.builder.io',
-        port: '',
         pathname: '/api/v1/image/assets/**',
       },
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
-        port: '',
         pathname: '/**',
       }
     ]
   },
   
-  // Compress output
-  compress: true,
-  
-  // Remove console logs in production
-  compiler: {
-    removeConsole: {
-      exclude: ['error'],
+  // Production optimizations
+  ...(process.env.NODE_ENV === 'production' && {
+    compiler: {
+      removeConsole: {
+        exclude: ['error'],
+      },
     },
-  },
-  
-  // Development optimizations (only apply in dev)
-  ...(process.env.NODE_ENV === 'development' && {
-    experimental: {
-      // Reduce memory usage and improve HMR performance
-      optimizePackageImports: ['@heroicons/react'],
-    },
-    
-    webpack: (config, { dev, isServer }) => {
-      if (dev && !isServer) {
-        // Reduce HMR noise and improve stability
-        config.watchOptions = {
-          poll: 1000,
-          aggregateTimeout: 300,
-        }
-        
-        // Ignore analytics and tracking scripts during development
-        config.externals = config.externals || []
-        config.externals.push({
-          'fullstory': 'FullStory',
-          'google-analytics': 'ga',
-          'gtag': 'gtag'
-        })
-      }
-      
-      return config
-    },
-    
-    // Disable strict mode in development to prevent double rendering issues
-    reactStrictMode: false,
   }),
   
   // General configurations
