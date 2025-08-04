@@ -62,8 +62,7 @@ export default function Login() {
   }
 
   const handleGoogleLogin = () => {
-    // In real app, this would integrate with Google OAuth
-    alert('Google Login will be integrated with OAuth. For demo, use the credentials sent to your email after profile creation.')
+    alert('Google Login is currently being set up. Please use your email and password to login, or contact support for assistance.')
   }
 
   return (
