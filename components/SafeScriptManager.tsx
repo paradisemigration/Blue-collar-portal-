@@ -27,25 +27,9 @@ export default function SafeScriptManager() {
       const scripts = document.querySelectorAll('script[src*="fullstory"]')
       scripts.forEach(script => script.remove())
 
-      // Block FullStory domain completely
-      const originalFetch = window.fetch
-      window.fetch = function(...args) {
-        const url = args[0]?.toString() || ''
-
-        // Only block FullStory URLs specifically
-        if (url.includes('fullstory.com') || url.includes('edge.fullstory.com') || url.includes('fs.com')) {
-          console.log('[Dev Mode] Blocked FullStory request:', url)
-          return Promise.resolve(new Response('{}', { status: 200 }))
-        }
-
-        // Allow all other requests to proceed normally
-        try {
-          return originalFetch.apply(this, args)
-        } catch (error) {
-          console.error('[Dev Mode] Fetch error:', error)
-          throw error
-        }
-      }
+      // Note: Fetch override disabled to prevent conflicts with legitimate API calls
+      // FullStory is already blocked by mock objects above
+      console.log('[Dev Mode] FullStory blocked via mock objects, fetch override disabled')
 
       // Block script loading
       const originalAppendChild = document.head.appendChild
