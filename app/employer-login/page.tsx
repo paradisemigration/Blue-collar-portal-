@@ -33,22 +33,7 @@ export default function EmployerLogin() {
         }
       }
       
-      // Demo credentials for testing
-      if (formData.email === 'demo@employer.com' && formData.password === 'demo123') {
-        localStorage.setItem('isEmployerLoggedIn', 'true')
-        localStorage.setItem('employerData', JSON.stringify({
-          email: 'demo@employer.com',
-          contactPerson: 'Demo Employer',
-          companyName: 'Demo Company',
-          selectedPlan: { name: 'Professional', profileAccess: 30 }
-        }))
-        // Dispatch auth state change event
-        window.dispatchEvent(new Event('authStateChanged'))
-        window.location.href = '/employer-dashboard'
-        return
-      }
-      
-      alert('Invalid credentials. Please check your email and password, or use demo credentials: demo@employer.com / demo123')
+      alert('Invalid credentials. Please check your email and password or contact support for assistance.')
       
     } catch (error) {
       alert('Login failed. Please try again.')
@@ -87,8 +72,7 @@ export default function EmployerLogin() {
           <div className="mb-6 p-4 bg-purple-50 rounded-xl border border-purple-200">
             <h3 className="text-sm font-semibold text-purple-900 mb-2">🧪 Demo Credentials</h3>
             <p className="text-sm text-purple-800">
-              <strong>Email:</strong> demo@employer.com<br/>
-              <strong>Password:</strong> demo123
+              Need help? Contact our support team for login assistance.
             </p>
             <p className="text-xs text-purple-600 mt-2">
               Use these credentials to test the employer dashboard, or use your actual login details sent via email.
@@ -204,7 +188,7 @@ export default function EmployerLogin() {
               <li>• Your login credentials were sent to your email after purchasing a plan</li>
               <li>• Check your spam folder if you can't find the email</li>
               <li>• Contact support if you need to reset your password</li>
-              <li>• Use demo credentials to test the platform: demo@employer.com / demo123</li>
+              <li>• Register for a new account if you don't have one yet</li>
             </ul>
           </div>
         </div>
