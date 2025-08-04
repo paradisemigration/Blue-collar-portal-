@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowLeftIcon, GlobeAltIcon, PencilIcon, SaveIcon } from '@heroicons/react/24/outline'
+import { ArrowLeftIcon, GlobeAltIcon, PencilIcon, CheckIcon } from '@heroicons/react/24/outline'
 import { Worker } from '../../../types'
 
 interface SEOData {
