@@ -43,7 +43,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'GoGetHires - Premier Blue-Collar Worker Platform',
     description: 'Connect with 15,000+ verified workers across Gulf region. 43 cities, 49 job categories.',
-    images: ['https://www.gogethires.com/twitter-image.jpg?v=2024080419'],
+    images: ['https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fbc77aeea733640da8c2887deb8768828?format=jpeg&width=1200&height=600&quality=85'],
     creator: '@GoGetHire',
   },
   robots: {
