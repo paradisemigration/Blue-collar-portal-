@@ -169,7 +169,7 @@ export default function Dashboard() {
                       <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-1">{userProfile.fullName}</h2>
                       <div className="flex items-center gap-2 mb-2">
                         <p className="text-lg sm:text-xl text-primary-600 font-semibold">{userProfile.jobTitle}</p>
-                        {userProfile.visaStatus === 'Available' && (
+                        {userProfile.availability && (
                           <CheckBadgeIcon className="h-5 w-5 text-green-500" title="Visa Available" />
                         )}
                       </div>

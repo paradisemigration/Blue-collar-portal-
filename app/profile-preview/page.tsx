@@ -99,7 +99,7 @@ export default function ProfilePreview() {
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-3xl font-bold text-navy-900">{userProfile.fullName}</h1>
-                {userProfile.visaStatus === 'Available' && (
+                {userProfile.availability && (
                   <CheckBadgeIcon className="h-6 w-6 text-green-500" title="Visa Available" />
                 )}
               </div>
@@ -184,7 +184,7 @@ export default function ProfilePreview() {
               <div className="bg-gray-50 rounded-lg p-4">
                 <h4 className="font-semibold text-navy-900 mb-2">Visa Status</h4>
                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                  userProfile.visaStatus === 'Available' 
+                  userProfile.availability 
                     ? 'bg-green-100 text-green-800' 
                     : 'bg-red-100 text-red-800'
                 }`}>
