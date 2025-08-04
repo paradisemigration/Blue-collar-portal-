@@ -1,0 +1,57 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0F172A"/>
+  
+  <!-- Gradient Background -->
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E40AF;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grad1)"/>
+  
+  <!-- Logo Area -->
+  <rect x="80" y="200" width="80" height="80" rx="12" fill="white"/>
+  <rect x="95" y="215" width="20" height="20" rx="4" fill="#2563EB"/>
+  <rect x="125" y="215" width="20" height="20" rx="4" fill="#2563EB" opacity="0.7"/>
+  <rect x="95" y="245" width="20" height="20" rx="4" fill="#2563EB" opacity="0.7"/>
+  <rect x="125" y="245" width="20" height="20" rx="4" fill="#2563EB"/>
+  
+  <!-- Main Text -->
+  <text x="200" y="250" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="white">
+    GoGetHires
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="200" y="290" font-family="Arial, sans-serif" font-size="24" fill="#E2E8F0">
+    Premier Blue-Collar Worker Platform
+  </text>
+  
+  <!-- Features -->
+  <text x="200" y="340" font-family="Arial, sans-serif" font-size="18" fill="#94A3B8">
+    ✓ 15,000+ Verified Workers
+  </text>
+  <text x="200" y="370" font-family="Arial, sans-serif" font-size="18" fill="#94A3B8">
+    ✓ 43 Cities Across Gulf Region
+  </text>
+  <text x="200" y="400" font-family="Arial, sans-serif" font-size="18" fill="#94A3B8">
+    ✓ 49 Job Categories Available
+  </text>
+  
+  <!-- Website URL -->
+  <text x="200" y="450" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="#60A5FA">
+    www.gogethires.com
+  </text>
+  
+  <!-- Workers Illustration -->
+  <circle cx="950" cy="250" r="60" fill="white" opacity="0.1"/>
+  <circle cx="950" cy="250" r="40" fill="white" opacity="0.2"/>
+  <circle cx="950" cy="250" r="20" fill="#EAB308"/>
+  
+  <!-- Additional worker icons -->
+  <circle cx="850" cy="200" r="15" fill="#10B981"/>
+  <circle cx="1050" cy="180" r="12" fill="#F59E0B"/>
+  <circle cx="880" cy="320" r="18" fill="#EF4444"/>
+  <circle cx="1020" cy="340" r="14" fill="#8B5CF6"/>
+</svg>
