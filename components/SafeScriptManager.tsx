@@ -4,12 +4,13 @@ import { useEffect } from 'react'
 
 export default function SafeScriptManager() {
   useEffect(() => {
-    // Only run in development mode
-    if (process.env.NODE_ENV !== 'development') {
+    // Completely disabled in development to prevent fetch conflicts
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Dev Mode] SafeScriptManager disabled to prevent fetch conflicts')
       return
     }
 
-    // Completely disable FullStory in development
+    // Only run in production
     if (typeof window !== 'undefined') {
       // Block FullStory from initializing
       (window as any).FS = {
@@ -26,52 +27,6 @@ export default function SafeScriptManager() {
       // Remove any existing FullStory scripts
       const scripts = document.querySelectorAll('script[src*="fullstory"]')
       scripts.forEach(script => script.remove())
-
-      // Note: Fetch override disabled to prevent conflicts with legitimate API calls
-      // FullStory is already blocked by mock objects above
-      console.log('[Dev Mode] FullStory blocked via mock objects, fetch override disabled')
-
-      // Block script loading
-      const originalAppendChild = document.head.appendChild
-      document.head.appendChild = function(child: any) {
-        if (child.tagName === 'SCRIPT' && child.src && child.src.includes('fullstory')) {
-          console.log('[Dev Mode] Blocked FullStory script loading')
-          return child
-        }
-        return originalAppendChild.call(this, child)
-      }
-
-      // Error suppression for any remaining FullStory references
-      const handleError = (event: ErrorEvent) => {
-        const errorMessage = event.message || ''
-        const filename = event.filename || ''
-
-        if (filename.includes('fullstory.com') || errorMessage.includes('FullStory')) {
-          console.log('[Dev Mode] Suppressed FullStory error:', errorMessage)
-          event.preventDefault()
-          return false
-        }
-      }
-
-      const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-        const reason = event.reason?.toString() || ''
-
-        if (reason.includes('fullstory') || reason.includes('FullStory')) {
-          console.log('[Dev Mode] Suppressed FullStory rejection:', reason)
-          event.preventDefault()
-          return false
-        }
-      }
-
-      window.addEventListener('error', handleError)
-      window.addEventListener('unhandledrejection', handleUnhandledRejection)
-
-      // Cleanup function
-      return () => {
-        document.head.appendChild = originalAppendChild
-        window.removeEventListener('error', handleError)
-        window.removeEventListener('unhandledrejection', handleUnhandledRejection)
-      }
     }
   }, [])
 
