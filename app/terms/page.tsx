@@ -154,7 +154,7 @@ export default function TermsOfService() {
               <div>
                 <h3 className="text-lg font-semibold text-navy-900 mb-2">6.1 Platform Content</h3>
                 <p className="text-gray-700">
-                  The platform design, features, and functionality are owned by Gulf Hiring Platform and protected by 
+                  The platform design, features, and functionality are owned by GoGetHires and protected by 
                   international copyright, trademark, and other intellectual property laws.
                 </p>
               </div>
@@ -217,7 +217,7 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-2xl font-bold text-navy-900 mb-4">10. Limitation of Liability</h2>
             <p className="text-gray-700 leading-relaxed">
-              To the maximum extent permitted by law, Gulf Hiring Platform shall not be liable for any indirect, incidental, 
+              To the maximum extent permitted by law, GoGetHires shall not be liable for any indirect, incidental, 
               special, consequential, or punitive damages, including but not limited to loss of profits, data, or business 
               opportunities, arising from your use of the platform.
             </p>
@@ -227,7 +227,7 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-2xl font-bold text-navy-900 mb-4">11. Indemnification</h2>
             <p className="text-gray-700 leading-relaxed">
-              You agree to defend, indemnify, and hold harmless Gulf Hiring Platform from any claims, damages, losses, or 
+              You agree to defend, indemnify, and hold harmless GoGetHires from any claims, damages, losses, or 
               expenses arising from your use of the platform, violation of these terms, or infringement of any third-party rights.
             </p>
           </section>
