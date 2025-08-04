@@ -88,7 +88,7 @@ export default function RootLayout({
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="GoGetHires - Find jobs in UAE in 7 days. Create your profile." />
         <meta property="og:image:type" content="image/jpeg" />
-        <meta name="twitter:image" content="https://www.gogethires.com/twitter-image.jpg" />
+        <meta name="twitter:image" content="https://www.gogethires.com/twitter-image.jpg?v=2024080419" />
         <meta name="twitter:image:alt" content="GoGetHires - Gulf Region Worker Platform" />
 
         {/* Facebook specific */}
