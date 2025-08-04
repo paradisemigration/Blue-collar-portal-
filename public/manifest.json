@@ -20,10 +20,10 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/og-image.jpg",
-      "sizes": "1200x630",
-      "type": "image/jpeg",
-      "purpose": "any"
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "monochrome"
     }
   ],
   "categories": ["business", "productivity", "utilities"]
