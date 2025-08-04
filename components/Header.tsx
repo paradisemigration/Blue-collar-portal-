@@ -3,44 +3,100 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Bars3Icon, XMarkIcon, BriefcaseIcon } from '@heroicons/react/24/outline'
+import { 
+  Bars3Icon, 
+  XMarkIcon, 
+  BriefcaseIcon, 
+  UserIcon, 
+  ArrowRightOnRectangleIcon,
+  Cog6ToothIcon 
+} from '@heroicons/react/24/outline'
+
+interface UserProfile {
+  fullName: string
+  email: string
+  jobTitle: string
+}
 
 export default function Header() {
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isEmployer, setIsEmployer] = useState(false)
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
   const [loadingLink, setLoadingLink] = useState<string | null>(null)
 
   useEffect(() => {
-    // Check if user is logged in as employer
+    // Check authentication status
     if (typeof window !== 'undefined') {
       const employerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
+      const userLoggedIn = localStorage.getItem('isLoggedIn')
+      const profileData = localStorage.getItem('userProfile')
+      
       setIsEmployer(!!employerLoggedIn)
+      setIsLoggedIn(!!userLoggedIn)
+      
+      if (profileData) {
+        try {
+          setUserProfile(JSON.parse(profileData))
+        } catch (error) {
+          console.error('Error parsing user profile:', error)
+        }
+      }
     }
   }, [])
 
   const handleNavigation = (href: string) => {
     setLoadingLink(href)
-    setMobileMenuOpen(false) // Close mobile menu immediately
+    setMobileMenuOpen(false)
 
-    // Add small delay for smooth transition
     setTimeout(() => {
       router.push(href)
     }, 100)
 
-    // Clear loading state after navigation
     setTimeout(() => {
       setLoadingLink(null)
     }, 1000)
   }
 
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Browse Workers', href: '/browse' },
-    { name: 'Add Profile', href: '/create-profile' },
-    { name: 'Job Postings', href: '/jobs' },
-    { name: 'Pricing', href: '/pricing' },
-  ]
+  const handleLogout = () => {
+    // Clear all authentication data
+    localStorage.removeItem('isEmployerLoggedIn')
+    localStorage.removeItem('isLoggedIn')
+    localStorage.removeItem('userProfile')
+    localStorage.removeItem('authProvider')
+    localStorage.removeItem('googleUser')
+    
+    // Reset state
+    setIsLoggedIn(false)
+    setIsEmployer(false)
+    setUserProfile(null)
+    setMobileMenuOpen(false)
+    
+    // Redirect to home
+    router.push('/')
+  }
+
+  // Different navigation for logged in vs logged out users
+  const getNavigation = () => {
+    if (isLoggedIn || isEmployer) {
+      return [
+        { name: 'Home', href: '/' },
+        { name: 'Browse Workers', href: '/browse' },
+        { name: 'Job Postings', href: '/jobs' }
+      ]
+    }
+    
+    return [
+      { name: 'Home', href: '/' },
+      { name: 'Browse Workers', href: '/browse' },
+      { name: 'Add Profile', href: '/create-profile' },
+      { name: 'Job Postings', href: '/jobs' },
+      { name: 'Pricing', href: '/pricing' }
+    ]
+  }
+
+  const navigation = getNavigation()
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
@@ -73,20 +129,59 @@ export default function Header() {
             ))}
           </div>
 
-          {/* Auth Buttons */}
+          {/* Auth Section */}
           <div className="hidden md:flex items-center space-x-3">
-            {isEmployer && (
-              <Link href="/employer-dashboard" className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors">
-                <BriefcaseIcon className="h-5 w-5" />
-                Dashboard
-              </Link>
+            {isLoggedIn || isEmployer ? (
+              // Logged in menu
+              <>
+                {isEmployer && (
+                  <Link 
+                    href="/employer-dashboard" 
+                    className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                  >
+                    <BriefcaseIcon className="h-5 w-5" />
+                    Dashboard
+                  </Link>
+                )}
+                
+                {isLoggedIn && userProfile && (
+                  <Link 
+                    href="/dashboard" 
+                    className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                  >
+                    <UserIcon className="h-5 w-5" />
+                    My Profile
+                  </Link>
+                )}
+                
+                <div className="flex items-center gap-2 text-gray-600">
+                  <span className="text-sm">
+                    Hi, {userProfile?.fullName || 'User'}
+                  </span>
+                </div>
+                
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 text-gray-600 hover:text-red-600 font-medium transition-colors"
+                >
+                  <ArrowRightOnRectangleIcon className="h-5 w-5" />
+                  Logout
+                </button>
+              </>
+            ) : (
+              // Not logged in menu
+              <>
+                <Link href="/login" className="btn-secondary text-sm">
+                  Worker Login
+                </Link>
+                <Link href="/employer-login" className="btn-secondary text-sm">
+                  Employer Login
+                </Link>
+                <Link href="/register" className="btn-primary text-sm">
+                  Sign Up
+                </Link>
+              </>
             )}
-            <Link href="/login" className="btn-secondary text-sm">
-              Worker Login
-            </Link>
-            <Link href="/register" className="btn-primary text-sm">
-              Sign Up
-            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -106,7 +201,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Enhanced Mobile Navigation */}
+        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden">
             <div className="bg-white border-t border-gray-200 shadow-lg rounded-b-2xl mx-4 mb-4">
@@ -126,29 +221,73 @@ export default function Header() {
                 ))}
 
                 <div className="border-t border-gray-200 pt-4 space-y-3">
-                  {isEmployer && (
-                    <button
-                      onClick={() => handleNavigation('/employer-dashboard')}
-                      className="w-full flex items-center justify-center gap-2 text-primary-600 hover:text-primary-700 hover:bg-primary-50 font-semibold py-3 rounded-xl transition-all duration-200"
-                    >
-                      <BriefcaseIcon className="h-5 w-5" />
-                      Employer Dashboard
-                    </button>
+                  {isLoggedIn || isEmployer ? (
+                    // Logged in mobile menu
+                    <>
+                      {userProfile && (
+                        <div className="px-4 py-2 bg-gray-50 rounded-xl">
+                          <p className="text-sm font-medium text-gray-900">
+                            {userProfile.fullName}
+                          </p>
+                          <p className="text-xs text-gray-600">
+                            {userProfile.jobTitle}
+                          </p>
+                        </div>
+                      )}
+
+                      {isEmployer && (
+                        <button
+                          onClick={() => handleNavigation('/employer-dashboard')}
+                          className="w-full flex items-center gap-2 text-primary-600 hover:text-primary-700 hover:bg-primary-50 font-semibold py-3 px-4 rounded-xl transition-all duration-200"
+                        >
+                          <BriefcaseIcon className="h-5 w-5" />
+                          Dashboard
+                        </button>
+                      )}
+                      
+                      {isLoggedIn && (
+                        <button
+                          onClick={() => handleNavigation('/dashboard')}
+                          className="w-full flex items-center gap-2 text-primary-600 hover:text-primary-700 hover:bg-primary-50 font-semibold py-3 px-4 rounded-xl transition-all duration-200"
+                        >
+                          <UserIcon className="h-5 w-5" />
+                          My Profile
+                        </button>
+                      )}
+
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-2 text-red-600 hover:text-red-700 hover:bg-red-50 font-medium py-3 px-4 rounded-xl transition-all duration-200"
+                      >
+                        <ArrowRightOnRectangleIcon className="h-5 w-5" />
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    // Not logged in mobile menu
+                    <>
+                      <button
+                        onClick={() => handleNavigation('/login')}
+                        className="w-full btn-secondary text-center py-3 rounded-xl"
+                      >
+                        Worker Login
+                      </button>
+
+                      <button
+                        onClick={() => handleNavigation('/employer-login')}
+                        className="w-full btn-secondary text-center py-3 rounded-xl"
+                      >
+                        Employer Login
+                      </button>
+
+                      <button
+                        onClick={() => handleNavigation('/register')}
+                        className="w-full btn-primary text-center py-3 rounded-xl"
+                      >
+                        Sign Up
+                      </button>
+                    </>
                   )}
-
-                  <button
-                    onClick={() => handleNavigation('/login')}
-                    className="w-full btn-secondary text-center py-3 rounded-xl"
-                  >
-                    Worker Login
-                  </button>
-
-                  <button
-                    onClick={() => handleNavigation('/register')}
-                    className="w-full btn-primary text-center py-3 rounded-xl"
-                  >
-                    Sign Up
-                  </button>
                 </div>
               </div>
             </div>
