@@ -15,7 +15,7 @@ interface WorkerFormData {
   country: Country
   languagesSpoken: string[]
   expectedSalary: number
-  visaStatus: 'Available' | 'Not Available'
+  visaStatus: 'Work Visa' | 'Visit Visa' | 'Freelance Visa' | 'Expired Visa' | 'No Visa'
   aboutMe: string
   phoneNumber: string
   email: string
