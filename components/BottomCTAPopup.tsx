@@ -9,6 +9,16 @@ export default function BottomCTAPopup() {
   const [isDismissed, setIsDismissed] = useState(false)
 
   useEffect(() => {
+    // Check if user is already logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn')
+    const isEmployerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
+    const userProfile = localStorage.getItem('userProfile')
+
+    if (isLoggedIn || isEmployerLoggedIn || userProfile) {
+      setIsDismissed(true)
+      return
+    }
+
     // Check if user has dismissed the popup
     const dismissed = localStorage.getItem('ctaPopupDismissed')
     if (dismissed) {
