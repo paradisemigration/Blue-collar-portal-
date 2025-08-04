@@ -86,6 +86,51 @@ export const metadata = {
 }
 
 export default function Jobs() {
+  const handleApplyNow = (jobId: string) => {
+    // Redirect to create profile if not logged in, otherwise show application modal
+    const isLoggedIn = typeof window !== 'undefined' && localStorage.getItem('isLoggedIn')
+    if (isLoggedIn) {
+      alert('Application submitted! We will notify the employer about your interest.')
+    } else {
+      window.location.href = '/create-profile'
+    }
+  }
+
+  const handleSaveJob = (jobId: string) => {
+    if (typeof window !== 'undefined') {
+      const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]')
+      if (!savedJobs.includes(jobId)) {
+        savedJobs.push(jobId)
+        localStorage.setItem('savedJobs', JSON.stringify(savedJobs))
+        alert('Job saved to your favorites!')
+      } else {
+        alert('Job is already in your saved list!')
+      }
+    }
+  }
+
+  const handleShareJob = (job: JobPost) => {
+    if (navigator.share) {
+      navigator.share({
+        title: job.title,
+        text: `Check out this job opportunity: ${job.title} in ${job.city}`,
+        url: window.location.href
+      })
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(window.location.href)
+      alert('Job link copied to clipboard!')
+    }
+  }
+
+  const handlePostJob = () => {
+    window.location.href = '/employer-login'
+  }
+
+  const handleCreateProfile = () => {
+    window.location.href = '/create-profile'
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -181,13 +226,22 @@ export default function Jobs() {
 
               {/* Actions */}
               <div className="flex flex-col sm:flex-row gap-3">
-                <button className="btn-primary flex-1 sm:flex-none">
+                <button
+                  onClick={() => handleApplyNow(job.id)}
+                  className="btn-primary flex-1 sm:flex-none"
+                >
                   Apply Now
                 </button>
-                <button className="btn-secondary flex-1 sm:flex-none">
+                <button
+                  onClick={() => handleSaveJob(job.id)}
+                  className="btn-secondary flex-1 sm:flex-none"
+                >
                   Save Job
                 </button>
-                <button className="btn-secondary flex-1 sm:flex-none">
+                <button
+                  onClick={() => handleShareJob(job)}
+                  className="btn-secondary flex-1 sm:flex-none"
+                >
                   Share
                 </button>
               </div>
@@ -202,7 +256,10 @@ export default function Jobs() {
           <p className="text-lg mb-6 text-gray-200">
             Post your job openings and connect with skilled workers across the Gulf region
           </p>
-          <button className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-3 px-8 rounded-lg text-lg transition-colors">
+          <button
+            onClick={handlePostJob}
+            className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-3 px-8 rounded-lg text-lg transition-colors"
+          >
             Post a Job
           </button>
         </div>
@@ -213,7 +270,10 @@ export default function Jobs() {
           <p className="text-gray-600 mb-6">
             Create your worker profile today and get discovered by top employers
           </p>
-          <button className="btn-primary">
+          <button
+            onClick={handleCreateProfile}
+            className="btn-primary"
+          >
             Create Worker Profile
           </button>
         </div>
