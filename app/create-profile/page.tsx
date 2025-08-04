@@ -600,10 +600,10 @@ export default function CreateProfile() {
                       {errors.phoneNumber.message}
                     </p>
                   )}
-                  {locationInfo?.detectedFromIP && (
+                  {locationInfo && (
                     <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
                       <CheckCircleIcon className="h-3 w-3" />
-                      Auto-filled for {locationInfo.country}
+                      Auto-detected: {locationInfo.country}
                     </p>
                   )}
                 </div>
