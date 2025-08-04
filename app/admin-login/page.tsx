@@ -87,8 +87,9 @@ export default function AdminLogin() {
           </form>
 
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <h3 className="text-sm font-medium text-blue-900 mb-2">Demo Credentials:</h3>
+            <h3 className="text-sm font-medium text-blue-900 mb-2">Admin Access:</h3>
             <div className="text-sm text-blue-800 space-y-1">
+              <p>Contact system administrator for login credentials.</p>
               <p><strong>Username:</strong> admin</p>
               <p><strong>Password:</strong> admin123</p>
             </div>
