@@ -26,6 +26,8 @@ export default function EmployerLogin() {
         const employer = JSON.parse(employerData)
         if (formData.email === employer.email) {
           localStorage.setItem('isEmployerLoggedIn', 'true')
+          // Dispatch auth state change event
+          window.dispatchEvent(new Event('authStateChanged'))
           window.location.href = '/employer-dashboard'
           return
         }
@@ -40,6 +42,8 @@ export default function EmployerLogin() {
           companyName: 'Demo Company',
           selectedPlan: { name: 'Professional', profileAccess: 30 }
         }))
+        // Dispatch auth state change event
+        window.dispatchEvent(new Event('authStateChanged'))
         window.location.href = '/employer-dashboard'
         return
       }
