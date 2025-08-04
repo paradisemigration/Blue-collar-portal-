@@ -138,7 +138,7 @@ export default function CityJobLayout({ children, params }: Props) {
             "hiringOrganization": {
               "@type": "Organization",
               "name": "Go Get Hires Now",
-              "sameAs": "https://gogethire.com"
+              "sameAs": "https://www.gogethires.com"
             },
             "jobLocation": {
               "@type": "Place",
