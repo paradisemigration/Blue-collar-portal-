@@ -18,14 +18,14 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://gogethire.com'),
+  metadataBase: new URL('https://www.gogethires.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://gogethire.com',
+    url: 'https://www.gogethires.com',
     siteName: 'Go Get Hires Now',
     title: 'Go Get Hires Now - Premier Blue-Collar Worker Platform | Gulf Region',
     description: 'Connect with 15,000+ verified blue-collar workers across 43 Gulf cities. Browse 49 job categories, hire instantly with verified profiles and direct contact access.',

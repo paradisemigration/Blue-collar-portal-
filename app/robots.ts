@@ -27,7 +27,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://gogethire.com/sitemap.xml',
-    host: 'https://gogethire.com',
+    sitemap: 'https://www.gogethires.com/sitemap.xml',
+    host: 'https://www.gogethires.com',
   }
 }

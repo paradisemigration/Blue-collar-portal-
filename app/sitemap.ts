@@ -27,7 +27,7 @@ function jobToSlug(job: string): string {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://gogethire.com'
+  const baseUrl = 'https://www.gogethires.com'
   const currentDate = new Date()
   
   // Main pages
