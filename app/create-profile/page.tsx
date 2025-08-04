@@ -202,24 +202,31 @@ export default function CreateProfile() {
 
   // Check for duplicate entries
   const checkDuplicate = async (field: 'phoneNumber' | 'email', value: string) => {
-    if (!value) return false
+    if (!value) {
+      setDuplicateError('')
+      return false
+    }
 
     try {
       // Check existing profiles in localStorage
       const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
-      const isDuplicate = existingProfiles.some((profile: any) => 
+      const isDuplicate = existingProfiles.some((profile: any) =>
         profile[field] === value
       )
 
       if (isDuplicate) {
-        setDuplicateError(`This ${field === 'phoneNumber' ? 'mobile number' : 'email address'} is already registered. Please enter a new ${field === 'phoneNumber' ? 'number' : 'email'} or go to login page.`)
+        const message = field === 'phoneNumber'
+          ? `⚠️ This mobile number is already registered. Please use a different number or sign in to your existing account.`
+          : `⚠️ This email address is already registered. Please use a different email or sign in to your existing account.`
+        setDuplicateError(message)
         return true
       }
-      
+
       setDuplicateError('')
       return false
     } catch (error) {
       console.error('Error checking duplicates:', error)
+      setDuplicateError('')
       return false
     }
   }
@@ -267,7 +274,12 @@ export default function CreateProfile() {
     const values = getValues()
     switch (step) {
       case 1:
-        return !!(values.fullName && values.phoneNumber && values.email) && !duplicateError
+        // Check basic validation first
+        const hasBasicFields = !!(values.fullName && values.phoneNumber && values.email)
+        // Check email format
+        const isValidEmail = values.email ? /^\S+@\S+$/i.test(values.email) : false
+        // Check if there's no duplicate error
+        return hasBasicFields && isValidEmail && !duplicateError
       case 2:
         return !!(values.jobTitle && values.yearsExperience && values.visaStatus)
       case 3:
@@ -315,15 +327,25 @@ export default function CreateProfile() {
   }
 
   const handleNext = async () => {
+    // Trigger validation for current step fields
+    await trigger()
+
     if (currentStep === 1) {
       // Check for duplicates before proceeding
       const phoneValue = getValues('phoneNumber')
       const emailValue = getValues('email')
-      
-      const phoneIsDuplicate = await checkDuplicate('phoneNumber', phoneValue)
-      const emailIsDuplicate = await checkDuplicate('email', emailValue)
-      
-      if (phoneIsDuplicate || emailIsDuplicate) {
+
+      // Only check for duplicates if the basic validation passes
+      if (phoneValue && emailValue && /^\S+@\S+$/i.test(emailValue)) {
+        const phoneIsDuplicate = await checkDuplicate('phoneNumber', phoneValue)
+        const emailIsDuplicate = await checkDuplicate('email', emailValue)
+
+        if (phoneIsDuplicate || emailIsDuplicate) {
+          return
+        }
+      } else {
+        // Show validation errors if fields are empty or invalid
+        setTouchedFields(new Set(['fullName', 'phoneNumber', 'email']))
         return
       }
     }
@@ -336,6 +358,17 @@ export default function CreateProfile() {
         if (window.innerWidth < 768) {
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }
+      }
+    } else {
+      // Mark fields as touched to show validation errors
+      if (currentStep === 1) {
+        setTouchedFields(new Set(['fullName', 'phoneNumber', 'email']))
+      } else if (currentStep === 2) {
+        setTouchedFields(prev => new Set([...prev, 'jobTitle', 'yearsExperience', 'visaStatus']))
+      } else if (currentStep === 3) {
+        setTouchedFields(prev => new Set([...prev, 'country', 'city', 'expectedSalary']))
+      } else if (currentStep === 4) {
+        setTouchedFields(prev => new Set([...prev, 'languagesSpoken']))
       }
     }
   }
@@ -496,17 +529,26 @@ export default function CreateProfile() {
           
           {/* Duplicate Error Alert */}
           {duplicateError && (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4 animate-pulse">
               <div className="flex items-start">
-                <ExclamationTriangleIcon className="h-5 w-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" />
+                <ExclamationTriangleIcon className="h-5 w-5 text-amber-600 mt-0.5 mr-3 flex-shrink-0" />
                 <div className="flex-1">
-                  <p className="text-red-800 text-sm font-medium">{duplicateError}</p>
-                  <Link 
-                    href="/login" 
-                    className="text-red-600 hover:text-red-800 text-sm underline mt-1 inline-block"
-                  >
-                    Go to Login Page →
-                  </Link>
+                  <p className="text-amber-800 text-sm font-medium">{duplicateError}</p>
+                  <div className="flex items-center gap-3 mt-2">
+                    <Link
+                      href="/login"
+                      className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1"
+                    >
+                      Sign In Instead →
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setDuplicateError('')}
+                      className="text-amber-600 hover:text-amber-800 text-sm underline"
+                    >
+                      Use Different Email/Phone
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
