@@ -82,10 +82,7 @@ const mockJobs: JobPost[] = [
   }
 ]
 
-export const metadata = {
-  title: 'Job Postings - Gulf Hiring Platform',
-  description: 'Browse the latest job opportunities for blue-collar workers across the Gulf region. Find your next career opportunity.',
-}
+// Note: Metadata is handled by layout.tsx for client components
 
 export default function Jobs() {
   const handleApplyNow = (jobId: string) => {
