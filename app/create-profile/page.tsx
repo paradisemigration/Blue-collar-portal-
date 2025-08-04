@@ -219,6 +219,19 @@ export default function CreateProfile() {
           ? `⚠️ This mobile number is already registered. Please use a different number or sign in to your existing account.`
           : `⚠️ This email address is already registered. Please use a different email or sign in to your existing account.`
         setDuplicateError(message)
+
+        // Smooth scroll to error section
+        setTimeout(() => {
+          const errorElement = document.querySelector('[data-duplicate-error]')
+          if (errorElement) {
+            errorElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+              inline: 'nearest'
+            })
+          }
+        }, 100)
+
         return true
       }
 
@@ -529,22 +542,25 @@ export default function CreateProfile() {
           
           {/* Duplicate Error Alert */}
           {duplicateError && (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4 animate-pulse">
+            <div
+              data-duplicate-error
+              className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4 transition-all duration-300 ease-in-out"
+            >
               <div className="flex items-start">
                 <ExclamationTriangleIcon className="h-5 w-5 text-amber-600 mt-0.5 mr-3 flex-shrink-0" />
                 <div className="flex-1">
                   <p className="text-amber-800 text-sm font-medium">{duplicateError}</p>
-                  <div className="flex items-center gap-3 mt-2">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-3">
                     <Link
                       href="/login"
-                      className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1"
+                      className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 w-full sm:w-auto justify-center"
                     >
                       Sign In Instead →
                     </Link>
                     <button
                       type="button"
                       onClick={() => setDuplicateError('')}
-                      className="text-amber-600 hover:text-amber-800 text-sm underline"
+                      className="text-amber-600 hover:text-amber-800 text-sm underline w-full sm:w-auto text-center"
                     >
                       Use Different Email/Phone
                     </button>
@@ -825,29 +841,38 @@ export default function CreateProfile() {
                 </div>
 
                 {/* Visa Status */}
-                <div>
+                <div className="relative">
                   <label className="flex items-center text-sm font-semibold text-gray-800 mb-2">
                     <IdentificationIcon className="h-4 w-4 mr-2 text-green-600" />
                     Visa Status *
                   </label>
-                  <select
-                    {...register('visaStatus', { required: 'Visa status is required' })}
-                    onFocus={() => handleFieldFocus('visaStatus')}
-                    className={`w-full px-3 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all duration-200 text-base
-                      ${getFieldError('visaStatus', watchedValues.visaStatus)
-                        ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-200' 
-                        : watchedValues.visaStatus 
-                          ? 'border-green-500 bg-green-50 focus:border-green-500'
-                          : 'border-gray-200 bg-gray-50 focus:bg-white focus:border-green-500'
-                      }`}
-                  >
-                    <option value="">Select visa status</option>
-                    <option value="Work Visa">🟢 Work Visa</option>
-                    <option value="Visit Visa">🟡 Visit Visa</option>
-                    <option value="Freelance Visa">🔵 Freelance Visa</option>
-                    <option value="Expired Visa">🟠 Expired Visa</option>
-                    <option value="No Visa">🔴 No Visa</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      {...register('visaStatus', { required: 'Visa status is required' })}
+                      onFocus={() => handleFieldFocus('visaStatus')}
+                      className={`w-full px-3 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all duration-200 text-base appearance-none bg-white
+                        ${getFieldError('visaStatus', watchedValues.visaStatus)
+                          ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-200'
+                          : watchedValues.visaStatus
+                            ? 'border-green-500 bg-green-50 focus:border-green-500'
+                            : 'border-gray-200 bg-gray-50 focus:bg-white focus:border-green-500'
+                        }`}
+                      style={{ backgroundImage: 'none' }}
+                    >
+                      <option value="">Select visa status</option>
+                      <option value="Work Visa">🟢 Work Visa</option>
+                      <option value="Visit Visa">🟡 Visit Visa</option>
+                      <option value="Freelance Visa">🔵 Freelance Visa</option>
+                      <option value="Expired Visa">🟠 Expired Visa</option>
+                      <option value="No Visa">🔴 No Visa</option>
+                    </select>
+                    {/* Custom dropdown arrow */}
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
                   {errors.visaStatus && (
                     <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
                       <ExclamationTriangleIcon className="h-3 w-3" />
