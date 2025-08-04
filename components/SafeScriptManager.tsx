@@ -32,12 +32,19 @@ export default function SafeScriptManager() {
       window.fetch = function(...args) {
         const url = args[0]?.toString() || ''
 
-        if (url.includes('fullstory.com') || url.includes('edge.fullstory.com')) {
+        // Only block FullStory URLs specifically
+        if (url.includes('fullstory.com') || url.includes('edge.fullstory.com') || url.includes('fs.com')) {
           console.log('[Dev Mode] Blocked FullStory request:', url)
           return Promise.resolve(new Response('{}', { status: 200 }))
         }
 
-        return originalFetch.apply(this, args)
+        // Allow all other requests to proceed normally
+        try {
+          return originalFetch.apply(this, args)
+        } catch (error) {
+          console.error('[Dev Mode] Fetch error:', error)
+          throw error
+        }
       }
 
       // Block script loading
