@@ -166,6 +166,7 @@ export interface FilterOptions {
   maxExperience?: number;
   minSalary?: number;
   maxSalary?: number;
-  visaStatus?: 'Available' | 'Not Available';
+  visaStatus?: 'Work Visa' | 'Visit Visa' | 'Freelance Visa' | 'Expired Visa' | 'No Visa';
+  availability?: boolean;
   languages?: string[];
 }
