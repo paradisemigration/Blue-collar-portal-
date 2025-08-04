@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Job Postings - GoGetHires',
     description: 'Find jobs in UAE in 7 days! Browse opportunities for blue-collar workers.',
-    images: ['https://www.gogethires.com/twitter-image.jpg'],
+    images: ['https://www.gogethires.com/twitter-image.jpg?v=2024080419'],
   },
 }
 
