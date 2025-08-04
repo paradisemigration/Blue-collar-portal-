@@ -81,6 +81,16 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
 
+        {/* Additional Social Media Meta Tags */}
+        <meta property="og:image" content="https://www.gogethires.com/og-image.jpg" />
+        <meta property="og:image:secure_url" content="https://www.gogethires.com/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="GoGetHires - Find jobs in UAE in 7 days. Create your profile." />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta name="twitter:image" content="https://www.gogethires.com/twitter-image.jpg" />
+        <meta name="twitter:image:alt" content="GoGetHires - Gulf Region Worker Platform" />
+
         {/* Block FullStory in development */}
         {process.env.NODE_ENV === 'development' && (
           <meta httpEquiv="Content-Security-Policy" content="connect-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none';" />
