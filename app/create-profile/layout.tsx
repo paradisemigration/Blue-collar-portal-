@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description: 'Join 15,000+ verified workers. Create your professional profile and get hired by top employers across the Gulf region.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: 'https://www.gogethires.com/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'GoGetHires - Create Worker Profile',
