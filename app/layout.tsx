@@ -9,7 +9,7 @@ import BottomCTAPopup from '../components/BottomCTAPopup'
 
 export const metadata = {
   title: 'Go Get Hires Now - Premier Blue-Collar Worker Platform | Gulf Region',
-  description: 'Go Get Hires Now connects employers with 15,000+ verified blue-collar workers across 43 cities in Gulf region. Browse 49 job categories including drivers, maids, electricians, construction workers. Fast hiring, verified profiles, instant contact access.',
+  description: 'Find jobs in UAE in 7 days! GoGetHires connects employers with 15,000+ verified blue-collar workers across 43 Gulf cities. Browse 49 job categories including drivers, maids, electricians, construction workers.',
   keywords: 'Gulf workers, blue collar jobs, hire workers Gulf, UAE workers, Qatar workers, Saudi Arabia workers, Kuwait workers, Bahrain workers, Oman workers, drivers Gulf, maids Gulf, electricians Gulf, construction workers Gulf, skilled workers Middle East, Go Get Hires Now',
   authors: [{ name: 'Go Get Hires Now' }],
   creator: 'Go Get Hires Now',
