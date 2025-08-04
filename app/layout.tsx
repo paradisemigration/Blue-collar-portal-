@@ -29,7 +29,7 @@ export const metadata = {
     url: 'https://www.gogethires.com',
     siteName: 'GoGetHires',
     title: 'GoGetHires - Premier Blue-Collar Worker Platform | Gulf Region',
-    description: 'Connect with 15,000+ verified blue-collar workers across 43 Gulf cities. Browse 49 job categories, hire instantly with verified profiles and direct contact access.',
+    description: 'Find jobs in UAE in 7 days! Connect with 15,000+ verified blue-collar workers across the Gulf region. Create your profile and get hired instantly.',
     images: [
       {
         url: 'https://www.gogethires.com/og-image.jpg',
