@@ -82,8 +82,8 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
 
         {/* Additional Social Media Meta Tags */}
-        <meta property="og:image" content="https://www.gogethires.com/og-image.jpg" />
-        <meta property="og:image:secure_url" content="https://www.gogethires.com/og-image.jpg" />
+        <meta property="og:image" content="https://www.gogethires.com/og-image.jpg?v=2024080419" />
+        <meta property="og:image:secure_url" content="https://www.gogethires.com/og-image.jpg?v=2024080419" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="GoGetHires - Find jobs in UAE in 7 days. Create your profile." />
