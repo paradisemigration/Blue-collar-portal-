@@ -424,6 +424,9 @@ export default function CreateProfile() {
       const updatedProfiles = [...existingProfiles.filter((p: any) => p.id !== workerProfile.id), workerProfile]
       localStorage.setItem('allUserProfiles', JSON.stringify(updatedProfiles))
 
+      // Dispatch auth state change event to update header and hide popup
+      window.dispatchEvent(new Event('authStateChanged'))
+
       // Success animation
       setTimeout(() => {
         router.push('/dashboard')
