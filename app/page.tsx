@@ -124,10 +124,10 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/browse" className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-4 px-8 rounded-lg text-lg transition-colors">
-                Browse Workers
+                Find Worker
               </Link>
               <Link href="/create-profile" className="bg-transparent border-2 border-white hover:bg-white hover:text-navy-900 font-bold py-4 px-8 rounded-lg text-lg transition-colors">
-                Create Worker Profile
+                Ready to Work
               </Link>
             </div>
           </div>
