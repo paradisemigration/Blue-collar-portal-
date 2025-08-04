@@ -30,11 +30,15 @@ export default function Login() {
       await new Promise(resolve => setTimeout(resolve, 1500))
       
       // Check credentials
-      if (userCredentials && 
-          formData.loginId === userCredentials.loginId && 
+      if (userCredentials &&
+          formData.loginId === userCredentials.loginId &&
           formData.password === userCredentials.tempPassword) {
+
+        // Set authentication state
+        localStorage.setItem('isLoggedIn', 'true')
+        localStorage.setItem('authProvider', 'login')
+
         alert('Login successful! Welcome back!')
-        // In real app, set authentication token and redirect
         window.location.href = '/dashboard'
       } else {
         alert('Invalid credentials. Please check your Login ID and password.')
