@@ -501,7 +501,7 @@ You can now login at the Employer Login page.`)
           <p className="text-gray-600 mb-6">
             Our team is here to help you choose the right plan for your business.
           </p>
-          <a href="mailto:sales@gogethire.com" className="btn-primary text-lg px-8 py-3 inline-block">
+          <a href="mailto:sales@gogethires.com" className="btn-primary text-lg px-8 py-3 inline-block">
             Contact Sales
           </a>
         </div>
