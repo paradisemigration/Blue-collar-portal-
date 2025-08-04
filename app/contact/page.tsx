@@ -64,7 +64,7 @@ export default function ContactUs() {
             Contact Us
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Get in touch with our team for support, partnerships, or any questions about Gulf Hiring Platform
+            Get in touch with our team for support, partnerships, or any questions about GoGetHires
           </p>
         </div>
 
@@ -98,9 +98,7 @@ export default function ContactUs() {
                     <h3 className="font-semibold text-navy-900 mb-1">Email Support</h3>
                     <p className="text-gray-600 mb-2">Send us an email anytime</p>
                     <div className="space-y-1">
-                      <p className="text-navy-900 font-medium">support@gulfhire.com</p>
-                      <p className="text-navy-900 font-medium">partnerships@gulfhire.com</p>
-                      <p className="text-navy-900 font-medium">admin@gulfhire.com</p>
+                      <p className="text-navy-900 font-medium">support@gogethires.com</p>
                     </div>
                   </div>
                 </div>
@@ -154,24 +152,24 @@ export default function ContactUs() {
                 <div className="border border-gray-200 rounded-lg p-4">
                   <h4 className="font-semibold text-navy-900 mb-2">👷 For Workers</h4>
                   <p className="text-gray-600 text-sm mb-2">Profile creation, login issues, account management</p>
-                  <a href="mailto:workers@gulfhire.com" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                    workers@gulfhire.com
+                  <a href="mailto:support@gogethires.com" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                    support@gogethires.com
                   </a>
                 </div>
                 
                 <div className="border border-gray-200 rounded-lg p-4">
                   <h4 className="font-semibold text-navy-900 mb-2">🏢 For Employers</h4>
                   <p className="text-gray-600 text-sm mb-2">Subscriptions, hiring support, bulk requirements</p>
-                  <a href="mailto:employers@gulfhire.com" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                    employers@gulfhire.com
+                  <a href="mailto:support@gogethires.com" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                    support@gogethires.com
                   </a>
                 </div>
                 
                 <div className="border border-gray-200 rounded-lg p-4">
                   <h4 className="font-semibold text-navy-900 mb-2">🤝 For Partnerships</h4>
                   <p className="text-gray-600 text-sm mb-2">Business partnerships, integrations, collaborations</p>
-                  <a href="mailto:partnerships@gulfhire.com" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                    partnerships@gulfhire.com
+                  <a href="mailto:support@gogethires.com" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                    support@gogethires.com
                   </a>
                 </div>
               </div>
@@ -284,25 +282,18 @@ export default function ContactUs() {
           </div>
         </div>
 
-        {/* Emergency Contact */}
-        <div className="mt-12 bg-red-50 border border-red-200 rounded-xl p-6 text-center">
-          <h3 className="text-lg font-semibold text-red-900 mb-2">🚨 Emergency Support</h3>
-          <p className="text-red-700 mb-3">
-            For urgent technical issues affecting your business operations
+        {/* Additional Support Information */}
+        <div className="mt-12 bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+          <h3 className="text-lg font-semibold text-blue-900 mb-2">💬 Need Quick Help?</h3>
+          <p className="text-blue-700 mb-3">
+            We typically respond to all enquiries within 24 hours
           </p>
-          <div className="flex flex-col sm:flex-row gap-2 justify-center">
-            <a 
-              href="tel:+971123456789" 
-              className="text-red-600 hover:text-red-700 font-medium"
+          <div className="flex justify-center">
+            <a
+              href="mailto:support@gogethires.com"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-lg transition-colors"
             >
-              Emergency Hotline: +971 4 123 4567
-            </a>
-            <span className="hidden sm:block text-red-400">|</span>
-            <a 
-              href="mailto:emergency@gulfhire.com" 
-              className="text-red-600 hover:text-red-700 font-medium"
-            >
-              emergency@gulfhire.com
+              Email Support Team
             </a>
           </div>
         </div>
