@@ -368,7 +368,11 @@ export default function CreateProfile() {
 
       // Save to localStorage
       localStorage.setItem('userProfile', JSON.stringify(workerProfile))
-      
+
+      // Set login state
+      localStorage.setItem('isLoggedIn', 'true')
+      localStorage.setItem('authProvider', 'profile')
+
       // Also save to all profiles list
       const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
       const updatedProfiles = [...existingProfiles.filter((p: any) => p.id !== workerProfile.id), workerProfile]
