@@ -1,13 +1,49 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Improve development experience
-  experimental: {
-    // Reduce memory usage and improve HMR performance
-    optimizePackageImports: ['@heroicons/react'],
+  // Production optimizations
+  reactStrictMode: true,
+  swcMinify: true,
+  
+  // Output configuration for static export (if needed)
+  output: 'standalone',
+  
+  // Image optimization for production
+  images: {
+    domains: ['images.unsplash.com', 'cdn.builder.io'],
+    formats: ['image/webp', 'image/avif'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.builder.io',
+        port: '',
+        pathname: '/api/v1/image/assets/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      }
+    ]
   },
   
-  // Development optimizations
+  // Compress output
+  compress: true,
+  
+  // Remove console logs in production
+  compiler: {
+    removeConsole: {
+      exclude: ['error'],
+    },
+  },
+  
+  // Development optimizations (only apply in dev)
   ...(process.env.NODE_ENV === 'development' && {
+    experimental: {
+      // Reduce memory usage and improve HMR performance
+      optimizePackageImports: ['@heroicons/react'],
+    },
+    
     webpack: (config, { dev, isServer }) => {
       if (dev && !isServer) {
         // Reduce HMR noise and improve stability
@@ -32,28 +68,6 @@ const nextConfig = {
     reactStrictMode: false,
   }),
   
-  // Production optimizations
-  ...(process.env.NODE_ENV === 'production' && {
-    reactStrictMode: true,
-    swcMinify: true,
-    
-    // Optimize images
-    images: {
-      domains: ['images.unsplash.com'],
-      formats: ['image/webp'],
-    },
-    
-    // Compress output
-    compress: true,
-    
-    // Remove console logs in production
-    compiler: {
-      removeConsole: {
-        exclude: ['error'],
-      },
-    },
-  }),
-  
   // General configurations
   poweredByHeader: false,
   
@@ -67,7 +81,6 @@ const nextConfig = {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
-          // X-Frame-Options header removed to allow embedding in iframes
           {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
