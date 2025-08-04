@@ -1,8 +1,8 @@
 import { ShieldCheckIcon } from '@heroicons/react/24/outline'
 
 export const metadata = {
-  title: 'Privacy Policy | Gulf Hiring Platform',
-  description: 'Read our privacy policy to understand how we collect, use, and protect your personal information on Gulf Hiring Platform.',
+  title: 'Privacy Policy | GoGetHires',
+  description: 'Read our privacy policy to understand how we collect, use, and protect your personal information on GoGetHires.',
   keywords: 'privacy, policy, data protection, gdpr, personal information'
 }
 
@@ -33,7 +33,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-bold text-navy-900 mb-4">1. Introduction</h2>
             <p className="text-gray-700 leading-relaxed">
-              Gulf Hiring Platform ("we," "our," or "us") is committed to protecting the privacy and security of your personal information. 
+              GoGetHires ("we," "our," or "us") is committed to protecting the privacy and security of your personal information.
               This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform and services.
             </p>
           </section>
@@ -233,7 +233,7 @@ export default function PrivacyPolicy() {
               If you have any questions about this Privacy Policy or our data practices, please contact us:
             </p>
             <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-gray-700"><strong>Email:</strong> privacy@gulfhire.com</p>
+              <p className="text-gray-700"><strong>Email:</strong> support@gogethires.com</p>
               <p className="text-gray-700"><strong>Phone:</strong> +971 4 123 4567</p>
               <p className="text-gray-700"><strong>Address:</strong> Business Bay, Dubai, UAE</p>
             </div>
