@@ -91,6 +91,14 @@ export default function RootLayout({
         <meta name="twitter:image" content="https://www.gogethires.com/twitter-image.jpg" />
         <meta name="twitter:image:alt" content="GoGetHires - Gulf Region Worker Platform" />
 
+        {/* Facebook specific */}
+        <meta property="fb:app_id" content="your-facebook-app-id" />
+        <meta property="article:publisher" content="https://www.facebook.com/gogethires" />
+
+        {/* Additional meta for better indexing */}
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <link rel="canonical" href="https://www.gogethires.com" />
+
         {/* Block FullStory in development */}
         {process.env.NODE_ENV === 'development' && (
           <meta httpEquiv="Content-Security-Policy" content="connect-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none';" />
