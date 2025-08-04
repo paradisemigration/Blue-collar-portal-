@@ -80,13 +80,7 @@ export default function AdminDashboard() {
         profiles.push(...parsedProfiles)
       }
       
-      // Generate some demo data if no profiles exist
-      if (profiles.length === 0) {
-        const demoProfiles = generateDemoProfiles()
-        profiles.push(...demoProfiles)
-        // Store demo profiles
-        localStorage.setItem('allUserProfiles', JSON.stringify(demoProfiles))
-      }
+      // Note: Real profiles will be loaded from the actual user database
       
       setUsers(profiles)
       calculateStats(profiles)
