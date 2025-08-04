@@ -377,11 +377,11 @@ export default function CreateProfile() {
       if (currentStep === 1) {
         setTouchedFields(new Set(['fullName', 'phoneNumber', 'email']))
       } else if (currentStep === 2) {
-        setTouchedFields(prev => new Set([...prev, 'jobTitle', 'yearsExperience', 'visaStatus']))
+        setTouchedFields(prev => new Set([...Array.from(prev), 'jobTitle', 'yearsExperience', 'visaStatus']))
       } else if (currentStep === 3) {
-        setTouchedFields(prev => new Set([...prev, 'country', 'city', 'expectedSalary']))
+        setTouchedFields(prev => new Set([...Array.from(prev), 'country', 'city', 'expectedSalary']))
       } else if (currentStep === 4) {
-        setTouchedFields(prev => new Set([...prev, 'languagesSpoken']))
+        setTouchedFields(prev => new Set([...Array.from(prev), 'languagesSpoken']))
       }
     }
   }
