@@ -78,10 +78,10 @@ const validJobs: JobTitle[] = [
   'Heavy Equipment Operator', 'Crane Operator', 'Forklift Operator', 'Steel Fixer',
   'Pipe Fitter', 'HVAC Technician', 'Concrete Mixer', 'Excavator Operator',
   'Road Worker', 'Building Maintenance', 'Pool Cleaner', 'Landscaper',
-  'window-cleaner', 'pest-control-technician', 'laundry-worker', 'dishwasher',
-  'food-preparation-worker', 'kitchen-helper', 'waiter', 'barista', 'cashier',
-  'shop-assistant', 'inventory-clerk', 'packer', 'loading-worker', 'moving-helper',
-  'cleaning-supervisor', 'maintenance-supervisor'
+  'Window Cleaner', 'Pest Control Technician', 'Laundry Worker', 'Dishwasher',
+  'Food Preparation Worker', 'Kitchen Helper', 'Waiter', 'Barista', 'Cashier',
+  'Shop Assistant', 'Inventory Clerk', 'Packer', 'Loading Worker', 'Moving Helper',
+  'Cleaning Supervisor', 'Maintenance Supervisor'
 ]
 
 function formatCityName(slug: string): string {
