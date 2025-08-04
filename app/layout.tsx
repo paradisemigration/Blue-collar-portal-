@@ -7,12 +7,12 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import SafeScriptManager from '../components/SafeScriptManager'
 
 export const metadata = {
-  title: 'Go Get Hire - Premier Blue-Collar Worker Platform | Gulf Region',
-  description: 'Go Get Hire connects employers with 15,000+ verified blue-collar workers across 43 cities in Gulf region. Browse 49 job categories including drivers, maids, electricians, construction workers. Fast hiring, verified profiles, instant contact access.',
-  keywords: 'Gulf workers, blue collar jobs, hire workers Gulf, UAE workers, Qatar workers, Saudi Arabia workers, Kuwait workers, Bahrain workers, Oman workers, drivers Gulf, maids Gulf, electricians Gulf, construction workers Gulf, skilled workers Middle East, Go Get Hire',
-  authors: [{ name: 'Go Get Hire' }],
-  creator: 'Go Get Hire',
-  publisher: 'Go Get Hire',
+  title: 'Go Get Hires Now - Premier Blue-Collar Worker Platform | Gulf Region',
+  description: 'Go Get Hires Now connects employers with 15,000+ verified blue-collar workers across 43 cities in Gulf region. Browse 49 job categories including drivers, maids, electricians, construction workers. Fast hiring, verified profiles, instant contact access.',
+  keywords: 'Gulf workers, blue collar jobs, hire workers Gulf, UAE workers, Qatar workers, Saudi Arabia workers, Kuwait workers, Bahrain workers, Oman workers, drivers Gulf, maids Gulf, electricians Gulf, construction workers Gulf, skilled workers Middle East, Go Get Hires Now',
+  authors: [{ name: 'Go Get Hires Now' }],
+  creator: 'Go Get Hires Now',
+  publisher: 'Go Get Hires Now',
   formatDetection: {
     email: false,
     address: false,
@@ -26,21 +26,21 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://gogethire.com',
-    siteName: 'Go Get Hire',
-    title: 'Go Get Hire - Premier Blue-Collar Worker Platform | Gulf Region',
+    siteName: 'Go Get Hires Now',
+    title: 'Go Get Hires Now - Premier Blue-Collar Worker Platform | Gulf Region',
     description: 'Connect with 15,000+ verified blue-collar workers across 43 Gulf cities. Browse 49 job categories, hire instantly with verified profiles and direct contact access.',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Go Get Hire - Gulf Region Worker Platform',
+        alt: 'Go Get Hires Now - Gulf Region Worker Platform',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Go Get Hire - Premier Blue-Collar Worker Platform',
+    title: 'Go Get Hires Now - Premier Blue-Collar Worker Platform',
     description: 'Connect with 15,000+ verified workers across Gulf region. 43 cities, 49 job categories.',
     images: ['/twitter-image.jpg'],
     creator: '@GoGetHire',
@@ -85,10 +85,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "Go Get Hire",
+              "name": "Go Get Hires Now",
               "url": "https://gogethire.com",
               "logo": "https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fae655e15f41d4e2a843beb5ac79ab8d2?format=webp&width=400",
-              "description": "Go Get Hire connects employers with verified blue-collar workers across the Gulf region",
+              "description": "Go Get Hires Now connects employers with verified blue-collar workers across the Gulf region",
               "address": {
                 "@type": "PostalAddress",
                 "addressRegion": "Gulf Region",
@@ -117,7 +117,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "Go Get Hire",
+              "name": "Go Get Hires Now",
               "url": "https://gogethire.com",
               "description": "Premier blue-collar worker platform connecting employers with verified workers across Gulf region",
               "potentialAction": {

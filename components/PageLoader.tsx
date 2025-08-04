@@ -38,7 +38,7 @@ export default function PageLoader() {
         {/* Loading Text with Animation */}
         <div className="space-y-3">
           <h3 className="text-2xl font-bold text-navy-900 animate-fade-in">
-            Go Get Hire
+            Go Get Hires Now
           </h3>
           <div className="flex items-center justify-center gap-2">
             <div className="flex space-x-1">

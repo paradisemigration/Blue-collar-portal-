@@ -50,7 +50,7 @@ export default function Header() {
             <Link href="/" className="flex items-center space-x-2">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2F7dfeb24366b045dfa6f9c1b8aebdc773?format=webp&width=800"
-                alt="Go Get Hire Logo"
+                alt="Go Get Hires Now Logo"
                 className="h-10 w-auto sm:h-12 md:h-14"
               />
             </Link>

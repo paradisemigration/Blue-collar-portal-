@@ -11,12 +11,12 @@ export default function Footer() {
             <div className="flex items-center space-x-2 mb-4">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2F7dfeb24366b045dfa6f9c1b8aebdc773?format=webp&width=800"
-                alt="Go Get Hire Logo"
+                alt="Go Get Hires Now Logo"
                 className="h-20 w-auto sm:h-24 md:h-28 brightness-0 invert"
               />
             </div>
             <p className="text-gray-300 max-w-md">
-              Go Get Hire connects skilled blue-collar workers with employers across the Gulf region.
+              Go Get Hires Now connects skilled blue-collar workers with employers across the Gulf region.
               Find verified professionals and grow your business with trusted talent.
             </p>
           </div>
@@ -46,7 +46,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p className="text-gray-300">
-            © 2024 Go Get Hire. All rights reserved. Built for the Gulf region with ❤️
+            © 2024 Go Get Hires Now. All rights reserved. Built for the Gulf region with ❤️
           </p>
         </div>
       </div>
