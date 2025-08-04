@@ -90,8 +90,7 @@ export default function AdminLogin() {
             <h3 className="text-sm font-medium text-blue-900 mb-2">Admin Access:</h3>
             <div className="text-sm text-blue-800 space-y-1">
               <p>Contact system administrator for login credentials.</p>
-              <p><strong>Username:</strong> admin</p>
-              <p><strong>Password:</strong> admin123</p>
+              <p>Admin access is restricted and requires proper authorization.</p>
             </div>
           </div>
 
