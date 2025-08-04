@@ -595,8 +595,12 @@ export default function CreateProfile() {
                     </label>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm text-gray-600">Profile Photo (Optional)</p>
-                    <p className="text-xs text-green-600">+80% more responses</p>
+                    <p className="text-sm font-medium text-gray-700">Profile Photo</p>
+                    <div className="flex items-center justify-center gap-1 mt-1">
+                      <span className="text-xs text-blue-600 font-medium">Optional</span>
+                      <span className="text-xs text-gray-400">•</span>
+                      <span className="text-xs text-green-600 font-medium">+80% more responses</span>
+                    </div>
                   </div>
                 </div>
 
@@ -1082,16 +1086,28 @@ export default function CreateProfile() {
                 <button
                   type="button"
                   onClick={handleNext}
-                  disabled={!validateStep(currentStep)}
+                  disabled={!validateStep(currentStep) || duplicateError !== ''}
                   className={`
-                    px-4 py-2.5 rounded-xl font-semibold transition-all duration-200 text-sm
-                    ${validateStep(currentStep)
-                      ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg'
+                    px-4 py-2.5 rounded-xl font-semibold transition-all duration-200 text-sm relative
+                    ${validateStep(currentStep) && !duplicateError
+                      ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg transform hover:scale-105'
                       : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     }
                   `}
                 >
-                  Next →
+                  {duplicateError ? (
+                    <span className="flex items-center gap-1">
+                      <ExclamationTriangleIcon className="h-4 w-4" />
+                      Fix Issues
+                    </span>
+                  ) : validateStep(currentStep) ? (
+                    <span className="flex items-center gap-1">
+                      Next →
+                      <CheckCircleIcon className="h-4 w-4" />
+                    </span>
+                  ) : (
+                    'Complete Form'
+                  )}
                 </button>
               ) : (
                 <button
@@ -1100,7 +1116,7 @@ export default function CreateProfile() {
                   className={`
                     px-6 py-2.5 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 text-sm
                     ${validateStep(4) && !isSubmitting
-                      ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg'
+                      ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg transform hover:scale-105'
                       : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     }
                   `}
