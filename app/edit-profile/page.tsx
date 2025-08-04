@@ -402,8 +402,11 @@ export default function EditProfile() {
                   className="input-field"
                 >
                   <option value="">Select visa status</option>
-                  <option value="Available">Available</option>
-                  <option value="Not Available">Not Available</option>
+                  <option value="Work Visa">Work Visa</option>
+                  <option value="Visit Visa">Visit Visa</option>
+                  <option value="Freelance Visa">Freelance Visa</option>
+                  <option value="Expired Visa">Expired Visa</option>
+                  <option value="No Visa">No Visa</option>
                 </select>
                 {errors.visaStatus && (
                   <p className="text-red-500 text-sm mt-1">{errors.visaStatus.message}</p>
