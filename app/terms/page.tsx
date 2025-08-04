@@ -282,7 +282,7 @@ export default function TermsOfService() {
               If you have any questions about these Terms of Service, please contact us:
             </p>
             <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-gray-700"><strong>Email:</strong> legal@gulfhire.com</p>
+              <p className="text-gray-700"><strong>Email:</strong> support@gogethires.com</p>
               <p className="text-gray-700"><strong>Phone:</strong> +971 4 123 4567</p>
               <p className="text-gray-700"><strong>Address:</strong> Business Bay, Dubai, UAE</p>
             </div>
