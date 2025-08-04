@@ -49,8 +49,8 @@ export class GoogleAuthService {
       }
 
       // Check if already loaded
-      if (window.gapi) {
-        this.gapi = window.gapi
+      if ((window as any).gapi) {
+        this.gapi = (window as any).gapi
         resolve()
         return
       }
@@ -62,7 +62,7 @@ export class GoogleAuthService {
       script.defer = true
 
       script.onload = () => {
-        this.gapi = window.gapi
+        this.gapi = (window as any).gapi
         resolve()
       }
 
