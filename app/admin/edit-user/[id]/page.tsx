@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { ArrowLeftIcon, UserIcon, SaveIcon } from '@heroicons/react/24/outline'
+import { ArrowLeftIcon, UserIcon, CheckIcon } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, Country } from '../../../../types'
 
 const jobTitles: (JobTitle | 'Other')[] = [
@@ -422,7 +422,7 @@ export default function EditUser({ params }: PageProps) {
                 saving ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
-              <SaveIcon className="h-4 w-4" />
+              <CheckIcon className="h-4 w-4" />
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
