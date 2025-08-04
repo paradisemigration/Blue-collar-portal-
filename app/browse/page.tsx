@@ -122,6 +122,7 @@ export default function BrowseWorkers() {
       if (filters.minSalary && worker.expectedSalary < filters.minSalary) return false
       if (filters.maxSalary && worker.expectedSalary > filters.maxSalary) return false
       if (filters.visaStatus && worker.visaStatus !== filters.visaStatus) return false
+      if (filters.availability !== undefined && worker.availability !== filters.availability) return false
 
       return true
     })
