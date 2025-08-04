@@ -1,8 +1,8 @@
 import { DocumentTextIcon } from '@heroicons/react/24/outline'
 
 export const metadata = {
-  title: 'Terms of Service | Gulf Hiring Platform',
-  description: 'Read our terms of service and user agreement for using Gulf Hiring Platform services.',
+  title: 'Terms of Service | GoGetHires',
+  description: 'Read our terms of service and user agreement for using GoGetHires services.',
   keywords: 'terms, service, agreement, legal, conditions'
 }
 
@@ -21,7 +21,7 @@ export default function TermsOfService() {
             Terms of Service
           </h1>
           <p className="text-xl text-gray-600">
-            Please read these terms carefully before using Gulf Hiring Platform services.
+            Please read these terms carefully before using GoGetHires services.
           </p>
           <p className="text-sm text-gray-500 mt-4">
             Last updated: January 1, 2024
@@ -33,7 +33,7 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-2xl font-bold text-navy-900 mb-4">1. Agreement to Terms</h2>
             <p className="text-gray-700 leading-relaxed">
-              By accessing or using Gulf Hiring Platform ("Platform", "Service", "we", "us", or "our"), you agree to be bound by these 
+              By accessing or using GoGetHires ("Platform", "Service", "we", "us", or "our"), you agree to be bound by these
               Terms of Service ("Terms"). If you disagree with any part of these terms, you may not access the Service.
             </p>
           </section>
@@ -42,7 +42,7 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-2xl font-bold text-navy-900 mb-4">2. Platform Description</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Gulf Hiring Platform is an online marketplace that connects blue-collar workers with employers across the Gulf region. 
+              GoGetHires is an online marketplace that connects blue-collar workers with employers across the Gulf region. 
               Our platform enables:
             </p>
             <ul className="list-disc pl-6 text-gray-700 space-y-1">
