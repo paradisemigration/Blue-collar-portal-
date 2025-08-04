@@ -72,7 +72,7 @@ export default function SEOManager() {
             
             combinations[key] = {
               url,
-              title: `Hire ${job}s in ${city} | Gulf Hiring Platform`,
+              title: `Hire ${job}s in ${city} | GoGetHires`,
               description: `Find experienced ${job.toLowerCase()}s in ${city}. Browse verified profiles, check reviews, and hire skilled professionals for your business needs.`,
               keywords: `${job.toLowerCase()}, ${city.toLowerCase()}, hire, jobs, workers, ${country.toLowerCase()}, gulf`,
               city: city,
@@ -95,8 +95,8 @@ export default function SEOManager() {
       const staticPages: SEOData[] = [
         {
           url: '/help',
-          title: 'Help Center | Gulf Hiring Platform',
-          description: 'Get help and support for using Gulf Hiring Platform. Find answers to common questions and contact support.',
+          title: 'Help Center | GoGetHires',
+          description: 'Get help and support for using GoGetHires. Find answers to common questions and contact support.',
           keywords: 'help, support, faq, gulf hiring, assistance',
           city: 'Static',
           job: 'Help Center',
@@ -104,8 +104,8 @@ export default function SEOManager() {
         },
         {
           url: '/contact',
-          title: 'Contact Us | Gulf Hiring Platform',
-          description: 'Contact Gulf Hiring Platform support team. Get in touch for assistance, partnerships, or business inquiries.',
+          title: 'Contact Us | GoGetHires',
+          description: 'Contact GoGetHires support team. Get in touch for assistance, partnerships, or business inquiries.',
           keywords: 'contact, support, help, business, partnership',
           city: 'Static',
           job: 'Contact Us',
@@ -113,8 +113,8 @@ export default function SEOManager() {
         },
         {
           url: '/privacy',
-          title: 'Privacy Policy | Gulf Hiring Platform',
-          description: 'Read our privacy policy to understand how we collect, use, and protect your personal information on Gulf Hiring Platform.',
+          title: 'Privacy Policy | GoGetHires',
+          description: 'Read our privacy policy to understand how we collect, use, and protect your personal information on GoGetHires.',
           keywords: 'privacy, policy, data protection, gdpr, personal information',
           city: 'Static',
           job: 'Privacy Policy',
@@ -122,8 +122,8 @@ export default function SEOManager() {
         },
         {
           url: '/terms',
-          title: 'Terms of Service | Gulf Hiring Platform',
-          description: 'Read our terms of service and user agreement for using Gulf Hiring Platform services.',
+          title: 'Terms of Service | GoGetHires',
+          description: 'Read our terms of service and user agreement for using GoGetHires services.',
           keywords: 'terms, service, agreement, legal, conditions',
           city: 'Static',
           job: 'Terms of Service',
