@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Find jobs in UAE in 7 days! Browse latest opportunities for drivers, maids, electricians, and more.',
     images: [
       {
-        url: 'https://www.gogethires.com/og-image.jpg',
+        url: 'https://www.gogethires.com/og-image.jpg?v=2024080419',
         width: 1200,
         height: 630,
         alt: 'GoGetHires - Find jobs in UAE in 7 days',
