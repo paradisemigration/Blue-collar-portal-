@@ -134,7 +134,7 @@ export default function CreateProfile() {
       try {
         // Add timeout to prevent hanging
         const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 5000)
+        const timeoutId = setTimeout(() => controller.abort(), 3000)
 
         const response = await fetch('https://ipapi.co/json/', {
           signal: controller.signal,
@@ -170,8 +170,35 @@ export default function CreateProfile() {
         setValue('country', detectedCountry)
         setValue('phoneNumber', info.phoneCode)
       } catch (error) {
-        console.log('Could not detect location:', error)
-        setDefaults()
+        console.log('Primary location detection failed, trying fallback...', error)
+
+        // Try fallback method using browser timezone
+        try {
+          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+          let detectedCountry: Country = 'UAE'
+
+          if (timezone.includes('Qatar')) detectedCountry = 'Qatar'
+          else if (timezone.includes('Riyadh') || timezone.includes('Saudi')) detectedCountry = 'Saudi Arabia'
+          else if (timezone.includes('Muscat')) detectedCountry = 'Oman'
+          else if (timezone.includes('Kuwait')) detectedCountry = 'Kuwait'
+          else if (timezone.includes('Bahrain')) detectedCountry = 'Bahrain'
+          else if (timezone.includes('Dubai') || timezone.includes('UAE')) detectedCountry = 'UAE'
+
+          const info = countryInfo[detectedCountry]
+          setLocationInfo({
+            country: detectedCountry,
+            currency: info.currency,
+            currencySymbol: info.currencySymbol,
+            phoneCode: info.phoneCode,
+            detectedFromIP: false
+          })
+
+          setValue('country', detectedCountry)
+          setValue('phoneNumber', info.phoneCode)
+        } catch (fallbackError) {
+          console.log('Fallback location detection also failed:', fallbackError)
+          setDefaults()
+        }
       }
     }
 
