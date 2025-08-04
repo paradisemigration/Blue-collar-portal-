@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description: 'Browse 15,000+ verified blue-collar workers across the Gulf region. Find the perfect candidate for your business.',
     images: [
       {
-        url: 'https://www.gogethires.com/og-image.jpg',
+        url: 'https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fbc77aeea733640da8c2887deb8768828?format=jpeg&width=1200&height=630&quality=85',
         width: 1200,
         height: 630,
         alt: 'GoGetHires - Browse Workers',
