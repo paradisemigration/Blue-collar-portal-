@@ -160,6 +160,7 @@ export const getCurrentGoogleUser = () => googleAuth.getCurrentUser()
 export const isGoogleSignedIn = () => googleAuth.isSignedIn()
 
 // Initialize Google Auth on import (client-side only)
-if (typeof window !== 'undefined') {
-  googleAuth.initialize().catch(console.error)
-}
+// Disabled to prevent build issues - initialize manually when needed
+// if (typeof window !== 'undefined') {
+//   googleAuth.initialize().catch(console.error)
+// }
