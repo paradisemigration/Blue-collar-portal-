@@ -86,7 +86,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Go Get Hires Now",
-              "url": "https://gogethire.com",
+              "url": "https://www.gogethires.com",
               "logo": "https://cdn.builder.io/api/v1/image/assets%2F42d8a3c9ca784d9bab2cfaff5214870e%2Fae655e15f41d4e2a843beb5ac79ab8d2?format=webp&width=400",
               "description": "Go Get Hires Now connects employers with verified blue-collar workers across the Gulf region",
               "address": {
@@ -118,7 +118,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "Go Get Hires Now",
-              "url": "https://gogethire.com",
+              "url": "https://www.gogethires.com",
               "description": "Premier blue-collar worker platform connecting employers with verified workers across Gulf region",
               "potentialAction": {
                 "@type": "SearchAction",
