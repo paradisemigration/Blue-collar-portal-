@@ -26,7 +26,7 @@ export default function Register() {
             </div>
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-navy-900 mb-4">
-            Join Go Get Hire
+            Join Go Get Hires Now
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Choose your account type to get started with the Gulf region's leading blue-collar hiring platform
