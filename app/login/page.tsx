@@ -38,6 +38,9 @@ export default function Login() {
         localStorage.setItem('isLoggedIn', 'true')
         localStorage.setItem('authProvider', 'login')
 
+        // Dispatch auth state change event
+        window.dispatchEvent(new Event('authStateChanged'))
+
         alert('Login successful! Welcome back!')
         window.location.href = '/dashboard'
       } else {
