@@ -281,6 +281,25 @@ export default function BrowseWorkers() {
                 </div>
               </div>
 
+              {/* Visa Status Filter */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Visa Status
+                </label>
+                <select
+                  value={filters.visaStatus || ''}
+                  onChange={(e) => handleFilterChange('visaStatus', e.target.value || undefined)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="">All visa types</option>
+                  <option value="Work Visa">Work Visa</option>
+                  <option value="Visit Visa">Visit Visa</option>
+                  <option value="Freelance Visa">Freelance Visa</option>
+                  <option value="Expired Visa">Expired Visa</option>
+                  <option value="No Visa">No Visa</option>
+                </select>
+              </div>
+
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mt-4">
                 <button
                   onClick={clearFilters}
