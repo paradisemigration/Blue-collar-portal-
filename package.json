@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy:build": "next build",
+    "deploy:export": "next build && next export",
+    "deploy:hostinger": "npm run build && echo 'Build complete! Upload the .next, public folders and config files to Hostinger.'"
   },
   "dependencies": {
     "next": "14.0.4",
