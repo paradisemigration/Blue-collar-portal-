@@ -1,9 +1,11 @@
-import { 
-  MapPinIcon, 
-  BriefcaseIcon, 
+'use client'
+
+import {
+  MapPinIcon,
+  BriefcaseIcon,
   ClockIcon,
   CurrencyDollarIcon,
-  BuildingOfficeIcon 
+  BuildingOfficeIcon
 } from '@heroicons/react/24/outline'
 import { JobPost } from '../../types'
 
