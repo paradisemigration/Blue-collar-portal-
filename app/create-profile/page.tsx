@@ -114,11 +114,37 @@ export default function CreateProfile() {
   // Watch all form values for real-time validation
   const watchedValues = watch()
 
-  // Auto-detect location
+  // Set default location (disabled auto-detection to prevent fetch errors)
   useEffect(() => {
-    const detectLocation = async () => {
-      // Set default values first
-      const setDefaults = () => {
+    const setDefaults = () => {
+      // Try timezone-based detection first (no fetch required)
+      try {
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+        let detectedCountry: Country = 'UAE'
+
+        if (timezone.includes('Qatar') || timezone.includes('Doha')) detectedCountry = 'Qatar'
+        else if (timezone.includes('Riyadh') || timezone.includes('Saudi')) detectedCountry = 'Saudi Arabia'
+        else if (timezone.includes('Muscat') || timezone.includes('Oman')) detectedCountry = 'Oman'
+        else if (timezone.includes('Kuwait')) detectedCountry = 'Kuwait'
+        else if (timezone.includes('Bahrain') || timezone.includes('Manama')) detectedCountry = 'Bahrain'
+        else if (timezone.includes('Dubai') || timezone.includes('UAE')) detectedCountry = 'UAE'
+
+        const info = countryInfo[detectedCountry]
+        setLocationInfo({
+          country: detectedCountry,
+          currency: info.currency,
+          currencySymbol: info.currencySymbol,
+          phoneCode: info.phoneCode,
+          detectedFromIP: false
+        })
+
+        setValue('country', detectedCountry)
+        setValue('phoneNumber', info.phoneCode)
+
+        console.log('✅ Location set based on timezone:', detectedCountry)
+      } catch (error) {
+        // Fallback to UAE default
+        console.log('Using UAE as default location')
         const defaultInfo = countryInfo['UAE']
         setLocationInfo({
           country: 'UAE',
@@ -130,81 +156,10 @@ export default function CreateProfile() {
         setValue('country', 'UAE')
         setValue('phoneNumber', defaultInfo.phoneCode)
       }
-
-      try {
-        // Add timeout to prevent hanging
-        const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 3000)
-
-        const response = await fetch('https://ipapi.co/json/', {
-          signal: controller.signal,
-          headers: {
-            'Accept': 'application/json',
-          }
-        })
-
-        clearTimeout(timeoutId)
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const data = await response.json()
-
-        let detectedCountry: Country = 'UAE'
-        if (data.country_name?.includes('Qatar')) detectedCountry = 'Qatar'
-        else if (data.country_name?.includes('Saudi')) detectedCountry = 'Saudi Arabia'
-        else if (data.country_name?.includes('Oman')) detectedCountry = 'Oman'
-        else if (data.country_name?.includes('Kuwait')) detectedCountry = 'Kuwait'
-        else if (data.country_name?.includes('Bahrain')) detectedCountry = 'Bahrain'
-
-        const info = countryInfo[detectedCountry]
-        setLocationInfo({
-          country: detectedCountry,
-          currency: info.currency,
-          currencySymbol: info.currencySymbol,
-          phoneCode: info.phoneCode,
-          detectedFromIP: true
-        })
-
-        setValue('country', detectedCountry)
-        setValue('phoneNumber', info.phoneCode)
-      } catch (error) {
-        console.log('Primary location detection failed, trying fallback...', error)
-
-        // Try fallback method using browser timezone
-        try {
-          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-          let detectedCountry: Country = 'UAE'
-
-          if (timezone.includes('Qatar')) detectedCountry = 'Qatar'
-          else if (timezone.includes('Riyadh') || timezone.includes('Saudi')) detectedCountry = 'Saudi Arabia'
-          else if (timezone.includes('Muscat')) detectedCountry = 'Oman'
-          else if (timezone.includes('Kuwait')) detectedCountry = 'Kuwait'
-          else if (timezone.includes('Bahrain')) detectedCountry = 'Bahrain'
-          else if (timezone.includes('Dubai') || timezone.includes('UAE')) detectedCountry = 'UAE'
-
-          const info = countryInfo[detectedCountry]
-          setLocationInfo({
-            country: detectedCountry,
-            currency: info.currency,
-            currencySymbol: info.currencySymbol,
-            phoneCode: info.phoneCode,
-            detectedFromIP: false
-          })
-
-          setValue('country', detectedCountry)
-          setValue('phoneNumber', info.phoneCode)
-        } catch (fallbackError) {
-          console.log('Fallback location detection also failed:', fallbackError)
-          setDefaults()
-        }
-      }
     }
 
-    // Small delay to ensure form is ready
-    const timer = setTimeout(detectLocation, 100)
-    return () => clearTimeout(timer)
+    // Set defaults immediately
+    setDefaults()
   }, [setValue])
 
   // Update location info when country changes
