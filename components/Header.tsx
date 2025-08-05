@@ -163,36 +163,36 @@ export default function Header() {
           </div>
 
           {/* Auth Section */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-4">
             {isLoggedIn || isEmployer ? (
               // Logged in menu
               <>
                 {isEmployer && (
-                  <Link 
-                    href="/employer-dashboard" 
+                  <Link
+                    href="/employer-dashboard"
                     className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors"
                   >
                     <BriefcaseIcon className="h-5 w-5" />
                     Dashboard
                   </Link>
                 )}
-                
+
                 {isLoggedIn && userProfile && (
-                  <Link 
-                    href="/dashboard" 
+                  <Link
+                    href="/dashboard"
                     className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors"
                   >
                     <UserIcon className="h-5 w-5" />
                     My Profile
                   </Link>
                 )}
-                
+
                 <div className="flex items-center gap-2 text-gray-600">
                   <span className="text-sm">
                     Hi, {userProfile?.fullName || 'User'}
                   </span>
                 </div>
-                
+
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-2 text-gray-600 hover:text-red-600 font-medium transition-colors"
@@ -202,16 +202,52 @@ export default function Header() {
                 </button>
               </>
             ) : (
-              // Not logged in menu
+              // Not logged in menu with dropdown
               <>
-                <Link href="/login" className="btn-secondary text-sm">
-                  Worker Login
-                </Link>
-                <Link href="/employer-login" className="btn-secondary text-sm">
-                  Employer Login
-                </Link>
-                <Link href="/register" className="btn-primary text-sm">
-                  Sign Up
+                {/* Login Dropdown */}
+                <div
+                  className="relative"
+                  onMouseEnter={() => setShowLoginDropdown(true)}
+                  onMouseLeave={() => setShowLoginDropdown(false)}
+                >
+                  <button className="flex items-center gap-1 text-gray-700 hover:text-primary-600 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-gray-50">
+                    Login
+                    <ChevronDownIcon className="h-4 w-4" />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {showLoginDropdown && (
+                    <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                      <Link
+                        href="/login"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                      >
+                        Worker Login
+                      </Link>
+                      <Link
+                        href="/employer-login"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                      >
+                        Employer Login
+                      </Link>
+                      <div className="border-t border-gray-100 my-1"></div>
+                      <Link
+                        href="/register"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                      >
+                        Sign Up
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Profile CTA Button */}
+                <Link
+                  href="/create-profile"
+                  className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-2.5 px-6 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center gap-2"
+                >
+                  <UserIcon className="h-5 w-5" />
+                  Create Profile
                 </Link>
               </>
             )}
