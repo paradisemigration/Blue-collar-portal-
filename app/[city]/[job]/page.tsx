@@ -300,12 +300,23 @@ export default function CityJobPage({ params }: PageProps) {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const allWorkers = loadWorkers()
-        setWorkers(allWorkers)
+        setIsLoading(true)
+        // Use setTimeout to prevent blocking the main thread
+        setTimeout(() => {
+          try {
+            const allWorkers = loadWorkers()
+            setWorkers(allWorkers)
+          } catch (error) {
+            console.error('Error loading workers:', error)
+            // Generate minimal dummy data to avoid performance issues
+            setWorkers([])
+          } finally {
+            setIsLoading(false)
+          }
+        }, 100)
       } catch (error) {
-        console.error('Error loading workers:', error)
-        setWorkers(generateDummyWorkers())
-      } finally {
+        console.error('Error in loadData:', error)
+        setWorkers([])
         setIsLoading(false)
       }
     }
