@@ -474,7 +474,12 @@ export function generateCityJobFAQs(city: string, jobTitle: JobTitle): Array<{qu
   
   const cityName = cityMap[formattedCity] || formattedCity
   const cityInfo = CITY_INFO[cityName] || CITY_INFO['Dubai'] // fallback
-  const jobInfo = JOB_SPECIFIC_FAQS[jobTitle]
+  const jobInfo = JOB_SPECIFIC_FAQS[jobTitle] || {
+    requirements: 'Relevant experience, good work ethic, and professional attitude',
+    benefits: 'Competitive salary, accommodation, transportation, medical insurance',
+    growth: 'Team lead, supervisor, specialist roles',
+    challenges: 'Adapting to local work culture, language communication, professional development'
+  }
   
   const faqs = [
     {
