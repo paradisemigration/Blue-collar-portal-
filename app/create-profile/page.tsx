@@ -223,7 +223,8 @@ export default function CreateProfile() {
       languagesSpoken: [],
       yearsExperience: 1,
       expectedSalary: 2000,
-      jobCategory: ''
+      jobCategory: '',
+      jobTitle: undefined as JobTitle | 'Other' | undefined
     }
   })
 
