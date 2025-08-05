@@ -144,7 +144,7 @@ const jobCategories = {
       'Waiter',
       'Dishwasher',
       'Restaurant Cleaner',
-      'Barista (basic)',
+      'Barista',
       'Food Delivery Rider'
     ]
   },
