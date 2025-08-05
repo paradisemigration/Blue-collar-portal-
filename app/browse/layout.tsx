@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Browse Workers - GoGetHires',
-  description: 'Browse 15,000+ verified blue-collar workers across the Gulf region. Find drivers, maids, electricians, cleaners and more. Filter by location, experience and salary.',
-  keywords: 'browse workers, hire workers Gulf, verified workers, blue collar jobs, drivers maids electricians',
+  title: 'Find Workers - GoGetHires',
+  description: 'Find 15,000+ verified blue-collar workers across the Gulf region. Discover drivers, maids, electricians, cleaners and 70+ job categories. Filter by location, experience and salary.',
+  keywords: 'find workers, hire workers Gulf, verified workers, blue collar jobs, drivers maids electricians, 70 job categories',
   openGraph: {
     title: 'Browse Workers - GoGetHires',
     description: 'Browse 15,000+ verified blue-collar workers across the Gulf region. Find the perfect candidate for your business.',
