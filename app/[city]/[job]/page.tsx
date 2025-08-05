@@ -416,30 +416,23 @@ export default function CityJobPage({ params }: PageProps) {
   const localCurrency = getCurrencyDisplayForCity(params.city)
 
   useEffect(() => {
-    const loadData = async () => {
+    const loadData = () => {
       try {
         setIsLoading(true)
-        // Use setTimeout to prevent blocking the main thread
-        setTimeout(() => {
-          try {
-            const workers = loadWorkersForCityJob(cityDisplay, jobDisplay)
-            setWorkers(workers)
-          } catch (error) {
-            console.error('Error loading workers:', error)
-            // Generate minimal dummy data to avoid performance issues
-            setWorkers([])
-          } finally {
-            setIsLoading(false)
-          }
-        }, 100)
+        // Instant loading with fast generated workers
+        const workers = loadWorkersForCityJob(cityDisplay, jobDisplay)
+        setWorkers(workers)
+        setIsLoading(false)
       } catch (error) {
-        console.error('Error in loadData:', error)
+        console.error('Error loading workers:', error)
         setWorkers([])
         setIsLoading(false)
       }
     }
 
-    loadData()
+    // Small delay to allow page to render first
+    const timeoutId = setTimeout(loadData, 50)
+    return () => clearTimeout(timeoutId)
   }, [cityDisplay, jobDisplay])
 
   // Show all workers from the same category (not just the specific job)
