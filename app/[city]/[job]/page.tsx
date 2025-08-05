@@ -100,7 +100,7 @@ const generateCategoryWorkers = (city: string, jobTitle: JobTitle): Worker[] => 
 }
 
 // Super-fast worker loading for specific city and job category
-const loadWorkersForCityJob = (city: string, jobTitle: string): Worker[] => {
+const loadWorkersForCityJob = (city: string, jobTitle: JobTitle): Worker[] => {
   try {
     const workers: Worker[] = []
 
