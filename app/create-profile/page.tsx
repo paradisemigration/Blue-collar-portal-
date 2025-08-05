@@ -26,6 +26,7 @@ import { JobTitle, City, Country } from '../../types'
 interface WorkerFormData {
   fullName: string
   profilePicture: File | null
+  jobCategory: string
   jobTitle: JobTitle | 'Other'
   customJobTitle?: string
   jobProfile: string
