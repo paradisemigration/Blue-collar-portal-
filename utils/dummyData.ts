@@ -778,7 +778,7 @@ const JOB_DETAILS: Record<JobTitle, {
       'Experienced pest control specialist with inspection and treatment protocols.',
       'Expert pest management worker with customer education and prevention.',
       'Licensed pest control professional with commercial and residential experience.',
-      'Master pest control technician with specialty treatment and monitoring systems.'
+      'Master pest control worker with specialty treatment and monitoring systems.'
     ],
     salaryRange: { min: 2200, max: 4200 },
     languages: [
