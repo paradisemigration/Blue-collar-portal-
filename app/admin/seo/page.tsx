@@ -55,10 +55,11 @@ export default function SEOManager() {
       }
       
       const jobTitles = [
-        'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter', 
-        'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic', 
+        'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter',
+        'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic',
         'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy',
-        'AC Technician', 'Welder', 'Mason', 'Tile Setter', 'Roofer', 'Glazier'
+        'AC Technician', 'Welder', 'Mason', 'Tile Setter', 'Roofer', 'Glazier',
+        'Nanny (Childcare Worker)', 'Housemaid', 'Barista', 'Auto Mechanic', 'Housekeeping Staff'
       ]
 
       const combinations: Record<string, SEOData> = {}
