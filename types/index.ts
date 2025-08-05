@@ -111,6 +111,11 @@ export type JobTitle =
   | 'Building Maintenance Worker'
   | 'Car Wash Attendant'
   | 'Office Cleaner'
+  | 'Road Worker'
+  | 'Building Maintenance'
+  | 'Pool Cleaner'
+  | 'Landscaper'
+  | 'Window Cleaner'
 
   // Hospitality & Food
   | 'Cook'
