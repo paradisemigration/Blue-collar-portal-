@@ -155,12 +155,12 @@ const CITY_INFO: Record<string, {
 }
 
 // Job-specific FAQ content
-const JOB_SPECIFIC_FAQS: Record<JobTitle, {
+const JOB_SPECIFIC_FAQS: Partial<Record<JobTitle, {
   requirements: string,
   benefits: string,
   growth: string,
   challenges: string
-}> = {
+}>> = {
   'Driver': {
     requirements: 'Valid driving license, clean driving record, knowledge of local roads',
     benefits: 'Company vehicle, fuel allowance, overtime opportunities',
