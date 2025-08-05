@@ -67,6 +67,11 @@ export type JobTitle =
   | 'Heavy Equipment Operator'
   | 'Site Supervisor'
   | 'Road Construction Worker'
+  | 'Roofer'
+  | 'Glazier'
+  | 'Pipe Fitter'
+  | 'Concrete Mixer'
+  | 'Excavator Operator'
 
   // Mechanical & Technical
   | 'Auto Mechanic'
