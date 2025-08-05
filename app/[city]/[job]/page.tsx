@@ -333,11 +333,14 @@ export default function CityJobPage({ params }: PageProps) {
   }, [cityDisplay, jobDisplay])
 
   // Filter workers by city and job (handle job title mapping)
-  const targetJobTitle = jobSlugToDisplayName(params.job)
-  const filteredWorkers = workers.filter(worker =>
-    worker.city.toLowerCase().replace(/\s+/g, '-') === params.city.toLowerCase() &&
-    worker.jobTitle === targetJobTitle
-  )
+  const filteredWorkers = workers.filter(worker => {
+    try {
+      return worker.city === cityDisplay && worker.jobTitle === jobDisplay
+    } catch (error) {
+      console.error('Error filtering worker:', error)
+      return false
+    }
+  })
 
   const averageSalary = filteredWorkers.length > 0
     ? Math.round(filteredWorkers.reduce((sum, worker) => sum + worker.expectedSalary, 0) / filteredWorkers.length)
