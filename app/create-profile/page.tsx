@@ -222,7 +222,8 @@ export default function CreateProfile() {
     defaultValues: {
       languagesSpoken: [],
       yearsExperience: 1,
-      expectedSalary: 2000
+      expectedSalary: 2000,
+      jobCategory: ''
     }
   })
 
