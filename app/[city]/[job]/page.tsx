@@ -15,10 +15,10 @@ import { Worker, JobTitle, City, Country } from '../../../types'
 import { generateDummyWorkers, getCurrencyDisplayForCity, GULF_REGIONS } from '../../../utils/dummyData'
 
 // Helper function to get country for city
-function getCountryForCity(city: City): string {
+function getCountryForCity(city: City): Country {
   for (const [country, data] of Object.entries(GULF_REGIONS)) {
     if (data.cities.includes(city)) {
-      return country
+      return country as Country
     }
   }
   return 'UAE' // fallback
