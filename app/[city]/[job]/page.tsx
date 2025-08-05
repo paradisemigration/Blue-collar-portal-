@@ -141,38 +141,128 @@ function citySlugToDisplayName(slug: string): City {
 
 function jobSlugToDisplayName(slug: string): JobTitle {
   const formatted = formatJobTitle(slug)
-  // Handle special cases and aliases
+  // Handle special cases and aliases for all job titles
   const jobMap: Record<string, JobTitle> = {
-    'Security Guard': 'Security Guard',
-    'Construction Worker': 'Construction Worker',
-    'Delivery Driver': 'Delivery Driver',
-    'Warehouse Worker': 'Warehouse Worker',
-    'Office Boy': 'Office Boy',
-    'Chef': 'Cook', // Map chef to cook
-    'Ac Technician': 'AC Technician',
-    'Heavy Equipment Operator': 'Heavy Equipment Operator',
-    'Crane Operator': 'Crane Operator',
-    'Forklift Operator': 'Forklift Operator',
+    // Domestic & Personal Care Workers
+    'Nanny Childcare Worker': 'Nanny (Childcare Worker)',
+    'Nanny': 'Nanny (Childcare Worker)',
+    'Childcare Worker': 'Nanny (Childcare Worker)',
+    'Housemaid': 'Housemaid',
+    'Maid': 'Housemaid', // Legacy mapping
+    'Cook Home Based': 'Cook (Home-based)',
+    'Home Cook': 'Cook (Home-based)',
+    'Elderly Caregiver': 'Elderly Caregiver',
+    'Babysitter': 'Babysitter',
+    'Domestic Helper': 'Domestic Helper',
+    'Governess Live In Tutor Nanny': 'Governess (Live-in Tutor/Nanny)',
+    'Governess': 'Governess (Live-in Tutor/Nanny)',
+    'Housekeeper Residential': 'Housekeeper (Residential)',
+    'Housekeeper': 'Housekeeper (Residential)',
+    'Personal Attendant': 'Personal Attendant',
+    'Live In Maid': 'Live-in Maid',
+
+    // Construction & Infrastructure
+    'Construction Laborer': 'Construction Laborer',
+    'Construction Worker': 'Construction Laborer', // Legacy mapping
+    'Mason': 'Mason',
+    'Carpenter': 'Carpenter',
+    'Electrician': 'Electrician',
+    'Plumber': 'Plumber',
+    'Welder': 'Welder',
+    'Painter': 'Painter',
     'Steel Fixer': 'Steel Fixer',
-    'Pipe Fitter': 'Pipe Fitter',
+    'Scaffold Worker': 'Scaffold Worker',
+    'Tile Setter': 'Tile Setter',
     'Hvac Technician': 'HVAC Technician',
-    'Concrete Mixer': 'Concrete Mixer',
-    'Excavator Operator': 'Excavator Operator',
-    'Road Worker': 'Road Worker',
-    'Building Maintenance': 'Building Maintenance',
-    'Pool Cleaner': 'Pool Cleaner',
-    'Window Cleaner': 'Window Cleaner',
-    'Pest Control Technician': 'Pest Control Technician',
-    'Laundry Worker': 'Laundry Worker',
-    'Food Preparation Worker': 'Food Preparation Worker',
+    'HVAC Technician': 'HVAC Technician',
+    'Crane Operator': 'Crane Operator',
+    'Heavy Equipment Operator': 'Heavy Equipment Operator',
+    'Site Supervisor': 'Site Supervisor',
+    'Road Construction Worker': 'Road Construction Worker',
+
+    // Mechanical & Technical
+    'Auto Mechanic': 'Auto Mechanic',
+    'Mechanic': 'Auto Mechanic', // Legacy mapping
+    'Diesel Mechanic': 'Diesel Mechanic',
+    'Machine Operator': 'Machine Operator',
+    'Cnc Machine Operator': 'CNC Machine Operator',
+    'CNC Machine Operator': 'CNC Machine Operator',
+    'Fitter': 'Fitter',
+    'Maintenance Technician': 'Maintenance Technician',
+    'Elevator Technician': 'Elevator Technician',
+    'Ac Technician': 'AC Technician',
+    'AC Technician': 'AC Technician',
+    'Forklift Operator': 'Forklift Operator',
+    'Lathe Machine Operator': 'Lathe Machine Operator',
+
+    // Manufacturing & Factory
+    'Factory Worker': 'Factory Worker',
+    'Assembly Line Worker': 'Assembly Line Worker',
+    'Packer': 'Packer',
+    'Warehouse Associate': 'Warehouse Associate',
+    'Warehouse Worker': 'Warehouse Associate', // Legacy mapping
+    'Quality Checker': 'Quality Checker',
+    'Production Supervisor': 'Production Supervisor',
+    'Fabricator': 'Fabricator',
+    'Loader Unloader': 'Loader/Unloader',
+    'Loader': 'Loader/Unloader',
+    'Unloader': 'Loader/Unloader',
+
+    // Transport & Logistics
+    'Truck Driver': 'Truck Driver',
+    'Driver': 'Truck Driver', // Legacy mapping
+    'Delivery Driver': 'Delivery Driver',
+    'Bus Driver': 'Bus Driver',
+    'Light Vehicle Driver': 'Light Vehicle Driver',
+    'Logistics Assistant': 'Logistics Assistant',
+    'Dispatch Coordinator': 'Dispatch Coordinator',
+    'Heavy Vehicle Driver': 'Heavy Vehicle Driver',
+
+    // Cleaning & Maintenance
+    'Cleaner': 'Cleaner',
+    'Housekeeping Staff': 'Housekeeping Staff',
+    'Janitor': 'Janitor',
+    'Building Maintenance Worker': 'Building Maintenance Worker',
+    'Car Wash Attendant': 'Car Wash Attendant',
+    'Office Cleaner': 'Office Cleaner',
+
+    // Hospitality & Food
+    'Cook': 'Cook',
+    'Chef': 'Cook', // Legacy mapping
     'Kitchen Helper': 'Kitchen Helper',
-    'Shop Assistant': 'Shop Assistant',
-    'Inventory Clerk': 'Inventory Clerk',
-    'Loading Worker': 'Loading Worker',
-    'Moving Helper': 'Moving Helper',
-    'Cleaning Supervisor': 'Cleaning Supervisor',
-    'Maintenance Supervisor': 'Maintenance Supervisor',
-    'Tile Setter': 'Tile Setter'
+    'Waiter': 'Waiter',
+    'Dishwasher': 'Dishwasher',
+    'Restaurant Cleaner': 'Restaurant Cleaner',
+    'Barista Basic': 'Barista (basic)',
+    'Barista': 'Barista (basic)',
+    'Food Delivery Rider': 'Food Delivery Rider',
+
+    // Security & General Services
+    'Security Guard': 'Security Guard',
+    'Watchman': 'Watchman',
+    'Lifeguard': 'Lifeguard',
+    'Maintenance Helper': 'Maintenance Helper',
+    'General Helper': 'General Helper',
+
+    // Garments & Tailoring
+    'Tailor': 'Tailor',
+    'Ironing Staff': 'Ironing Staff',
+    'Textile Factory Worker': 'Textile Factory Worker',
+
+    // Agriculture & Farming
+    'Farm Worker': 'Farm Worker',
+    'Farmer': 'Farm Worker',
+    'Livestock Handler': 'Livestock Handler',
+    'Greenhouse Worker': 'Greenhouse Worker',
+
+    // Other Common Jobs
+    'Petrol Pump Attendant': 'Petrol Pump Attendant',
+    'Gas Station Attendant': 'Petrol Pump Attendant',
+    'Office Boy': 'Office Boy',
+    'Tea Boy': 'Tea Boy',
+    'Baggage Handler': 'Baggage Handler',
+    'Laundry Worker': 'Laundry Worker',
+    'Pest Control Worker': 'Pest Control Worker'
   }
   return (jobMap[formatted] as JobTitle) || (formatted as JobTitle)
 }
