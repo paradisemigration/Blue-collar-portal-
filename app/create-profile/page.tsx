@@ -257,6 +257,26 @@ export default function CreateProfile() {
   // Watch all form values for real-time validation
   const watchedValues = watch()
 
+  // Helper function to get category for a job title
+  const getJobCategory = (jobTitle: string): string => {
+    for (const [categoryName, categoryData] of Object.entries(jobCategories)) {
+      if (categoryData.jobs.includes(jobTitle)) {
+        return categoryName
+      }
+    }
+    return ''
+  }
+
+  // Update job category when job title changes
+  useEffect(() => {
+    if (selectedJobTitle && selectedJobTitle !== 'Other') {
+      const category = getJobCategory(selectedJobTitle)
+      setValue('jobCategory', category)
+    } else {
+      setValue('jobCategory', '')
+    }
+  }, [selectedJobTitle, setValue])
+
   // Set default location (disabled auto-detection to prevent fetch errors)
   useEffect(() => {
     const setDefaults = () => {
