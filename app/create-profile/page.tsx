@@ -175,7 +175,7 @@ const jobCategories = {
     ]
   },
   'Other Common Jobs': {
-    emoji: '🧴',
+    emoji: '���',
     jobs: [
       'Petrol Pump Attendant',
       'Office Boy',
@@ -526,7 +526,7 @@ export default function CreateProfile() {
       if (currentStep === 1) {
         setTouchedFields(new Set(['fullName', 'phoneNumber', 'email']))
       } else if (currentStep === 2) {
-        setTouchedFields(prev => new Set([...Array.from(prev), 'jobTitle', 'yearsExperience', 'visaStatus']))
+        setTouchedFields(prev => new Set([...Array.from(prev), 'jobCategory', 'jobTitle', 'yearsExperience', 'visaStatus']))
       } else if (currentStep === 3) {
         setTouchedFields(prev => new Set([...Array.from(prev), 'country', 'city', 'expectedSalary']))
       } else if (currentStep === 4) {
@@ -1023,7 +1023,7 @@ export default function CreateProfile() {
                     <option value="">Select experience level</option>
                     <option value={1}>🌱 1 year (Entry Level)</option>
                     <option value={2}>📈 2 years</option>
-                    <option value={3}>�� 3 years</option>
+                    <option value={3}>💪 3 years</option>
                     <option value={4}>⚡ 4 years</option>
                     <option value={5}>🎯 5 years</option>
                     <option value={6}>🏆 6+ years</option>
