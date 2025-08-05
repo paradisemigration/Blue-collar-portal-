@@ -251,31 +251,29 @@ export default function CreateProfile() {
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
 
   const selectedJobTitle = watch('jobTitle')
+  const selectedJobCategory = watch('jobCategory')
   const selectedCountry = watch('country')
   const selectedLanguages = watch('languagesSpoken') || []
 
   // Watch all form values for real-time validation
   const watchedValues = watch()
 
-  // Helper function to get category for a job title
-  const getJobCategory = (jobTitle: string): string => {
-    for (const [categoryName, categoryData] of Object.entries(jobCategories)) {
-      if (categoryData.jobs.includes(jobTitle)) {
-        return categoryName
-      }
-    }
-    return ''
+  // Get available jobs for selected category
+  const getAvailableJobs = (category: string): string[] => {
+    if (!category || category === '') return []
+    const categoryData = jobCategories[category as keyof typeof jobCategories]
+    return categoryData ? categoryData.jobs : []
   }
 
-  // Update job category when job title changes
+  // Clear job title when category changes
   useEffect(() => {
-    if (selectedJobTitle && selectedJobTitle !== 'Other') {
-      const category = getJobCategory(selectedJobTitle)
-      setValue('jobCategory', category)
-    } else {
-      setValue('jobCategory', '')
+    if (selectedJobCategory && watchedValues.jobTitle) {
+      const availableJobs = getAvailableJobs(selectedJobCategory)
+      if (!availableJobs.includes(watchedValues.jobTitle) && watchedValues.jobTitle !== 'Other') {
+        setValue('jobTitle', '')
+      }
     }
-  }, [selectedJobTitle, setValue])
+  }, [selectedJobCategory, setValue, watchedValues.jobTitle])
 
   // Set default location (disabled auto-detection to prevent fetch errors)
   useEffect(() => {
