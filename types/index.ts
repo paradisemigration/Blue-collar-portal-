@@ -150,6 +150,14 @@ export type JobTitle =
   | 'Baggage Handler'
   | 'Laundry Worker'
   | 'Pest Control Worker'
+  | 'Food Preparation Worker'
+  | 'Cashier'
+  | 'Shop Assistant'
+  | 'Inventory Clerk'
+  | 'Loading Worker'
+  | 'Moving Helper'
+  | 'Cleaning Supervisor'
+  | 'Maintenance Supervisor'
 
   // Legacy job titles for backward compatibility
   | 'Driver'
