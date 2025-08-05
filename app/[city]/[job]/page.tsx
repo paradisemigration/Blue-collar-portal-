@@ -81,7 +81,7 @@ const generateCategoryWorkers = (city: string, jobTitle: JobTitle): Worker[] => 
         jobTitle: categoryJob,
         yearsExperience: Math.floor(Math.random() * 8) + 1,
         city: city as City,
-        country: getCountryForCity(city as City),
+        country: getCountryForCity(city as City) as Country,
         languagesSpoken: ['English', 'Arabic'],
         expectedSalary: salary,
         visaStatus: Math.random() > 0.3 ? 'Work Visa' : 'Visit Visa',
