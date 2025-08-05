@@ -2280,8 +2280,8 @@ export function generateDummyWorkers(): Worker[] {
       data.cities.forEach(city => {
         Object.keys(JOB_DETAILS).forEach(jobTitle => {
           try {
-            // Generate 8-12 workers per city/job combination to ensure 20+ per job total
-            const workersPerJob = getRandomRange(8, 12)
+            // Generate 3-5 workers per city/job combination for better performance
+            const workersPerJob = getRandomRange(3, 5)
 
             for (let i = 0; i < workersPerJob; i++) {
               try {
