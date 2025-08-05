@@ -506,18 +506,22 @@ export default function CityJobPage({ params }: PageProps) {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+              <div className="bg-white/10 rounded-lg p-4">
+                <div className="text-2xl font-bold text-gold-400">{specificJobWorkers}</div>
+                <div className="text-gray-200 text-sm">{jobDisplay}s</div>
+              </div>
               <div className="bg-white/10 rounded-lg p-4">
                 <div className="text-2xl font-bold text-gold-400">{filteredWorkers.length}</div>
-                <div className="text-gray-200">Total Available Workers</div>
+                <div className="text-gray-200 text-sm">Category Total</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4">
                 <div className="text-2xl font-bold text-gold-400">{localCurrency} {averageSalary}</div>
-                <div className="text-gray-200">Average Salary</div>
+                <div className="text-gray-200 text-sm">Average Salary</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4">
                 <div className="text-2xl font-bold text-gold-400">24h</div>
-                <div className="text-gray-200">Average Response</div>
+                <div className="text-gray-200 text-sm">Average Response</div>
               </div>
             </div>
           </div>
