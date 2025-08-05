@@ -1706,6 +1706,447 @@ const JOB_DETAILS: Record<JobTitle, {
       ['English', 'Tamil']
     ],
     experience: { min: 1, max: 8 }
+  },
+  // Transport & Logistics
+  'Truck Driver': {
+    descriptions: [
+      'Professional truck driver with long-haul and local delivery experience.',
+      'Experienced heavy vehicle driver with safety certification and navigation.',
+      'Skilled truck operator with cargo handling and route optimization.',
+      'Expert commercial driver with customer service and time management.',
+      'Licensed truck professional with vehicle maintenance and inspection.',
+      'Master truck driver with training and fleet management experience.'
+    ],
+    salaryRange: { min: 2500, max: 4500 },
+    languages: [
+      ['English', 'Arabic', 'Hindi'],
+      ['English', 'Urdu'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali'],
+      ['English', 'Hindi', 'Tamil']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'Bus Driver': {
+    descriptions: [
+      'Professional bus driver with passenger safety and route knowledge.',
+      'Experienced public transport driver with customer service skills.',
+      'Skilled bus operator with defensive driving and emergency procedures.',
+      'Expert transport professional with schedule management and reliability.',
+      'Licensed bus driver with disability assistance and communication.',
+      'Master bus operator with training and supervisory capabilities.'
+    ],
+    salaryRange: { min: 2200, max: 4000 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Urdu'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 12 }
+  },
+  'Light Vehicle Driver': {
+    descriptions: [
+      'Professional light vehicle driver with city navigation and efficiency.',
+      'Experienced car driver with customer service and punctuality.',
+      'Skilled light vehicle operator with delivery and passenger service.',
+      'Expert driver with route planning and vehicle maintenance.',
+      'Licensed light vehicle professional with safety and reliability.',
+      'Master driver with training and fleet coordination experience.'
+    ],
+    salaryRange: { min: 2000, max: 3800 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Urdu'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 1, max: 10 }
+  },
+  'Logistics Assistant': {
+    descriptions: [
+      'Professional logistics assistant with supply chain and coordination.',
+      'Experienced logistics coordinator with inventory and documentation.',
+      'Skilled logistics specialist with tracking and customer communication.',
+      'Expert logistics professional with planning and optimization.',
+      'Certified logistics assistant with technology and reporting.',
+      'Master logistics coordinator with process improvement and training.'
+    ],
+    salaryRange: { min: 2200, max: 4200 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Dispatch Coordinator': {
+    descriptions: [
+      'Professional dispatch coordinator with routing and communication expertise.',
+      'Experienced dispatcher with fleet management and optimization.',
+      'Skilled dispatch specialist with emergency response and coordination.',
+      'Expert dispatcher with technology and customer service.',
+      'Certified dispatch coordinator with training and quality management.',
+      'Master dispatcher with strategic planning and team leadership.'
+    ],
+    salaryRange: { min: 2500, max: 4800 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 12 }
+  },
+  'Heavy Vehicle Driver': {
+    descriptions: [
+      'Professional heavy vehicle driver with specialized equipment operation.',
+      'Experienced heavy transport driver with safety and regulations.',
+      'Skilled heavy vehicle operator with cargo handling and inspection.',
+      'Expert heavy transport professional with route planning and efficiency.',
+      'Licensed heavy vehicle driver with maintenance and documentation.',
+      'Master heavy transport operator with training and safety management.'
+    ],
+    salaryRange: { min: 3000, max: 5500 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Urdu'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 3, max: 18 }
+  },
+  // Hospitality & Food
+  'Restaurant Cleaner': {
+    descriptions: [
+      'Professional restaurant cleaner with food service sanitation expertise.',
+      'Experienced kitchen cleaner with hygiene standards and efficiency.',
+      'Skilled restaurant custodian with equipment cleaning and maintenance.',
+      'Expert food service cleaner with safety protocols and quality.',
+      'Certified restaurant cleaner with chemical handling and procedures.',
+      'Master restaurant custodian with training and quality assurance.'
+    ],
+    salaryRange: { min: 1400, max: 2600 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 6 }
+  },
+  'Barista (basic)': {
+    descriptions: [
+      'Professional barista with coffee preparation and customer service.',
+      'Experienced coffee specialist with brewing techniques and quality.',
+      'Skilled barista with espresso machine operation and drink knowledge.',
+      'Expert coffee professional with latte art and menu familiarity.',
+      'Certified barista with food safety and customer engagement.',
+      'Master coffee specialist with training and shop management.'
+    ],
+    salaryRange: { min: 1700, max: 3200 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'French'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Food Delivery Rider': {
+    descriptions: [
+      'Professional food delivery rider with speed and customer service.',
+      'Experienced delivery specialist with navigation and time management.',
+      'Skilled food courier with vehicle maintenance and safety.',
+      'Expert delivery professional with customer communication and quality.',
+      'Certified delivery rider with technology and tracking systems.',
+      'Master food delivery specialist with training and efficiency optimization.'
+    ],
+    salaryRange: { min: 1800, max: 3200 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 6 }
+  },
+  // Security & General Services
+  'Watchman': {
+    descriptions: [
+      'Professional watchman with security monitoring and patrol expertise.',
+      'Experienced security guard with observation and emergency response.',
+      'Skilled watchman with access control and incident reporting.',
+      'Expert security professional with communication and vigilance.',
+      'Certified watchman with safety protocols and customer service.',
+      'Master security specialist with training and team coordination.'
+    ],
+    salaryRange: { min: 1800, max: 3500 },
+    languages: [
+      ['Arabic', 'English'],
+      ['English', 'Hindi'],
+      ['English', 'Urdu'],
+      ['Arabic', 'English', 'Hindi'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 1, max: 10 }
+  },
+  'Lifeguard': {
+    descriptions: [
+      'Professional lifeguard with water rescue and first aid certification.',
+      'Experienced aquatic safety specialist with swimming and emergency response.',
+      'Skilled lifeguard with pool maintenance and safety enforcement.',
+      'Expert water safety professional with training and prevention.',
+      'Certified lifeguard with CPR and medical assistance.',
+      'Master aquatic safety specialist with supervision and program management.'
+    ],
+    salaryRange: { min: 2000, max: 4000 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'French'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Maintenance Helper': {
+    descriptions: [
+      'Professional maintenance helper with general repair and assistance.',
+      'Experienced maintenance assistant with tool handling and support.',
+      'Skilled maintenance worker with cleaning and basic repairs.',
+      'Expert maintenance helper with safety awareness and reliability.',
+      'Certified maintenance assistant with inventory and documentation.',
+      'Master maintenance helper with training and quality support.'
+    ],
+    salaryRange: { min: 1600, max: 3000 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'General Helper': {
+    descriptions: [
+      'Versatile general helper with multi-task capabilities and reliability.',
+      'Experienced general assistant with adaptability and work ethic.',
+      'Skilled general worker with basic maintenance and support.',
+      'Expert general helper with communication and problem-solving.',
+      'Certified general assistant with safety awareness and training.',
+      'Master general helper with leadership and quality service.'
+    ],
+    salaryRange: { min: 1500, max: 2800 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  // Other essential jobs
+  'Tailor': {
+    descriptions: [
+      'Professional tailor with clothing alteration and custom tailoring.',
+      'Experienced seamster with pattern making and garment construction.',
+      'Skilled tailor with fabric knowledge and precision fitting.',
+      'Expert tailor with traditional and modern tailoring techniques.',
+      'Certified tailor with quality craftsmanship and customer service.',
+      'Master tailor with design consultation and specialty garments.'
+    ],
+    salaryRange: { min: 2000, max: 4500 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'Ironing Staff': {
+    descriptions: [
+      'Professional ironing specialist with garment care and pressing.',
+      'Experienced laundry worker with fabric handling and finishing.',
+      'Skilled ironing professional with commercial equipment operation.',
+      'Expert garment care specialist with quality and efficiency.',
+      'Certified ironing staff with customer service and reliability.',
+      'Master ironing professional with training and quality standards.'
+    ],
+    salaryRange: { min: 1400, max: 2600 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tagalog']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Textile Factory Worker': {
+    descriptions: [
+      'Professional textile worker with fabric production and quality control.',
+      'Experienced factory operator with textile machinery and maintenance.',
+      'Skilled textile specialist with material handling and processing.',
+      'Expert textile worker with efficiency and safety protocols.',
+      'Certified textile professional with quality standards and procedures.',
+      'Master textile specialist with training and process optimization.'
+    ],
+    salaryRange: { min: 1600, max: 3200 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 10 }
+  },
+  'Farm Worker': {
+    descriptions: [
+      'Professional farm worker with crop cultivation and livestock care.',
+      'Experienced agricultural worker with planting and harvesting.',
+      'Skilled farm laborer with equipment operation and maintenance.',
+      'Expert agricultural professional with irrigation and pest control.',
+      'Certified farm worker with organic farming and sustainability.',
+      'Master agricultural specialist with training and farm management.'
+    ],
+    salaryRange: { min: 1500, max: 3000 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 12 }
+  },
+  'Livestock Handler': {
+    descriptions: [
+      'Professional livestock handler with animal care and management.',
+      'Experienced animal caretaker with feeding and health monitoring.',
+      'Skilled livestock worker with breeding and handling expertise.',
+      'Expert animal handler with safety protocols and veterinary assistance.',
+      'Certified livestock professional with record keeping and quality care.',
+      'Master livestock specialist with training and farm operations.'
+    ],
+    salaryRange: { min: 1600, max: 3200 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 10 }
+  },
+  'Greenhouse Worker': {
+    descriptions: [
+      'Professional greenhouse worker with plant cultivation and climate control.',
+      'Experienced horticulture specialist with growing and harvesting.',
+      'Skilled greenhouse operator with irrigation and pest management.',
+      'Expert plant care professional with quality and productivity.',
+      'Certified greenhouse worker with organic methods and sustainability.',
+      'Master greenhouse specialist with training and production optimization.'
+    ],
+    salaryRange: { min: 1700, max: 3300 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Petrol Pump Attendant': {
+    descriptions: [
+      'Professional petrol pump attendant with fuel service and customer care.',
+      'Experienced gas station worker with safety protocols and efficiency.',
+      'Skilled fuel attendant with vehicle service and maintenance checks.',
+      'Expert petrol station professional with cash handling and service.',
+      'Certified pump attendant with safety compliance and customer satisfaction.',
+      'Master fuel service specialist with training and quality service.'
+    ],
+    salaryRange: { min: 1600, max: 3000 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Tea Boy': {
+    descriptions: [
+      'Professional tea boy with beverage service and office support.',
+      'Experienced office assistant with refreshment preparation and service.',
+      'Skilled tea service worker with customer care and cleanliness.',
+      'Expert beverage specialist with traditional and modern preparation.',
+      'Certified tea boy with hygiene standards and efficiency.',
+      'Master tea service professional with quality and presentation.'
+    ],
+    salaryRange: { min: 1200, max: 2200 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 6 }
+  },
+  'Baggage Handler': {
+    descriptions: [
+      'Professional baggage handler with airport operations and efficiency.',
+      'Experienced luggage specialist with cargo handling and safety.',
+      'Skilled baggage worker with loading and equipment operation.',
+      'Expert airport handler with customer service and reliability.',
+      'Certified baggage professional with security protocols and quality.',
+      'Master baggage specialist with training and operational excellence.'
+    ],
+    salaryRange: { min: 1800, max: 3500 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Pest Control Worker': {
+    descriptions: [
+      'Professional pest control worker with integrated pest management.',
+      'Experienced exterminator with chemical application and safety.',
+      'Skilled pest control specialist with inspection and treatment.',
+      'Expert pest management professional with prevention and education.',
+      'Certified pest control worker with regulations and customer service.',
+      'Master pest control specialist with training and quality assurance.'
+    ],
+    salaryRange: { min: 2000, max: 4000 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 10 }
   }
 }
 
