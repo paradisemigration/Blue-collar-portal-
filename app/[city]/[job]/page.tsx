@@ -407,7 +407,7 @@ export default function CityJobPage({ params }: PageProps) {
       try {
         setIsLoading(true)
         // Instant loading with fast generated workers
-        const workers = loadWorkersForCityJob(cityDisplay, jobDisplay)
+        const workers = loadWorkersForCityJob(cityDisplay, jobDisplay as JobTitle)
         setWorkers(workers)
         setIsLoading(false)
       } catch (error) {
