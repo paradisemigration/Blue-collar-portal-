@@ -377,7 +377,7 @@ export default function CityJobPage({ params }: PageProps) {
           <nav className="flex text-sm">
             <Link href="/" className="text-gray-500 hover:text-primary-600">Home</Link>
             <span className="mx-2 text-gray-400">/</span>
-            <Link href="/browse" className="text-gray-500 hover:text-primary-600">Browse Workers</Link>
+            <Link href="/browse" className="text-gray-500 hover:text-primary-600">Find Workers</Link>
             <span className="mx-2 text-gray-400">/</span>
             <span className="text-gray-900">{cityDisplay} {jobDisplay}s</span>
           </nav>
