@@ -2109,25 +2109,6 @@ const JOB_DETAILS: Record<JobTitle, {
       ['English', 'Tamil']
     ],
     experience: { min: 1, max: 8 }
-  },
-  'Pest Control Worker': {
-    descriptions: [
-      'Professional pest control worker with integrated pest management.',
-      'Experienced exterminator with chemical application and safety.',
-      'Skilled pest control specialist with inspection and treatment.',
-      'Expert pest management professional with prevention and education.',
-      'Certified pest control worker with regulations and customer service.',
-      'Master pest control specialist with training and quality assurance.'
-    ],
-    salaryRange: { min: 2000, max: 4000 },
-    languages: [
-      ['English', 'Hindi'],
-      ['English', 'Arabic'],
-      ['English', 'Bengali'],
-      ['Arabic', 'English'],
-      ['English', 'Tamil']
-    ],
-    experience: { min: 1, max: 10 }
   }
 }
 
