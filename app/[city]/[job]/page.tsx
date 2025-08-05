@@ -25,16 +25,18 @@ function getCountryForCity(city: City): string {
 }
 import { generateCityJobFAQs } from '../../../utils/faqData'
 
-// Fast worker generation for specific city and job category
+// Ultra-fast worker generation for specific city and job category
 const generateCategoryWorkers = (city: string, jobTitle: JobTitle): Worker[] => {
   const workers: Worker[] = []
   const categoryJobs = getJobsInSameCategory(jobTitle)
 
-  // Quick dummy worker names for each category
+  // Expanded name pool for better variety
   const quickNames = [
     'Ahmed Hassan', 'Mohammed Ali', 'Omar Al-Rashid', 'Hassan Abdullah', 'Fatima Al-Zahra',
     'Aisha Abdullah', 'Zainab Hassan', 'Priya Sharma', 'Sunita Devi', 'Rajesh Kumar',
-    'Maria Santos', 'Jose Reyes', 'Grace Wanjiku', 'Samuel Mwangi', 'David Kimani'
+    'Maria Santos', 'Jose Reyes', 'Grace Wanjiku', 'Samuel Mwangi', 'David Kimani',
+    'Anita Singh', 'Carlos Santos', 'Anna Dela Cruz', 'Michael Otieno', 'Sarah Wanjiru',
+    'Tariq Al-Mahmoud', 'Geeta Sharma', 'Roberto Silva', 'Joyce Wangari', 'Khalid Al-Otaibi'
   ]
 
   const quickPictures = [
@@ -47,25 +49,42 @@ const generateCategoryWorkers = (city: string, jobTitle: JobTitle): Worker[] => 
 
   let workerCount = 0
 
-  // Generate 4-6 workers for each job in the category
-  categoryJobs.forEach((categoryJob, jobIndex) => {
-    const workersPerJob = Math.min(6, Math.max(4, 30 - workerCount)) // Ensure we don't exceed 30 total
+  // Ensure the searched job gets priority and more workers
+  const prioritizedJobs = [jobTitle, ...categoryJobs.filter(job => job !== jobTitle)]
 
-    for (let i = 0; i < workersPerJob && workerCount < 30; i++) {
-      const nameIndex = (jobIndex * workersPerJob + i) % quickNames.length
-      const pictureIndex = (jobIndex * workersPerJob + i) % quickPictures.length
+  prioritizedJobs.forEach((categoryJob, jobIndex) => {
+    // Give the searched job more workers (6-8), others get fewer (3-4)
+    const isSearchedJob = categoryJob === jobTitle
+    const workersPerJob = isSearchedJob ? Math.min(8, Math.max(6, 25 - workerCount)) : Math.min(4, Math.max(2, 35 - workerCount))
+
+    for (let i = 0; i < workersPerJob && workerCount < 35; i++) {
+      const nameIndex = (jobIndex * 10 + i) % quickNames.length
+      const pictureIndex = (jobIndex * 5 + i) % quickPictures.length
+
+      // Job-specific salary ranges
+      const getSalaryRange = (job: JobTitle) => {
+        if (job.includes('Supervisor') || job.includes('Manager')) return { min: 3500, max: 6000 }
+        if (job.includes('Technician') || job.includes('Mechanic')) return { min: 2800, max: 5000 }
+        if (job.includes('Driver') || job.includes('Operator')) return { min: 2200, max: 4000 }
+        if (job.includes('Cook') || job.includes('Chef')) return { min: 2000, max: 4000 }
+        if (job.includes('Cleaner') || job.includes('Helper')) return { min: 1500, max: 2800 }
+        return { min: 1800, max: 3500 } // Default range
+      }
+
+      const salaryRange = getSalaryRange(categoryJob)
+      const salary = Math.floor(Math.random() * (salaryRange.max - salaryRange.min)) + salaryRange.min
 
       workers.push({
         id: `fast_${workerCount + 1}`,
         fullName: quickNames[nameIndex],
         profilePicture: quickPictures[pictureIndex],
         jobTitle: categoryJob,
-        yearsExperience: Math.floor(Math.random() * 10) + 1,
+        yearsExperience: Math.floor(Math.random() * 8) + 1,
         city: city as City,
         country: getCountryForCity(city as City),
         languagesSpoken: ['English', 'Arabic'],
-        expectedSalary: Math.floor(Math.random() * 2000) + 2000,
-        visaStatus: Math.random() > 0.5 ? 'Work Visa' : 'Visit Visa',
+        expectedSalary: salary,
+        visaStatus: Math.random() > 0.3 ? 'Work Visa' : 'Visit Visa',
         availability: true,
         aboutMe: `Experienced ${categoryJob.toLowerCase()} with excellent skills and reliability.`,
         phoneNumber: `+971${50000000 + workerCount}`,
