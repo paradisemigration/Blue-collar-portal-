@@ -441,7 +441,7 @@ export default function CreateProfile() {
         // Check if there's no duplicate error
         return hasBasicFields && isValidEmail && !duplicateError
       case 2:
-        return !!(values.jobTitle && values.yearsExperience && values.visaStatus)
+        return !!(values.jobCategory && values.jobTitle && values.yearsExperience && values.visaStatus)
       case 3:
         return !!(values.country && values.city && values.expectedSalary)
       case 4:
@@ -1092,7 +1092,7 @@ export default function CreateProfile() {
                     <option value="Qatar">🇶🇦 Qatar</option>
                     <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
                     <option value="Oman">🇴🇲 Oman</option>
-                    <option value="Kuwait">🇰🇼 Kuwait</option>
+                    <option value="Kuwait">🇰��� Kuwait</option>
                     <option value="Bahrain">🇧🇭 Bahrain</option>
                   </select>
                   {errors.country && (
