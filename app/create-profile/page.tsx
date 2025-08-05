@@ -461,6 +461,8 @@ export default function CreateProfile() {
         return !value || value.length < 8
       case 'email':
         return !value || !/^\S+@\S+$/i.test(value)
+      case 'jobCategory':
+        return !value
       case 'jobTitle':
         return !value
       case 'yearsExperience':
