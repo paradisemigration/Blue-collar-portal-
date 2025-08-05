@@ -26,6 +26,7 @@ export default function Header() {
   const [isEmployer, setIsEmployer] = useState(false)
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
   const [loadingLink, setLoadingLink] = useState<string | null>(null)
+  const [showLoginDropdown, setShowLoginDropdown] = useState(false)
 
   useEffect(() => {
     const checkAuthStatus = () => {
