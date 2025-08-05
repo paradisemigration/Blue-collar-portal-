@@ -423,15 +423,19 @@ export default function CityJobPage({ params }: PageProps) {
     loadData()
   }, [cityDisplay, jobDisplay])
 
-  // Filter workers by city and job (handle job title mapping)
+  // Show all workers from the same category (not just the specific job)
+  const categoryJobs = getJobsInSameCategory(jobDisplay)
   const filteredWorkers = workers.filter(worker => {
     try {
-      return worker.city === cityDisplay && worker.jobTitle === jobDisplay
+      return worker.city === cityDisplay && categoryJobs.includes(worker.jobTitle)
     } catch (error) {
       console.error('Error filtering worker:', error)
       return false
     }
   })
+
+  const categoryName = getCategoryForJob(jobDisplay)
+  const specificJobWorkers = filteredWorkers.filter(w => w.jobTitle === jobDisplay).length
 
   const averageSalary = filteredWorkers.length > 0
     ? Math.round(filteredWorkers.reduce((sum, worker) => sum + worker.expectedSalary, 0) / filteredWorkers.length)
