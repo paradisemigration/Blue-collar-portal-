@@ -203,10 +203,10 @@ export default function BrowseWorkers() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">
-            Browse Skilled Workers
+            Find Skilled Workers
           </h1>
           <p className="text-gray-600 text-lg">
-            Find the perfect candidate for your business needs
+            Discover the perfect candidate for your business needs
           </p>
         </div>
 
