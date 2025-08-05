@@ -78,49 +78,77 @@ const validCities: City[] = [
   'Manama', 'Riffa', 'Muharraq', 'Hamad Town', 'Isa Town', 'Sitra'
 ]
 
-const validJobs: JobTitle[] = [
-  // Domestic & Personal Care Workers
-  'Nanny (Childcare Worker)', 'Housemaid', 'Cook (Home-based)', 'Elderly Caregiver', 'Babysitter',
-  'Domestic Helper', 'Governess (Live-in Tutor/Nanny)', 'Housekeeper (Residential)', 'Personal Attendant', 'Live-in Maid',
+// Job categories for showing related workers
+const JOB_CATEGORIES: Record<string, JobTitle[]> = {
+  'Domestic & Personal Care Workers': [
+    'Nanny (Childcare Worker)', 'Housemaid', 'Cook (Home-based)', 'Elderly Caregiver', 'Babysitter',
+    'Domestic Helper', 'Governess (Live-in Tutor/Nanny)', 'Housekeeper (Residential)', 'Personal Attendant', 'Live-in Maid',
+    'Maid' // Legacy
+  ],
+  'Construction & Infrastructure': [
+    'Construction Laborer', 'Mason', 'Carpenter', 'Electrician', 'Plumber', 'Welder', 'Painter',
+    'Steel Fixer', 'Scaffold Worker', 'Tile Setter', 'HVAC Technician', 'Crane Operator',
+    'Heavy Equipment Operator', 'Site Supervisor', 'Road Construction Worker',
+    'Construction Worker' // Legacy
+  ],
+  'Mechanical & Technical': [
+    'Auto Mechanic', 'Diesel Mechanic', 'Machine Operator', 'CNC Machine Operator', 'Fitter',
+    'Maintenance Technician', 'Elevator Technician', 'AC Technician', 'Forklift Operator', 'Lathe Machine Operator',
+    'Mechanic' // Legacy
+  ],
+  'Manufacturing & Factory': [
+    'Factory Worker', 'Assembly Line Worker', 'Packer', 'Warehouse Associate', 'Quality Checker',
+    'Production Supervisor', 'Fabricator', 'Loader/Unloader',
+    'Warehouse Worker' // Legacy
+  ],
+  'Transport & Logistics': [
+    'Truck Driver', 'Delivery Driver', 'Bus Driver', 'Light Vehicle Driver', 'Logistics Assistant',
+    'Dispatch Coordinator', 'Heavy Vehicle Driver',
+    'Driver' // Legacy
+  ],
+  'Cleaning & Maintenance': [
+    'Cleaner', 'Housekeeping Staff', 'Janitor', 'Building Maintenance Worker', 'Car Wash Attendant', 'Office Cleaner'
+  ],
+  'Hospitality & Food': [
+    'Cook', 'Kitchen Helper', 'Waiter', 'Dishwasher', 'Restaurant Cleaner', 'Barista (basic)', 'Food Delivery Rider'
+  ],
+  'Security & General Services': [
+    'Security Guard', 'Watchman', 'Lifeguard', 'Maintenance Helper', 'General Helper'
+  ],
+  'Garments & Tailoring': [
+    'Tailor', 'Ironing Staff', 'Textile Factory Worker'
+  ],
+  'Agriculture & Farming': [
+    'Farm Worker', 'Livestock Handler', 'Greenhouse Worker',
+    'Gardener' // Legacy
+  ],
+  'Other Common Jobs': [
+    'Petrol Pump Attendant', 'Office Boy', 'Tea Boy', 'Baggage Handler', 'Laundry Worker', 'Pest Control Worker'
+  ]
+}
 
-  // Construction & Infrastructure
-  'Construction Laborer', 'Mason', 'Carpenter', 'Electrician', 'Plumber', 'Welder', 'Painter',
-  'Steel Fixer', 'Scaffold Worker', 'Tile Setter', 'HVAC Technician', 'Crane Operator',
-  'Heavy Equipment Operator', 'Site Supervisor', 'Road Construction Worker',
+// Flatten all jobs for validation
+const validJobs: JobTitle[] = Object.values(JOB_CATEGORIES).flat()
 
-  // Mechanical & Technical
-  'Auto Mechanic', 'Diesel Mechanic', 'Machine Operator', 'CNC Machine Operator', 'Fitter',
-  'Maintenance Technician', 'Elevator Technician', 'AC Technician', 'Forklift Operator', 'Lathe Machine Operator',
+// Function to get all jobs in the same category
+function getJobsInSameCategory(jobTitle: JobTitle): JobTitle[] {
+  for (const [category, jobs] of Object.entries(JOB_CATEGORIES)) {
+    if (jobs.includes(jobTitle)) {
+      return jobs
+    }
+  }
+  return [jobTitle] // Fallback to just the single job
+}
 
-  // Manufacturing & Factory
-  'Factory Worker', 'Assembly Line Worker', 'Packer', 'Warehouse Associate', 'Quality Checker',
-  'Production Supervisor', 'Fabricator', 'Loader/Unloader',
-
-  // Transport & Logistics
-  'Truck Driver', 'Delivery Driver', 'Bus Driver', 'Light Vehicle Driver', 'Logistics Assistant',
-  'Dispatch Coordinator', 'Heavy Vehicle Driver',
-
-  // Cleaning & Maintenance
-  'Cleaner', 'Housekeeping Staff', 'Janitor', 'Building Maintenance Worker', 'Car Wash Attendant', 'Office Cleaner',
-
-  // Hospitality & Food
-  'Cook', 'Kitchen Helper', 'Waiter', 'Dishwasher', 'Restaurant Cleaner', 'Barista (basic)', 'Food Delivery Rider',
-
-  // Security & General Services
-  'Security Guard', 'Watchman', 'Lifeguard', 'Maintenance Helper', 'General Helper',
-
-  // Garments & Tailoring
-  'Tailor', 'Ironing Staff', 'Textile Factory Worker',
-
-  // Agriculture & Farming
-  'Farm Worker', 'Livestock Handler', 'Greenhouse Worker',
-
-  // Other Common Jobs
-  'Petrol Pump Attendant', 'Office Boy', 'Tea Boy', 'Baggage Handler', 'Laundry Worker', 'Pest Control Worker',
-
-  // Legacy job titles for backward compatibility
-  'Driver', 'Maid', 'Gardener', 'Mechanic', 'Construction Worker', 'Warehouse Worker'
-]
+// Function to get category name for a job
+function getCategoryForJob(jobTitle: JobTitle): string {
+  for (const [category, jobs] of Object.entries(JOB_CATEGORIES)) {
+    if (jobs.includes(jobTitle)) {
+      return category
+    }
+  }
+  return 'Other Jobs'
+}
 
 function formatCityName(slug: string): string {
   return slug.split('-').map(word => 
