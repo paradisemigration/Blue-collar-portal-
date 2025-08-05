@@ -270,7 +270,9 @@ export default function CreateProfile() {
     if (selectedJobCategory && watchedValues.jobTitle) {
       const availableJobs = getAvailableJobs(selectedJobCategory)
       if (!availableJobs.includes(watchedValues.jobTitle) && watchedValues.jobTitle !== 'Other') {
-        setValue('jobTitle', '')
+        // Use first available job as default instead of empty string
+        const defaultJob = availableJobs.length > 0 ? availableJobs[0] as JobTitle : 'Other'
+        setValue('jobTitle', defaultJob)
       }
     }
   }, [selectedJobCategory, setValue, watchedValues.jobTitle])
