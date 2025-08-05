@@ -15,7 +15,62 @@ import { Worker, JobTitle, City } from '../../../types'
 import { generateDummyWorkers, getCurrencyDisplayForCity } from '../../../utils/dummyData'
 import { generateCityJobFAQs } from '../../../utils/faqData'
 
-// Load actual user data from localStorage and minimal dummy data
+// Fast worker generation for specific city and job category
+const generateCategoryWorkers = (city: string, jobTitle: JobTitle): Worker[] => {
+  const workers: Worker[] = []
+  const categoryJobs = getJobsInSameCategory(jobTitle)
+
+  // Quick dummy worker names for each category
+  const quickNames = [
+    'Ahmed Hassan', 'Mohammed Ali', 'Omar Al-Rashid', 'Hassan Abdullah', 'Fatima Al-Zahra',
+    'Aisha Abdullah', 'Zainab Hassan', 'Priya Sharma', 'Sunita Devi', 'Rajesh Kumar',
+    'Maria Santos', 'Jose Reyes', 'Grace Wanjiku', 'Samuel Mwangi', 'David Kimani'
+  ]
+
+  const quickPictures = [
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=150&h=150&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face'
+  ]
+
+  let workerCount = 0
+
+  // Generate 4-6 workers for each job in the category
+  categoryJobs.forEach((categoryJob, jobIndex) => {
+    const workersPerJob = Math.min(6, Math.max(4, 30 - workerCount)) // Ensure we don't exceed 30 total
+
+    for (let i = 0; i < workersPerJob && workerCount < 30; i++) {
+      const nameIndex = (jobIndex * workersPerJob + i) % quickNames.length
+      const pictureIndex = (jobIndex * workersPerJob + i) % quickPictures.length
+
+      workers.push({
+        id: `fast_${workerCount + 1}`,
+        fullName: quickNames[nameIndex],
+        profilePicture: quickPictures[pictureIndex],
+        jobTitle: categoryJob,
+        yearsExperience: Math.floor(Math.random() * 10) + 1,
+        city: city as City,
+        country: getCountryForCity(city as City),
+        languagesSpoken: ['English', 'Arabic'],
+        expectedSalary: Math.floor(Math.random() * 2000) + 2000,
+        visaStatus: Math.random() > 0.5 ? 'Work Visa' : 'Visit Visa',
+        availability: true,
+        aboutMe: `Experienced ${categoryJob.toLowerCase()} with excellent skills and reliability.`,
+        phoneNumber: `+971${50000000 + workerCount}`,
+        email: `${quickNames[nameIndex].toLowerCase().replace(' ', '.')}@email.com`,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+      workerCount++
+    }
+  })
+
+  return workers
+}
+
+// Load actual user data from localStorage and fast category workers
 const loadWorkersForCityJob = (city: string, jobTitle: string): Worker[] => {
   try {
     const workers: Worker[] = []
@@ -26,7 +81,8 @@ const loadWorkersForCityJob = (city: string, jobTitle: string): Worker[] => {
       const userProfile = localStorage.getItem('userProfile')
       if (userProfile) {
         const profile = JSON.parse(userProfile)
-        if (profile.city === city && profile.jobTitle === jobTitle) {
+        const categoryJobs = getJobsInSameCategory(jobTitle)
+        if (profile.city === city && categoryJobs.includes(profile.jobTitle)) {
           workers.push(profile)
         }
       }
@@ -35,8 +91,9 @@ const loadWorkersForCityJob = (city: string, jobTitle: string): Worker[] => {
       const allProfiles = localStorage.getItem('allUserProfiles')
       if (allProfiles) {
         const profiles = JSON.parse(allProfiles)
+        const categoryJobs = getJobsInSameCategory(jobTitle)
         profiles.forEach((profile: Worker) => {
-          if (profile.city === city && profile.jobTitle === jobTitle &&
+          if (profile.city === city && categoryJobs.includes(profile.jobTitle) &&
               !workers.find(w => w.id === profile.id)) {
             workers.push(profile)
           }
@@ -44,15 +101,11 @@ const loadWorkersForCityJob = (city: string, jobTitle: string): Worker[] => {
       }
     }
 
-    // Add some dummy workers specific to this city/job (much more efficient)
-    const dummyWorkers = generateDummyWorkers()
-    const filteredDummies = dummyWorkers.filter(worker =>
-      worker.city === city && worker.jobTitle === jobTitle
-    ).slice(0, 20) // Limit to 20 workers max
-
-    filteredDummies.forEach((dummyWorker) => {
-      if (!workers.find(w => w.id === dummyWorker.id)) {
-        workers.push(dummyWorker)
+    // Add fast generated category workers
+    const categoryWorkers = generateCategoryWorkers(city, jobTitle)
+    categoryWorkers.forEach((worker) => {
+      if (!workers.find(w => w.id === worker.id)) {
+        workers.push(worker)
       }
     })
 
