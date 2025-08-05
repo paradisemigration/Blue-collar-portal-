@@ -113,14 +113,14 @@ export default function Header() {
     if (isLoggedIn || isEmployer) {
       return [
         { name: 'Home', href: '/' },
-        { name: 'Browse Workers', href: '/browse' },
+        { name: 'Find Workers', href: '/browse' },
         { name: 'Job Postings', href: '/jobs' }
       ]
     }
-    
+
     return [
       { name: 'Home', href: '/' },
-      { name: 'Browse Workers', href: '/browse' },
+      { name: 'Find Workers', href: '/browse' },
       { name: 'Add Profile', href: '/create-profile' },
       { name: 'Job Postings', href: '/jobs' },
       { name: 'Pricing', href: '/pricing' }
