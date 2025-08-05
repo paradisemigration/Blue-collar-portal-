@@ -12,7 +12,17 @@ import {
   LockClosedIcon
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City } from '../../../types'
-import { generateDummyWorkers, getCurrencyDisplayForCity } from '../../../utils/dummyData'
+import { generateDummyWorkers, getCurrencyDisplayForCity, GULF_REGIONS } from '../../../utils/dummyData'
+
+// Helper function to get country for city
+function getCountryForCity(city: City): string {
+  for (const [country, data] of Object.entries(GULF_REGIONS)) {
+    if (data.cities.includes(city)) {
+      return country
+    }
+  }
+  return 'UAE' // fallback
+}
 import { generateCityJobFAQs } from '../../../utils/faqData'
 
 // Fast worker generation for specific city and job category
