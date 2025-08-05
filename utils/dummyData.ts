@@ -2275,13 +2275,13 @@ export function generateDummyWorkers(): Worker[] {
     let idCounter = 1
     let nameIndex = 0
 
-    // Generate workers for each city/job combination with reduced count for performance
+    // Generate workers for each city/job combination ensuring good coverage
     Object.entries(GULF_REGIONS).forEach(([country, data]) => {
       data.cities.forEach(city => {
         Object.keys(JOB_DETAILS).forEach(jobTitle => {
           try {
-            // Generate 5-8 workers per city/job combination for better performance
-            const workersPerJob = getRandomRange(5, 8)
+            // Generate 8-12 workers per city/job combination to ensure 20+ per job total
+            const workersPerJob = getRandomRange(8, 12)
 
             for (let i = 0; i < workersPerJob; i++) {
               try {
