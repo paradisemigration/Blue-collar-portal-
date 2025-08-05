@@ -898,6 +898,21 @@ export default function CreateProfile() {
               </div>
               
               <div className="p-4 sm:p-6 space-y-6">
+                {/* Job Category */}
+                <div>
+                  <label className="flex items-center text-sm font-semibold text-gray-800 mb-2">
+                    <BriefcaseIcon className="h-4 w-4 mr-2 text-green-600" />
+                    Job Category
+                  </label>
+                  <input
+                    {...register('jobCategory')}
+                    readOnly
+                    className="w-full px-3 py-3 border-2 border-gray-200 rounded-xl bg-gray-50 text-gray-700 text-base"
+                    placeholder="Category will appear when you select a job title"
+                    value={watchedValues.jobCategory ? `${jobCategories[watchedValues.jobCategory as keyof typeof jobCategories]?.emoji} ${watchedValues.jobCategory}` : ''}
+                  />
+                </div>
+
                 {/* Job Title */}
                 <div>
                   <label className="flex items-center text-sm font-semibold text-gray-800 mb-2">
@@ -909,18 +924,23 @@ export default function CreateProfile() {
                     onFocus={() => handleFieldFocus('jobTitle')}
                     className={`w-full px-3 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all duration-200 text-base
                       ${getFieldError('jobTitle', watchedValues.jobTitle)
-                        ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-200' 
-                        : watchedValues.jobTitle 
+                        ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-200'
+                        : watchedValues.jobTitle
                           ? 'border-green-500 bg-green-50 focus:border-green-500'
                           : 'border-gray-200 bg-gray-50 focus:bg-white focus:border-green-500'
                       }`}
                   >
                     <option value="">🔍 Select your job title</option>
-                    {jobTitles.map(title => (
-                      <option key={title} value={title}>
-                        {title === 'Other' ? '✨ Other (specify below)' : `👷 ${title}`}
-                      </option>
+                    {Object.entries(jobCategories).map(([categoryName, categoryData]) => (
+                      <optgroup key={categoryName} label={`${categoryData.emoji} ${categoryName}`}>
+                        {categoryData.jobs.map(job => (
+                          <option key={job} value={job}>
+                            {job}
+                          </option>
+                        ))}
+                      </optgroup>
                     ))}
+                    <option value="Other">✨ Other (specify below)</option>
                   </select>
                   {errors.jobTitle && (
                     <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
