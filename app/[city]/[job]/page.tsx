@@ -558,7 +558,14 @@ export default function CityJobPage({ params }: PageProps) {
                     />
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-navy-900">{worker.fullName}</h3>
-                      <p className="text-primary-600 font-medium">{worker.jobTitle}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-primary-600 font-medium">{worker.jobTitle}</p>
+                        {worker.jobTitle === jobDisplay && (
+                          <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-medium">
+                            Exact Match
+                          </span>
+                        )}
+                      </div>
                       <div className="flex items-center text-gray-600 text-sm mt-1">
                         <MapPinIcon className="h-4 w-4 mr-1" />
                         {worker.city}, {worker.country}
