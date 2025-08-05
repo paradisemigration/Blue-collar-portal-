@@ -902,15 +902,32 @@ export default function CreateProfile() {
                 <div>
                   <label className="flex items-center text-sm font-semibold text-gray-800 mb-2">
                     <BriefcaseIcon className="h-4 w-4 mr-2 text-green-600" />
-                    Job Category
+                    Job Category *
                   </label>
-                  <input
-                    {...register('jobCategory')}
-                    readOnly
-                    className="w-full px-3 py-3 border-2 border-gray-200 rounded-xl bg-gray-50 text-gray-700 text-base"
-                    placeholder="Category will appear when you select a job title"
-                    value={watchedValues.jobCategory ? `${jobCategories[watchedValues.jobCategory as keyof typeof jobCategories]?.emoji} ${watchedValues.jobCategory}` : ''}
-                  />
+                  <select
+                    {...register('jobCategory', { required: 'Job category is required' })}
+                    onFocus={() => handleFieldFocus('jobCategory')}
+                    className={`w-full px-3 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all duration-200 text-base
+                      ${getFieldError('jobCategory', watchedValues.jobCategory)
+                        ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-200'
+                        : watchedValues.jobCategory
+                          ? 'border-green-500 bg-green-50 focus:border-green-500'
+                          : 'border-gray-200 bg-gray-50 focus:bg-white focus:border-green-500'
+                      }`}
+                  >
+                    <option value="">📋 Select job category first</option>
+                    {Object.entries(jobCategories).map(([categoryName, categoryData]) => (
+                      <option key={categoryName} value={categoryName}>
+                        {categoryData.emoji} {categoryName}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.jobCategory && (
+                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                      <ExclamationTriangleIcon className="h-3 w-3" />
+                      {errors.jobCategory.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Job Title */}
@@ -922,30 +939,41 @@ export default function CreateProfile() {
                   <select
                     {...register('jobTitle', { required: 'Job title is required' })}
                     onFocus={() => handleFieldFocus('jobTitle')}
+                    disabled={!selectedJobCategory}
                     className={`w-full px-3 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all duration-200 text-base
-                      ${getFieldError('jobTitle', watchedValues.jobTitle)
-                        ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-200'
-                        : watchedValues.jobTitle
-                          ? 'border-green-500 bg-green-50 focus:border-green-500'
-                          : 'border-gray-200 bg-gray-50 focus:bg-white focus:border-green-500'
+                      ${!selectedJobCategory
+                        ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : getFieldError('jobTitle', watchedValues.jobTitle)
+                          ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-200'
+                          : watchedValues.jobTitle
+                            ? 'border-green-500 bg-green-50 focus:border-green-500'
+                            : 'border-gray-200 bg-gray-50 focus:bg-white focus:border-green-500'
                       }`}
                   >
-                    <option value="">🔍 Select your job title</option>
-                    {Object.entries(jobCategories).map(([categoryName, categoryData]) => (
-                      <optgroup key={categoryName} label={`${categoryData.emoji} ${categoryName}`}>
-                        {categoryData.jobs.map(job => (
-                          <option key={job} value={job}>
-                            {job}
-                          </option>
-                        ))}
-                      </optgroup>
+                    <option value="">
+                      {!selectedJobCategory
+                        ? '🔒 Select category first'
+                        : '🔍 Select your job title'
+                      }
+                    </option>
+                    {selectedJobCategory && getAvailableJobs(selectedJobCategory).map(job => (
+                      <option key={job} value={job}>
+                        👷 {job}
+                      </option>
                     ))}
-                    <option value="Other">✨ Other (specify below)</option>
+                    {selectedJobCategory && (
+                      <option value="Other">✨ Other (specify below)</option>
+                    )}
                   </select>
                   {errors.jobTitle && (
                     <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
                       <ExclamationTriangleIcon className="h-3 w-3" />
                       {errors.jobTitle.message}
+                    </p>
+                  )}
+                  {selectedJobCategory && !watchedValues.jobTitle && (
+                    <p className="text-green-600 text-xs mt-1">
+                      ✅ {getAvailableJobs(selectedJobCategory).length} jobs available in {selectedJobCategory}
                     </p>
                   )}
                 </div>
@@ -995,7 +1023,7 @@ export default function CreateProfile() {
                     <option value="">Select experience level</option>
                     <option value={1}>🌱 1 year (Entry Level)</option>
                     <option value={2}>📈 2 years</option>
-                    <option value={3}>💪 3 years</option>
+                    <option value={3}>�� 3 years</option>
                     <option value={4}>⚡ 4 years</option>
                     <option value={5}>🎯 5 years</option>
                     <option value={6}>🏆 6+ years</option>
