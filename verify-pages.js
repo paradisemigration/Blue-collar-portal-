@@ -28,7 +28,7 @@ const JOB_TITLES = [
   'Heavy Equipment Operator', 'Crane Operator', 'Forklift Operator', 'Steel Fixer',
   'Pipe Fitter', 'HVAC Technician', 'Concrete Mixer', 'Excavator Operator',
   'Road Worker', 'Building Maintenance', 'Pool Cleaner', 'Landscaper',
-  'Window Cleaner', 'Pest Control Technician', 'Laundry Worker', 'Dishwasher',
+  'Window Cleaner', 'Pest Control Worker', 'Laundry Worker', 'Dishwasher',
   'Food Preparation Worker', 'Kitchen Helper', 'Waiter', 'Barista', 'Cashier',
   'Shop Assistant', 'Inventory Clerk', 'Packer', 'Loading Worker', 'Moving Helper',
   'Cleaning Supervisor', 'Maintenance Supervisor'
