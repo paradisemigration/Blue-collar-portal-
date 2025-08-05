@@ -1842,25 +1842,6 @@ const JOB_DETAILS: Record<JobTitle, {
     ],
     experience: { min: 1, max: 6 }
   },
-  'Barista': {
-    descriptions: [
-      'Professional barista with coffee preparation and customer service.',
-      'Experienced coffee specialist with brewing techniques and quality.',
-      'Skilled barista with espresso machine operation and drink knowledge.',
-      'Expert coffee professional with latte art and menu familiarity.',
-      'Certified barista with food safety and customer engagement.',
-      'Master coffee specialist with training and shop management.'
-    ],
-    salaryRange: { min: 1700, max: 3200 },
-    languages: [
-      ['English', 'Arabic'],
-      ['English', 'Hindi'],
-      ['English', 'French'],
-      ['Arabic', 'English'],
-      ['English', 'Tamil']
-    ],
-    experience: { min: 1, max: 8 }
-  },
   'Food Delivery Rider': {
     descriptions: [
       'Professional food delivery rider with speed and customer service.',
