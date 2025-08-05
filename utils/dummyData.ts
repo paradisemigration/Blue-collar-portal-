@@ -1842,7 +1842,7 @@ const JOB_DETAILS: Record<JobTitle, {
     ],
     experience: { min: 1, max: 6 }
   },
-  'Barista (basic)': {
+  'Barista': {
     descriptions: [
       'Professional barista with coffee preparation and customer service.',
       'Experienced coffee specialist with brewing techniques and quality.',
