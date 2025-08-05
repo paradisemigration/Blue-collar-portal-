@@ -99,49 +99,36 @@ const generateCategoryWorkers = (city: string, jobTitle: JobTitle): Worker[] => 
   return workers
 }
 
-// Load actual user data from localStorage and fast category workers
+// Super-fast worker loading for specific city and job category
 const loadWorkersForCityJob = (city: string, jobTitle: string): Worker[] => {
   try {
     const workers: Worker[] = []
 
-    // Only access localStorage in browser environment
+    // Quickly check localStorage without heavy processing
     if (typeof window !== 'undefined') {
-      // Load individual profile
-      const userProfile = localStorage.getItem('userProfile')
-      if (userProfile) {
-        const profile = JSON.parse(userProfile)
-        const categoryJobs = getJobsInSameCategory(jobTitle)
-        if (profile.city === city && categoryJobs.includes(profile.jobTitle)) {
-          workers.push(profile)
-        }
-      }
-
-      // Load all profiles
-      const allProfiles = localStorage.getItem('allUserProfiles')
-      if (allProfiles) {
-        const profiles = JSON.parse(allProfiles)
-        const categoryJobs = getJobsInSameCategory(jobTitle)
-        profiles.forEach((profile: Worker) => {
-          if (profile.city === city && categoryJobs.includes(profile.jobTitle) &&
-              !workers.find(w => w.id === profile.id)) {
+      try {
+        const userProfile = localStorage.getItem('userProfile')
+        if (userProfile) {
+          const profile = JSON.parse(userProfile)
+          const categoryJobs = getJobsInSameCategory(jobTitle)
+          if (profile.city === city && categoryJobs.includes(profile.jobTitle)) {
             workers.push(profile)
           }
-        })
+        }
+      } catch (e) {
+        // Ignore localStorage errors to prevent blocking
       }
     }
 
-    // Add fast generated category workers
+    // Add fast generated category workers (this is the main source)
     const categoryWorkers = generateCategoryWorkers(city, jobTitle)
-    categoryWorkers.forEach((worker) => {
-      if (!workers.find(w => w.id === worker.id)) {
-        workers.push(worker)
-      }
-    })
+    workers.push(...categoryWorkers)
 
     return workers
   } catch (error) {
     console.error('Error loading workers:', error)
-    return [] // Return empty array on error
+    // Return minimal fallback data
+    return generateCategoryWorkers(city, jobTitle)
   }
 }
 
