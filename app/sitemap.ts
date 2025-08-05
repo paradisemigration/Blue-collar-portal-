@@ -142,7 +142,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // High priority cities (major economic centers)
   const majorCities = ['Dubai', 'Riyadh', 'Doha', 'Kuwait City', 'Abu Dhabi', 'Muscat', 'Manama']
   // High demand jobs
-  const popularJobs = ['Driver', 'Maid', 'Security Guard', 'Cook', 'Cleaner', 'Construction Worker']
+  const popularJobs = ['Driver', 'Maid', 'Housemaid', 'Security Guard', 'Cook', 'Cleaner', 'Housekeeping Staff', 'Construction Worker', 'Construction Laborer', 'Auto Mechanic', 'Nanny (Childcare Worker)']
 
   // Get all cities from GULF_REGIONS
   const allCities = Object.values(GULF_REGIONS).flatMap(region => region.cities)
