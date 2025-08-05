@@ -3,13 +3,14 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { 
-  Bars3Icon, 
-  XMarkIcon, 
-  BriefcaseIcon, 
-  UserIcon, 
+import {
+  Bars3Icon,
+  XMarkIcon,
+  BriefcaseIcon,
+  UserIcon,
   ArrowRightOnRectangleIcon,
-  Cog6ToothIcon 
+  Cog6ToothIcon,
+  ChevronDownIcon
 } from '@heroicons/react/24/outline'
 
 interface UserProfile {
