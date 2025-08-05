@@ -1342,6 +1342,370 @@ const JOB_DETAILS: Record<JobTitle, {
       ['English', 'Tagalog']
     ],
     experience: { min: 1, max: 8 }
+  },
+  // Construction & Infrastructure (Additional)
+  'Construction Laborer': {
+    descriptions: [
+      'Experienced construction laborer with foundation and structural work expertise.',
+      'Professional construction worker with safety certification and equipment operation.',
+      'Skilled laborer with concrete work and reinforcement installation.',
+      'Dedicated construction professional with teamwork and reliability.',
+      'Certified construction worker with building codes and quality standards.',
+      'Expert laborer with residential and commercial construction experience.'
+    ],
+    salaryRange: { min: 2000, max: 4000 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic', 'Urdu'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 15 }
+  },
+  'Scaffold Worker': {
+    descriptions: [
+      'Professional scaffold worker with height safety and assembly expertise.',
+      'Experienced scaffolding specialist with structural assembly knowledge.',
+      'Skilled scaffold erector with safety protocols and quality standards.',
+      'Expert scaffolding professional with complex structure assembly.',
+      'Certified scaffold worker with inspection and maintenance capabilities.',
+      'Master scaffolding technician with project planning and safety management.'
+    ],
+    salaryRange: { min: 2500, max: 4500 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English', 'Urdu'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'Site Supervisor': {
+    descriptions: [
+      'Experienced site supervisor with project management and team leadership.',
+      'Professional construction supervisor with safety compliance and quality control.',
+      'Skilled site manager with scheduling and resource coordination.',
+      'Expert construction supervisor with technical knowledge and problem-solving.',
+      'Certified site supervisor with budget management and client relations.',
+      'Master project supervisor with multi-trade coordination and delivery excellence.'
+    ],
+    salaryRange: { min: 4000, max: 7500 },
+    languages: [
+      ['English', 'Hindi', 'Arabic'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English', 'Urdu'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 5, max: 20 }
+  },
+  'Road Construction Worker': {
+    descriptions: [
+      'Professional road construction worker with asphalt and concrete expertise.',
+      'Experienced highway worker with traffic safety and equipment operation.',
+      'Skilled road laborer with paving and marking installation.',
+      'Expert road construction professional with quality control standards.',
+      'Certified road worker with infrastructure maintenance and repair.',
+      'Master road construction specialist with project completion excellence.'
+    ],
+    salaryRange: { min: 1800, max: 3500 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 12 }
+  },
+  // Mechanical & Technical (Additional)
+  'Auto Mechanic': {
+    descriptions: [
+      'Certified automotive mechanic with engine repair and diagnostic expertise.',
+      'Professional car mechanic with European and Japanese vehicle specialization.',
+      'Experienced auto technician with electrical and mechanical systems.',
+      'Expert mechanic with preventive maintenance and customer service.',
+      'Licensed automotive professional with modern technology and tools.',
+      'Master mechanic with transmission and engine overhaul capabilities.'
+    ],
+    salaryRange: { min: 3000, max: 6500 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English', 'Urdu'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 3, max: 20 }
+  },
+  'Diesel Mechanic': {
+    descriptions: [
+      'Professional diesel mechanic with heavy machinery and truck expertise.',
+      'Experienced diesel technician with engine overhaul and repair skills.',
+      'Skilled diesel specialist with hydraulic and electrical systems.',
+      'Expert diesel mechanic with preventive maintenance programs.',
+      'Certified diesel professional with industrial equipment experience.',
+      'Master diesel technician with troubleshooting and performance optimization.'
+    ],
+    salaryRange: { min: 3200, max: 6800 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 3, max: 18 }
+  },
+  'Machine Operator': {
+    descriptions: [
+      'Skilled machine operator with production equipment and quality control.',
+      'Experienced industrial operator with safety protocols and efficiency.',
+      'Professional machine technician with maintenance and troubleshooting.',
+      'Expert operator with multi-machine capabilities and precision work.',
+      'Certified machine specialist with automation and programming knowledge.',
+      'Master operator with productivity optimization and training abilities.'
+    ],
+    salaryRange: { min: 2500, max: 5000 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'CNC Machine Operator': {
+    descriptions: [
+      'Professional CNC operator with precision machining and programming skills.',
+      'Experienced CNC technician with CAD/CAM software and quality control.',
+      'Skilled CNC specialist with setup and operation of complex machinery.',
+      'Expert CNC operator with tight tolerance and material expertise.',
+      'Certified CNC professional with maintenance and troubleshooting.',
+      'Master CNC technician with programming and optimization capabilities.'
+    ],
+    salaryRange: { min: 3500, max: 7000 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 3, max: 18 }
+  },
+  'Fitter': {
+    descriptions: [
+      'Skilled fitter with mechanical assembly and precision fitting expertise.',
+      'Professional pipe fitter with industrial and commercial installations.',
+      'Experienced mechanical fitter with blueprint reading and fabrication.',
+      'Expert fitter with welding and machinery assembly capabilities.',
+      'Certified fitter with quality standards and safety protocols.',
+      'Master fitter with complex assembly and troubleshooting skills.'
+    ],
+    salaryRange: { min: 2800, max: 5500 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 16 }
+  },
+  'Maintenance Technician': {
+    descriptions: [
+      'Professional maintenance technician with preventive and corrective maintenance.',
+      'Experienced maintenance specialist with electrical and mechanical systems.',
+      'Skilled technician with equipment troubleshooting and repair.',
+      'Expert maintenance professional with HVAC and plumbing knowledge.',
+      'Certified technician with safety compliance and documentation.',
+      'Master maintenance specialist with facility optimization and planning.'
+    ],
+    salaryRange: { min: 2800, max: 5200 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'Elevator Technician': {
+    descriptions: [
+      'Certified elevator technician with installation and maintenance expertise.',
+      'Professional lift specialist with safety systems and regulations.',
+      'Experienced elevator mechanic with electrical and mechanical skills.',
+      'Expert elevator technician with modernization and troubleshooting.',
+      'Licensed elevator professional with emergency repair capabilities.',
+      'Master elevator specialist with complex systems and project management.'
+    ],
+    salaryRange: { min: 4000, max: 8000 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 3, max: 18 }
+  },
+  'Lathe Machine Operator': {
+    descriptions: [
+      'Skilled lathe operator with precision turning and machining expertise.',
+      'Professional lathe technician with manual and CNC operation.',
+      'Experienced operator with cutting tools and measurement precision.',
+      'Expert lathe specialist with material knowledge and quality control.',
+      'Certified lathe operator with setup and programming capabilities.',
+      'Master lathe technician with complex turning and finishing operations.'
+    ],
+    salaryRange: { min: 3000, max: 6000 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 16 }
+  },
+  // Manufacturing & Factory
+  'Factory Worker': {
+    descriptions: [
+      'Experienced factory worker with production line and quality control expertise.',
+      'Professional manufacturing worker with safety protocols and efficiency.',
+      'Skilled factory operator with equipment handling and maintenance.',
+      'Dedicated production worker with teamwork and reliability.',
+      'Certified factory professional with quality standards and procedures.',
+      'Expert manufacturing specialist with process improvement and training.'
+    ],
+    salaryRange: { min: 1800, max: 3500 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 10 }
+  },
+  'Assembly Line Worker': {
+    descriptions: [
+      'Professional assembly worker with production efficiency and quality focus.',
+      'Experienced line worker with component assembly and inspection.',
+      'Skilled assembly operator with manual dexterity and attention to detail.',
+      'Expert production worker with team coordination and pace management.',
+      'Certified assembly professional with safety protocols and procedures.',
+      'Master assembly specialist with training and process optimization.'
+    ],
+    salaryRange: { min: 1700, max: 3200 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Warehouse Associate': {
+    descriptions: [
+      'Experienced warehouse associate with inventory management and logistics.',
+      'Professional warehouse worker with forklift operation and safety.',
+      'Skilled warehouse specialist with order fulfillment and accuracy.',
+      'Expert warehouse professional with shipping and receiving.',
+      'Certified warehouse operator with quality control and documentation.',
+      'Master warehouse specialist with team coordination and efficiency.'
+    ],
+    salaryRange: { min: 1800, max: 3500 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 12 }
+  },
+  'Quality Checker': {
+    descriptions: [
+      'Professional quality checker with inspection and testing expertise.',
+      'Experienced quality inspector with standards compliance and documentation.',
+      'Skilled quality control specialist with measurement and analysis.',
+      'Expert quality professional with process improvement and training.',
+      'Certified quality inspector with statistical analysis and reporting.',
+      'Master quality specialist with audit and certification experience.'
+    ],
+    salaryRange: { min: 2200, max: 4200 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 12 }
+  },
+  'Production Supervisor': {
+    descriptions: [
+      'Experienced production supervisor with team leadership and efficiency.',
+      'Professional manufacturing supervisor with quality control and safety.',
+      'Skilled production manager with scheduling and resource optimization.',
+      'Expert manufacturing supervisor with process improvement and training.',
+      'Certified production leader with budget management and reporting.',
+      'Master production supervisor with lean manufacturing and excellence.'
+    ],
+    salaryRange: { min: 3500, max: 6500 },
+    languages: [
+      ['English', 'Hindi', 'Arabic'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 4, max: 18 }
+  },
+  'Fabricator': {
+    descriptions: [
+      'Skilled fabricator with metal working and welding expertise.',
+      'Professional fabrication specialist with blueprint reading and cutting.',
+      'Experienced fabricator with precision assembly and finishing.',
+      'Expert metal worker with custom fabrication and installation.',
+      'Certified fabricator with quality standards and safety protocols.',
+      'Master fabrication technician with project management and training.'
+    ],
+    salaryRange: { min: 2800, max: 5500 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'Loader/Unloader': {
+    descriptions: [
+      'Professional loader with material handling and safety expertise.',
+      'Experienced loading worker with truck loading and equipment operation.',
+      'Skilled loader specialist with efficiency and quality standards.',
+      'Expert loading professional with dock operations and coordination.',
+      'Certified loading worker with teamwork and communication.',
+      'Master loading specialist with training and process optimization.'
+    ],
+    salaryRange: { min: 1500, max: 2800 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
   }
 }
 
