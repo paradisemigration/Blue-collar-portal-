@@ -330,7 +330,7 @@ export default function CityJobPage({ params }: PageProps) {
     }
 
     loadData()
-  }, [])
+  }, [cityDisplay, jobDisplay])
 
   // Filter workers by city and job (handle job title mapping)
   const targetJobTitle = jobSlugToDisplayName(params.job)
