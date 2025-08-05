@@ -287,8 +287,15 @@ export default function CityJobPage({ params }: PageProps) {
     const cityDisplay = citySlugToDisplayName(params.city)
     const jobDisplay = jobSlugToDisplayName(params.job)
 
+    console.log('URL params:', { city: params.city, job: params.job })
+    console.log('Converted:', { cityDisplay, jobDisplay })
+    console.log('City valid?', validCities.includes(cityDisplay))
+    console.log('Job valid?', validJobs.includes(jobDisplay))
+    console.log('Valid jobs includes Housekeeping Staff?', validJobs.includes('Housekeeping Staff'))
+
     if (!validCities.includes(cityDisplay) ||
         !validJobs.includes(jobDisplay)) {
+      console.log('Redirecting to browse due to invalid parameters')
       router.push('/browse')
     }
   }, [params.city, params.job, router])
