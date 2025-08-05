@@ -15,8 +15,8 @@ import { Worker, JobTitle, City } from '../../../types'
 import { generateDummyWorkers, getCurrencyDisplayForCity } from '../../../utils/dummyData'
 import { generateCityJobFAQs } from '../../../utils/faqData'
 
-// Load actual user data from localStorage and combine with dummy data
-const loadWorkers = (): Worker[] => {
+// Load actual user data from localStorage and minimal dummy data
+const loadWorkersForCityJob = (city: string, jobTitle: string): Worker[] => {
   try {
     const workers: Worker[] = []
 
@@ -25,7 +25,10 @@ const loadWorkers = (): Worker[] => {
       // Load individual profile
       const userProfile = localStorage.getItem('userProfile')
       if (userProfile) {
-        workers.push(JSON.parse(userProfile))
+        const profile = JSON.parse(userProfile)
+        if (profile.city === city && profile.jobTitle === jobTitle) {
+          workers.push(profile)
+        }
       }
 
       // Load all profiles
@@ -33,16 +36,21 @@ const loadWorkers = (): Worker[] => {
       if (allProfiles) {
         const profiles = JSON.parse(allProfiles)
         profiles.forEach((profile: Worker) => {
-          if (!workers.find(w => w.id === profile.id)) {
+          if (profile.city === city && profile.jobTitle === jobTitle &&
+              !workers.find(w => w.id === profile.id)) {
             workers.push(profile)
           }
         })
       }
     }
 
-    // Add comprehensive dummy data
+    // Add some dummy workers specific to this city/job (much more efficient)
     const dummyWorkers = generateDummyWorkers()
-    dummyWorkers.forEach((dummyWorker) => {
+    const filteredDummies = dummyWorkers.filter(worker =>
+      worker.city === city && worker.jobTitle === jobTitle
+    ).slice(0, 20) // Limit to 20 workers max
+
+    filteredDummies.forEach((dummyWorker) => {
       if (!workers.find(w => w.id === dummyWorker.id)) {
         workers.push(dummyWorker)
       }
@@ -51,7 +59,7 @@ const loadWorkers = (): Worker[] => {
     return workers
   } catch (error) {
     console.error('Error loading workers:', error)
-    return generateDummyWorkers() // Fallback to dummy data
+    return [] // Return empty array on error
   }
 }
 
