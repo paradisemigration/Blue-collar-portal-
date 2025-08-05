@@ -136,7 +136,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   ]
 
-  // Generate all city/job combination pages (43 cities × 49 jobs = 2,107 pages)
+  // Generate all city/job combination pages (43 cities × 70+ jobs = 3,000+ pages)
   const cityJobPages = []
 
   // High priority cities (major economic centers)
