@@ -1055,6 +1055,293 @@ const JOB_DETAILS: Record<JobTitle, {
       ['English', 'Bengali']
     ],
     experience: { min: 5, max: 20 }
+  },
+  // NEW JOB TITLES - Domestic & Personal Care Workers
+  'Nanny (Childcare Worker)': {
+    descriptions: [
+      'Professional nanny with extensive childcare experience and child development knowledge.',
+      'Experienced childcare worker with first aid certification and educational activities.',
+      'Dedicated nanny with excellent references and nurturing care approach.',
+      'Expert childcare professional with multilingual communication skills.',
+      'Certified nanny with special needs experience and behavioral management.',
+      'Loving childcare specialist with creative activities and safety consciousness.'
+    ],
+    salaryRange: { min: 2500, max: 5000 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Tagalog'],
+      ['English', 'Hindi'],
+      ['English', 'French', 'Arabic'],
+      ['English', 'Sinhala']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'Housemaid': {
+    descriptions: [
+      'Professional housemaid with comprehensive home cleaning and maintenance skills.',
+      'Experienced domestic helper with excellent organizational and time management.',
+      'Reliable housemaid with attention to detail and trustworthy character.',
+      'Skilled home care professional with laundry and ironing expertise.',
+      'Dedicated housemaid with cooking abilities and household management.',
+      'Expert domestic worker with childcare support and elderly care experience.'
+    ],
+    salaryRange: { min: 1800, max: 3500 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Tagalog'],
+      ['English', 'Hindi'],
+      ['English', 'Sinhala'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 1, max: 12 }
+  },
+  'Cook (Home-based)': {
+    descriptions: [
+      'Professional home cook with expertise in Middle Eastern and international cuisine.',
+      'Experienced family cook with dietary requirements and healthy meal planning.',
+      'Skilled home chef with food safety knowledge and kitchen management.',
+      'Expert cook with traditional and modern cooking techniques.',
+      'Certified cook with special diet preparation and nutrition awareness.',
+      'Master home chef with creative menu planning and presentation skills.'
+    ],
+    salaryRange: { min: 2200, max: 4500 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Tagalog'],
+      ['English', 'Tamil'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'Elderly Caregiver': {
+    descriptions: [
+      'Compassionate elderly caregiver with medical assistance and companionship skills.',
+      'Professional senior care specialist with medication management experience.',
+      'Experienced elderly care worker with mobility assistance and safety protocols.',
+      'Dedicated caregiver with dementia care training and patience.',
+      'Certified elderly care professional with first aid and emergency response.',
+      'Expert senior companion with emotional support and activity planning.'
+    ],
+    salaryRange: { min: 2000, max: 4000 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Tagalog'],
+      ['English', 'Hindi'],
+      ['English', 'Sinhala'],
+      ['Arabic', 'English']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'Babysitter': {
+    descriptions: [
+      'Reliable babysitter with flexible scheduling and child engagement skills.',
+      'Experienced childcare provider with homework help and activity planning.',
+      'Professional babysitter with safety consciousness and emergency preparedness.',
+      'Caring babysitter with creative play and educational activities.',
+      'Trusted childcare assistant with excellent references and communication.',
+      'Expert babysitter with infant care and toddler management experience.'
+    ],
+    salaryRange: { min: 1500, max: 3000 }, // Adjusted for monthly rates
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Tagalog'],
+      ['English', 'Hindi'],
+      ['English', 'French'],
+      ['Arabic', 'English']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Domestic Helper': {
+    descriptions: [
+      'Versatile domestic helper with comprehensive household management skills.',
+      'Experienced home assistant with cleaning, cooking, and organizing abilities.',
+      'Reliable domestic worker with pet care and garden maintenance experience.',
+      'Professional household helper with laundry and ironing expertise.',
+      'Dedicated domestic assistant with elderly and child care support.',
+      'Expert home helper with grocery shopping and meal preparation skills.'
+    ],
+    salaryRange: { min: 1800, max: 3500 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Tagalog'],
+      ['English', 'Hindi'],
+      ['English', 'Sinhala'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 1, max: 12 }
+  },
+  'Governess (Live-in Tutor/Nanny)': {
+    descriptions: [
+      'Professional governess with teaching qualifications and childcare expertise.',
+      'Experienced live-in tutor with curriculum development and educational support.',
+      'Skilled governess with language instruction and cultural education.',
+      'Expert educational nanny with homework supervision and skill development.',
+      'Certified governess with special needs education and behavioral guidance.',
+      'Master educator with homeschooling experience and academic excellence.'
+    ],
+    salaryRange: { min: 4000, max: 8000 },
+    languages: [
+      ['English', 'Arabic', 'French'],
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'German'],
+      ['English', 'Spanish']
+    ],
+    experience: { min: 3, max: 18 }
+  },
+  'Housekeeper (Residential)': {
+    descriptions: [
+      'Professional residential housekeeper with property management experience.',
+      'Experienced housekeeper with deep cleaning and maintenance protocols.',
+      'Skilled residential cleaner with inventory management and organization.',
+      'Expert housekeeper with luxury home care and confidentiality.',
+      'Certified housekeeper with eco-friendly cleaning and safety standards.',
+      'Master housekeeper with staff coordination and quality assurance.'
+    ],
+    salaryRange: { min: 2000, max: 4000 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Tagalog'],
+      ['English', 'Hindi'],
+      ['English', 'Sinhala'],
+      ['Arabic', 'English']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  'Personal Attendant': {
+    descriptions: [
+      'Professional personal attendant with VIP service and discretion.',
+      'Experienced personal assistant with scheduling and lifestyle management.',
+      'Skilled attendant with travel coordination and personal care.',
+      'Expert personal helper with wardrobe management and event planning.',
+      'Dedicated personal attendant with security awareness and confidentiality.',
+      'Premium personal assistant with luxury service and protocol knowledge.'
+    ],
+    salaryRange: { min: 3000, max: 6000 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'French'],
+      ['English', 'German'],
+      ['Arabic', 'English']
+    ],
+    experience: { min: 3, max: 15 }
+  },
+  'Live-in Maid': {
+    descriptions: [
+      'Dedicated live-in maid with 24/7 household support and reliability.',
+      'Experienced residential maid with cooking and childcare assistance.',
+      'Professional live-in helper with elderly care and pet management.',
+      'Reliable full-time maid with cleaning and organizing expertise.',
+      'Skilled live-in domestic worker with laundry and maintenance.',
+      'Expert residential assistant with garden care and household management.'
+    ],
+    salaryRange: { min: 2000, max: 4000 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Tagalog'],
+      ['English', 'Hindi'],
+      ['English', 'Sinhala'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 15 }
+  },
+  // Cleaning & Maintenance category
+  'Housekeeping Staff': {
+    descriptions: [
+      'Professional housekeeping staff with hotel and residential cleaning expertise.',
+      'Experienced housekeeping professional with deep cleaning and maintenance.',
+      'Skilled housekeeping worker with laundry and room preparation.',
+      'Expert housekeeping staff with inventory management and quality standards.',
+      'Certified housekeeping professional with hygiene protocols and efficiency.',
+      'Master housekeeping specialist with training and supervisory capabilities.'
+    ],
+    salaryRange: { min: 1600, max: 3200 },
+    languages: [
+      ['English', 'Arabic'],
+      ['English', 'Hindi'],
+      ['English', 'Tagalog'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English']
+    ],
+    experience: { min: 1, max: 10 }
+  },
+  'Janitor': {
+    descriptions: [
+      'Professional janitor with commercial and institutional cleaning expertise.',
+      'Experienced custodial worker with floor care and maintenance protocols.',
+      'Skilled janitor with equipment operation and supply management.',
+      'Expert custodian with safety procedures and emergency response.',
+      'Certified janitor with green cleaning and environmental consciousness.',
+      'Master custodial professional with team coordination and quality assurance.'
+    ],
+    salaryRange: { min: 1500, max: 2800 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 8 }
+  },
+  'Building Maintenance Worker': {
+    descriptions: [
+      'Professional building maintenance worker with multi-trade capabilities.',
+      'Experienced facility worker with electrical and plumbing basics.',
+      'Skilled maintenance worker with HVAC and mechanical systems.',
+      'Expert building technician with preventive maintenance programs.',
+      'Certified maintenance worker with safety compliance and documentation.',
+      'Master building specialist with emergency repairs and troubleshooting.'
+    ],
+    salaryRange: { min: 2200, max: 4200 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Tamil'],
+      ['Arabic', 'English'],
+      ['English', 'Bengali']
+    ],
+    experience: { min: 2, max: 12 }
+  },
+  'Car Wash Attendant': {
+    descriptions: [
+      'Professional car wash attendant with detailing and customer service.',
+      'Experienced auto detailer with interior and exterior cleaning expertise.',
+      'Skilled car wash worker with equipment operation and quality standards.',
+      'Expert detailing specialist with paint protection and finishing.',
+      'Certified car wash professional with eco-friendly products and methods.',
+      'Master detailing technician with luxury vehicle care and restoration.'
+    ],
+    salaryRange: { min: 1400, max: 2600 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tamil']
+    ],
+    experience: { min: 1, max: 6 }
+  },
+  'Office Cleaner': {
+    descriptions: [
+      'Professional office cleaner with commercial cleaning and sanitation.',
+      'Experienced office custodian with flexible scheduling and reliability.',
+      'Skilled office cleaner with computer equipment and furniture care.',
+      'Expert commercial cleaner with security protocols and confidentiality.',
+      'Certified office cleaning professional with green cleaning methods.',
+      'Master office custodian with quality standards and client satisfaction.'
+    ],
+    salaryRange: { min: 1500, max: 2800 },
+    languages: [
+      ['English', 'Hindi'],
+      ['English', 'Arabic'],
+      ['English', 'Bengali'],
+      ['Arabic', 'English'],
+      ['English', 'Tagalog']
+    ],
+    experience: { min: 1, max: 8 }
   }
 }
 
