@@ -773,7 +773,7 @@ const JOB_DETAILS: Record<JobTitle, {
   },
   'Pest Control Worker': {
     descriptions: [
-      'Certified pest control technician with integrated pest management expertise.',
+      'Certified pest control worker with integrated pest management expertise.',
       'Professional exterminator with knowledge of pesticide application and safety.',
       'Experienced pest control specialist with inspection and treatment protocols.',
       'Expert pest management technician with customer education and prevention.',
