@@ -495,16 +495,21 @@ export default function CityJobPage({ params }: PageProps) {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Hire Verified {jobDisplay}s in {cityDisplay}
             </h1>
-            <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-              Connect with skilled and experienced {jobDisplay.toLowerCase()}s in {cityDisplay}. 
+            <p className="text-xl text-gray-200 mb-6 max-w-3xl mx-auto">
+              Connect with skilled and experienced {jobDisplay.toLowerCase()}s in {cityDisplay}.
               All profiles are verified and ready to work.
             </p>
-            
+            <div className="bg-white/10 rounded-lg p-3 mb-8 inline-block">
+              <p className="text-sm text-gray-200">
+                Showing workers from <span className="font-semibold text-gold-400">{categoryName}</span> category
+              </p>
+            </div>
+
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
               <div className="bg-white/10 rounded-lg p-4">
                 <div className="text-2xl font-bold text-gold-400">{filteredWorkers.length}</div>
-                <div className="text-gray-200">Available {jobDisplay}s</div>
+                <div className="text-gray-200">Total Available Workers</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4">
                 <div className="text-2xl font-bold text-gold-400">{localCurrency} {averageSalary}</div>
