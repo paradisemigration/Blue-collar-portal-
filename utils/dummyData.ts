@@ -771,7 +771,7 @@ const JOB_DETAILS: Record<JobTitle, {
     ],
     experience: { min: 1, max: 8 }
   },
-  'Pest Control Technician': {
+  'Pest Control Worker': {
     descriptions: [
       'Certified pest control technician with integrated pest management expertise.',
       'Professional exterminator with knowledge of pesticide application and safety.',
