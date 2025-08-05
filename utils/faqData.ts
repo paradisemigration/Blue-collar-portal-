@@ -365,7 +365,7 @@ const JOB_SPECIFIC_FAQS: Record<JobTitle, {
     growth: 'Cleaning supervisor, commercial contracts, equipment specialist',
     challenges: 'Height risks, weather dependency, physical demands'
   },
-  'Pest Control Technician': {
+  'Pest Control Worker': {
     requirements: 'Pest knowledge, chemical certification, safety training',
     benefits: 'Specialized skill, good demand, problem-solving work',
     growth: 'Pest control supervisor, business owner, technical specialist',
