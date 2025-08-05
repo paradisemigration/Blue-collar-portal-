@@ -336,7 +336,23 @@ export default function CityJobPage({ params }: PageProps) {
     : 0
 
   // Generate unique FAQs for this city and job combination
-  const faqs = generateCityJobFAQs(params.city, jobDisplay)
+  let faqs = []
+  try {
+    faqs = generateCityJobFAQs(params.city, jobDisplay)
+  } catch (error) {
+    console.error('Error generating FAQs:', error)
+    // Fallback FAQ data
+    faqs = [
+      {
+        question: `How much does it cost to hire a ${jobDisplay.toLowerCase()} in ${cityDisplay}?`,
+        answer: `The average salary for ${jobDisplay.toLowerCase()}s in ${cityDisplay} varies based on experience and qualifications. Most employers also provide accommodation and transportation.`
+      },
+      {
+        question: `How quickly can I hire a ${jobDisplay.toLowerCase()} in ${cityDisplay}?`,
+        answer: `Most employers connect with suitable ${jobDisplay.toLowerCase()} candidates within 24-48 hours. The complete hiring process typically takes 2-6 weeks.`
+      }
+    ]
+  }
 
   if (isLoading) {
     return (
