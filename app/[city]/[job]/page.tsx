@@ -11,7 +11,7 @@ import {
   EyeIcon,
   LockClosedIcon
 } from '@heroicons/react/24/outline'
-import { Worker, JobTitle, City } from '../../../types'
+import { Worker, JobTitle, City, Country } from '../../../types'
 import { generateDummyWorkers, getCurrencyDisplayForCity, GULF_REGIONS } from '../../../utils/dummyData'
 
 // Helper function to get country for city
