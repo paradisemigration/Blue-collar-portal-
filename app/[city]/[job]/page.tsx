@@ -312,8 +312,8 @@ export default function CityJobPage({ params }: PageProps) {
         // Use setTimeout to prevent blocking the main thread
         setTimeout(() => {
           try {
-            const allWorkers = loadWorkers()
-            setWorkers(allWorkers)
+            const workers = loadWorkersForCityJob(cityDisplay, jobDisplay)
+            setWorkers(workers)
           } catch (error) {
             console.error('Error loading workers:', error)
             // Generate minimal dummy data to avoid performance issues
