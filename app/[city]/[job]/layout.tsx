@@ -115,8 +115,8 @@ function formatJobTitle(slug: string): string {
     'Waiter': 'Waiter',
     'Dishwasher': 'Dishwasher',
     'Restaurant Cleaner': 'Restaurant Cleaner',
-    'Barista Basic': 'Barista (basic)',
-    'Barista': 'Barista (basic)',
+    'Barista Basic': 'Barista',
+    'Barista': 'Barista',
     'Food Delivery Rider': 'Food Delivery Rider',
 
     // Security & General Services
