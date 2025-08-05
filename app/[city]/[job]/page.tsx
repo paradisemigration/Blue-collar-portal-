@@ -179,7 +179,7 @@ const JOB_CATEGORIES: Record<string, JobTitle[]> = {
     'Cleaner', 'Housekeeping Staff', 'Janitor', 'Building Maintenance Worker', 'Car Wash Attendant', 'Office Cleaner'
   ],
   'Hospitality & Food': [
-    'Cook', 'Kitchen Helper', 'Waiter', 'Dishwasher', 'Restaurant Cleaner', 'Barista (basic)', 'Food Delivery Rider'
+    'Cook', 'Kitchen Helper', 'Waiter', 'Dishwasher', 'Restaurant Cleaner', 'Barista', 'Food Delivery Rider'
   ],
   'Security & General Services': [
     'Security Guard', 'Watchman', 'Lifeguard', 'Maintenance Helper', 'General Helper'
