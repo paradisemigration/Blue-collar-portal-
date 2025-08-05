@@ -478,7 +478,7 @@ export default function CityJobPage({ params }: PageProps) {
               We're constantly adding new profiles. Check back soon or browse other locations.
             </p>
             <Link href="/browse" className="btn-primary">
-              Browse All Workers
+              Find All Workers
             </Link>
           </div>
         )}
