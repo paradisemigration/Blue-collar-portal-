@@ -49,20 +49,147 @@ interface LocationInfo {
   detectedFromIP: boolean
 }
 
-const jobTitles: (JobTitle | 'Other')[] = [
-  'Driver', 'Maid', 'Electrician', 'Plumber', 'Cleaner', 'Carpenter', 
-  'Painter', 'Security Guard', 'Cook', 'Gardener', 'Mechanic', 
-  'Construction Worker', 'Delivery Driver', 'Warehouse Worker', 'Office Boy',
-  'AC Technician', 'Welder', 'Mason', 'Tile Setter', 'Roofer', 'Glazier',
-  'Heavy Equipment Operator', 'Crane Operator', 'Forklift Operator', 'Steel Fixer',
-  'Pipe Fitter', 'HVAC Technician', 'Concrete Mixer', 'Excavator Operator',
-  'Road Worker', 'Building Maintenance', 'Pool Cleaner', 'Landscaper',
-  'Window Cleaner', 'Pest Control Technician', 'Laundry Worker', 'Dishwasher',
-  'Food Preparation Worker', 'Kitchen Helper', 'Waiter', 'Barista',
-  'Cashier', 'Shop Assistant', 'Inventory Clerk', 'Packer',
-  'Loading Worker', 'Moving Helper', 'Cleaning Supervisor', 'Maintenance Supervisor',
-  'Other'
-]
+const jobCategories = {
+  'Domestic & Personal Care Workers': {
+    emoji: '🏠',
+    jobs: [
+      'Nanny (Childcare Worker)',
+      'Housemaid',
+      'Cook (Home-based)',
+      'Elderly Caregiver',
+      'Babysitter',
+      'Domestic Helper',
+      'Governess (Live-in Tutor/Nanny)',
+      'Housekeeper (Residential)',
+      'Personal Attendant',
+      'Live-in Maid'
+    ]
+  },
+  'Construction & Infrastructure': {
+    emoji: '🚧',
+    jobs: [
+      'Construction Laborer',
+      'Mason',
+      'Carpenter',
+      'Electrician',
+      'Plumber',
+      'Welder',
+      'Painter',
+      'Steel Fixer',
+      'Scaffold Worker',
+      'Tile Setter',
+      'HVAC Technician',
+      'Crane Operator',
+      'Heavy Equipment Operator',
+      'Site Supervisor',
+      'Road Construction Worker'
+    ]
+  },
+  'Mechanical & Technical': {
+    emoji: '🛠️',
+    jobs: [
+      'Auto Mechanic',
+      'Diesel Mechanic',
+      'Machine Operator',
+      'CNC Machine Operator',
+      'Fitter',
+      'Maintenance Technician',
+      'Elevator Technician',
+      'AC Technician',
+      'Forklift Operator',
+      'Lathe Machine Operator'
+    ]
+  },
+  'Manufacturing & Factory': {
+    emoji: '🧰',
+    jobs: [
+      'Factory Worker',
+      'Assembly Line Worker',
+      'Packer',
+      'Warehouse Associate',
+      'Quality Checker',
+      'Production Supervisor',
+      'Fabricator',
+      'Loader/Unloader'
+    ]
+  },
+  'Transport & Logistics': {
+    emoji: '🚚',
+    jobs: [
+      'Truck Driver',
+      'Delivery Driver',
+      'Bus Driver',
+      'Light Vehicle Driver',
+      'Logistics Assistant',
+      'Dispatch Coordinator',
+      'Heavy Vehicle Driver'
+    ]
+  },
+  'Cleaning & Maintenance': {
+    emoji: '🧹',
+    jobs: [
+      'Cleaner',
+      'Housekeeping Staff',
+      'Janitor',
+      'Building Maintenance Worker',
+      'Car Wash Attendant',
+      'Office Cleaner'
+    ]
+  },
+  'Hospitality & Food': {
+    emoji: '🧑‍🍳',
+    jobs: [
+      'Cook',
+      'Kitchen Helper',
+      'Waiter',
+      'Dishwasher',
+      'Restaurant Cleaner',
+      'Barista (basic)',
+      'Food Delivery Rider'
+    ]
+  },
+  'Security & General Services': {
+    emoji: '👷‍♂️',
+    jobs: [
+      'Security Guard',
+      'Watchman',
+      'Lifeguard',
+      'Maintenance Helper',
+      'General Helper'
+    ]
+  },
+  'Garments & Tailoring': {
+    emoji: '🧵',
+    jobs: [
+      'Tailor',
+      'Ironing Staff',
+      'Textile Factory Worker'
+    ]
+  },
+  'Agriculture & Farming': {
+    emoji: '🧑‍🌾',
+    jobs: [
+      'Farm Worker',
+      'Livestock Handler',
+      'Greenhouse Worker'
+    ]
+  },
+  'Other Common Jobs': {
+    emoji: '🧴',
+    jobs: [
+      'Petrol Pump Attendant',
+      'Office Boy',
+      'Tea Boy',
+      'Baggage Handler',
+      'Laundry Worker',
+      'Pest Control Worker'
+    ]
+  }
+}
+
+// Create a flat array of all job titles for backward compatibility
+const allJobTitles = Object.values(jobCategories).flatMap(category => category.jobs)
+const jobTitles: (string)[] = [...allJobTitles, 'Other']
 
 const citiesByCountry: Record<Country, City[]> = {
   'UAE': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain', 'Al Ain'],
