@@ -84,7 +84,13 @@ export default function AdminDashboard() {
         try {
           const parsedProfiles = JSON.parse(allProfiles)
           if (Array.isArray(parsedProfiles)) {
-            profiles.push(...parsedProfiles)
+            // Filter out demo profiles that might have been stored
+            const realProfiles = parsedProfiles.filter(profile =>
+              !profile.id?.startsWith('demo') &&
+              !profile.email?.includes('demo') &&
+              !['ahmed.hassan@email.com', 'maria.santos@email.com', 'omar.rashid@email.com'].includes(profile.email)
+            )
+            profiles.push(...realProfiles)
           }
         } catch (e) {
           console.warn('Error parsing allUserProfiles:', e)
