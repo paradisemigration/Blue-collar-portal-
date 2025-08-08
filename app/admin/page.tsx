@@ -66,25 +66,39 @@ export default function AdminDashboard() {
     try {
       // Load all user profiles from localStorage
       const profiles: Worker[] = []
-      
+
       // Check for individual profile
       const userProfile = localStorage.getItem('userProfile')
       if (userProfile) {
-        profiles.push(JSON.parse(userProfile))
+        try {
+          const profile = JSON.parse(userProfile)
+          profiles.push(profile)
+        } catch (e) {
+          console.warn('Error parsing userProfile:', e)
+        }
       }
-      
+
       // Check for multiple profiles (would be stored differently in real app)
       const allProfiles = localStorage.getItem('allUserProfiles')
       if (allProfiles) {
-        const parsedProfiles = JSON.parse(allProfiles)
-        profiles.push(...parsedProfiles)
+        try {
+          const parsedProfiles = JSON.parse(allProfiles)
+          if (Array.isArray(parsedProfiles)) {
+            profiles.push(...parsedProfiles)
+          }
+        } catch (e) {
+          console.warn('Error parsing allUserProfiles:', e)
+        }
       }
-      
-      // Note: Real profiles will be loaded from the actual user database
-      
-      setUsers(profiles)
-      calculateStats(profiles)
+
+      // If no real users found, show demo profiles for admin testing
+      const finalProfiles = profiles.length > 0 ? profiles : generateDemoProfiles()
+
+      setUsers(finalProfiles)
+      calculateStats(finalProfiles)
       setLoading(false)
+
+      console.log(`Loaded ${finalProfiles.length} user profiles for admin dashboard`)
     } catch (error) {
       console.error('Error loading admin data:', error)
       setLoading(false)
