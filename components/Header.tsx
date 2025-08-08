@@ -24,6 +24,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isEmployer, setIsEmployer] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
   const [loadingLink, setLoadingLink] = useState<string | null>(null)
   const [showLoginDropdown, setShowLoginDropdown] = useState(false)
