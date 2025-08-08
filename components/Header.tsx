@@ -115,7 +115,7 @@ export default function Header() {
 
   // Different navigation for logged in vs logged out users
   const getNavigation = () => {
-    if (isLoggedIn || isEmployer) {
+    if (isLoggedIn || isEmployer || isAdmin) {
       return [
         { name: 'Home', href: '/' },
         { name: 'Find Workers', href: '/browse' },
