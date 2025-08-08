@@ -167,9 +167,19 @@ export default function Header() {
 
           {/* Auth Section */}
           <div className="hidden md:flex items-center space-x-4">
-            {isLoggedIn || isEmployer ? (
+            {isLoggedIn || isEmployer || isAdmin ? (
               // Logged in menu
               <>
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold transition-colors"
+                  >
+                    <Cog6ToothIcon className="h-5 w-5" />
+                    Admin Dashboard
+                  </Link>
+                )}
+
                 {isEmployer && (
                   <Link
                     href="/employer-dashboard"
