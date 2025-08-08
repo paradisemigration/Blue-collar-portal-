@@ -95,6 +95,7 @@ export default function Header() {
     // Clear all authentication data
     localStorage.removeItem('isEmployerLoggedIn')
     localStorage.removeItem('isLoggedIn')
+    localStorage.removeItem('adminAuth')
     localStorage.removeItem('userProfile')
     localStorage.removeItem('authProvider')
     localStorage.removeItem('googleUser')
@@ -103,6 +104,7 @@ export default function Header() {
     // Reset state
     setIsLoggedIn(false)
     setIsEmployer(false)
+    setIsAdmin(false)
     setUserProfile(null)
     setMobileMenuOpen(false)
 
