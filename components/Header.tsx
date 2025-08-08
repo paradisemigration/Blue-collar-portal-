@@ -34,10 +34,12 @@ export default function Header() {
       if (typeof window !== 'undefined') {
         const employerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
         const userLoggedIn = localStorage.getItem('isLoggedIn')
+        const adminLoggedIn = localStorage.getItem('adminAuth')
         const profileData = localStorage.getItem('userProfile')
 
         setIsEmployer(employerLoggedIn === 'true')
         setIsLoggedIn(userLoggedIn === 'true')
+        setIsAdmin(adminLoggedIn === 'true')
 
         if (profileData) {
           try {
