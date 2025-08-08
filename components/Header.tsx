@@ -202,7 +202,7 @@ export default function Header() {
 
                 <div className="flex items-center gap-2 text-gray-600">
                   <span className="text-sm">
-                    Hi, {userProfile?.fullName || 'User'}
+                    Hi, {isAdmin ? 'Admin' : userProfile?.fullName || 'User'}
                   </span>
                 </div>
 
