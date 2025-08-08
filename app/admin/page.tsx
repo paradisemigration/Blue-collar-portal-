@@ -103,64 +103,6 @@ export default function AdminDashboard() {
     }
   }
 
-  const generateDemoProfiles = (): Worker[] => {
-    return [
-      {
-        id: 'demo1',
-        fullName: 'Ahmed Hassan',
-        profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-        jobTitle: 'Driver',
-        yearsExperience: 8,
-        city: 'Dubai',
-        country: 'UAE',
-        languagesSpoken: ['English', 'Arabic', 'Hindi'],
-        expectedSalary: 3500,
-        visaStatus: 'Work Visa',
-        availability: true,
-        aboutMe: 'Experienced professional driver with clean driving record.',
-        phoneNumber: '+971501234567',
-        email: 'ahmed.hassan@email.com',
-        createdAt: new Date('2024-01-15'),
-        updatedAt: new Date('2024-01-15')
-      },
-      {
-        id: 'demo2',
-        fullName: 'Maria Santos',
-        profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=150&h=150&fit=crop&crop=face',
-        jobTitle: 'Maid',
-        yearsExperience: 5,
-        city: 'Dubai',
-        country: 'UAE',
-        languagesSpoken: ['English', 'Tagalog'],
-        expectedSalary: 2500,
-        visaStatus: 'Work Visa',
-        availability: true,
-        aboutMe: 'Dedicated housekeeping professional.',
-        phoneNumber: '+971501234568',
-        email: 'maria.santos@email.com',
-        createdAt: new Date('2024-01-18'),
-        updatedAt: new Date('2024-01-18')
-      },
-      {
-        id: 'demo3',
-        fullName: 'Omar Al-Rashid',
-        profilePicture: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
-        jobTitle: 'Cleaner',
-        yearsExperience: 3,
-        city: 'Doha',
-        country: 'Qatar',
-        languagesSpoken: ['Arabic', 'English'],
-        expectedSalary: 2800,
-        visaStatus: 'Visit Visa',
-        availability: true,
-        aboutMe: 'Professional cleaner with attention to detail.',
-        phoneNumber: '+97450123456',
-        email: 'omar.rashid@email.com',
-        createdAt: new Date('2024-01-20'),
-        updatedAt: new Date('2024-01-20')
-      }
-    ]
-  }
 
   const calculateStats = (profiles: Worker[]) => {
     const stats: UserStats = {
