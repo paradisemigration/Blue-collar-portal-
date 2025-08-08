@@ -91,14 +91,12 @@ export default function AdminDashboard() {
         }
       }
 
-      // If no real users found, show demo profiles for admin testing
-      const finalProfiles = profiles.length > 0 ? profiles : generateDemoProfiles()
-
-      setUsers(finalProfiles)
-      calculateStats(finalProfiles)
+      // Only show real user profiles, no demo data
+      setUsers(profiles)
+      calculateStats(profiles)
       setLoading(false)
 
-      console.log(`Loaded ${finalProfiles.length} user profiles for admin dashboard`)
+      console.log(`Loaded ${profiles.length} real user profiles for admin dashboard`)
     } catch (error) {
       console.error('Error loading admin data:', error)
       setLoading(false)
