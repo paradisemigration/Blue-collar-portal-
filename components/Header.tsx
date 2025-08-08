@@ -305,10 +305,10 @@ export default function Header() {
                 ))}
 
                 <div className="border-t border-gray-200 pt-4 space-y-3">
-                  {isLoggedIn || isEmployer ? (
+                  {isLoggedIn || isEmployer || isAdmin ? (
                     // Logged in mobile menu
                     <>
-                      {userProfile && (
+                      {userProfile && !isAdmin && (
                         <div className="px-4 py-2 bg-gray-50 rounded-xl">
                           <p className="text-sm font-medium text-gray-900">
                             {userProfile.fullName}
@@ -317,6 +317,27 @@ export default function Header() {
                             {userProfile.jobTitle}
                           </p>
                         </div>
+                      )}
+
+                      {isAdmin && (
+                        <div className="px-4 py-2 bg-purple-50 rounded-xl">
+                          <p className="text-sm font-medium text-purple-900">
+                            Administrator
+                          </p>
+                          <p className="text-xs text-purple-600">
+                            Admin Panel Access
+                          </p>
+                        </div>
+                      )}
+
+                      {isAdmin && (
+                        <button
+                          onClick={() => handleNavigation('/admin')}
+                          className="w-full flex items-center gap-2 text-purple-600 hover:text-purple-700 hover:bg-purple-50 font-semibold py-3 px-4 rounded-xl transition-all duration-200"
+                        >
+                          <Cog6ToothIcon className="h-5 w-5" />
+                          Admin Dashboard
+                        </button>
                       )}
 
                       {isEmployer && (
@@ -328,7 +349,7 @@ export default function Header() {
                           Dashboard
                         </button>
                       )}
-                      
+
                       {isLoggedIn && (
                         <button
                           onClick={() => handleNavigation('/dashboard')}
