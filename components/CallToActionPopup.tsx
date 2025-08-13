@@ -178,6 +178,18 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
       // Double-check user isn't logged in before showing
       if (!isUserLoggedIn()) {
         setIsVisible(true)
+
+        // Track popup show for GTM
+        if (typeof window !== 'undefined' && (window as any).dataLayer) {
+          (window as any).dataLayer.push({
+            event: 'popup_show',
+            popup_type: 'cta_popup',
+            trigger_delay: '3_seconds',
+            detected_country: detectedCountry,
+            page_path: pathname
+          })
+        }
+
         setTimeout(() => setIsAnimating(true), 50)
       }
     }, 3000)
