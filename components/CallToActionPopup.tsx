@@ -222,7 +222,7 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
 
         {/* Version indicator for deployment verification */}
         <div className="absolute top-2 left-2 text-xs text-gray-400 opacity-50" title="Popup Version">
-          v2.0
+          v2.1-{new Date().toISOString().slice(0,10)}
         </div>
 
         {/* Content */}
