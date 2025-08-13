@@ -976,50 +976,15 @@ export default function CityJobPage({ params }: PageProps) {
 
             {/* Introduction */}
             <div className="prose prose-lg max-w-none mb-8">
-              <p className="text-gray-700 leading-relaxed mb-6">
-                Finding a reliable and trustworthy {jobDisplay.toLowerCase()} in {cityDisplay} can be challenging, but with the right approach and knowledge, you can secure the perfect candidate for your needs. Whether you're a busy professional, a growing family, or someone in need of specialized assistance, hiring a qualified {jobDisplay.toLowerCase()} in {cityDisplay} offers numerous benefits that can significantly improve your quality of life.
-              </p>
-
-              <p className="text-gray-700 leading-relaxed mb-6">
-                {cityDisplay}, being one of {country}'s major cities, attracts skilled workers from around the world, creating a diverse pool of experienced {jobDisplay.toLowerCase()}s. This comprehensive guide will walk you through everything you need to know about hiring {jobDisplay.toLowerCase()}s in {cityDisplay}, from understanding local regulations to finding the right match for your household or business needs.
-              </p>
+              {getUniqueIntroduction(cityDisplay, jobDisplay, country)}
             </div>
 
             {/* Why Choose Professional Workers */}
             <div className="mb-8">
               <h3 className="text-xl sm:text-2xl font-bold text-navy-900 mb-4">
-                Why Choose Professional {jobDisplay}s in {cityDisplay}?
+                Why {cityDisplay} Residents Choose {jobDisplay}s
               </h3>
-
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h4 className="text-lg font-semibold text-navy-900 mb-3">🏆 Quality & Experience</h4>
-                  <p className="text-gray-700">
-                    Professional {jobDisplay.toLowerCase()}s in {cityDisplay} bring years of experience and training to ensure high-quality service. They understand local standards and cultural preferences, making them ideal for families and businesses in the area.
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h4 className="text-lg font-semibold text-navy-900 mb-3">⏰ Time-Saving Solution</h4>
-                  <p className="text-gray-700">
-                    Hiring a qualified {jobDisplay.toLowerCase()} frees up valuable time for you to focus on work, family, and personal activities. This is especially beneficial for busy professionals and growing families in {cityDisplay}.
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h4 className="text-lg font-semibold text-navy-900 mb-3">🔒 Peace of Mind</h4>
-                  <p className="text-gray-700">
-                    Verified {jobDisplay.toLowerCase()}s undergo background checks and reference verification, giving you confidence in your hiring decision. Safety and trust are paramount when inviting someone into your home or workplace.
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h4 className="text-lg font-semibold text-navy-900 mb-3">💰 Cost-Effective</h4>
-                  <p className="text-gray-700">
-                    When you consider the value of your time and the quality of service provided, hiring a professional {jobDisplay.toLowerCase()} in {cityDisplay} offers excellent return on investment for your household or business needs.
-                  </p>
-                </div>
-              </div>
+              {getWhyChooseReasons(cityDisplay, jobDisplay, country)}
             </div>
 
             {/* Services and Specializations */}
