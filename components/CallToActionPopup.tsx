@@ -207,9 +207,15 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors z-10"
+          title="Close popup - New version with worker animation"
         >
           <XMarkIcon className="h-5 w-5 text-gray-600" />
         </button>
+
+        {/* Version indicator for deployment verification */}
+        <div className="absolute top-2 left-2 text-xs text-gray-400 opacity-50" title="Popup Version">
+          v2.0
+        </div>
 
         {/* Content */}
         <div className="p-8 pt-12">
