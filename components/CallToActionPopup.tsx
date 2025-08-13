@@ -213,35 +213,31 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
             <div className="relative mx-auto w-24 h-24 mb-6">
               {/* Animated background circles */}
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-primary-600 rounded-full animate-pulse opacity-20"></div>
-              <div className="absolute inset-2 bg-gradient-to-r from-primary-400 to-blue-500 rounded-full animate-pulse opacity-30 animation-delay-300"></div>
+              <div className="absolute inset-2 bg-gradient-to-r from-primary-400 to-blue-500 rounded-full animate-pulse opacity-30" style={{ animationDelay: '0.3s' }}></div>
 
-              {/* Worker Character Animation */}
+              {/* Main worker emoji with animation */}
               <div className="relative w-full h-full flex items-center justify-center">
-                {/* Worker cartoon using emoji and styling */}
-                <div className="relative">
-                  {/* Hard hat */}
-                  <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-8 h-6 bg-yellow-400 rounded-t-full border-2 border-yellow-500 animate-bounce" style={{ animationDuration: '2s', animationDelay: '0.2s' }}></div>
-
-                  {/* Worker face */}
-                  <div className="w-16 h-16 bg-gradient-to-b from-orange-200 to-orange-300 rounded-full border-2 border-orange-400 flex items-center justify-center relative animate-bounce" style={{ animationDuration: '2s' }}>
-                    {/* Eyes */}
-                    <div className="absolute top-4 left-3 w-2 h-2 bg-black rounded-full"></div>
-                    <div className="absolute top-4 right-3 w-2 h-2 bg-black rounded-full animate-pulse"></div>
-                    {/* Smile */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-6 h-3 border-b-2 border-black rounded-full"></div>
-                  </div>
-
-                  {/* Tool animation */}
-                  <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-gray-600 transform rotate-45 animate-spin" style={{ animationDuration: '3s' }}>
-                    <div className="w-2 h-4 bg-brown-600 absolute top-1 left-1/2 transform -translate-x-1/2"></div>
-                  </div>
+                <div className="text-5xl animate-bounce" style={{ animationDuration: '2s' }}>
+                  👷‍♂️
                 </div>
               </div>
 
-              {/* Floating tools animation */}
-              <div className="absolute -top-2 -left-2 w-4 h-4 bg-gray-500 rotate-12 animate-float opacity-60"></div>
-              <div className="absolute -bottom-1 -right-3 w-3 h-3 bg-blue-500 rounded-full animate-float opacity-60" style={{ animationDelay: '1s' }}></div>
-              <div className="absolute top-2 -right-4 w-2 h-2 bg-yellow-500 animate-float opacity-60" style={{ animationDelay: '0.5s' }}></div>
+              {/* Floating work tools around the worker */}
+              <div className="absolute -top-1 -left-1 text-lg animate-float opacity-80" style={{ animationDelay: '0s' }}>
+                🔨
+              </div>
+              <div className="absolute -top-2 -right-1 text-sm animate-float opacity-80" style={{ animationDelay: '1s' }}>
+                🔧
+              </div>
+              <div className="absolute -bottom-1 -left-2 text-sm animate-float opacity-80" style={{ animationDelay: '0.5s' }}>
+                ⚙️
+              </div>
+              <div className="absolute -bottom-2 -right-1 text-lg animate-float opacity-80" style={{ animationDelay: '1.5s' }}>
+                🛠️
+              </div>
+              <div className="absolute top-1 -right-3 text-xs animate-float opacity-80" style={{ animationDelay: '2s' }}>
+                ⚡
+              </div>
             </div>
             <h2 id="popup-title" className="text-2xl font-bold text-gray-900 mb-2">
               What are you looking for?
