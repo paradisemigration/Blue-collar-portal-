@@ -311,23 +311,23 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
             </button>
           </div>
 
-          {/* Footer */}
-          <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">
-              Trusted by 15,000+ workers across the Gulf
+          {/* Footer - Mobile Optimized */}
+          <div className="mt-4 sm:mt-6 text-center">
+            <p className="text-xs sm:text-sm text-gray-500 leading-relaxed px-2">
+              Trusted by <span className="font-semibold text-gray-700">15,000+</span> workers across the Gulf
             </p>
           </div>
         </div>
 
-        {/* Decorative elements */}
+        {/* Decorative elements - Responsive */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-blue-600 rounded-full opacity-20"></div>
+          <div className="w-4 h-4 sm:w-6 sm:h-6 bg-gradient-to-r from-primary-500 to-blue-600 rounded-full opacity-20"></div>
         </div>
-        <div className="absolute bottom-4 right-8">
-          <div className="w-4 h-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full opacity-20"></div>
+        <div className="absolute bottom-3 sm:bottom-4 right-6 sm:right-8">
+          <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full opacity-20"></div>
         </div>
-        <div className="absolute top-1/3 left-4">
-          <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full opacity-20"></div>
+        <div className="absolute top-1/4 sm:top-1/3 left-3 sm:left-4">
+          <div className="w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full opacity-20"></div>
         </div>
       </div>
     </div>
