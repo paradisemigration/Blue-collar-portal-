@@ -215,18 +215,19 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
+        {/* Close Button - Mobile Optimized */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors z-10"
-          title="Close popup - New version with worker animation"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 sm:p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 transition-all z-10 touch-manipulation"
+          title="Close popup"
+          aria-label="Close popup"
         >
-          <XMarkIcon className="h-5 w-5 text-gray-600" />
+          <XMarkIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
         </button>
 
         {/* Version indicator for deployment verification */}
-        <div className="absolute top-2 left-2 text-xs text-gray-400 opacity-50" title="Popup Version">
-          v2.1-{new Date().toISOString().slice(0,10)}
+        <div className="absolute top-2 left-2 text-[10px] sm:text-xs text-gray-400 opacity-30 font-mono" title="Popup Version">
+          v2.1
         </div>
 
         {/* Content */}
