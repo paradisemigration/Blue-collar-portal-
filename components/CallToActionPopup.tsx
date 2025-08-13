@@ -192,8 +192,8 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-[60] flex items-center justify-center p-4 transition-all duration-300 ${
-        isAnimating ? 'bg-black bg-opacity-50' : 'bg-black bg-opacity-0'
+      className={`fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-4 transition-all duration-300 ${
+        isAnimating ? 'bg-black bg-opacity-50 backdrop-blur-sm' : 'bg-black bg-opacity-0'
       }`}
       onClick={handleBackdropClick}
       data-popup-type="new-worker-animation"
