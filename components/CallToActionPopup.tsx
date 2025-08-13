@@ -117,7 +117,7 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
     setTimeout(() => {
       setIsVisible(false)
       // Mark as dismissed for 24 hours
-      localStorage.setItem('ctaPopupDismissed', new Date().toISOString())
+      localStorage.setItem('mainCtaPopupDismissed', new Date().toISOString())
       onClose?.()
     }, 300)
   }
