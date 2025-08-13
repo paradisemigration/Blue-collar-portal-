@@ -524,7 +524,7 @@ export default function CityJobPage({ params }: PageProps) {
   }
 
   // Error boundary wrapper
-  if (!validCities.includes(cityDisplay) || !validJobs.includes(jobDisplay)) {
+  if (!validCities.includes(cityDisplay as City) || !Object.values(JOB_CATEGORIES).flat().includes(jobDisplay as JobTitle)) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
