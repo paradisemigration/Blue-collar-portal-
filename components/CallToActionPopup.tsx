@@ -282,8 +282,8 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
                 <BriefcaseIcon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
               <div className="text-left flex-1 sm:flex-initial">
-                <div className="font-bold text-base sm:text-lg leading-tight">I want to hire a worker</div>
-                <div className="text-xs sm:text-sm text-primary-100 mt-0.5">Find skilled professionals</div>
+                <div className="font-bold text-base sm:text-lg leading-tight popup-text">I want to hire a worker</div>
+                <div className="text-xs sm:text-sm text-primary-100 mt-0.5 popup-text">Find skilled professionals</div>
               </div>
             </button>
 
