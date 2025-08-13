@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
-import { 
-  XMarkIcon, 
-  BriefcaseIcon, 
+import {
+  XMarkIcon,
+  BriefcaseIcon,
   UserIcon,
-  GlobeAltIcon 
+  GlobeAltIcon
 } from '@heroicons/react/24/outline'
 
 interface PopupProps {
