@@ -452,6 +452,163 @@ function getCitySpecificContent(city: City, country: Country): { marketInsight: 
   return cityInsights[city] || fallback
 }
 
+// Function to get job-specific service descriptions
+function getJobSpecificServices(jobTitle: JobTitle): string[] {
+  const serviceMap: Record<string, string[]> = {
+    'Housemaid': [
+      'Daily house cleaning and maintenance of all living areas',
+      'Laundry services including washing, ironing, and wardrobe organization',
+      'Kitchen cleaning and basic meal preparation assistance',
+      'Bathroom sanitization and deep cleaning services',
+      'Bedroom organization and bed making services'
+    ],
+    'Cook (Home-based)': [
+      'Preparation of daily meals according to family preferences',
+      'Menu planning and grocery shopping assistance',
+      'Kitchen organization and equipment maintenance',
+      'Special dietary requirement accommodation',
+      'Food storage and hygiene management'
+    ],
+    'Nanny (Childcare Worker)': [
+      'Full-time childcare and supervision for children of all ages',
+      'Educational activities and homework assistance',
+      'Transportation to school and extracurricular activities',
+      'Meal preparation and feeding for children',
+      'Bedtime routines and sleep schedule management'
+    ],
+    'Light Vehicle Driver': [
+      'Daily transportation for family members and errands',
+      'School pickup and drop-off services',
+      'Shopping trips and appointment transportation',
+      'Vehicle maintenance and cleanliness',
+      'Emergency transportation services'
+    ],
+    'Auto Mechanic': [
+      'Vehicle diagnostics and repair services',
+      'Regular maintenance and servicing',
+      'Emergency breakdown assistance',
+      'Parts replacement and system upgrades',
+      'Vehicle inspection and safety checks'
+    ],
+    'Construction Laborer': [
+      'General construction and building maintenance',
+      'Material handling and site preparation',
+      'Basic carpentry and repair work',
+      'Safety protocol adherence and site cleanup',
+      'Assistance with renovation and improvement projects'
+    ],
+    'Electrician': [
+      'Electrical installation and repair services',
+      'Wiring and circuit troubleshooting',
+      'Appliance installation and maintenance',
+      'Safety inspection and compliance checking',
+      'Emergency electrical services'
+    ],
+    'Plumber': [
+      'Plumbing installation and repair services',
+      'Pipe and fixture maintenance',
+      'Water system troubleshooting',
+      'Bathroom and kitchen plumbing services',
+      'Emergency plumbing assistance'
+    ],
+    'Security Guard': [
+      'Property security and surveillance',
+      'Access control and visitor management',
+      'Emergency response and reporting',
+      'Patrol services and safety checks',
+      'Security system monitoring'
+    ],
+    'Cleaner': [
+      'Commercial and residential cleaning services',
+      'Deep cleaning and sanitization',
+      'Floor care and maintenance',
+      'Window and surface cleaning',
+      'Waste management and disposal'
+    ]
+  }
+
+  // Default services for jobs not specifically mapped
+  const defaultServices = [
+    `Professional ${jobTitle.toLowerCase()} services tailored to your specific needs`,
+    'Reliable and experienced service delivery',
+    'Flexible scheduling to accommodate your requirements',
+    'Quality assurance and professional standards',
+    'Ongoing support and communication'
+  ]
+
+  return serviceMap[jobTitle] || defaultServices
+}
+
+// Function to get job-specific hiring challenges
+function getJobSpecificChallenges(jobTitle: JobTitle): { challenge: string; solution: string }[] {
+  const challengeMap: Record<string, { challenge: string; solution: string }[]> = {
+    'Housemaid': [
+      {
+        challenge: 'Finding someone who understands your specific cleaning standards and household preferences.',
+        solution: 'Provide a detailed orientation during the first week, including preferred cleaning products, schedules, and specific areas of focus. Create a written guide for reference.'
+      },
+      {
+        challenge: 'Ensuring trust and security when allowing access to personal spaces and belongings.',
+        solution: 'Start with supervised work periods and gradually increase independence. Verify all references and consider using a probationary period with clear expectations.'
+      }
+    ],
+    'Cook (Home-based)': [
+      {
+        challenge: 'Finding a cook who can prepare meals according to your family\'s dietary preferences and restrictions.',
+        solution: 'Conduct a cooking trial during the interview process. Discuss all dietary needs, allergies, and preferred cuisines upfront. Provide recipe books or cooking guidelines.'
+      },
+      {
+        challenge: 'Managing food costs and grocery shopping efficiently.',
+        solution: 'Establish a clear budget and shopping list system. Train the cook on preferred brands, stores, and cost-effective shopping practices specific to your area.'
+      }
+    ],
+    'Nanny (Childcare Worker)': [
+      {
+        challenge: 'Ensuring the nanny understands your parenting style and child-rearing preferences.',
+        solution: 'Have detailed discussions about discipline, educational activities, screen time, and daily routines. Provide written guidelines and observe interactions during the trial period.'
+      },
+      {
+        challenge: 'Building trust for the safety and well-being of your children.',
+        solution: 'Conduct thorough background checks, verify all references from previous families, and consider starting with supervised interactions before allowing independent childcare.'
+      }
+    ],
+    'Light Vehicle Driver': [
+      {
+        challenge: 'Ensuring the driver has proper licensing and insurance for your area.',
+        solution: 'Verify all driving licenses, insurance coverage, and clean driving record. Ensure they understand local traffic laws and your preferred routes and destinations.'
+      },
+      {
+        challenge: 'Finding someone reliable for school runs and important appointments.',
+        solution: 'Establish clear schedules, backup plans, and communication protocols. Test punctuality during trial period and discuss emergency procedures.'
+      }
+    ],
+    'Auto Mechanic': [
+      {
+        challenge: 'Verifying technical skills and experience with your specific vehicle types.',
+        solution: 'Request certifications, conduct practical skill tests, and check references from previous employers. Start with simple maintenance tasks before complex repairs.'
+      },
+      {
+        challenge: 'Ensuring honest pricing and quality parts usage.',
+        solution: 'Establish clear agreements about parts sourcing, labor costs, and approval processes for major repairs. Request detailed estimates before work begins.'
+      }
+    ]
+  }
+
+  // Default challenges for jobs not specifically mapped
+  const defaultChallenges = [
+    {
+      challenge: `Finding a ${jobTitle.toLowerCase()} with the right experience and skills for your specific requirements.`,
+      solution: 'Clearly define your expectations, conduct thorough interviews, and request practical demonstrations of key skills during the selection process.'
+    },
+    {
+      challenge: `Ensuring reliable and consistent service quality from your ${jobTitle.toLowerCase()}.`,
+      solution: 'Establish clear performance standards, provide regular feedback, and maintain open communication about expectations and any concerns.'
+    }
+  ]
+
+  return challengeMap[jobTitle] || defaultChallenges
+}
+
 
 interface PageProps {
   params: {
@@ -816,22 +973,12 @@ export default function CityJobPage({ params }: PageProps) {
               </p>
 
               <ul className="space-y-3 text-gray-700">
-                <li className="flex items-start">
-                  <span className="text-primary-600 mr-2">•</span>
-                  <span><strong>Daily Maintenance:</strong> Regular cleaning, organizing, and maintenance of living and working spaces</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary-600 mr-2">•</span>
-                  <span><strong>Specialized Tasks:</strong> Deep cleaning, laundry services, and specific household management duties</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary-600 mr-2">•</span>
-                  <span><strong>Flexible Scheduling:</strong> Full-time, part-time, or on-demand services to fit your schedule</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary-600 mr-2">•</span>
-                  <span><strong>Cultural Sensitivity:</strong> Understanding of local customs and preferences in {cityDisplay}</span>
-                </li>
+                {getJobSpecificServices(jobDisplay).map((service, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="text-primary-600 mr-2">•</span>
+                    <span>{service}</span>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -1001,33 +1148,31 @@ export default function CityJobPage({ params }: PageProps) {
               </p>
 
               <div className="space-y-6">
-                <div className="border-l-4 border-orange-500 pl-6 bg-orange-50 p-4 rounded-r-lg">
-                  <h4 className="text-lg font-semibold text-navy-900 mb-2">Language and Communication Barriers</h4>
-                  <p className="text-gray-700 mb-2">
-                    <strong>Challenge:</strong> Finding {jobDisplay.toLowerCase()}s who speak your preferred language fluently.
-                  </p>
-                  <p className="text-gray-700">
-                    <strong>Solution:</strong> Clearly specify language requirements in your job posting and conduct interviews in your preferred language. Many {jobDisplay.toLowerCase()}s in {cityDisplay} are multilingual and can adapt to your communication needs.
-                  </p>
-                </div>
+                {getJobSpecificChallenges(jobDisplay).map((item, index) => {
+                  const borderColors = ['border-orange-500 bg-orange-50', 'border-blue-500 bg-blue-50', 'border-green-500 bg-green-50', 'border-purple-500 bg-purple-50']
+                  const colorClass = borderColors[index % borderColors.length]
 
-                <div className="border-l-4 border-blue-500 pl-6 bg-blue-50 p-4 rounded-r-lg">
-                  <h4 className="text-lg font-semibold text-navy-900 mb-2">Cultural Adaptation and Preferences</h4>
-                  <p className="text-gray-700 mb-2">
-                    <strong>Challenge:</strong> Ensuring the {jobDisplay.toLowerCase()} understands and respects your family's cultural preferences and routines.
-                  </p>
-                  <p className="text-gray-700">
-                    <strong>Solution:</strong> Discuss cultural expectations during the interview process and provide a detailed orientation about your household preferences. Most experienced {jobDisplay.toLowerCase()}s in {cityDisplay} are adaptable and respectful of diverse cultural practices.
-                  </p>
-                </div>
+                  return (
+                    <div key={index} className={`border-l-4 pl-6 p-4 rounded-r-lg ${colorClass}`}>
+                      <h4 className="text-lg font-semibold text-navy-900 mb-2">Challenge #{index + 1}</h4>
+                      <p className="text-gray-700 mb-2">
+                        <strong>Challenge:</strong> {item.challenge}
+                      </p>
+                      <p className="text-gray-700">
+                        <strong>Solution:</strong> {item.solution}
+                      </p>
+                    </div>
+                  )
+                })}
 
-                <div className="border-l-4 border-green-500 pl-6 bg-green-50 p-4 rounded-r-lg">
-                  <h4 className="text-lg font-semibold text-navy-900 mb-2">Finding Reliable and Trustworthy Candidates</h4>
+                {/* Always include this general challenge as well */}
+                <div className="border-l-4 border-indigo-500 pl-6 bg-indigo-50 p-4 rounded-r-lg">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-2">Language and Cultural Adaptation</h4>
                   <p className="text-gray-700 mb-2">
-                    <strong>Challenge:</strong> Ensuring the {jobDisplay.toLowerCase()} is reliable, honest, and trustworthy.
+                    <strong>Challenge:</strong> Finding {jobDisplay.toLowerCase()}s who can communicate effectively and adapt to your cultural preferences in {cityDisplay}.
                   </p>
                   <p className="text-gray-700">
-                    <strong>Solution:</strong> Use verified platforms that conduct background checks, require references, and maintain detailed profiles. Our platform ensures all {jobDisplay.toLowerCase()}s are thoroughly vetted before being listed.
+                    <strong>Solution:</strong> Our platform allows you to filter by language skills and cultural background. Many {jobDisplay.toLowerCase()}s in {cityDisplay} are multilingual and experienced with diverse cultural requirements.
                   </p>
                 </div>
               </div>
