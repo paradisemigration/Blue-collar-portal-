@@ -930,9 +930,12 @@ export default function CityJobPage({ params }: PageProps) {
               </h3>
 
 
-              <p className="text-gray-700 leading-relaxed mb-4">
-                {jobDisplay}s in {cityDisplay} offer a wide range of services tailored to meet diverse household and business needs. Understanding these services helps you make an informed decision when hiring.
-              </p>
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg mb-6">
+                <h4 className="text-lg font-semibold text-navy-900 mb-3">Specialized {jobDisplay} Services in {cityDisplay}</h4>
+                <p className="text-gray-700">
+                  {getServiceDescription(cityDisplay, jobDisplay, country)}
+                </p>
+              </div>
 
               <ul className="space-y-3 text-gray-700">
                 {getJobSpecificServices(jobDisplay).map((service, index) => (
@@ -1144,9 +1147,12 @@ export default function CityJobPage({ params }: PageProps) {
               </h3>
 
 
-              <p className="text-gray-700 leading-relaxed mb-4">
-                The {getCategoryForJob(jobDisplay).toLowerCase()} industry in {cityDisplay} continues to evolve with {country}'s Vision initiatives and technological advancements. Understanding these trends helps both employers and {jobDisplay.toLowerCase()}s prepare for the future of professional services in the Gulf region.
-              </p>
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg mb-6">
+                <h4 className="text-lg font-semibold text-navy-900 mb-3">Future of {jobDisplay} Services in {cityDisplay}</h4>
+                <p className="text-gray-700">
+                  {getFutureTrends(cityDisplay, jobDisplay, country)}
+                </p>
+              </div>
 
               <div className="grid md:grid-cols-3 gap-4 mb-6">
                 <div className="bg-purple-50 p-4 rounded-lg text-center">
