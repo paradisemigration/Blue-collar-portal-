@@ -1046,13 +1046,9 @@ export default function CityJobPage({ params }: PageProps) {
                 </p>
               </div>
 
-              <p className="text-gray-700 leading-relaxed mb-4">
-                When hiring {jobDisplay.toLowerCase()}s in {cityDisplay}, understanding the local employment landscape is crucial for success. The city's unique character and cultural considerations create specific expectations and opportunities for both employers and workers.
-              </p>
-
-              <p className="text-gray-700 leading-relaxed mb-4">
-                {jobDisplay}s working in {cityDisplay} benefit from understanding the local lifestyle preferences, cultural norms, and household management expectations that are specific to {country}. This cultural awareness leads to better service quality and stronger employer-worker relationships.
-              </p>
+              <div className="prose prose-lg max-w-none mb-6">
+                {getLocalInsightsContent(cityDisplay, jobDisplay, country)}
+              </div>
 
               <div className="bg-yellow-50 p-6 rounded-lg mb-6">
                 <h4 className="text-lg font-semibold text-navy-900 mb-3">🌟 Success Tips for Working in {cityDisplay}</h4>
