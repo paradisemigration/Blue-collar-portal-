@@ -177,6 +177,26 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
     return () => clearTimeout(timer)
   }, [pathname])
 
+  // Handle keyboard events
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isVisible) {
+        handleClose()
+      }
+    }
+
+    if (isVisible) {
+      document.addEventListener('keydown', handleKeyDown)
+      // Prevent body scroll when popup is open
+      document.body.style.overflow = 'hidden'
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = 'unset'
+    }
+  }, [isVisible])
+
   if (!isVisible || !shouldShowPopup()) {
     return null
   }
