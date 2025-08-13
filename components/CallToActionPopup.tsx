@@ -38,6 +38,11 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
 
   // Check if popup was dismissed in last 24 hours
   const wasRecentlyDismissed = () => {
+    // Clear old popup dismissal to ensure new popup shows
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('ctaPopupDismissed') // Remove old popup state
+    }
+
     const dismissedTime = localStorage.getItem('mainCtaPopupDismissed')
     if (!dismissedTime) return false
 
