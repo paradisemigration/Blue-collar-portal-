@@ -19,6 +19,7 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
   const [detectedCountry, setDetectedCountry] = useState('UAE')
   const [isLoading, setIsLoading] = useState(true)
   const pathname = usePathname()
+  const popupRef = useRef<HTMLDivElement>(null)
 
   // Check if popup should be shown on current page
   const shouldShowPopup = () => {
