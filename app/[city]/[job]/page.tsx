@@ -1217,4 +1217,104 @@ export default function CityJobPage({ params }: PageProps) {
   )
 }
 
+// Function to generate unique service descriptions
+function getServiceDescription(city: City, jobTitle: JobTitle, country: Country): string {
+  const descriptions: Record<string, Record<string, string>> = {
+    'Dubai': {
+      'Light Vehicle Driver': `Professional drivers in Dubai's luxury environment provide comprehensive transportation services including airport transfers to DXB and DWC, navigation through Dubai's iconic destinations like Burj Khalifa and Dubai Mall, and specialized knowledge of premium residential areas from Emirates Hills to Palm Jumeirah.`,
+      'Housemaid': `Dubai's housemaids specialize in maintaining ultra-modern smart homes with premium finishes, managing wardrobes of designer clothing, and coordinating with building concierge services in luxury towers. They adapt to international household preferences while maintaining Dubai's exceptional cleanliness standards.`,
+      'Cook (Home-based)': `Home cooks in Dubai create culinary experiences ranging from traditional Emirati dishes to international fusion cuisine, utilizing premium ingredients from Dubai's world-class grocery stores and adapting to diverse dietary requirements of the city's multinational families.`
+    },
+    'Doha': {
+      'Security Guard': `Security professionals in Doha combine modern surveillance technology with cultural awareness, protecting residential compounds and commercial properties while understanding Qatar's emphasis on family privacy and traditional hospitality values.`,
+      'Light Vehicle Driver': `Doha drivers navigate the capital's modern infrastructure including the impressive Corniche, Education City, and Lusail developments, while understanding traditional Qatari family transportation needs and cultural protocols.`,
+      'Housemaid': `Doha's domestic workers blend contemporary household management with respect for traditional Qatari majlis areas and family spaces, often preparing homes for extended family gatherings and important cultural celebrations.`
+    },
+    'Riyadh': {
+      'Construction Laborer': `Construction workers in Riyadh contribute to the Kingdom's Vision 2030 mega-projects, from NEOM to new business districts, working with both traditional Saudi architectural elements and cutting-edge sustainable building technologies.`,
+      'Light Vehicle Driver': `Riyadh drivers serve the Kingdom's administrative center, understanding both traditional Saudi family transportation needs and the evolving requirements of international business families in the rapidly modernizing capital.`
+    }
+  }
+
+  const cityServices = descriptions[city]?.[jobTitle]
+  if (cityServices) {
+    return cityServices
+  }
+
+  // Fallback description
+  return `${jobTitle}s in ${city} provide specialized services that combine international professional standards with deep understanding of local cultural preferences and lifestyle requirements specific to ${country}'s unique social and economic environment.`
+}
+
+// Function to generate future trends content
+function getFutureTrends(city: City, jobTitle: JobTitle, country: Country): string {
+  const trends: Record<string, Record<string, string>> = {
+    'Dubai': {
+      'Light Vehicle Driver': `Dubai's autonomous vehicle initiatives and smart city developments are creating new opportunities for drivers who can work alongside AI navigation systems while providing the personal touch valued by luxury clientele. Electric vehicle adoption is also driving demand for eco-conscious driving professionals.`,
+      'Housemaid': `Dubai's smart home revolution is transforming domestic services, with housemaids learning to work with IoT systems, automated cleaning technologies, and sustainable living practices as the emirate moves toward its 2071 centennial vision.`,
+      'Cook (Home-based)': `Dubai's focus on health and wellness, combined with sustainable food practices, is creating demand for cooks skilled in organic cuisine, meal planning apps, and international dietary trends from plant-based to keto lifestyles.`
+    },
+    'Doha': {
+      'Security Guard': `Qatar's preparation for ongoing international events and smart city initiatives are advancing security technology integration, requiring guards skilled in both traditional security methods and modern digital surveillance systems.`,
+      'Light Vehicle Driver': `Doha's expanding metro system and smart transportation initiatives are creating hybrid opportunities for drivers who can integrate public and private transportation solutions for comprehensive family mobility services.`
+    },
+    'Riyadh': {
+      'Construction Laborer': `Saudi Arabia's Vision 2030 and NEOM project developments are revolutionizing construction with sustainable building practices, smart city technologies, and innovative architectural approaches that blend traditional Saudi design with futuristic concepts.`,
+      'Light Vehicle Driver': `Riyadh's Vision 2030 transportation initiatives, including the upcoming metro system and smart traffic management, are creating opportunities for drivers who understand both traditional service expectations and modern mobility solutions.`
+    }
+  }
+
+  const cityTrend = trends[city]?.[jobTitle]
+  if (cityTrend) {
+    return cityTrend
+  }
+
+  // Fallback trend
+  return `The future of ${jobTitle.toLowerCase()} services in ${city} involves embracing ${country}'s technological advancement initiatives while maintaining the cultural sensitivity and personal service standards that define excellence in the Gulf region's evolving professional landscape.`
+}
+
+// Function to generate local insights content
+function getLocalInsightsContent(city: City, jobTitle: JobTitle, country: Country): JSX.Element {
+  const insights: Record<string, Record<string, string[]>> = {
+    'Dubai': {
+      'Light Vehicle Driver': [
+        `Dubai's transportation ecosystem is uniquely complex, with drivers navigating between seven emirates, understanding VIP protocols for Dubai's luxury hotels and resorts, and maintaining vehicles that meet the exacting standards of the emirate's affluent residents.`,
+        `The city's 24/7 lifestyle means drivers often work flexible schedules, from early morning airport runs to late-night entertainment district pickups, requiring adaptability and understanding of Dubai's diverse entertainment and business districts.`
+      ],
+      'Housemaid': [
+        `Dubai's luxury residential market demands housemaids who understand smart home technology, from automated lighting systems to high-end appliances, while maintaining the pristine presentation expected in premium tower living and villa communities.`,
+        `The multicultural environment requires cultural sensitivity, with housemaids often managing households where multiple languages are spoken and diverse cultural practices are observed simultaneously.`
+      ]
+    },
+    'Doha': {
+      'Security Guard': [
+        `Doha's security landscape combines traditional Qatari values of hospitality with modern protection requirements, requiring guards who can balance welcoming demeanor with vigilant security protocols.`,
+        `The capital's role in hosting international events has elevated security standards, with professionals trained in crowd management, diplomatic protocols, and emergency response coordination.`
+      ]
+    }
+  }
+
+  const cityInsights = insights[city]?.[jobTitle]
+
+  if (cityInsights) {
+    return (
+      <>
+        <p className="text-gray-700 leading-relaxed mb-4">{cityInsights[0]}</p>
+        <p className="text-gray-700 leading-relaxed mb-4">{cityInsights[1]}</p>
+      </>
+    )
+  }
+
+  // Fallback content
+  return (
+    <>
+      <p className="text-gray-700 leading-relaxed mb-4">
+        Working as a {jobTitle.toLowerCase()} in {city} requires understanding the unique blend of international standards and local cultural expectations that define professional service in {country}'s dynamic urban environment.
+      </p>
+      <p className="text-gray-700 leading-relaxed mb-4">
+        {jobTitle}s who succeed in {city} combine technical expertise with cultural awareness, adapting to the diverse needs of local families while maintaining the high service standards expected in the Gulf region.
+      </p>
+    </>
+  )
+}
+
 // Note: Removed generateStaticParams to prevent SSG issues with client-side data loading
