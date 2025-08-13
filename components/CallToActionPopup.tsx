@@ -271,37 +271,37 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
             </p>
           </div>
 
-          {/* Action Buttons */}
-          <div className="space-y-4">
+          {/* Action Buttons - Mobile Optimized */}
+          <div className="space-y-3 sm:space-y-4">
             {/* Hire Worker Button */}
             <button
               onClick={handleHireWorker}
-              className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-3 group"
+              className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 active:from-primary-800 active:to-primary-900 text-white font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl flex items-center justify-start sm:justify-center gap-3 group touch-manipulation"
             >
-              <div className="bg-white bg-opacity-20 rounded-xl p-2 group-hover:bg-opacity-30 transition-all">
-                <BriefcaseIcon className="h-6 w-6" />
+              <div className="bg-white bg-opacity-20 rounded-lg sm:rounded-xl p-1.5 sm:p-2 group-hover:bg-opacity-30 transition-all flex-shrink-0">
+                <BriefcaseIcon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
-              <div className="text-left">
-                <div className="font-bold text-lg">I want to hire a worker</div>
-                <div className="text-sm text-primary-100">Find skilled professionals</div>
+              <div className="text-left flex-1 sm:flex-initial">
+                <div className="font-bold text-base sm:text-lg leading-tight">I want to hire a worker</div>
+                <div className="text-xs sm:text-sm text-primary-100 mt-0.5">Find skilled professionals</div>
               </div>
             </button>
 
             {/* Looking for Job Button */}
             <button
               onClick={handleLookingForJob}
-              className="w-full bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-3 group"
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 active:from-green-800 active:to-emerald-900 text-white font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl flex items-center justify-start sm:justify-center gap-3 group touch-manipulation"
             >
-              <div className="bg-white bg-opacity-20 rounded-xl p-2 group-hover:bg-opacity-30 transition-all">
-                <UserIcon className="h-6 w-6" />
+              <div className="bg-white bg-opacity-20 rounded-lg sm:rounded-xl p-1.5 sm:p-2 group-hover:bg-opacity-30 transition-all flex-shrink-0">
+                <UserIcon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
-              <div className="text-left">
-                <div className="font-bold text-lg">I am looking for a job</div>
-                <div className="text-sm text-green-100">
+              <div className="text-left flex-1 sm:flex-initial">
+                <div className="font-bold text-base sm:text-lg leading-tight">I am looking for a job</div>
+                <div className="text-xs sm:text-sm text-green-100 mt-0.5">
                   {isLoading ? (
                     <span className="flex items-center gap-1">
-                      <div className="w-3 h-3 bg-green-200 rounded-full animate-pulse"></div>
-                      Detecting location...
+                      <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-200 rounded-full animate-pulse"></div>
+                      <span className="text-xs sm:text-sm">Detecting location...</span>
                     </span>
                   ) : (
                     `in ${detectedCountry}`
