@@ -97,6 +97,15 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
   }
 
   const handleClose = () => {
+    // Track popup close for GTM
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'popup_close',
+        popup_type: 'cta_popup',
+        close_method: 'user_action'
+      })
+    }
+
     setIsAnimating(false)
     setTimeout(() => {
       setIsVisible(false)
