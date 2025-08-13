@@ -132,6 +132,59 @@ const loadWorkersForCityJob = (city: string, jobTitle: JobTitle): Worker[] => {
   }
 }
 
+// Helper functions to convert URL slugs to display names
+function citySlugToDisplayName(slug: string): string {
+  // Convert URL slug to proper city name
+  const formatted = slug.split('-').map(word =>
+    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+  ).join(' ')
+
+  // Handle special cases
+  const cityMap: Record<string, string> = {
+    'Al rayyan': 'Al Rayyan',
+    'Al wakrah': 'Al Wakrah',
+    'Umm salal': 'Umm Salal',
+    'Al khor': 'Al Khor',
+    'Al daayen': 'Al Daayen',
+    'Abu dhabi': 'Abu Dhabi',
+    'Ras al khaimah': 'Ras Al Khaimah',
+    'Umm al quwain': 'Umm Al Quwain',
+    'Al ain': 'Al Ain',
+    'Kuwait city': 'Kuwait City',
+    'Hamad town': 'Hamad Town',
+    'Isa town': 'Isa Town'
+  }
+
+  return cityMap[formatted] || formatted
+}
+
+function jobSlugToDisplayName(slug: string): string {
+  // Convert URL slug to proper job title
+  const formatted = slug.split('-').map(word =>
+    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+  ).join(' ')
+
+  // Handle special job title mappings
+  const jobMap: Record<string, string> = {
+    'Maid': 'Housemaid',
+    'Driver': 'Light Vehicle Driver',
+    'Gardener': 'Landscaper',
+    'Mechanic': 'Auto Mechanic',
+    'Construction worker': 'Construction Laborer',
+    'Warehouse worker': 'Warehouse Associate',
+    'Nanny childcare worker': 'Nanny (Childcare Worker)',
+    'Cook home based': 'Cook (Home-based)',
+    'Governess live in tutor nanny': 'Governess (Live-in Tutor/Nanny)',
+    'Housekeeper residential': 'Housekeeper (Residential)',
+    'Live in maid': 'Live-in Maid',
+    'Hvac technician': 'HVAC Technician',
+    'Ac technician': 'AC Technician',
+    'Cnc machine operator': 'CNC Machine Operator'
+  }
+
+  return jobMap[formatted] || formatted
+}
+
 const validCities: City[] = [
   // UAE
   'Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain', 'Al Ain',
