@@ -196,6 +196,8 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
         isAnimating ? 'bg-black bg-opacity-50' : 'bg-black bg-opacity-0'
       }`}
       onClick={handleBackdropClick}
+      data-popup-type="new-worker-animation"
+      data-popup-version="2.1"
     >
       <div
         ref={popupRef}
