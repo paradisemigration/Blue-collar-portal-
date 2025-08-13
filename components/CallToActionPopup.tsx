@@ -178,7 +178,7 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
     return () => clearTimeout(timer)
   }, [pathname])
 
-  // Handle keyboard events
+  // Handle keyboard events and focus management
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isVisible) {
@@ -190,6 +190,11 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
       document.addEventListener('keydown', handleKeyDown)
       // Prevent body scroll when popup is open
       document.body.style.overflow = 'hidden'
+
+      // Focus the popup for accessibility
+      setTimeout(() => {
+        popupRef.current?.focus()
+      }, 350) // After animation completes
     }
 
     return () => {
