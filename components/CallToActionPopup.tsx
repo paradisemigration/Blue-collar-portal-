@@ -134,8 +134,16 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
   }
 
   const handleLookingForJob = () => {
-    // Track interaction (for analytics)
-    console.log('CTA Popup: User clicked Looking for Job')
+    // Track interaction for GTM
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'popup_click',
+        popup_type: 'cta_popup',
+        click_action: 'looking_for_job',
+        button_text: 'I am looking for a job',
+        detected_country: detectedCountry
+      })
+    }
 
     handleClose()
 
