@@ -1213,6 +1213,194 @@ export default function CityJobPage({ params }: PageProps) {
   )
 }
 
+// Function to generate unique introductions for each city+job combination
+function getUniqueIntroduction(city: City, jobTitle: JobTitle, country: Country): JSX.Element {
+  const combinations: Record<string, Record<string, string[]>> = {
+    'Dubai': {
+      'Light Vehicle Driver': [
+        "Dubai's sprawling urban landscape and luxury lifestyle create exceptional opportunities for professional drivers. With world-class infrastructure connecting iconic destinations like Downtown Dubai, Dubai Marina, and Palm Jumeirah, experienced drivers are essential for families and businesses navigating this dynamic city.",
+        "The emirate's position as a global business hub means drivers here serve international executives, diplomatic families, and wealthy residents who expect premium service standards. From airport transfers to daily commutes, Dubai's driver market offers diverse opportunities for skilled professionals."
+      ],
+      'Housemaid': [
+        "Dubai's luxury residential communities, from Emirates Hills to Jumeirah Islands, set the highest standards for domestic services. Professional housemaids in Dubai work with ultra-modern homes featuring smart technology, premium finishes, and extensive living spaces that require specialized care.",
+        "The city's international community brings together families from over 200 nationalities, creating demand for housemaids who understand diverse cultural preferences, dietary requirements, and household management styles. Dubai's housemaids often serve as cultural bridges in multinational households."
+      ],
+      'Cook (Home-based)': [
+        "Dubai's cosmopolitan dining scene extends into private homes, where professional cooks create everything from traditional Emirati cuisine to international fusion dishes. The city's access to premium ingredients from around the world allows cooks to craft exceptional culinary experiences.",
+        "With Dubai's fast-paced business environment, families increasingly rely on skilled home cooks to maintain healthy eating habits while accommodating busy schedules. Professional cooks here often specialize in multiple cuisines to serve the city's diverse expatriate community."
+      ]
+    },
+    'Doha': {
+      'Light Vehicle Driver': [
+        "Doha's rapid transformation ahead of and following the FIFA World Cup has created a modern transportation landscape requiring skilled professional drivers. The city's new Metro system complements private transportation, but personal drivers remain essential for navigating Qatar's growing urban environment.",
+        "Qatar's emphasis on family values and traditional hospitality creates unique opportunities for drivers who understand both modern efficiency and cultural sensitivity. Drivers in Doha often become trusted family assistants, handling everything from school runs to business appointments."
+      ],
+      'Housemaid': [
+        "Doha's blend of ultramodern architecture and traditional Qatari values creates unique household management requirements. Professional housemaids here work in homes that seamlessly integrate cutting-edge technology with traditional majlis areas and family spaces designed for extended family gatherings.",
+        "The capital's role as host to international sporting events and diplomatic missions means housemaids often prepare homes for high-profile guests while maintaining the privacy and discretion valued in Qatari culture."
+      ],
+      'Security Guard': [
+        "Doha's position as a regional diplomatic and business center creates high demand for professional security services. From protecting residential compounds to securing commercial properties, security guards in Qatar's capital work in environments that require both vigilance and cultural awareness.",
+        "The country's emphasis on safety and security, particularly around major infrastructure and residential developments, means security professionals here often work with advanced surveillance systems and coordinate with local authorities."
+      ]
+    },
+    'Riyadh': {
+      'Light Vehicle Driver': [
+        "Riyadh's Vision 2030 transformation has revolutionized the capital's transportation needs. As Saudi Arabia's largest city and administrative center, Riyadh offers drivers opportunities to serve government officials, business leaders, and international families in a rapidly modernizing environment.",
+        "The recent introduction of women driving and changing social dynamics have created new opportunities for professional drivers who understand evolving Saudi family needs while respecting traditional values and cultural preferences."
+      ],
+      'Construction Laborer': [
+        "Riyadh's massive infrastructure projects, from NEOM to the new business districts, create unprecedented opportunities for skilled construction workers. The capital's building boom requires professionals who can work with both traditional Saudi architectural elements and cutting-edge sustainable technologies.",
+        "As the heart of Saudi Arabia's economic diversification efforts, Riyadh's construction sector offers long-term career growth for workers skilled in modern building techniques, safety protocols, and project management."
+      ]
+    }
+  }
+
+  const cityContent = combinations[city]?.[jobTitle]
+
+  if (cityContent) {
+    return (
+      <>
+        <p className="text-gray-700 leading-relaxed mb-6">{cityContent[0]}</p>
+        <p className="text-gray-700 leading-relaxed mb-6">{cityContent[1]}</p>
+      </>
+    )
+  }
+
+  // Fallback for combinations not specifically defined
+  return (
+    <>
+      <p className="text-gray-700 leading-relaxed mb-6">
+        {city}'s unique position in {country} creates specific opportunities for {jobTitle.toLowerCase()}s who understand local market demands and cultural preferences. The city's blend of tradition and modernity requires professionals who can adapt to diverse household and business requirements.
+      </p>
+      <p className="text-gray-700 leading-relaxed mb-6">
+        Professional {jobTitle.toLowerCase()}s in {city} benefit from the city's economic growth and international community, while employers value workers who combine technical skills with cultural awareness and reliability.
+      </p>
+    </>
+  )
+}
+
+// Function to generate unique "Why Choose" reasons for each city+job combination
+function getWhyChooseReasons(city: City, jobTitle: JobTitle, country: Country): JSX.Element {
+  const reasons: Record<string, Record<string, Array<{icon: string, title: string, content: string}>>> = {
+    'Dubai': {
+      'Light Vehicle Driver': [
+        {
+          icon: '🏙️',
+          title: 'Navigate Dubai\'s Premium Locations',
+          content: 'Expert knowledge of Dubai\'s luxury districts, from Business Bay to Palm Jumeirah, ensuring efficient routes and timely arrivals for important meetings and social events.'
+        },
+        {
+          icon: '🌟',
+          title: 'World-Class Service Standards',
+          content: 'Trained in international hospitality standards, Dubai drivers provide the discrete, professional service expected by the emirate\'s discerning residents and visitors.'
+        },
+        {
+          icon: '🚗',
+          title: 'Premium Vehicle Experience',
+          content: 'Experienced with luxury vehicles and advanced automotive technology, ensuring proper care and optimal performance of high-end family cars.'
+        },
+        {
+          icon: '🗺️',
+          title: 'Multi-Language Communication',
+          content: 'Fluent in multiple languages to serve Dubai\'s international community, with cultural awareness for seamless communication with diverse family members.'
+        }
+      ],
+      'Housemaid': [
+        {
+          icon: '✨',
+          title: 'Luxury Home Expertise',
+          content: 'Specialized training in maintaining high-end finishes, smart home systems, and designer furniture that characterize Dubai\'s premium residential properties.'
+        },
+        {
+          icon: '🌍',
+          title: 'Cultural Adaptability',
+          content: 'Experience serving families from over 50+ nationalities, understanding diverse household preferences, dietary requirements, and cultural sensitivities.'
+        },
+        {
+          icon: '🏆',
+          title: 'Premium Service Standards',
+          content: 'Trained to meet the exceptional expectations of Dubai\'s luxury residential communities, maintaining impeccable presentation and attention to detail.'
+        },
+        {
+          icon: '🔒',
+          title: 'Discretion and Trust',
+          content: 'Thoroughly vetted professionals who understand the importance of privacy and confidentiality in Dubai\'s high-profile residential environments.'
+        }
+      ]
+    },
+    'Doha': {
+      'Security Guard': [
+        {
+          icon: '🛡️',
+          title: 'Advanced Security Training',
+          content: 'Comprehensive training in modern security protocols and surveillance systems, meeting Qatar\'s high safety standards for residential and commercial properties.'
+        },
+        {
+          icon: '🤝',
+          title: 'Cultural Sensitivity',
+          content: 'Deep understanding of Qatari customs and Islamic values, ensuring respectful interaction with families while maintaining professional security standards.'
+        },
+        {
+          icon: '📱',
+          title: 'Technology Integration',
+          content: 'Proficient with Qatar\'s modern security infrastructure, including smart surveillance systems and emergency response protocols.'
+        },
+        {
+          icon: '🌙',
+          title: '24/7 Reliability',
+          content: 'Committed to round-the-clock protection with understanding of local emergency services and coordination with Qatar\'s security authorities.'
+        }
+      ]
+    }
+  }
+
+  const cityReasons = reasons[city]?.[jobTitle]
+
+  if (cityReasons) {
+    return (
+      <div className="grid md:grid-cols-2 gap-6 mb-6">
+        {cityReasons.map((reason, index) => (
+          <div key={index} className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg">
+            <h4 className="text-lg font-semibold text-navy-900 mb-3">{reason.icon} {reason.title}</h4>
+            <p className="text-gray-700">{reason.content}</p>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  // Fallback generic reasons
+  return (
+    <div className="grid md:grid-cols-2 gap-6 mb-6">
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <h4 className="text-lg font-semibold text-navy-900 mb-3">🏆 Local Expertise</h4>
+        <p className="text-gray-700">
+          {jobTitle}s in {city} bring specialized knowledge of local requirements, cultural preferences, and service standards expected in {country}.
+        </p>
+      </div>
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <h4 className="text-lg font-semibold text-navy-900 mb-3">⭐ Professional Standards</h4>
+        <p className="text-gray-700">
+          Verified professionals who understand the quality expectations and work ethics valued by families and businesses in {city}.
+        </p>
+      </div>
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <h4 className="text-lg font-semibold text-navy-900 mb-3">🔒 Trust & Reliability</h4>
+        <p className="text-gray-700">
+          Background-checked {jobTitle.toLowerCase()}s who prioritize safety, security, and reliable service delivery for {city} residents.
+        </p>
+      </div>
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <h4 className="text-lg font-semibold text-navy-900 mb-3">💡 Modern Approach</h4>
+        <p className="text-gray-700">
+          {jobTitle}s who adapt to {city}'s evolving lifestyle needs while maintaining respect for traditional values and preferences.
+        </p>
+      </div>
+    </div>
+  )
+}
+
 // Function to generate unique service descriptions
 function getServiceDescription(city: City, jobTitle: JobTitle, country: Country): string {
   const descriptions: Record<string, Record<string, string>> = {
