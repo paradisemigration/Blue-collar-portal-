@@ -173,6 +173,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <BottomCTAPopup />
+          <CallToActionPopup />
           <DebugMetaTags />
         </ErrorBoundary>
       </body>
