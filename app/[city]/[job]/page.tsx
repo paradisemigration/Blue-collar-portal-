@@ -271,6 +271,187 @@ function getCategoryForJob(jobTitle: JobTitle): string {
   return 'Other Jobs'
 }
 
+// Function to get job-specific images
+function getJobImages(jobTitle: JobTitle): { hero: string; employment: string; future: string } {
+  const jobCategory = getCategoryForJob(jobTitle)
+
+  const imageMap: Record<string, { hero: string; employment: string; future: string }> = {
+    'Domestic & Personal Care Workers': {
+      hero: 'photo-1581578731548-c64695cc6952', // household/domestic work
+      employment: 'photo-1554224155-6726b3ff858f', // handshake/agreement
+      future: 'photo-1560472354-b33ff0c44a43' // modern home/technology
+    },
+    'Construction & Infrastructure': {
+      hero: 'photo-1504307651254-35680f356dfd', // construction workers
+      employment: 'photo-1507003211169-0a1dd7228f2d', // construction site
+      future: 'photo-1541976844346-f18aeac57b06' // modern construction
+    },
+    'Mechanical & Technical': {
+      hero: 'photo-1504917595217-d4dc5ebe6122', // mechanic working
+      employment: 'photo-1581093458791-9d42e1e7bd46', // technical tools
+      future: 'photo-1559827260-dc66d52bef19' // modern machinery
+    },
+    'Manufacturing & Factory': {
+      hero: 'photo-1565793298595-6a879b1d9492', // factory worker
+      employment: 'photo-1586528116311-ad8dd3c8310d', // factory environment
+      future: 'photo-1518709268805-4e9042af2176' // automated manufacturing
+    },
+    'Transport & Logistics': {
+      hero: 'photo-1566576912321-d58ddd7a6088', // truck driver
+      employment: 'photo-1565043589221-1a6fd9ae45c7', // logistics warehouse
+      future: 'photo-1597149496124-c29bcb0d8d04' // modern transport
+    },
+    'Cleaning & Maintenance': {
+      hero: 'photo-1558618047-b8c9c8e3a46c', // cleaning service
+      employment: 'photo-1527515637462-cff94eecc1ac', // cleaning supplies
+      future: 'photo-1586281380614-d8c7d8b80051' // modern cleaning tech
+    },
+    'Hospitality & Food': {
+      hero: 'photo-1556909075-f3dc2e5e2ca8', // chef cooking
+      employment: 'photo-1414235077428-338989a2e8c0', // restaurant kitchen
+      future: 'photo-1566554273541-37a9ca77b91b' // modern kitchen tech
+    },
+    'Security & General Services': {
+      hero: 'photo-1571019613454-1cb2f99b2d8b', // security guard
+      employment: 'photo-1593113598332-cd288d649433', // security equipment
+      future: 'photo-1558618047-3c8c76ca7836' // modern security tech
+    },
+    'Garments & Tailoring': {
+      hero: 'photo-1558947530-cbcf6e9aeeae', // tailor working
+      employment: 'photo-1544967882-7a3fe45fbe72', // sewing machine
+      future: 'photo-1559827260-dc66d52bef19' // modern textile tech
+    },
+    'Agriculture & Farming': {
+      hero: 'photo-1500382017468-9049fed747ef', // farm worker
+      employment: 'photo-1474181487882-5abf3f0ba6c2', // agricultural work
+      future: 'photo-1530836369250-ef72a3f5cda8' // modern farming tech
+    },
+    'Other Common Jobs': {
+      hero: 'photo-1507003211169-0a1dd7228f2d', // general worker
+      employment: 'photo-1554224155-6726b3ff858f', // professional handshake
+      future: 'photo-1450101499163-c8848c66ca85' // modern workplace
+    }
+  }
+
+  return imageMap[jobCategory] || imageMap['Other Common Jobs']
+}
+
+// Function to get city-specific insights
+function getCitySpecificContent(city: City, country: Country): { marketInsight: string; localTips: string[] } {
+  const cityInsights: Record<string, { marketInsight: string; localTips: string[] }> = {
+    // UAE Cities
+    'Dubai': {
+      marketInsight: "Dubai's cosmopolitan environment and luxury lifestyle create high demand for premium service providers. The city's international business hub status means professionals here work with diverse, high-expectation clientele from around the world.",
+      localTips: [
+        '• Understand luxury service standards expected in premium Dubai communities',
+        '• Be prepared to work with multiple nationalities and cultural preferences',
+        '• Maintain professional appearance suitable for upscale environments',
+        '• Learn basic Arabic phrases alongside English for better communication',
+        '• Stay updated with Dubai\'s rapid lifestyle and technology changes'
+      ]
+    },
+    'Abu Dhabi': {
+      marketInsight: "As the UAE's capital, Abu Dhabi attracts government officials, diplomats, and business leaders who value reliability and discretion. The city's cultural significance means workers should be especially respectful of local traditions and customs.",
+      localTips: [
+        '• Respect local Emirati customs and traditions more strictly than other UAE cities',
+        '• Understand protocol when working with government and diplomatic families',
+        '• Maintain highest levels of discretion and professionalism',
+        '• Be familiar with both modern amenities and traditional household management',
+        '• Develop cultural sensitivity for international diplomatic community'
+      ]
+    },
+    'Sharjah': {
+      marketInsight: "Sharjah's reputation as the cultural capital of the UAE attracts families who value education and tradition. Workers here often serve households that appreciate cultural awareness and educational support for children.",
+      localTips: [
+        '• Appreciate Sharjah\'s focus on education and cultural preservation',
+        '• Be prepared to support children\'s educational activities and cultural learning',
+        '• Understand the balance between modern living and traditional values',
+        '• Respect the emirate\'s emphasis on family-oriented lifestyle',
+        '• Learn about local cultural sites and educational institutions'
+      ]
+    },
+    // Qatar Cities
+    'Doha': {
+      marketInsight: "Doha's rapid modernization combined with strong cultural heritage creates unique opportunities for workers who can bridge traditional and contemporary service expectations. The city's growing expat community values multicultural understanding.",
+      localTips: [
+        '• Balance respect for Qatari traditions with modern international lifestyle needs',
+        '• Understand the unique blend of traditional and ultra-modern living in Doha',
+        '• Be prepared for the seasonal weather patterns affecting daily routines',
+        '• Learn about Qatar\'s rapid development and changing neighborhood dynamics',
+        '• Develop skills for both traditional Qatari and international household management'
+      ]
+    },
+    // Saudi Arabia Cities
+    'Riyadh': {
+      marketInsight: "As Saudi Arabia's capital and largest city, Riyadh offers diverse opportunities with families ranging from traditional Saudi households to international business families. The city's Vision 2030 development creates demand for adaptable, skilled workers.",
+      localTips: [
+        '• Understand Saudi cultural norms and family structures deeply',
+        '• Be prepared for strict adherence to local customs and religious practices',
+        '• Develop skills suitable for both traditional and modernizing Saudi households',
+        '• Learn basic Arabic as it\'s more essential here than in other Gulf cities',
+        '• Stay informed about Saudi Arabia\'s rapid social and economic changes'
+      ]
+    },
+    'Jeddah': {
+      marketInsight: "Jeddah's role as a commercial hub and gateway to Mecca creates a unique environment where business professionals and religious pilgrims converge. Workers here serve diverse clientele with varying cultural and religious backgrounds.",
+      localTips: [
+        '• Understand Jeddah\'s unique position as gateway to holy cities',
+        '• Be prepared to work with families hosting religious pilgrims during Hajj season',
+        '• Develop cultural sensitivity for the diverse Muslim communities visiting the city',
+        '• Learn about the city\'s commercial importance and business culture',
+        '• Respect the heightened religious significance of the region'
+      ]
+    },
+    // Kuwait
+    'Kuwait City': {
+      marketInsight: "Kuwait City's oil wealth and small size create an intimate job market where reputation and word-of-mouth referrals are crucial. Families often prefer long-term relationships with trusted workers who understand Kuwaiti lifestyle preferences.",
+      localTips: [
+        '• Build strong reputation as word-of-mouth referrals are very important in Kuwait',
+        '• Understand Kuwaiti family dynamics and social hierarchies',
+        '• Be prepared for the extreme summer heat affecting daily schedules',
+        '• Learn about Kuwait\'s unique dialect and cultural expressions',
+        '• Develop relationships within the close-knit expat and local communities'
+      ]
+    },
+    // Bahrain
+    'Manama': {
+      marketInsight: "Manama's role as a regional financial center attracts banking professionals and business executives who value efficiency and reliability. The city's liberal atmosphere creates opportunities for workers comfortable with diverse cultural environments.",
+      localTips: [
+        '• Understand Bahrain\'s more liberal social atmosphere compared to neighboring countries',
+        '• Be prepared to work with international banking and finance professionals',
+        '• Develop efficiency and time-management skills valued by busy business families',
+        '• Learn about the island\'s unique cultural blend of traditions',
+        '• Appreciate the importance of maintaining work-life balance for busy professionals'
+      ]
+    },
+    // Oman
+    'Muscat': {
+      marketInsight: "Muscat's emphasis on preserving Omani culture while embracing modernity creates opportunities for workers who can respect traditions while adapting to contemporary needs. The city's natural beauty influences lifestyle preferences.",
+      localTips: [
+        '• Appreciate Oman\'s strong emphasis on preserving local culture and traditions',
+        '• Understand the importance of environmental consciousness in daily practices',
+        '• Be prepared for outdoor lifestyle preferences influenced by natural beauty',
+        '• Learn about Omani hospitality traditions and their application in household management',
+        '• Develop skills for both urban and nature-oriented lifestyle support'
+      ]
+    }
+  }
+
+  // Fallback for cities not specifically defined
+  const fallback = {
+    marketInsight: `${city}'s position in ${country} creates a unique environment where international professionals and local families seek reliable, culturally-aware workers who can adapt to diverse household needs and maintain high service standards.`,
+    localTips: [
+      '• Develop cultural sensitivity for diverse international and local families',
+      '• Maintain professional standards expected in Gulf region households',
+      '• Learn basic Arabic phrases to improve communication with local families',
+      '• Understand local customs and religious practices to show respect',
+      '• Stay adaptable to different household management styles and preferences'
+    ]
+  }
+
+  return cityInsights[city] || fallback
+}
+
 
 interface PageProps {
   params: {
@@ -555,14 +736,14 @@ export default function CityJobPage({ params }: PageProps) {
             {/* Hero Image */}
             <div className="mb-8 rounded-lg overflow-hidden">
               <img
-                src={`https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=400&fit=crop&crop=center`}
+                src={`https://images.unsplash.com/${getJobImages(jobDisplay).hero}?w=800&h=400&fit=crop&crop=center`}
                 alt={`Professional ${jobDisplay.toLowerCase()} working in ${cityDisplay}`}
                 className="w-full h-64 sm:h-80 object-cover"
                 loading="lazy"
               />
               <div className="bg-gray-50 p-4 text-center">
                 <p className="text-sm text-gray-600">
-                  Professional {jobDisplay.toLowerCase()}s available for hire in {cityDisplay}, {country}
+                  Experienced {jobDisplay.toLowerCase()}s ready to work in {cityDisplay}, {country}
                 </p>
               </div>
             </div>
@@ -623,8 +804,8 @@ export default function CityJobPage({ params }: PageProps) {
 
               <div className="mb-6">
                 <img
-                  src={`https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=600&h=300&fit=crop&crop=center`}
-                  alt={`${jobDisplay} services in ${cityDisplay}`}
+                  src={`https://images.unsplash.com/${getJobImages(jobDisplay).hero}?w=600&h=300&fit=crop&crop=center`}
+                  alt={`${jobDisplay} services available in ${cityDisplay}`}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                   loading="lazy"
                 />
@@ -703,8 +884,8 @@ export default function CityJobPage({ params }: PageProps) {
 
               <div className="mb-6">
                 <img
-                  src={`https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=300&fit=crop&crop=center`}
-                  alt={`Employment terms for ${jobDisplay.toLowerCase()}s in ${cityDisplay}`}
+                  src={`https://images.unsplash.com/${getJobImages(jobDisplay).employment}?w=600&h=300&fit=crop&crop=center`}
+                  alt={`Employment opportunities for ${jobDisplay.toLowerCase()}s in ${cityDisplay}`}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                   loading="lazy"
                 />
@@ -752,26 +933,24 @@ export default function CityJobPage({ params }: PageProps) {
               <div className="bg-blue-50 p-6 rounded-lg mb-6">
                 <h4 className="text-lg font-semibold text-navy-900 mb-3">Understanding {cityDisplay}'s Market</h4>
                 <p className="text-gray-700">
-                  {cityDisplay} attracts professionals from diverse backgrounds, creating a rich talent pool of experienced {jobDisplay.toLowerCase()}s. The city's international community means you can find workers who speak multiple languages and understand various cultural preferences, making it easier to find someone who fits your specific needs.
+                  {getCitySpecificContent(cityDisplay, country).marketInsight}
                 </p>
               </div>
 
               <p className="text-gray-700 leading-relaxed mb-4">
-                When hiring {jobDisplay.toLowerCase()}s in {cityDisplay}, it's important to understand the local employment landscape and cultural considerations. The city's diverse population and high standards of living attract skilled professionals who are committed to providing excellent service.
+                When hiring {jobDisplay.toLowerCase()}s in {cityDisplay}, understanding the local employment landscape is crucial for success. The city's unique character and cultural considerations create specific expectations and opportunities for both employers and workers.
               </p>
 
               <p className="text-gray-700 leading-relaxed mb-4">
-                Many {jobDisplay.toLowerCase()}s in {cityDisplay} have experience working with international families and businesses, making them well-equipped to handle diverse requirements and maintain high professional standards expected in the region.
+                {jobDisplay}s working in {cityDisplay} benefit from understanding the local lifestyle preferences, cultural norms, and household management expectations that are specific to {country}. This cultural awareness leads to better service quality and stronger employer-worker relationships.
               </p>
 
               <div className="bg-yellow-50 p-6 rounded-lg mb-6">
-                <h4 className="text-lg font-semibold text-navy-900 mb-3">🌟 Success Tips from Local Employers</h4>
+                <h4 className="text-lg font-semibold text-navy-900 mb-3">🌟 Success Tips for Working in {cityDisplay}</h4>
                 <ul className="space-y-2 text-gray-700">
-                  <li>• Clearly communicate expectations from the beginning</li>
-                  <li>• Respect cultural differences and working styles</li>
-                  <li>• Provide regular feedback and appreciation</li>
-                  <li>• Maintain professional boundaries while being friendly</li>
-                  <li>• Offer growth opportunities and skill development</li>
+                  {getCitySpecificContent(cityDisplay, country).localTips.map((tip, index) => (
+                    <li key={index}>{tip}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -862,7 +1041,7 @@ export default function CityJobPage({ params }: PageProps) {
 
               <div className="mb-6">
                 <img
-                  src={`https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=300&fit=crop&crop=center`}
+                  src={`https://images.unsplash.com/${getJobImages(jobDisplay).future}?w=600&h=300&fit=crop&crop=center`}
                   alt={`Future trends for ${jobDisplay.toLowerCase()}s in ${cityDisplay}`}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                   loading="lazy"
@@ -870,7 +1049,7 @@ export default function CityJobPage({ params }: PageProps) {
               </div>
 
               <p className="text-gray-700 leading-relaxed mb-4">
-                The domestic service industry in {cityDisplay} continues to evolve with changing lifestyle needs and technological advancements. Understanding these trends helps both employers and {jobDisplay.toLowerCase()}s prepare for the future of household services.
+                The {getCategoryForJob(jobDisplay).toLowerCase()} industry in {cityDisplay} continues to evolve with {country}'s Vision initiatives and technological advancements. Understanding these trends helps both employers and {jobDisplay.toLowerCase()}s prepare for the future of professional services in the Gulf region.
               </p>
 
               <div className="grid md:grid-cols-3 gap-4 mb-6">
