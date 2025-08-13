@@ -263,10 +263,10 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
                 ⚡
               </div>
             </div>
-            <h2 id="popup-title" className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 leading-tight">
+            <h2 id="popup-title" className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 leading-tight popup-text">
               What are you looking for?
             </h2>
-            <p id="popup-description" className="text-sm sm:text-base text-gray-600 leading-relaxed">
+            <p id="popup-description" className="text-sm sm:text-base text-gray-600 leading-relaxed popup-text">
               Choose your path to get started
             </p>
           </div>
