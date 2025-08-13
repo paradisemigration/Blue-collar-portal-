@@ -387,6 +387,11 @@ export default function CityJobPage({ params }: PageProps) {
 
   const router = useRouter()
 
+  // Convert URL parameters to display names
+  const cityDisplay = citySlugToDisplayName(params.city)
+  const jobDisplay = jobSlugToDisplayName(params.job)
+  const country = getCountryForCity(cityDisplay as City)
+
   // Validate URL parameters
   useEffect(() => {
     const cityDisplay = citySlugToDisplayName(params.city)
