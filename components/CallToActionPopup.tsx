@@ -296,12 +296,12 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
                 <UserIcon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
               <div className="text-left flex-1 sm:flex-initial">
-                <div className="font-bold text-base sm:text-lg leading-tight">I am looking for a job</div>
-                <div className="text-xs sm:text-sm text-green-100 mt-0.5">
+                <div className="font-bold text-base sm:text-lg leading-tight popup-text">I am looking for a job</div>
+                <div className="text-xs sm:text-sm text-green-100 mt-0.5 popup-text">
                   {isLoading ? (
                     <span className="flex items-center gap-1">
                       <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-200 rounded-full animate-pulse"></div>
-                      <span className="text-xs sm:text-sm">Detecting location...</span>
+                      <span className="text-xs sm:text-sm popup-text">Detecting location...</span>
                     </span>
                   ) : (
                     `in ${detectedCountry}`
