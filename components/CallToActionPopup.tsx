@@ -5,8 +5,7 @@ import { usePathname } from 'next/navigation'
 import {
   XMarkIcon,
   BriefcaseIcon,
-  UserIcon,
-  GlobeAltIcon
+  UserIcon
 } from '@heroicons/react/24/outline'
 
 interface PopupProps {
