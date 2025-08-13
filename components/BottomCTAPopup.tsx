@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export default function BottomCTAPopup() {
   const [isVisible, setIsVisible] = useState(false)
-  const [isDismissed, setIsDismissed] = useState(false)
+  const [isDismissed, setIsDismissed] = useState(true) // Disabled to prevent conflicts with main popup
 
   useEffect(() => {
     const checkVisibility = () => {
