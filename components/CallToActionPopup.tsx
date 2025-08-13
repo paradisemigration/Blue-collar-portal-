@@ -247,10 +247,10 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
                 <GlobeAltIcon className="h-10 w-10 text-white animate-bounce" style={{ animationDuration: '2s' }} />
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 id="popup-title" className="text-2xl font-bold text-gray-900 mb-2">
               What are you looking for?
             </h2>
-            <p className="text-gray-600">
+            <p id="popup-description" className="text-gray-600">
               Choose your path to get started
             </p>
           </div>
