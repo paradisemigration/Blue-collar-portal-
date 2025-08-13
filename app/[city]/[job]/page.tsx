@@ -609,6 +609,89 @@ function getJobSpecificChallenges(jobTitle: JobTitle): { challenge: string; solu
   return challengeMap[jobTitle] || defaultChallenges
 }
 
+// Function to get city and job specific salary insights
+function getSalaryInsights(city: City, jobTitle: JobTitle, country: Country): { range: string; factors: string[] } {
+  // Base salary ranges by job category
+  const jobSalaryMap: Record<string, { min: number; max: number }> = {
+    'Housemaid': { min: 1200, max: 2500 },
+    'Cook (Home-based)': { min: 1500, max: 3000 },
+    'Nanny (Childcare Worker)': { min: 1800, max: 3500 },
+    'Light Vehicle Driver': { min: 1600, max: 2800 },
+    'Auto Mechanic': { min: 2000, max: 4000 },
+    'Construction Laborer': { min: 1400, max: 2600 },
+    'Electrician': { min: 2200, max: 4500 },
+    'Plumber': { min: 2000, max: 4200 },
+    'Security Guard': { min: 1300, max: 2400 },
+    'Cleaner': { min: 1000, max: 2000 }
+  }
+
+  // City multipliers based on cost of living and demand
+  const cityMultipliers: Record<string, number> = {
+    'Dubai': 1.3,
+    'Abu Dhabi': 1.25,
+    'Sharjah': 1.1,
+    'Doha': 1.2,
+    'Riyadh': 1.15,
+    'Jeddah': 1.1,
+    'Kuwait City': 1.25,
+    'Manama': 1.2,
+    'Muscat': 1.05
+  }
+
+  const baseSalary = jobSalaryMap[jobTitle] || { min: 1500, max: 3000 }
+  const multiplier = cityMultipliers[city] || 1.0
+
+  const adjustedMin = Math.round(baseSalary.min * multiplier)
+  const adjustedMax = Math.round(baseSalary.max * multiplier)
+
+  const currency = country === 'UAE' ? 'AED' :
+                  country === 'Qatar' ? 'QAR' :
+                  country === 'Saudi Arabia' ? 'SAR' :
+                  country === 'Kuwait' ? 'KWD' :
+                  country === 'Bahrain' ? 'BHD' :
+                  country === 'Oman' ? 'OMR' : 'AED'
+
+  // City-specific factors affecting salary
+  const cityFactors: Record<string, string[]> = {
+    'Dubai': [
+      'Premium service expectations in luxury communities',
+      'High cost of living and accommodation',
+      'Diverse international clientele requiring specialized skills',
+      'Competitive market with high demand for quality workers'
+    ],
+    'Abu Dhabi': [
+      'Government and diplomatic families offering stable employment',
+      'Cultural capital status requiring higher professional standards',
+      'Emphasis on discretion and protocol awareness',
+      'Long-term employment opportunities with career growth'
+    ],
+    'Doha': [
+      'Rapid development creating high demand for skilled workers',
+      'World Cup legacy infrastructure requiring specialized skills',
+      'Growing expat community with diverse service needs',
+      'Investment in education and development programs'
+    ],
+    'Riyadh': [
+      'Vision 2030 initiatives creating new opportunities',
+      'Large metropolitan area with diverse employment sectors',
+      'Traditional Saudi families alongside international businesses',
+      'Growing demand for culturally-aware professional services'
+    ]
+  }
+
+  const factors = cityFactors[city] || [
+    `${city}'s economic growth and development opportunities`,
+    'Diverse international and local family requirements',
+    'Competitive job market rewarding skilled professionals',
+    'Growing demand for reliable and trustworthy workers'
+  ]
+
+  return {
+    range: `${currency} ${adjustedMin.toLocaleString()} - ${adjustedMax.toLocaleString()}`,
+    factors
+  }
+}
+
 
 interface PageProps {
   params: {
@@ -1045,12 +1128,17 @@ export default function CityJobPage({ params }: PageProps) {
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <h4 className="text-lg font-semibold text-navy-900 mb-3">💰 Salary Considerations</h4>
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg mb-4">
+                    <div className="text-2xl font-bold text-navy-900 mb-2">
+                      {getSalaryInsights(cityDisplay, jobDisplay, country).range}
+                    </div>
+                    <div className="text-sm text-gray-600">Typical monthly salary range for {jobDisplay.toLowerCase()}s in {cityDisplay}</div>
+                  </div>
+                  <p className="text-gray-700 mb-3">Salary factors specific to {cityDisplay}:</p>
                   <ul className="space-y-2 text-gray-700">
-                    <li>• Experience level and qualifications</li>
-                    <li>• Full-time vs. part-time arrangements</li>
-                    <li>• Additional responsibilities and skills</li>
-                    <li>• Market rates in {cityDisplay}</li>
-                    <li>• Performance bonuses and incentives</li>
+                    {getSalaryInsights(cityDisplay, jobDisplay, country).factors.map((factor, index) => (
+                      <li key={index}>• {factor}</li>
+                    ))}
                   </ul>
                 </div>
 
