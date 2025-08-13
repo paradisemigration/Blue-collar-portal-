@@ -38,14 +38,26 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
 
   // Check if popup was dismissed in last 24 hours
   const wasRecentlyDismissed = () => {
-    const dismissedTime = localStorage.getItem('ctaPopupDismissed')
+    const dismissedTime = localStorage.getItem('mainCtaPopupDismissed')
     if (!dismissedTime) return false
-    
+
     const dismissedDate = new Date(dismissedTime)
     const now = new Date()
     const hoursDiff = (now.getTime() - dismissedDate.getTime()) / (1000 * 60 * 60)
-    
+
     return hoursDiff < 24
+  }
+
+  // Check if user is already logged in (don't show popup to logged in users)
+  const isUserLoggedIn = () => {
+    if (typeof window === 'undefined') return false
+
+    const isLoggedIn = localStorage.getItem('isLoggedIn')
+    const isEmployerLoggedIn = localStorage.getItem('isEmployerLoggedIn')
+    const isAdminLoggedIn = localStorage.getItem('adminAuth')
+    const userProfile = localStorage.getItem('userProfile')
+
+    return isLoggedIn === 'true' || isEmployerLoggedIn === 'true' || isAdminLoggedIn === 'true' || !!userProfile
   }
 
   // Detect user's country from IP
