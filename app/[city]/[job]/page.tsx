@@ -449,7 +449,7 @@ export default function CityJobPage({ params }: PageProps) {
   // Validate URL parameters
   useEffect(() => {
     if (!validCities.includes(cityDisplay as City) ||
-        !validJobs.includes(jobDisplay)) {
+        !Object.values(JOB_CATEGORIES).flat().includes(jobDisplay as JobTitle)) {
       router.push('/browse')
     }
   }, [params.city, params.job, router, cityDisplay, jobDisplay])
