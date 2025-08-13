@@ -230,43 +230,43 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
           v2.1
         </div>
 
-        {/* Content */}
-        <div className="p-8 pt-12">
+        {/* Content - Mobile Optimized */}
+        <div className="p-4 sm:p-6 lg:p-8 pt-8 sm:pt-12">
           {/* Header with animated worker character */}
-          <div className="text-center mb-8">
-            <div className="relative mx-auto w-24 h-24 mb-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="relative mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6">
               {/* Animated background circles */}
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-primary-600 rounded-full animate-pulse opacity-20"></div>
-              <div className="absolute inset-2 bg-gradient-to-r from-primary-400 to-blue-500 rounded-full animate-pulse opacity-30" style={{ animationDelay: '0.3s' }}></div>
+              <div className="absolute inset-1 sm:inset-2 bg-gradient-to-r from-primary-400 to-blue-500 rounded-full animate-pulse opacity-30" style={{ animationDelay: '0.3s' }}></div>
 
               {/* Main worker emoji with animation */}
               <div className="relative w-full h-full flex items-center justify-center">
-                <div className="text-5xl animate-bounce" style={{ animationDuration: '2s' }}>
+                <div className="text-3xl sm:text-4xl lg:text-5xl animate-bounce" style={{ animationDuration: '2s' }}>
                   👷‍♂️
                 </div>
               </div>
 
-              {/* Floating work tools around the worker */}
-              <div className="absolute -top-1 -left-1 text-lg animate-float opacity-80" style={{ animationDelay: '0s' }}>
+              {/* Floating work tools around the worker - Responsive sizes */}
+              <div className="absolute -top-1 -left-1 text-sm sm:text-base lg:text-lg animate-float opacity-80" style={{ animationDelay: '0s' }}>
                 🔨
               </div>
-              <div className="absolute -top-2 -right-1 text-sm animate-float opacity-80" style={{ animationDelay: '1s' }}>
+              <div className="absolute -top-1 sm:-top-2 -right-1 text-xs sm:text-sm animate-float opacity-80" style={{ animationDelay: '1s' }}>
                 🔧
               </div>
-              <div className="absolute -bottom-1 -left-2 text-sm animate-float opacity-80" style={{ animationDelay: '0.5s' }}>
+              <div className="absolute -bottom-1 -left-1 sm:-left-2 text-xs sm:text-sm animate-float opacity-80" style={{ animationDelay: '0.5s' }}>
                 ⚙️
               </div>
-              <div className="absolute -bottom-2 -right-1 text-lg animate-float opacity-80" style={{ animationDelay: '1.5s' }}>
+              <div className="absolute -bottom-1 sm:-bottom-2 -right-1 text-sm sm:text-base lg:text-lg animate-float opacity-80" style={{ animationDelay: '1.5s' }}>
                 🛠️
               </div>
-              <div className="absolute top-1 -right-3 text-xs animate-float opacity-80" style={{ animationDelay: '2s' }}>
+              <div className="absolute top-1 -right-2 sm:-right-3 text-xs animate-float opacity-80" style={{ animationDelay: '2s' }}>
                 ⚡
               </div>
             </div>
-            <h2 id="popup-title" className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 id="popup-title" className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 leading-tight">
               What are you looking for?
             </h2>
-            <p id="popup-description" className="text-gray-600">
+            <p id="popup-description" className="text-sm sm:text-base text-gray-600 leading-relaxed">
               Choose your path to get started
             </p>
           </div>
