@@ -113,8 +113,15 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
   }
 
   const handleHireWorker = () => {
-    // Track interaction (for analytics)
-    console.log('CTA Popup: User clicked Hire Worker')
+    // Track interaction for GTM
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'popup_click',
+        popup_type: 'cta_popup',
+        click_action: 'hire_worker',
+        button_text: 'I want to hire a worker'
+      })
+    }
 
     handleClose()
 
