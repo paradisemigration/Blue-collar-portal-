@@ -796,6 +796,54 @@ export default function CityJobPage({ params }: PageProps) {
               </div>
             </div>
 
+            {/* Salary and Employment Terms */}
+            <div className="mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-navy-900 mb-4">
+                Salary Expectations and Employment Terms for {jobDisplay}s in {cityDisplay}
+              </h3>
+
+              <div className="mb-6">
+                <img
+                  src={`https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=300&fit=crop&crop=center`}
+                  alt={`Employment terms for ${jobDisplay.toLowerCase()}s in ${cityDisplay}`}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                  loading="lazy"
+                />
+              </div>
+
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Understanding fair compensation and employment terms is crucial when hiring {jobDisplay.toLowerCase()}s in {cityDisplay}. Competitive salaries not only attract the best candidates but also ensure long-term satisfaction and quality service.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <h4 className="text-lg font-semibold text-navy-900 mb-3">💰 Salary Considerations</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li>• Experience level and qualifications</li>
+                    <li>• Full-time vs. part-time arrangements</li>
+                    <li>• Additional responsibilities and skills</li>
+                    <li>• Market rates in {cityDisplay}</li>
+                    <li>• Performance bonuses and incentives</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold text-navy-900 mb-3">📋 Employment Benefits</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li>• Accommodation arrangements</li>
+                    <li>• Health insurance coverage</li>
+                    <li>• Annual leave and holidays</li>
+                    <li>• Transportation allowances</li>
+                    <li>• Professional development opportunities</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p className="text-gray-700 leading-relaxed">
+                Fair and transparent employment terms create a positive working relationship that benefits both employers and {jobDisplay.toLowerCase()}s in {cityDisplay}. This approach leads to better service quality and longer employment relationships.
+              </p>
+            </div>
+
             {/* Local Insights */}
             <div className="mb-8">
               <h3 className="text-xl sm:text-2xl font-bold text-navy-900 mb-4">
@@ -813,9 +861,55 @@ export default function CityJobPage({ params }: PageProps) {
                 When hiring {jobDisplay.toLowerCase()}s in {cityDisplay}, it's important to understand the local employment landscape and cultural considerations. The city's diverse population and high standards of living attract skilled professionals who are committed to providing excellent service.
               </p>
 
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 leading-relaxed mb-4">
                 Many {jobDisplay.toLowerCase()}s in {cityDisplay} have experience working with international families and businesses, making them well-equipped to handle diverse requirements and maintain high professional standards expected in the region.
               </p>
+
+              <div className="bg-yellow-50 p-6 rounded-lg mb-6">
+                <h4 className="text-lg font-semibold text-navy-900 mb-3">🌟 Success Tips from Local Employers</h4>
+                <ul className="space-y-2 text-gray-700">
+                  <li>• Clearly communicate expectations from the beginning</li>
+                  <li>• Respect cultural differences and working styles</li>
+                  <li>• Provide regular feedback and appreciation</li>
+                  <li>• Maintain professional boundaries while being friendly</li>
+                  <li>• Offer growth opportunities and skill development</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Safety and Legal Considerations */}
+            <div className="mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-navy-900 mb-4">
+                Safety and Legal Considerations in {cityDisplay}
+              </h3>
+
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Ensuring legal compliance and safety standards when hiring {jobDisplay.toLowerCase()}s in {cityDisplay} protects both employers and employees. Understanding local regulations and requirements is essential for a successful working relationship.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-green-50 p-6 rounded-lg">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-3">📋 Legal Requirements</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li>• Valid work permits and visas</li>
+                    <li>• Employment contract documentation</li>
+                    <li>• Insurance and liability coverage</li>
+                    <li>• Compliance with labor laws</li>
+                    <li>• Proper tax and social security arrangements</li>
+                  </ul>
+                </div>
+
+                <div className="bg-red-50 p-6 rounded-lg">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-3">🔒 Safety Measures</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li>• Background verification and references</li>
+                    <li>• Health and safety training</li>
+                    <li>• Emergency contact information</li>
+                    <li>• Clear safety protocols and procedures</li>
+                    <li>• Regular safety assessments and updates</li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
             {/* Conclusion and CTA */}
