@@ -77,15 +77,25 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
       
       setDetectedCountry(country)
       
-      // Fallback to IP-based detection if needed
+      // Fallback to IP-based detection if needed (completely optional)
       try {
-        const response = await fetch('https://ipapi.co/json/', { 
-          timeout: 3000,
-          signal: AbortSignal.timeout(3000)
+        // Create AbortController for timeout
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 3000)
+
+        const response = await fetch('https://ipapi.co/json/', {
+          signal: controller.signal,
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          }
         })
+
+        clearTimeout(timeoutId)
+
         if (response.ok) {
           const data = await response.json()
-          if (data.country_name) {
+          if (data && data.country_name) {
             // Map country names to our supported countries
             const countryMapping: Record<string, string> = {
               'United Arab Emirates': 'UAE',
@@ -95,14 +105,14 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
               'Kuwait': 'Kuwait',
               'Bahrain': 'Bahrain'
             }
-            
+
             const mappedCountry = countryMapping[data.country_name] || country
             setDetectedCountry(mappedCountry)
           }
         }
       } catch (ipError) {
         // Silently fail IP detection, keep timezone-based detection
-        console.log('IP detection failed, using timezone-based detection')
+        // This is expected and not an error - IP detection is optional
       }
       
     } catch (error) {
