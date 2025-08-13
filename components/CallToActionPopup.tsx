@@ -129,13 +129,31 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
   }
 
   const handleHireWorker = () => {
+    // Track interaction (for analytics)
+    console.log('CTA Popup: User clicked Hire Worker')
+
     handleClose()
-    window.open('https://www.gogethires.com/browse', '_blank')
+
+    // Use window.location for same domain, or open in new tab
+    if (window.location.hostname === 'gogethires.com' || window.location.hostname.includes('localhost')) {
+      window.location.href = '/browse'
+    } else {
+      window.open('https://www.gogethires.com/browse', '_blank')
+    }
   }
 
   const handleLookingForJob = () => {
+    // Track interaction (for analytics)
+    console.log('CTA Popup: User clicked Looking for Job')
+
     handleClose()
-    window.open('https://www.gogethires.com/create-profile', '_blank')
+
+    // Use window.location for same domain, or open in new tab
+    if (window.location.hostname === 'gogethires.com' || window.location.hostname.includes('localhost')) {
+      window.location.href = '/create-profile'
+    } else {
+      window.open('https://www.gogethires.com/create-profile', '_blank')
+    }
   }
 
   useEffect(() => {
