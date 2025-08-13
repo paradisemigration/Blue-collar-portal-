@@ -206,6 +206,8 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
         aria-labelledby="popup-title"
         aria-describedby="popup-description"
         tabIndex={-1}
+        data-new-popup="worker-animation"
+        data-deployment-date={new Date().toISOString().slice(0,10)}
         className={`bg-white rounded-3xl shadow-2xl max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 ${
           isAnimating
             ? 'scale-100 opacity-100 translate-y-0'
