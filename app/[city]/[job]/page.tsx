@@ -480,17 +480,11 @@ export default function CityJobPage({ params }: PageProps) {
 
   // Validate URL parameters
   useEffect(() => {
-    const cityDisplay = citySlugToDisplayName(params.city)
-    const jobDisplay = jobSlugToDisplayName(params.job)
-
-    if (!validCities.includes(cityDisplay) ||
+    if (!validCities.includes(cityDisplay as City) ||
         !validJobs.includes(jobDisplay)) {
       router.push('/browse')
     }
-  }, [params.city, params.job, router])
-
-  const cityDisplay = citySlugToDisplayName(params.city)
-  const jobDisplay = jobSlugToDisplayName(params.job)
+  }, [params.city, params.job, router, cityDisplay, jobDisplay])
   const localCurrency = getCurrencyDisplayForCity(params.city)
 
   useEffect(() => {
