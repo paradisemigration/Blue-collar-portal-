@@ -38,9 +38,17 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
 
   // Check if popup was dismissed in last 24 hours
   const wasRecentlyDismissed = () => {
-    // Clear old popup dismissal to ensure new popup shows
+    // AGGRESSIVE CLEANUP: Clear all old popup states
     if (typeof window !== 'undefined') {
       localStorage.removeItem('ctaPopupDismissed') // Remove old popup state
+      localStorage.removeItem('bottomPopupDismissed') // Remove any other variants
+
+      // For initial deployment, ignore dismissal for first 1 hour to ensure new popup shows
+      const deploymentTime = new Date('2024-12-15').getTime() // Today's deployment
+      if (Date.now() - deploymentTime < 60 * 60 * 1000) { // 1 hour
+        localStorage.removeItem('mainCtaPopupDismissed')
+        return false // Force show for initial deployment
+      }
     }
 
     const dismissedTime = localStorage.getItem('mainCtaPopupDismissed')
