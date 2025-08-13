@@ -646,6 +646,191 @@ export default function CityJobPage({ params }: PageProps) {
           </div>
         )}
 
+        {/* Comprehensive Content Section */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-6 text-center">
+              Complete Guide to Hiring {jobDisplay}s in {cityDisplay}
+            </h2>
+
+            {/* Hero Image */}
+            <div className="mb-8 rounded-lg overflow-hidden">
+              <img
+                src={`https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=400&fit=crop&crop=center`}
+                alt={`Professional ${jobDisplay.toLowerCase()} working in ${cityDisplay}`}
+                className="w-full h-64 sm:h-80 object-cover"
+                loading="lazy"
+              />
+              <div className="bg-gray-50 p-4 text-center">
+                <p className="text-sm text-gray-600">
+                  Professional {jobDisplay.toLowerCase()}s available for hire in {cityDisplay}, {country}
+                </p>
+              </div>
+            </div>
+
+            {/* Introduction */}
+            <div className="prose prose-lg max-w-none mb-8">
+              <p className="text-gray-700 leading-relaxed mb-6">
+                Finding a reliable and trustworthy {jobDisplay.toLowerCase()} in {cityDisplay} can be challenging, but with the right approach and knowledge, you can secure the perfect candidate for your needs. Whether you're a busy professional, a growing family, or someone in need of specialized assistance, hiring a qualified {jobDisplay.toLowerCase()} in {cityDisplay} offers numerous benefits that can significantly improve your quality of life.
+              </p>
+
+              <p className="text-gray-700 leading-relaxed mb-6">
+                {cityDisplay}, being one of {country}'s major cities, attracts skilled workers from around the world, creating a diverse pool of experienced {jobDisplay.toLowerCase()}s. This comprehensive guide will walk you through everything you need to know about hiring {jobDisplay.toLowerCase()}s in {cityDisplay}, from understanding local regulations to finding the right match for your household or business needs.
+              </p>
+            </div>
+
+            {/* Why Choose Professional Workers */}
+            <div className="mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-navy-900 mb-4">
+                Why Choose Professional {jobDisplay}s in {cityDisplay}?
+              </h3>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-3">🏆 Quality & Experience</h4>
+                  <p className="text-gray-700">
+                    Professional {jobDisplay.toLowerCase()}s in {cityDisplay} bring years of experience and training to ensure high-quality service. They understand local standards and cultural preferences, making them ideal for families and businesses in the area.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-3">⏰ Time-Saving Solution</h4>
+                  <p className="text-gray-700">
+                    Hiring a qualified {jobDisplay.toLowerCase()} frees up valuable time for you to focus on work, family, and personal activities. This is especially beneficial for busy professionals and growing families in {cityDisplay}.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-3">🔒 Peace of Mind</h4>
+                  <p className="text-gray-700">
+                    Verified {jobDisplay.toLowerCase()}s undergo background checks and reference verification, giving you confidence in your hiring decision. Safety and trust are paramount when inviting someone into your home or workplace.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-3">💰 Cost-Effective</h4>
+                  <p className="text-gray-700">
+                    When you consider the value of your time and the quality of service provided, hiring a professional {jobDisplay.toLowerCase()} in {cityDisplay} offers excellent return on investment for your household or business needs.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Services and Specializations */}
+            <div className="mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-navy-900 mb-4">
+                Services Offered by {jobDisplay}s in {cityDisplay}
+              </h3>
+
+              <div className="mb-6">
+                <img
+                  src={`https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=600&h=300&fit=crop&crop=center`}
+                  alt={`${jobDisplay} services in ${cityDisplay}`}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                  loading="lazy"
+                />
+              </div>
+
+              <p className="text-gray-700 leading-relaxed mb-4">
+                {jobDisplay}s in {cityDisplay} offer a wide range of services tailored to meet diverse household and business needs. Understanding these services helps you make an informed decision when hiring.
+              </p>
+
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-primary-600 mr-2">•</span>
+                  <span><strong>Daily Maintenance:</strong> Regular cleaning, organizing, and maintenance of living and working spaces</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-primary-600 mr-2">•</span>
+                  <span><strong>Specialized Tasks:</strong> Deep cleaning, laundry services, and specific household management duties</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-primary-600 mr-2">•</span>
+                  <span><strong>Flexible Scheduling:</strong> Full-time, part-time, or on-demand services to fit your schedule</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-primary-600 mr-2">•</span>
+                  <span><strong>Cultural Sensitivity:</strong> Understanding of local customs and preferences in {cityDisplay}</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Hiring Process and Tips */}
+            <div className="mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-navy-900 mb-4">
+                How to Hire the Right {jobDisplay} in {cityDisplay}
+              </h3>
+
+              <p className="text-gray-700 leading-relaxed mb-6">
+                The hiring process for {jobDisplay.toLowerCase()}s in {cityDisplay} requires careful consideration and planning. Follow these essential steps to ensure you find the perfect match for your needs.
+              </p>
+
+              <div className="space-y-4">
+                <div className="border-l-4 border-primary-600 pl-6">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-2">1. Define Your Requirements</h4>
+                  <p className="text-gray-700">
+                    Clearly outline your expectations, working hours, specific tasks, and any special requirements. Consider factors like language preferences, experience level, and cultural compatibility.
+                  </p>
+                </div>
+
+                <div className="border-l-4 border-primary-600 pl-6">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-2">2. Verify Credentials and Experience</h4>
+                  <p className="text-gray-700">
+                    Check references, work permits, and previous employment history. Ensure candidates have the necessary legal documentation to work in {cityDisplay}, {country}.
+                  </p>
+                </div>
+
+                <div className="border-l-4 border-primary-600 pl-6">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-2">3. Conduct Thorough Interviews</h4>
+                  <p className="text-gray-700">
+                    Meet candidates in person or via video call to assess communication skills, professionalism, and cultural fit. Discuss expectations clearly and answer any questions they may have.
+                  </p>
+                </div>
+
+                <div className="border-l-4 border-primary-600 pl-6">
+                  <h4 className="text-lg font-semibold text-navy-900 mb-2">4. Trial Period and Training</h4>
+                  <p className="text-gray-700">
+                    Consider starting with a trial period to evaluate performance and compatibility. Provide necessary training on your specific requirements and household preferences.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Local Insights */}
+            <div className="mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-navy-900 mb-4">
+                Local Insights: Working with {jobDisplay}s in {cityDisplay}
+              </h3>
+
+              <div className="bg-blue-50 p-6 rounded-lg mb-6">
+                <h4 className="text-lg font-semibold text-navy-900 mb-3">Understanding {cityDisplay}'s Market</h4>
+                <p className="text-gray-700">
+                  {cityDisplay} attracts professionals from diverse backgrounds, creating a rich talent pool of experienced {jobDisplay.toLowerCase()}s. The city's international community means you can find workers who speak multiple languages and understand various cultural preferences, making it easier to find someone who fits your specific needs.
+                </p>
+              </div>
+
+              <p className="text-gray-700 leading-relaxed mb-4">
+                When hiring {jobDisplay.toLowerCase()}s in {cityDisplay}, it's important to understand the local employment landscape and cultural considerations. The city's diverse population and high standards of living attract skilled professionals who are committed to providing excellent service.
+              </p>
+
+              <p className="text-gray-700 leading-relaxed">
+                Many {jobDisplay.toLowerCase()}s in {cityDisplay} have experience working with international families and businesses, making them well-equipped to handle diverse requirements and maintain high professional standards expected in the region.
+              </p>
+            </div>
+
+            {/* Conclusion and CTA */}
+            <div className="bg-gradient-to-r from-primary-50 to-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-bold text-navy-900 mb-4">Start Your Search Today</h3>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Finding the right {jobDisplay.toLowerCase()} in {cityDisplay} doesn't have to be complicated. With our comprehensive database of verified professionals, you can browse profiles, compare qualifications, and connect with candidates who meet your specific requirements.
+              </p>
+              <p className="text-gray-700 leading-relaxed">
+                Take the first step towards finding your ideal {jobDisplay.toLowerCase()} in {cityDisplay} today. Our platform makes it easy to review profiles, check references, and hire with confidence.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* FAQ Section */}
         <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8">
           <h2 className="text-2xl font-bold text-navy-900 mb-6 text-center">
