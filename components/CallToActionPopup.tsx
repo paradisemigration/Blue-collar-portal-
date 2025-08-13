@@ -61,62 +61,23 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
     return isLoggedIn === 'true' || isEmployerLoggedIn === 'true' || isAdminLoggedIn === 'true' || !!userProfile
   }
 
-  // Detect user's country from IP
-  const detectCountry = async () => {
+  // Detect user's country from timezone (safe, no external requests)
+  const detectCountry = () => {
     try {
-      // Try timezone-based detection first (no fetch required)
+      // Use timezone-based detection only (reliable and fast)
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
       let country = 'UAE' // Default
-      
+
       if (timezone.includes('Qatar') || timezone.includes('Doha')) country = 'Qatar'
       else if (timezone.includes('Riyadh') || timezone.includes('Saudi')) country = 'Saudi Arabia'
       else if (timezone.includes('Muscat') || timezone.includes('Oman')) country = 'Oman'
       else if (timezone.includes('Kuwait')) country = 'Kuwait'
       else if (timezone.includes('Bahrain') || timezone.includes('Manama')) country = 'Bahrain'
       else if (timezone.includes('Dubai') || timezone.includes('UAE')) country = 'UAE'
-      
+
       setDetectedCountry(country)
-      
-      // Fallback to IP-based detection if needed (completely optional)
-      try {
-        // Create AbortController for timeout
-        const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 3000)
-
-        const response = await fetch('https://ipapi.co/json/', {
-          signal: controller.signal,
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-          }
-        })
-
-        clearTimeout(timeoutId)
-
-        if (response.ok) {
-          const data = await response.json()
-          if (data && data.country_name) {
-            // Map country names to our supported countries
-            const countryMapping: Record<string, string> = {
-              'United Arab Emirates': 'UAE',
-              'Qatar': 'Qatar',
-              'Saudi Arabia': 'Saudi Arabia',
-              'Oman': 'Oman',
-              'Kuwait': 'Kuwait',
-              'Bahrain': 'Bahrain'
-            }
-
-            const mappedCountry = countryMapping[data.country_name] || country
-            setDetectedCountry(mappedCountry)
-          }
-        }
-      } catch (ipError) {
-        // Silently fail IP detection, keep timezone-based detection
-        // This is expected and not an error - IP detection is optional
-      }
-      
     } catch (error) {
-      console.log('Country detection failed, using default UAE')
+      // If timezone detection fails, use default
       setDetectedCountry('UAE')
     } finally {
       setIsLoading(false)
