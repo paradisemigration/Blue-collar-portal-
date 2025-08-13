@@ -229,9 +229,10 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
           {/* Header with animated icon */}
           <div className="text-center mb-8">
             <div className="relative mx-auto w-20 h-20 mb-6">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-blue-600 rounded-full animate-pulse"></div>
-              <div className="relative bg-gradient-to-r from-primary-600 to-blue-700 rounded-full w-full h-full flex items-center justify-center">
-                <GlobeAltIcon className="h-10 w-10 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-blue-600 rounded-full animate-pulse opacity-75"></div>
+              <div className="absolute inset-2 bg-gradient-to-r from-primary-400 to-blue-500 rounded-full animate-pulse opacity-50 animation-delay-150"></div>
+              <div className="relative bg-gradient-to-r from-primary-600 to-blue-700 rounded-full w-full h-full flex items-center justify-center shadow-lg">
+                <GlobeAltIcon className="h-10 w-10 text-white animate-bounce" style={{ animationDuration: '2s' }} />
               </div>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
