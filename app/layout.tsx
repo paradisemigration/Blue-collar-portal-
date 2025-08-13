@@ -171,7 +171,6 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <BottomCTAPopup />
           <CallToActionPopup />
           <DebugMetaTags />
         </ErrorBoundary>
