@@ -973,20 +973,6 @@ export default function CityJobPage({ params }: PageProps) {
               Complete Guide to Hiring {jobDisplay}s in {cityDisplay}
             </h2>
 
-            {/* Hero Image */}
-            <div className="mb-8 rounded-lg overflow-hidden">
-              <img
-                src={`https://images.unsplash.com/${getJobImages(jobDisplay).hero}?w=800&h=400&fit=crop&crop=center`}
-                alt={`Professional ${jobDisplay.toLowerCase()} working in ${cityDisplay}`}
-                className="w-full h-64 sm:h-80 object-cover"
-                loading="lazy"
-              />
-              <div className="bg-gray-50 p-4 text-center">
-                <p className="text-sm text-gray-600">
-                  Experienced {jobDisplay.toLowerCase()}s ready to work in {cityDisplay}, {country}
-                </p>
-              </div>
-            </div>
 
             {/* Introduction */}
             <div className="prose prose-lg max-w-none mb-8">
@@ -1042,14 +1028,6 @@ export default function CityJobPage({ params }: PageProps) {
                 Services Offered by {jobDisplay}s in {cityDisplay}
               </h3>
 
-              <div className="mb-6">
-                <img
-                  src={`https://images.unsplash.com/${getJobImages(jobDisplay).hero}?w=600&h=300&fit=crop&crop=center`}
-                  alt={`${jobDisplay} services available in ${cityDisplay}`}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                  loading="lazy"
-                />
-              </div>
 
               <p className="text-gray-700 leading-relaxed mb-4">
                 {jobDisplay}s in {cityDisplay} offer a wide range of services tailored to meet diverse household and business needs. Understanding these services helps you make an informed decision when hiring.
@@ -1112,14 +1090,6 @@ export default function CityJobPage({ params }: PageProps) {
                 Salary Expectations and Employment Terms for {jobDisplay}s in {cityDisplay}
               </h3>
 
-              <div className="mb-6">
-                <img
-                  src={`https://images.unsplash.com/${getJobImages(jobDisplay).employment}?w=600&h=300&fit=crop&crop=center`}
-                  alt={`Employment opportunities for ${jobDisplay.toLowerCase()}s in ${cityDisplay}`}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                  loading="lazy"
-                />
-              </div>
 
               <p className="text-gray-700 leading-relaxed mb-4">
                 Understanding fair compensation and employment terms is crucial when hiring {jobDisplay.toLowerCase()}s in {cityDisplay}. Competitive salaries not only attract the best candidates but also ensure long-term satisfaction and quality service.
@@ -1272,14 +1242,6 @@ export default function CityJobPage({ params }: PageProps) {
                 Future Trends in Hiring {jobDisplay}s in {cityDisplay}
               </h3>
 
-              <div className="mb-6">
-                <img
-                  src={`https://images.unsplash.com/${getJobImages(jobDisplay).future}?w=600&h=300&fit=crop&crop=center`}
-                  alt={`Future trends for ${jobDisplay.toLowerCase()}s in ${cityDisplay}`}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                  loading="lazy"
-                />
-              </div>
 
               <p className="text-gray-700 leading-relaxed mb-4">
                 The {getCategoryForJob(jobDisplay).toLowerCase()} industry in {cityDisplay} continues to evolve with {country}'s Vision initiatives and technological advancements. Understanding these trends helps both employers and {jobDisplay.toLowerCase()}s prepare for the future of professional services in the Gulf region.
