@@ -139,19 +139,22 @@ export default function CallToActionPopup({ onClose }: PopupProps) {
   }
 
   useEffect(() => {
-    // Only show popup if on allowed page and not recently dismissed
-    if (!shouldShowPopup() || wasRecentlyDismissed()) {
+    // Only show popup if on allowed page, not recently dismissed, and user not logged in
+    if (!shouldShowPopup() || wasRecentlyDismissed() || isUserLoggedIn()) {
       return
     }
 
     // Detect country
     detectCountry()
 
-    // Show popup after 3 seconds
+    // Show popup after 5 seconds (delayed to avoid conflict with bottom popup)
     const timer = setTimeout(() => {
-      setIsVisible(true)
-      setTimeout(() => setIsAnimating(true), 50)
-    }, 3000)
+      // Double-check user isn't logged in before showing
+      if (!isUserLoggedIn()) {
+        setIsVisible(true)
+        setTimeout(() => setIsAnimating(true), 50)
+      }
+    }, 5000)
 
     return () => clearTimeout(timer)
   }, [pathname])
