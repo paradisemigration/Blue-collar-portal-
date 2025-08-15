@@ -156,24 +156,34 @@ interface PageProps {
 
 export default function JobListingPage({ params }: PageProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const [isIndividualJob, setIsIndividualJob] = useState(false)
   const router = useRouter()
 
   const cityDisplay = getCityDisplayName(params.city)
-  const categoryDisplay = getCategoryDisplayName(params.category)
+
+  // Determine if this is a category or individual job
+  const validCategories = Object.values(JOB_CATEGORIES_URL_MAP)
+  const validJobs = Object.values(INDIVIDUAL_JOBS_URL_MAP)
+  const isJobSlug = validJobs.includes(params.category)
+
+  // Get appropriate display names based on type
+  const jobDisplay = isJobSlug ? getJobDisplayName(params.category) : null
+  const categorySlug = isJobSlug ? getCategoryFromJob(params.category) : params.category
+  const categoryDisplay = getCategoryDisplayName(categorySlug)
   const country = getCityCountry(cityDisplay)
-  
+
   // Validate URL parameters
   useEffect(() => {
     const validCities = ALL_CITIES.map(city => city.toLowerCase().replace(/\s+/g, '-'))
-    const validCategories = Object.values(JOB_CATEGORIES_URL_MAP)
-    
-    if (!validCities.includes(params.city) || !validCategories.includes(params.category)) {
+
+    if (!validCities.includes(params.city) || (!validCategories.includes(params.category) && !validJobs.includes(params.category))) {
       router.push('/browse')
       return
     }
-    
+
+    setIsIndividualJob(isJobSlug)
     setIsLoading(false)
-  }, [params.city, params.category, router])
+  }, [params.city, params.category, router, validCategories, validJobs, isJobSlug])
 
   const companies = getCompaniesForCity(cityDisplay)
 
