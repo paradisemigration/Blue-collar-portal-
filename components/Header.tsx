@@ -129,8 +129,7 @@ export default function Header() {
     return [
       { name: 'Home', href: '/' },
       { name: 'Find Workers', href: '/browse' },
-      { name: 'Latest Jobs', href: '/latest-jobs' },
-      { name: 'All Jobs', href: '/jobs' },
+      { name: 'Jobs', href: '/jobs' },
       { name: 'Add Profile', href: '/create-profile' },
       { name: 'Pricing', href: '/pricing' }
     ]
