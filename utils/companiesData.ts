@@ -1249,11 +1249,12 @@ export function getCategoryDisplayName(categorySlug: string): string {
 }
 
 export function getCompaniesForCity(city: string): Company[] {
-  return UAE_COMPANIES[city] || SAUDI_ARABIA_COMPANIES[city] || []
+  return UAE_COMPANIES[city] || SAUDI_ARABIA_COMPANIES[city] || QATAR_COMPANIES[city] || []
 }
 
 export function getCityCountry(city: string): string {
   if (UAE_CITIES.includes(city)) return 'UAE'
   if (SAUDI_ARABIA_CITIES.includes(city)) return 'Saudi Arabia'
+  if (QATAR_CITIES.includes(city)) return 'Qatar'
   return 'Unknown'
 }
