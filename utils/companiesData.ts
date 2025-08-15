@@ -1831,7 +1831,15 @@ export const OMAN_CITIES = [
   'Sur'
 ]
 
-export const ALL_CITIES = [...UAE_CITIES, ...SAUDI_ARABIA_CITIES, ...QATAR_CITIES, ...OMAN_CITIES]
+export const KUWAIT_CITIES = [
+  'Kuwait City',
+  'Al Ahmadi',
+  'Hawalli',
+  'Salmiya',
+  'Jahra'
+]
+
+export const ALL_CITIES = [...UAE_CITIES, ...SAUDI_ARABIA_CITIES, ...QATAR_CITIES, ...OMAN_CITIES, ...KUWAIT_CITIES]
 
 export function getCityDisplayName(citySlug: string): string {
   const cityMap: Record<string, string> = {
@@ -1856,7 +1864,13 @@ export function getCityDisplayName(citySlug: string): string {
     'salalah': 'Salalah',
     'sohar': 'Sohar',
     'nizwa': 'Nizwa',
-    'sur': 'Sur'
+    'sur': 'Sur',
+    // Kuwait Cities
+    'kuwait-city': 'Kuwait City',
+    'al-ahmadi': 'Al Ahmadi',
+    'hawalli': 'Hawalli',
+    'salmiya': 'Salmiya',
+    'jahra': 'Jahra'
   }
   return cityMap[citySlug] || citySlug
 }
@@ -1889,7 +1903,7 @@ export function getCategoryDisplayName(categorySlug: string): string {
 }
 
 export function getCompaniesForCity(city: string): Company[] {
-  return UAE_COMPANIES[city] || SAUDI_ARABIA_COMPANIES[city] || QATAR_COMPANIES[city] || OMAN_COMPANIES[city] || []
+  return UAE_COMPANIES[city] || SAUDI_ARABIA_COMPANIES[city] || QATAR_COMPANIES[city] || OMAN_COMPANIES[city] || KUWAIT_COMPANIES[city] || []
 }
 
 export function getCityCountry(city: string): string {
@@ -1897,5 +1911,6 @@ export function getCityCountry(city: string): string {
   if (SAUDI_ARABIA_CITIES.includes(city)) return 'Saudi Arabia'
   if (QATAR_CITIES.includes(city)) return 'Qatar'
   if (OMAN_CITIES.includes(city)) return 'Oman'
+  if (KUWAIT_CITIES.includes(city)) return 'Kuwait'
   return 'Unknown'
 }
