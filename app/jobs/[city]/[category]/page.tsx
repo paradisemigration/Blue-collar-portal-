@@ -10,15 +10,142 @@ import {
   UserGroupIcon,
   ChevronRightIcon
 } from '@heroicons/react/24/outline'
-import { 
+import {
   getCompaniesForCity,
-  getCityDisplayName, 
+  getCityDisplayName,
   getCategoryDisplayName,
   getCityCountry,
   ALL_CITIES,
   JOB_CATEGORIES_URL_MAP,
+  INDIVIDUAL_JOBS_URL_MAP,
   Company
 } from '../../../../utils/companiesData'
+
+// Function to get job display name
+function getJobDisplayName(jobSlug: string): string {
+  // Reverse lookup from INDIVIDUAL_JOBS_URL_MAP
+  for (const [displayName, slug] of Object.entries(INDIVIDUAL_JOBS_URL_MAP)) {
+    if (slug === jobSlug) {
+      return displayName
+    }
+  }
+  return jobSlug
+}
+
+// Function to get category from job title
+function getCategoryFromJob(jobSlug: string): string {
+  const jobCategories: Record<string, string> = {
+    // Domestic & Personal Care Workers
+    'nanny-childcare-worker': 'domestic-workers',
+    'housemaid': 'domestic-workers',
+    'cook-home-based': 'domestic-workers',
+    'elderly-caregiver': 'domestic-workers',
+    'babysitter': 'domestic-workers',
+    'domestic-helper': 'domestic-workers',
+    'governess-live-in-tutor-nanny': 'domestic-workers',
+    'housekeeper-residential': 'domestic-workers',
+    'personal-attendant': 'domestic-workers',
+    'live-in-maid': 'domestic-workers',
+    'maid': 'domestic-workers',
+
+    // Construction & Infrastructure
+    'construction-laborer': 'construction-workers',
+    'mason': 'construction-workers',
+    'carpenter': 'construction-workers',
+    'electrician': 'construction-workers',
+    'plumber': 'construction-workers',
+    'welder': 'construction-workers',
+    'painter': 'construction-workers',
+    'steel-fixer': 'construction-workers',
+    'scaffold-worker': 'construction-workers',
+    'tile-setter': 'construction-workers',
+    'hvac-technician': 'construction-workers',
+    'crane-operator': 'construction-workers',
+    'heavy-equipment-operator': 'construction-workers',
+    'site-supervisor': 'construction-workers',
+    'road-construction-worker': 'construction-workers',
+    'construction-worker': 'construction-workers',
+
+    // Mechanical & Technical
+    'auto-mechanic': 'technical-workers',
+    'diesel-mechanic': 'technical-workers',
+    'machine-operator': 'technical-workers',
+    'cnc-machine-operator': 'technical-workers',
+    'fitter': 'technical-workers',
+    'maintenance-technician': 'technical-workers',
+    'elevator-technician': 'technical-workers',
+    'ac-technician': 'technical-workers',
+    'forklift-operator': 'technical-workers',
+    'lathe-machine-operator': 'technical-workers',
+    'mechanic': 'technical-workers',
+
+    // Manufacturing & Factory
+    'factory-worker': 'factory-workers',
+    'assembly-line-worker': 'factory-workers',
+    'packer': 'factory-workers',
+    'warehouse-associate': 'factory-workers',
+    'quality-checker': 'factory-workers',
+    'production-supervisor': 'factory-workers',
+    'fabricator': 'factory-workers',
+    'loader-unloader': 'factory-workers',
+    'warehouse-worker': 'factory-workers',
+
+    // Transport & Logistics
+    'truck-driver': 'driver',
+    'delivery-driver': 'driver',
+    'bus-driver': 'driver',
+    'light-vehicle-driver': 'driver',
+    'logistics-assistant': 'driver',
+    'dispatch-coordinator': 'driver',
+    'heavy-vehicle-driver': 'driver',
+    'driver': 'driver',
+
+    // Cleaning & Maintenance
+    'cleaner': 'cleaning-workers',
+    'housekeeping-staff': 'cleaning-workers',
+    'janitor': 'cleaning-workers',
+    'building-maintenance-worker': 'cleaning-workers',
+    'car-wash-attendant': 'cleaning-workers',
+    'office-cleaner': 'cleaning-workers',
+
+    // Hospitality & Food
+    'cook': 'hospitality-workers',
+    'kitchen-helper': 'hospitality-workers',
+    'waiter': 'hospitality-workers',
+    'dishwasher': 'hospitality-workers',
+    'restaurant-cleaner': 'hospitality-workers',
+    'barista': 'hospitality-workers',
+    'food-delivery-rider': 'hospitality-workers',
+
+    // Security & General Services
+    'security-guard': 'security-workers',
+    'watchman': 'security-workers',
+    'lifeguard': 'security-workers',
+    'maintenance-helper': 'security-workers',
+    'general-helper': 'security-workers',
+
+    // Garments & Tailoring
+    'tailor': 'tailoring-workers',
+    'ironing-staff': 'tailoring-workers',
+    'textile-factory-worker': 'tailoring-workers',
+
+    // Agriculture & Farming
+    'farm-worker': 'farming-workers',
+    'livestock-handler': 'farming-workers',
+    'greenhouse-worker': 'farming-workers',
+    'gardener': 'farming-workers',
+
+    // Other Common Jobs
+    'petrol-pump-attendant': 'general-workers',
+    'office-boy': 'general-workers',
+    'tea-boy': 'general-workers',
+    'baggage-handler': 'general-workers',
+    'laundry-worker': 'general-workers',
+    'pest-control-worker': 'general-workers'
+  }
+
+  return jobCategories[jobSlug] || null
+}
 
 interface PageProps {
   params: {
