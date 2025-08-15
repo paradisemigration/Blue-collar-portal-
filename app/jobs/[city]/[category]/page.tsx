@@ -337,11 +337,11 @@ export default function JobListingPage({ params }: PageProps) {
         <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-4">
-              {companies.length} Top Companies Hiring {categoryDisplay} in {cityDisplay}
+              {companies.length} Top Companies Hiring {isIndividualJob ? jobDisplay : categoryDisplay} in {cityDisplay}
             </h2>
             <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto">
-              {cityDisplay} offers excellent opportunities for {categoryDisplay.toLowerCase()} with competitive salaries, 
-              comprehensive benefits, and career growth potential. Apply directly to verified companies and 
+              {cityDisplay} offers excellent opportunities for {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} with competitive salaries,
+              comprehensive benefits, and career growth potential. Apply directly to verified companies and
               get hired faster through our streamlined application process in {country}.
             </p>
           </div>
