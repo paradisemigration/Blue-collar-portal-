@@ -1214,7 +1214,9 @@ export function getCityDisplayName(citySlug: string): string {
     'khobar': 'Khobar',
     'dammam': 'Dammam',
     'mecca': 'Mecca',
-    'medina': 'Medina'
+    'medina': 'Medina',
+    // Qatar Cities
+    'doha': 'Doha'
   }
   return cityMap[citySlug] || citySlug
 }
