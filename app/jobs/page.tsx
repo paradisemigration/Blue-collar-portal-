@@ -70,10 +70,10 @@ export default function AllJobsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              All Job Categories in UAE & Saudi Arabia
+              All Job Categories in Gulf Region
             </h1>
             <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-              Browse all {totalJobs} job types across {ALL_CITIES.length} cities. 
+              Browse all {totalJobs} job types across {ALL_CITIES.length} cities in UAE, Saudi Arabia & Qatar.
               Find specific job opportunities and apply directly to top companies.
             </p>
             
