@@ -316,7 +316,17 @@ export default function JobListingPage({ params }: PageProps) {
             <ChevronRightIcon className="h-4 w-4 mx-2 text-gray-400" />
             <Link href="/jobs" className="text-gray-500 hover:text-primary-600">Jobs</Link>
             <ChevronRightIcon className="h-4 w-4 mx-2 text-gray-400" />
-            <span className="text-gray-900">{categoryDisplay} Jobs in {cityDisplay}</span>
+            {isIndividualJob ? (
+              <>
+                <Link href={`/jobs/${params.city}/${categorySlug}`} className="text-gray-500 hover:text-primary-600">
+                  {categoryDisplay} in {cityDisplay}
+                </Link>
+                <ChevronRightIcon className="h-4 w-4 mx-2 text-gray-400" />
+                <span className="text-gray-900">{jobDisplay} Jobs</span>
+              </>
+            ) : (
+              <span className="text-gray-900">{categoryDisplay} Jobs in {cityDisplay}</span>
+            )}
           </nav>
         </div>
       </div>
