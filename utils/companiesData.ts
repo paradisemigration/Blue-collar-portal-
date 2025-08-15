@@ -11,6 +11,451 @@ export interface CityCompanies {
   [key: string]: Company[]
 }
 
+export const OMAN_COMPANIES: CityCompanies = {
+  'Muscat': [
+    {
+      name: 'Bank Muscat',
+      industry: 'Banking & Financial Services',
+      size: '5,000+ employees',
+      description: 'Leading financial institution in Oman'
+    },
+    {
+      name: 'Oman Air',
+      industry: 'Aviation',
+      size: '4,000+ employees',
+      description: 'National carrier and one of the world\'s leading airlines'
+    },
+    {
+      name: 'Oman Oil Company',
+      industry: 'Oil & Gas',
+      size: '10,000+ employees',
+      description: 'State-owned petroleum company responsible for all oil and gas activities in Oman'
+    },
+    {
+      name: 'Oman Cement Company',
+      industry: 'Manufacturing - Cement',
+      size: '1,500+ employees',
+      description: 'Major cement manufacturer and supplier'
+    },
+    {
+      name: 'Oman Telecommunications Company (Omantel)',
+      industry: 'Telecommunications',
+      size: '3,000+ employees',
+      description: 'Leading telecommunications provider in Oman'
+    },
+    {
+      name: 'Al Fairuz Trading & Contracting',
+      industry: 'Trading & Contracting',
+      size: '2,000+ employees',
+      description: 'Diversified trading and contracting company'
+    },
+    {
+      name: 'Raysut Cement Company',
+      industry: 'Manufacturing - Cement',
+      size: '2,500+ employees',
+      description: 'Largest cement manufacturer in Oman'
+    },
+    {
+      name: 'Muscat Cans Co. LLC',
+      industry: 'Manufacturing - Packaging',
+      size: '500+ employees',
+      description: 'Leading can manufacturer in Oman'
+    },
+    {
+      name: 'Oman Mechanical Services Company Ltd. LLC (OMSC)',
+      industry: 'Engineering & Mechanical Services',
+      size: '1,000+ employees',
+      description: 'Provides mechanical and electrical services'
+    },
+    {
+      name: 'Alwasail Industrial Company',
+      industry: 'Steel Manufacturing',
+      size: '800+ employees',
+      description: 'Manufacturer of steel products and services'
+    },
+    {
+      name: 'Al Habib Trading & Contracting Co. LLC',
+      industry: 'Trading & Contracting',
+      size: '1,200+ employees',
+      description: 'Trading and contracting company'
+    },
+    {
+      name: 'Al Madina Logistics Services',
+      industry: 'Logistics & Supply Chain',
+      size: '1,500+ employees',
+      description: 'Provides logistics and supply chain solutions'
+    },
+    {
+      name: 'Al Jazeera Steel Products Co. SAOG',
+      industry: 'Steel Manufacturing',
+      size: '1,000+ employees',
+      description: 'Manufacturer of steel products'
+    },
+    {
+      name: 'Oman National Engineering & Investment Co. SAOG',
+      industry: 'Engineering & Investment',
+      size: '2,000+ employees',
+      description: 'Provides engineering and investment services'
+    },
+    {
+      name: 'Oman Fisheries Co. SAOG',
+      industry: 'Fisheries & Aquaculture',
+      size: '3,000+ employees',
+      description: 'Leading fisheries company in Oman'
+    },
+    {
+      name: 'Oman Foodstuff Factory LLC',
+      industry: 'Food Manufacturing',
+      size: '800+ employees',
+      description: 'Manufacturer of food products'
+    },
+    {
+      name: 'Oman International Development & Investment Co. SAOG (Ominvest)',
+      industry: 'Investment & Development',
+      size: '1,500+ employees',
+      description: 'Investment company'
+    },
+    {
+      name: 'Oman United Insurance Co. SAOG',
+      industry: 'Insurance',
+      size: '1,000+ employees',
+      description: 'Provides insurance services'
+    }
+  ],
+  'Salalah': [
+    {
+      name: 'Salalah Mills Company SAOG',
+      industry: 'Food Manufacturing - Flour',
+      size: '800+ employees',
+      description: 'Leading flour mill in Oman'
+    },
+    {
+      name: 'Raysut Cement Company SAOG',
+      industry: 'Manufacturing - Cement',
+      size: '3,000+ employees',
+      description: 'Largest cement manufacturer in Oman'
+    },
+    {
+      name: 'Dhofar International Development & Investment Holding Co. SAOG',
+      industry: 'Investment & Development',
+      size: '2,000+ employees',
+      description: 'Investment company'
+    },
+    {
+      name: 'Dhofar Foods & Investment Co. SAOG',
+      industry: 'Food & Investment',
+      size: '1,500+ employees',
+      description: 'Food and investment company'
+    },
+    {
+      name: 'Salalah Free Zone',
+      industry: 'Free Zone & Logistics',
+      size: '500+ employees',
+      description: 'Industrial and logistics hub'
+    },
+    {
+      name: 'Al Reef Flour Mills Co. LLC',
+      industry: 'Food Manufacturing - Flour',
+      size: '400+ employees',
+      description: 'Flour mill company'
+    },
+    {
+      name: 'Al Reef Line United Trade Co. LLC',
+      industry: 'Trading',
+      size: '300+ employees',
+      description: 'Trading company'
+    },
+    {
+      name: 'Dhofar Mining Co. LLC',
+      industry: 'Mining',
+      size: '1,000+ employees',
+      description: 'Mining company'
+    },
+    {
+      name: 'Al Amjad International Station for Commercial Services',
+      industry: 'Commercial Services',
+      size: '200+ employees',
+      description: 'Commercial services provider'
+    },
+    {
+      name: 'Al Lameek Trading & Contracting Co. LLC',
+      industry: 'Trading & Contracting',
+      size: '500+ employees',
+      description: 'Trading and contracting company'
+    },
+    {
+      name: 'Al Hamrashdi Building Materials LLC',
+      industry: 'Building Materials',
+      size: '300+ employees',
+      description: 'Building materials supplier'
+    },
+    {
+      name: 'Al Ezz Trading, Transport & Contracting Co. LLC',
+      industry: 'Trading, Transport & Contracting',
+      size: '600+ employees',
+      description: 'Trading, transport, and contracting company'
+    },
+    {
+      name: 'Al Darwish & Al Mashani Trading & Contracting Co. LLC',
+      industry: 'Trading & Contracting',
+      size: '400+ employees',
+      description: 'Trading and contracting company'
+    },
+    {
+      name: 'Al Anwar Modern Trading & Contracting Establishment',
+      industry: 'Trading & Contracting',
+      size: '350+ employees',
+      description: 'Trading and contracting company'
+    },
+    {
+      name: 'Mill Trading Services Co. LLC',
+      industry: 'Trading Services',
+      size: '250+ employees',
+      description: 'Trading services provider'
+    },
+    {
+      name: 'Global Service Co. LLC',
+      industry: 'General Services',
+      size: '200+ employees',
+      description: 'Service company'
+    },
+    {
+      name: 'Al Mukhtar Trading & Contracting Co. LLC',
+      industry: 'Trading & Contracting',
+      size: '300+ employees',
+      description: 'Trading and contracting company'
+    },
+    {
+      name: 'Al Reef Line United Trade Co. LLC',
+      industry: 'Trading',
+      size: '250+ employees',
+      description: 'Trading company'
+    },
+    {
+      name: 'Dhurat Al Amal Pioneering Business',
+      industry: 'Business Services',
+      size: '150+ employees',
+      description: 'Business services provider'
+    },
+    {
+      name: 'GAC Hub Services DWC-LLC',
+      industry: 'Logistics & Shipping',
+      size: '400+ employees',
+      description: 'Logistics and shipping services provider'
+    }
+  ],
+  'Sohar': [
+    {
+      name: 'Sohar Aluminium',
+      industry: 'Aluminum Manufacturing',
+      size: '2,000+ employees',
+      description: 'Major aluminium producer in Oman'
+    },
+    {
+      name: 'Sohar Port & Freezone',
+      industry: 'Ports & Free Zone',
+      size: '1,500+ employees',
+      description: 'Industrial and logistics hub'
+    },
+    {
+      name: 'Oman Cables Industry SAOG',
+      industry: 'Cable Manufacturing',
+      size: '1,200+ employees',
+      description: 'Leading cable manufacturer'
+    },
+    {
+      name: 'Oman National Engineering & Investment Co. SAOG',
+      industry: 'Engineering & Investment',
+      size: '1,800+ employees',
+      description: 'Provides engineering and investment services'
+    },
+    {
+      name: 'Al Kanz Engineering L.L.C. (KEMCO)',
+      industry: 'Engineering & Construction',
+      size: '1,000+ employees',
+      description: 'Engineering and construction company'
+    },
+    {
+      name: 'CMI Oman Company',
+      industry: 'Engineering & Manufacturing',
+      size: '800+ employees',
+      description: 'Engineering and manufacturing company'
+    },
+    {
+      name: 'Alsi for Marine Service LLC',
+      industry: 'Marine Services',
+      size: '300+ employees',
+      description: 'Marine services provider'
+    },
+    {
+      name: 'Amrutha Ayurvedic Clinic & Wellness Center',
+      industry: 'Healthcare & Wellness',
+      size: '100+ employees',
+      description: 'Health and wellness center'
+    },
+    {
+      name: 'Azzan Al Badi Trading',
+      industry: 'Trading',
+      size: '200+ employees',
+      description: 'Trading company'
+    },
+    {
+      name: 'Al Sayer Group',
+      industry: 'Automotive & Retail',
+      size: '2,500+ employees',
+      description: 'Automotive and retail company'
+    },
+    {
+      name: 'Al Habib Trading & Contracting Co. LLC',
+      industry: 'Trading & Contracting',
+      size: '900+ employees',
+      description: 'Trading and contracting company'
+    },
+    {
+      name: 'Al Madina Logistics Services',
+      industry: 'Logistics & Supply Chain',
+      size: '1,000+ employees',
+      description: 'Provides logistics and supply chain solutions'
+    },
+    {
+      name: 'Al Jazeera Steel Products Co. SAOG',
+      industry: 'Steel Manufacturing',
+      size: '800+ employees',
+      description: 'Manufacturer of steel products'
+    },
+    {
+      name: 'Oman Fisheries Co. SAOG',
+      industry: 'Fisheries & Aquaculture',
+      size: '2,000+ employees',
+      description: 'Leading fisheries company in Oman'
+    },
+    {
+      name: 'Oman Foodstuff Factory LLC',
+      industry: 'Food Manufacturing',
+      size: '600+ employees',
+      description: 'Manufacturer of food products'
+    },
+    {
+      name: 'Oman International Development & Investment Co. SAOG (Ominvest)',
+      industry: 'Investment & Development',
+      size: '1,200+ employees',
+      description: 'Investment company'
+    },
+    {
+      name: 'Oman United Insurance Co. SAOG',
+      industry: 'Insurance',
+      size: '800+ employees',
+      description: 'Provides insurance services'
+    }
+  ],
+  'Nizwa': [
+    {
+      name: 'Nizwa Food Industries LLC',
+      industry: 'Food Manufacturing',
+      size: '600+ employees',
+      description: 'Leading food manufacturer'
+    },
+    {
+      name: 'Gulf Energy SAOC',
+      industry: 'Energy',
+      size: '500+ employees',
+      description: 'Energy company'
+    },
+    {
+      name: 'Ersaa Integrated Services',
+      industry: 'Integrated Services',
+      size: '300+ employees',
+      description: 'Integrated services provider'
+    },
+    {
+      name: 'Paris Corner Perfumes',
+      industry: 'Retail - Perfumes',
+      size: '200+ employees',
+      description: 'Perfume retailer'
+    },
+    {
+      name: 'Salasel Electric Services',
+      industry: 'Electrical Services',
+      size: '150+ employees',
+      description: 'Electrical services provider'
+    },
+    {
+      name: 'Nizwa Hotel Apartments',
+      industry: 'Hospitality',
+      size: '100+ employees',
+      description: 'Hospitality services'
+    },
+    {
+      name: 'Al Harthy Trading & Contracting Co. LLC',
+      industry: 'Trading & Contracting',
+      size: '400+ employees',
+      description: 'Trading and contracting company'
+    }
+  ],
+  'Sur': [
+    {
+      name: 'Abdulla Punja & Co',
+      industry: 'Trading',
+      size: '500+ employees',
+      description: 'Trading company'
+    },
+    {
+      name: 'Al Noor Medical Complex',
+      industry: 'Healthcare',
+      size: '300+ employees',
+      description: 'Medical services provider'
+    },
+    {
+      name: 'Bakehome Oman',
+      industry: 'Food & Bakery',
+      size: '200+ employees',
+      description: 'Bakery and food services'
+    },
+    {
+      name: 'Al Madina Logistics Services',
+      industry: 'Logistics & Supply Chain',
+      size: '800+ employees',
+      description: 'Provides logistics and supply chain solutions'
+    },
+    {
+      name: 'Al Jazeera Steel Products Co. SAOG',
+      industry: 'Steel Manufacturing',
+      size: '600+ employees',
+      description: 'Manufacturer of steel products'
+    },
+    {
+      name: 'Oman National Engineering & Investment Co. SAOG',
+      industry: 'Engineering & Investment',
+      size: '1,000+ employees',
+      description: 'Provides engineering and investment services'
+    },
+    {
+      name: 'Oman Fisheries Co. SAOG',
+      industry: 'Fisheries & Aquaculture',
+      size: '1,500+ employees',
+      description: 'Leading fisheries company in Oman'
+    },
+    {
+      name: 'Oman Foodstuff Factory LLC',
+      industry: 'Food Manufacturing',
+      size: '400+ employees',
+      description: 'Manufacturer of food products'
+    },
+    {
+      name: 'Oman International Development & Investment Co. SAOG (Ominvest)',
+      industry: 'Investment & Development',
+      size: '800+ employees',
+      description: 'Investment company'
+    },
+    {
+      name: 'Oman United Insurance Co. SAOG',
+      industry: 'Insurance',
+      size: '600+ employees',
+      description: 'Provides insurance services'
+    }
+  ]
+}
+
 export const QATAR_COMPANIES: CityCompanies = {
   'Doha': [
     {
@@ -1197,7 +1642,15 @@ export const QATAR_CITIES = [
   'Doha'
 ]
 
-export const ALL_CITIES = [...UAE_CITIES, ...SAUDI_ARABIA_CITIES, ...QATAR_CITIES]
+export const OMAN_CITIES = [
+  'Muscat',
+  'Salalah',
+  'Sohar',
+  'Nizwa',
+  'Sur'
+]
+
+export const ALL_CITIES = [...UAE_CITIES, ...SAUDI_ARABIA_CITIES, ...QATAR_CITIES, ...OMAN_CITIES]
 
 export function getCityDisplayName(citySlug: string): string {
   const cityMap: Record<string, string> = {
@@ -1216,7 +1669,13 @@ export function getCityDisplayName(citySlug: string): string {
     'mecca': 'Mecca',
     'medina': 'Medina',
     // Qatar Cities
-    'doha': 'Doha'
+    'doha': 'Doha',
+    // Oman Cities
+    'muscat': 'Muscat',
+    'salalah': 'Salalah',
+    'sohar': 'Sohar',
+    'nizwa': 'Nizwa',
+    'sur': 'Sur'
   }
   return cityMap[citySlug] || citySlug
 }
@@ -1249,12 +1708,13 @@ export function getCategoryDisplayName(categorySlug: string): string {
 }
 
 export function getCompaniesForCity(city: string): Company[] {
-  return UAE_COMPANIES[city] || SAUDI_ARABIA_COMPANIES[city] || QATAR_COMPANIES[city] || []
+  return UAE_COMPANIES[city] || SAUDI_ARABIA_COMPANIES[city] || QATAR_COMPANIES[city] || OMAN_COMPANIES[city] || []
 }
 
 export function getCityCountry(city: string): string {
   if (UAE_CITIES.includes(city)) return 'UAE'
   if (SAUDI_ARABIA_CITIES.includes(city)) return 'Saudi Arabia'
   if (QATAR_CITIES.includes(city)) return 'Qatar'
+  if (OMAN_CITIES.includes(city)) return 'Oman'
   return 'Unknown'
 }
