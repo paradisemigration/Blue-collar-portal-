@@ -881,10 +881,121 @@ export const UAE_COMPANIES: CityCompanies = {
   ]
 }
 
-// Job categories mapping to simplified URL-friendly names
+// Individual job titles mapping to URL-friendly names
+export const INDIVIDUAL_JOBS_URL_MAP: Record<string, string> = {
+  // Domestic & Personal Care Workers
+  'Nanny (Childcare Worker)': 'nanny-childcare-worker',
+  'Housemaid': 'housemaid',
+  'Cook (Home-based)': 'cook-home-based',
+  'Elderly Caregiver': 'elderly-caregiver',
+  'Babysitter': 'babysitter',
+  'Domestic Helper': 'domestic-helper',
+  'Governess (Live-in Tutor/Nanny)': 'governess-live-in-tutor-nanny',
+  'Housekeeper (Residential)': 'housekeeper-residential',
+  'Personal Attendant': 'personal-attendant',
+  'Live-in Maid': 'live-in-maid',
+  'Maid': 'maid',
+
+  // Construction & Infrastructure
+  'Construction Laborer': 'construction-laborer',
+  'Mason': 'mason',
+  'Carpenter': 'carpenter',
+  'Electrician': 'electrician',
+  'Plumber': 'plumber',
+  'Welder': 'welder',
+  'Painter': 'painter',
+  'Steel Fixer': 'steel-fixer',
+  'Scaffold Worker': 'scaffold-worker',
+  'Tile Setter': 'tile-setter',
+  'HVAC Technician': 'hvac-technician',
+  'Crane Operator': 'crane-operator',
+  'Heavy Equipment Operator': 'heavy-equipment-operator',
+  'Site Supervisor': 'site-supervisor',
+  'Road Construction Worker': 'road-construction-worker',
+  'Construction Worker': 'construction-worker',
+
+  // Mechanical & Technical
+  'Auto Mechanic': 'auto-mechanic',
+  'Diesel Mechanic': 'diesel-mechanic',
+  'Machine Operator': 'machine-operator',
+  'CNC Machine Operator': 'cnc-machine-operator',
+  'Fitter': 'fitter',
+  'Maintenance Technician': 'maintenance-technician',
+  'Elevator Technician': 'elevator-technician',
+  'AC Technician': 'ac-technician',
+  'Forklift Operator': 'forklift-operator',
+  'Lathe Machine Operator': 'lathe-machine-operator',
+  'Mechanic': 'mechanic',
+
+  // Manufacturing & Factory
+  'Factory Worker': 'factory-worker',
+  'Assembly Line Worker': 'assembly-line-worker',
+  'Packer': 'packer',
+  'Warehouse Associate': 'warehouse-associate',
+  'Quality Checker': 'quality-checker',
+  'Production Supervisor': 'production-supervisor',
+  'Fabricator': 'fabricator',
+  'Loader/Unloader': 'loader-unloader',
+  'Warehouse Worker': 'warehouse-worker',
+
+  // Transport & Logistics
+  'Truck Driver': 'truck-driver',
+  'Delivery Driver': 'delivery-driver',
+  'Bus Driver': 'bus-driver',
+  'Light Vehicle Driver': 'light-vehicle-driver',
+  'Logistics Assistant': 'logistics-assistant',
+  'Dispatch Coordinator': 'dispatch-coordinator',
+  'Heavy Vehicle Driver': 'heavy-vehicle-driver',
+  'Driver': 'driver',
+
+  // Cleaning & Maintenance
+  'Cleaner': 'cleaner',
+  'Housekeeping Staff': 'housekeeping-staff',
+  'Janitor': 'janitor',
+  'Building Maintenance Worker': 'building-maintenance-worker',
+  'Car Wash Attendant': 'car-wash-attendant',
+  'Office Cleaner': 'office-cleaner',
+
+  // Hospitality & Food
+  'Cook': 'cook',
+  'Kitchen Helper': 'kitchen-helper',
+  'Waiter': 'waiter',
+  'Dishwasher': 'dishwasher',
+  'Restaurant Cleaner': 'restaurant-cleaner',
+  'Barista': 'barista',
+  'Food Delivery Rider': 'food-delivery-rider',
+
+  // Security & General Services
+  'Security Guard': 'security-guard',
+  'Watchman': 'watchman',
+  'Lifeguard': 'lifeguard',
+  'Maintenance Helper': 'maintenance-helper',
+  'General Helper': 'general-helper',
+
+  // Garments & Tailoring
+  'Tailor': 'tailor',
+  'Ironing Staff': 'ironing-staff',
+  'Textile Factory Worker': 'textile-factory-worker',
+
+  // Agriculture & Farming
+  'Farm Worker': 'farm-worker',
+  'Livestock Handler': 'livestock-handler',
+  'Greenhouse Worker': 'greenhouse-worker',
+  'Gardener': 'gardener',
+
+  // Other Common Jobs
+  'Petrol Pump Attendant': 'petrol-pump-attendant',
+  'Office Boy': 'office-boy',
+  'Tea Boy': 'tea-boy',
+  'Baggage Handler': 'baggage-handler',
+  'Laundry Worker': 'laundry-worker',
+  'Pest Control Worker': 'pest-control-worker'
+}
+
+// Job categories mapping to simplified URL-friendly names (keeping for backward compatibility)
 export const JOB_CATEGORIES_URL_MAP = {
   'Domestic & Personal Care Workers': 'domestic-workers',
-  'Construction & Infrastructure': 'construction-workers', 
+  'Construction & Infrastructure': 'construction-workers',
   'Mechanical & Technical': 'technical-workers',
   'Manufacturing & Factory': 'factory-workers',
   'Transport & Logistics': 'driver',
