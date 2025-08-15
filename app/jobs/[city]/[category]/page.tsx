@@ -187,27 +187,30 @@ export default function JobListingPage({ params }: PageProps) {
 
   const companies = getCompaniesForCity(cityDisplay)
 
-  // Generate category-specific FAQs
+  // Generate category-specific or job-specific FAQs
   const generateFAQs = () => {
+    const jobType = isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()
+    const jobTypeText = isIndividualJob ? jobDisplay : categoryDisplay
+
     const baseFAQs = [
       {
-        question: `How many ${categoryDisplay.toLowerCase()} job openings are available in ${cityDisplay}?`,
-        answer: `We currently feature ${companies.length} companies in ${cityDisplay} that regularly hire ${categoryDisplay.toLowerCase()}. New positions are posted weekly, and you can apply to multiple companies simultaneously through our platform.`
+        question: `How many ${jobType} job openings are available in ${cityDisplay}?`,
+        answer: `We currently feature ${companies.length} companies in ${cityDisplay} that regularly hire ${jobType}. New positions are posted weekly, and you can apply to multiple companies simultaneously through our platform.`
       },
       {
-        question: `What qualifications do I need for ${categoryDisplay.toLowerCase()} jobs in ${cityDisplay}?`,
+        question: `What qualifications do I need for ${jobType} jobs in ${cityDisplay}?`,
         answer: `Requirements vary by company and specific role. Generally, relevant experience, proper documentation (visa/work permit), and language skills (English/Arabic) are preferred. Many companies also provide on-the-job training for the right candidates.`
       },
       {
-        question: `How quickly can I get hired for ${categoryDisplay.toLowerCase()} positions in ${cityDisplay}?`,
-        answer: `The hiring process typically takes 1-3 weeks from application to job offer. Companies in ${cityDisplay} often have urgent hiring needs, especially for skilled ${categoryDisplay.toLowerCase()}, so qualified candidates can expect quick responses.`
+        question: `How quickly can I get hired for ${jobType} positions in ${cityDisplay}?`,
+        answer: `The hiring process typically takes 1-3 weeks from application to job offer. Companies in ${cityDisplay} often have urgent hiring needs, especially for skilled ${jobType}, so qualified candidates can expect quick responses.`
       },
       {
-        question: `What is the average salary for ${categoryDisplay.toLowerCase()} in ${cityDisplay}?`,
-        answer: `Salaries for ${categoryDisplay.toLowerCase()} in ${cityDisplay} vary based on experience, company size, and specific role. Most positions offer competitive packages including accommodation, transportation, and health insurance benefits in ${country}.`
+        question: `What is the average salary for ${jobType} in ${cityDisplay}?`,
+        answer: `Salaries for ${jobType} in ${cityDisplay} vary based on experience, company size, and specific role. Most positions offer competitive packages including accommodation, transportation, and health insurance benefits in ${country}.`
       },
       {
-        question: `Do these companies provide visa sponsorship for ${categoryDisplay.toLowerCase()}?`,
+        question: `Do these companies provide visa sponsorship for ${jobType}?`,
         answer: `Most companies listed provide visa sponsorship for qualified candidates. During the application process, you can specify your visa requirements, and companies will indicate if they can provide sponsorship for ${country} work permits.`
       },
       {
