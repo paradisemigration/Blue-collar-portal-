@@ -11,6 +11,173 @@ export interface CityCompanies {
   [key: string]: Company[]
 }
 
+export const QATAR_COMPANIES: CityCompanies = {
+  'Doha': [
+    {
+      name: 'Qatar National Bank (QNB)',
+      industry: 'Banking & Financial Services',
+      size: '30,000+ employees',
+      description: 'Leading banking group in Qatar and the Middle East'
+    },
+    {
+      name: 'Qatar Islamic Bank (QIB)',
+      industry: 'Islamic Banking',
+      size: '5,000+ employees',
+      description: 'Premier Islamic banking institution in Qatar'
+    },
+    {
+      name: 'Qatar Petroleum (QP)',
+      industry: 'Oil & Gas',
+      size: '50,000+ employees',
+      description: 'National oil and gas company of Qatar'
+    },
+    {
+      name: 'Qatar Airways',
+      industry: 'Aviation',
+      size: '50,000+ employees',
+      description: 'Flag carrier airline of Qatar and leading global airline'
+    },
+    {
+      name: 'Qatar Energy',
+      industry: 'Energy',
+      size: '45,000+ employees',
+      description: 'Integrated energy company and major LNG producer'
+    },
+    {
+      name: 'Qatar Steel',
+      industry: 'Steel Manufacturing',
+      size: '2,000+ employees',
+      description: 'Leading steel manufacturing company in Qatar'
+    },
+    {
+      name: 'Qatar Cement',
+      industry: 'Manufacturing - Cement',
+      size: '1,000+ employees',
+      description: 'Major cement manufacturing company'
+    },
+    {
+      name: 'Qatar National Cement Company',
+      industry: 'Manufacturing - Cement',
+      size: '800+ employees',
+      description: 'National cement production and distribution company'
+    },
+    {
+      name: 'Qatar Aluminum Manufacturing Company (QAMCO)',
+      industry: 'Manufacturing - Aluminum',
+      size: '1,500+ employees',
+      description: 'Leading aluminum manufacturing company'
+    },
+    {
+      name: 'Qatar Industrial Manufacturing Company (QIMC)',
+      industry: 'Industrial Manufacturing',
+      size: '1,200+ employees',
+      description: 'Diversified industrial manufacturing company'
+    },
+    {
+      name: 'Qatar General Insurance & Reinsurance Company',
+      industry: 'Insurance',
+      size: '1,000+ employees',
+      description: 'Provider of insurance and reinsurance services'
+    },
+    {
+      name: 'Qatar Insurance Company',
+      industry: 'Insurance',
+      size: '800+ employees',
+      description: 'Leading insurance services provider'
+    },
+    {
+      name: 'Qatar Islamic Insurance Company',
+      industry: 'Islamic Insurance',
+      size: '600+ employees',
+      description: 'Sharia-compliant insurance services provider'
+    },
+    {
+      name: 'Qatar Oman Investment Company',
+      industry: 'Investment & Finance',
+      size: '500+ employees',
+      description: 'Investment and financial services company'
+    },
+    {
+      name: 'Qatar Electricity & Water Company (QEWC)',
+      industry: 'Utilities',
+      size: '3,000+ employees',
+      description: 'Major electricity and water utility provider'
+    },
+    {
+      name: 'Qatar International Islamic Bank (QIIB)',
+      industry: 'Islamic Banking',
+      size: '2,000+ employees',
+      description: 'International Islamic banking services'
+    },
+    {
+      name: 'Qatar Development Bank (QDB)',
+      industry: 'Development Banking',
+      size: '1,000+ employees',
+      description: 'National development bank supporting SMEs'
+    },
+    {
+      name: 'Qatar Foundation',
+      industry: 'Education & Research',
+      size: '8,000+ employees',
+      description: 'Leading organization for education, science and community development'
+    },
+    {
+      name: 'Qatar Museums',
+      industry: 'Arts & Culture',
+      size: '2,000+ employees',
+      description: 'National museums organization preserving cultural heritage'
+    },
+    {
+      name: 'Qatar Charity',
+      industry: 'Non-Profit & Charity',
+      size: '3,000+ employees',
+      description: 'International humanitarian and development organization'
+    },
+    {
+      name: 'Qatar Red Crescent Society',
+      industry: 'Non-Profit & Humanitarian',
+      size: '1,500+ employees',
+      description: 'Humanitarian organization providing emergency relief'
+    },
+    {
+      name: 'Qatar Foundation for Education, Science and Community Development',
+      industry: 'Education & Research',
+      size: '5,000+ employees',
+      description: 'Comprehensive foundation for educational and scientific advancement'
+    },
+    {
+      name: 'Qatar University',
+      industry: 'Higher Education',
+      size: '4,000+ employees',
+      description: 'Leading national university in Qatar'
+    },
+    {
+      name: 'Qatar University of Science and Technology',
+      industry: 'Higher Education - STEM',
+      size: '1,000+ employees',
+      description: 'Specialized university focusing on science and technology'
+    },
+    {
+      name: 'Qatar University of Business and Economics',
+      industry: 'Higher Education - Business',
+      size: '800+ employees',
+      description: 'Specialized university for business and economics education'
+    },
+    {
+      name: 'Qatar University of Engineering',
+      industry: 'Higher Education - Engineering',
+      size: '1,200+ employees',
+      description: 'Engineering-focused educational institution'
+    },
+    {
+      name: 'Qatar University of Health Sciences',
+      industry: 'Higher Education - Healthcare',
+      size: '1,000+ employees',
+      description: 'Medical and health sciences educational institution'
+    }
+  ]
+}
+
 export const SAUDI_ARABIA_COMPANIES: CityCompanies = {
   'Riyadh': [
     {
