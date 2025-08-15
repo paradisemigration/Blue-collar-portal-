@@ -11,6 +11,187 @@ export interface CityCompanies {
   [key: string]: Company[]
 }
 
+export const KUWAIT_COMPANIES: CityCompanies = {
+  'Kuwait City': [
+    {
+      name: 'Kuwait Finance House (KFH)',
+      industry: 'Islamic Banking',
+      size: '8,000+ employees',
+      description: 'Islamic banking services'
+    },
+    {
+      name: 'National Bank of Kuwait (NBK)',
+      industry: 'Banking & Financial Services',
+      size: '12,000+ employees',
+      description: 'Leading financial institution'
+    },
+    {
+      name: 'Kuwait Petroleum Corporation (KPC)',
+      industry: 'Oil & Gas',
+      size: '25,000+ employees',
+      description: 'State-owned oil company'
+    },
+    {
+      name: 'Kuwait Airways',
+      industry: 'Aviation',
+      size: '5,000+ employees',
+      description: 'National airline'
+    },
+    {
+      name: 'Zain Group',
+      industry: 'Telecommunications',
+      size: '8,000+ employees',
+      description: 'Telecommunications provider'
+    },
+    {
+      name: 'Agility Logistics',
+      industry: 'Logistics & Supply Chain',
+      size: '22,000+ employees',
+      description: 'Supply chain and logistics services'
+    },
+    {
+      name: 'Alghanim Industries',
+      industry: 'Diversified Business',
+      size: '15,000+ employees',
+      description: 'Conglomerate with interests in various sectors'
+    },
+    {
+      name: 'M.H. Alshaya Co.',
+      industry: 'Retail Franchise',
+      size: '60,000+ employees',
+      description: 'Retail franchise operator'
+    },
+    {
+      name: 'Kuwait Real Estate Holding Company',
+      industry: 'Real Estate Development',
+      size: '2,000+ employees',
+      description: 'Real estate development and investment'
+    },
+    {
+      name: 'Al Ahli Bank of Kuwait (ABK)',
+      industry: 'Banking & Financial Services',
+      size: '3,000+ employees',
+      description: 'Commercial banking services'
+    },
+    {
+      name: 'UPayments',
+      industry: 'Fintech',
+      size: '200+ employees',
+      description: 'Digital payment solutions'
+    },
+    {
+      name: 'Nutribox',
+      industry: 'Health & Wellness',
+      size: '100+ employees',
+      description: 'Health and wellness platform'
+    },
+    {
+      name: 'Gulf Investment Corporation (GIC)',
+      industry: 'Investment & Finance',
+      size: '500+ employees',
+      description: 'Investment firm'
+    },
+    {
+      name: 'Developer Bazaar Technologies',
+      industry: 'Technology & Software',
+      size: '150+ employees',
+      description: 'Mobile app and web development'
+    },
+    {
+      name: 'Arabian Information Technology Solutions Company',
+      industry: 'IT Services',
+      size: '300+ employees',
+      description: 'IT services provider'
+    }
+  ],
+  'Al Ahmadi': [
+    {
+      name: 'Kuwait Oil Company (KOC)',
+      industry: 'Oil & Gas',
+      size: '15,000+ employees',
+      description: 'Exploration and production of oil'
+    },
+    {
+      name: 'EQUATE Petrochemical Company',
+      industry: 'Petrochemicals',
+      size: '2,500+ employees',
+      description: 'Chemical manufacturing'
+    },
+    {
+      name: 'Petrochemical Industries Company (PIC)',
+      industry: 'Petrochemicals',
+      size: '3,000+ employees',
+      description: 'Petrochemical production'
+    },
+    {
+      name: 'Kuwait National Petroleum Company (KNPC)',
+      industry: 'Oil Refining',
+      size: '8,000+ employees',
+      description: 'Oil refining and distribution'
+    }
+  ],
+  'Hawalli': [
+    {
+      name: 'Alghanim Industries',
+      industry: 'Diversified Business',
+      size: '12,000+ employees',
+      description: 'Conglomerate with interests in various sectors'
+    },
+    {
+      name: 'M.H. Alshaya Co.',
+      industry: 'Retail Franchise',
+      size: '45,000+ employees',
+      description: 'Retail franchise operator'
+    },
+    {
+      name: 'United Real Estate Company',
+      industry: 'Real Estate Development',
+      size: '1,500+ employees',
+      description: 'Real estate development and investment'
+    },
+    {
+      name: 'Al Sayer Group',
+      industry: 'Automotive & Retail',
+      size: '8,000+ employees',
+      description: 'Automotive and retail company'
+    }
+  ],
+  'Salmiya': [
+    {
+      name: 'Marina Mall Companies',
+      industry: 'Retail & Entertainment',
+      size: '3,000+ employees',
+      description: 'Retail and entertainment'
+    },
+    {
+      name: 'Al Sayer Group',
+      industry: 'Automotive & Retail',
+      size: '6,000+ employees',
+      description: 'Automotive and retail company'
+    },
+    {
+      name: 'Alghanim Industries',
+      industry: 'Diversified Business',
+      size: '10,000+ employees',
+      description: 'Conglomerate with interests in various sectors'
+    }
+  ],
+  'Jahra': [
+    {
+      name: 'Kuwait Flour Mills & Bakeries Company',
+      industry: 'Food Manufacturing',
+      size: '2,000+ employees',
+      description: 'Food production'
+    },
+    {
+      name: 'Industrial Projects & Services Company',
+      industry: 'Industrial Services',
+      size: '1,000+ employees',
+      description: 'Industrial services'
+    }
+  ]
+}
+
 export const OMAN_COMPANIES: CityCompanies = {
   'Muscat': [
     {
