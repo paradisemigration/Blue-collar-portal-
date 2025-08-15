@@ -1193,7 +1193,11 @@ export const SAUDI_ARABIA_CITIES = [
   'Medina'
 ]
 
-export const ALL_CITIES = [...UAE_CITIES, ...SAUDI_ARABIA_CITIES]
+export const QATAR_CITIES = [
+  'Doha'
+]
+
+export const ALL_CITIES = [...UAE_CITIES, ...SAUDI_ARABIA_CITIES, ...QATAR_CITIES]
 
 export function getCityDisplayName(citySlug: string): string {
   const cityMap: Record<string, string> = {
