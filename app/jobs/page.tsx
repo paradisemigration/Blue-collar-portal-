@@ -1,280 +1,268 @@
 'use client'
 
+import Link from 'next/link'
 import {
-  MapPinIcon,
   BriefcaseIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
-  BuildingOfficeIcon
+  MapPinIcon,
+  BuildingOfficeIcon,
+  ChevronRightIcon
 } from '@heroicons/react/24/outline'
-import { JobPost } from '../../types'
+import { ALL_CITIES, INDIVIDUAL_JOBS_URL_MAP } from '../../utils/companiesData'
 
-// Mock job postings data
-const mockJobs: JobPost[] = [
-  {
-    id: '1',
-    employerId: 'emp1',
-    title: 'Experienced Driver Needed',
-    description: 'Looking for a reliable and experienced driver for a private family. Must have clean driving record and excellent customer service skills.',
-    jobTitle: 'Driver',
-    city: 'Dubai',
-    salaryRange: { min: 3000, max: 4000 },
-    requirements: [
-      'Valid UAE driving license',
-      'Minimum 5 years experience',
-      'Clean driving record',
-      'English and Arabic speaking'
-    ],
-    benefits: [
-      'Health insurance',
-      'Annual leave',
-      'Performance bonus',
-      'Accommodation provided'
-    ],
-    createdAt: new Date('2024-01-15'),
-    isActive: true
-  },
-  {
-    id: '2',
-    employerId: 'emp2',
-    title: 'Professional Maid Required',
-    description: 'Seeking a professional and trustworthy maid for household cleaning and maintenance. Previous experience in similar role preferred.',
-    jobTitle: 'Maid',
-    city: 'Abu Dhabi',
-    salaryRange: { min: 2200, max: 2800 },
-    requirements: [
-      'Previous housekeeping experience',
-      'Attention to detail',
-      'Trustworthy and reliable',
-      'Basic English communication'
-    ],
-    benefits: [
-      'Competitive salary',
-      'Weekly day off',
-      'Health insurance',
-      'Transportation provided'
-    ],
-    createdAt: new Date('2024-01-18'),
-    isActive: true
-  },
-  {
-    id: '3',
-    employerId: 'emp3',
-    title: 'Certified Electrician for Commercial Project',
-    description: 'We are looking for a certified electrician to join our team for a major commercial construction project in Doha.',
-    jobTitle: 'Electrician',
-    city: 'Doha',
-    salaryRange: { min: 4500, max: 6000 },
-    requirements: [
-      'Electrical certification',
-      'Minimum 8 years experience',
-      'Commercial project experience',
-      'Safety training certification'
-    ],
-    benefits: [
-      'Excellent salary package',
-      'Project completion bonus',
-      'Health and life insurance',
-      'Professional development opportunities'
-    ],
-    createdAt: new Date('2024-01-20'),
-    isActive: true
-  }
-]
+export default function AllJobsPage() {
+  // Convert cities to URL-friendly format
+  const cityUrls = ALL_CITIES.map(city => ({
+    name: city,
+    slug: city.toLowerCase().replace(/\s+/g, '-')
+  }))
 
-// Note: Metadata is handled by layout.tsx for client components
-
-export default function Jobs() {
-  const handleApplyNow = (jobId: string) => {
-    // Redirect to create profile if not logged in, otherwise show application modal
-    const isLoggedIn = typeof window !== 'undefined' && localStorage.getItem('isLoggedIn')
-    if (isLoggedIn) {
-      alert('Application submitted! We will notify the employer about your interest.')
-    } else {
-      window.location.href = '/create-profile'
-    }
+  // Group jobs by category for better organization
+  const jobsByCategory = {
+    'Domestic & Personal Care': [
+      'Nanny (Childcare Worker)', 'Housemaid', 'Cook (Home-based)', 'Elderly Caregiver', 
+      'Babysitter', 'Domestic Helper', 'Governess (Live-in Tutor/Nanny)', 
+      'Housekeeper (Residential)', 'Personal Attendant', 'Live-in Maid', 'Maid'
+    ],
+    'Construction & Infrastructure': [
+      'Construction Laborer', 'Mason', 'Carpenter', 'Electrician', 'Plumber', 
+      'Welder', 'Painter', 'Steel Fixer', 'Scaffold Worker', 'Tile Setter', 
+      'HVAC Technician', 'Crane Operator', 'Heavy Equipment Operator', 
+      'Site Supervisor', 'Road Construction Worker', 'Construction Worker'
+    ],
+    'Transport & Logistics': [
+      'Truck Driver', 'Delivery Driver', 'Bus Driver', 'Light Vehicle Driver', 
+      'Logistics Assistant', 'Dispatch Coordinator', 'Heavy Vehicle Driver', 'Driver'
+    ],
+    'Technical & Mechanical': [
+      'Auto Mechanic', 'Diesel Mechanic', 'Machine Operator', 'CNC Machine Operator', 
+      'Fitter', 'Maintenance Technician', 'Elevator Technician', 'AC Technician', 
+      'Forklift Operator', 'Lathe Machine Operator', 'Mechanic'
+    ],
+    'Manufacturing & Factory': [
+      'Factory Worker', 'Assembly Line Worker', 'Packer', 'Warehouse Associate', 
+      'Quality Checker', 'Production Supervisor', 'Fabricator', 'Loader/Unloader', 
+      'Warehouse Worker'
+    ],
+    'Hospitality & Food Service': [
+      'Cook', 'Kitchen Helper', 'Waiter', 'Dishwasher', 'Restaurant Cleaner', 
+      'Barista', 'Food Delivery Rider'
+    ],
+    'Security & Services': [
+      'Security Guard', 'Watchman', 'Lifeguard', 'Maintenance Helper', 'General Helper'
+    ],
+    'Cleaning & Maintenance': [
+      'Cleaner', 'Housekeeping Staff', 'Janitor', 'Building Maintenance Worker', 
+      'Car Wash Attendant', 'Office Cleaner'
+    ],
+    'Specialized Services': [
+      'Tailor', 'Ironing Staff', 'Textile Factory Worker', 'Farm Worker', 
+      'Livestock Handler', 'Greenhouse Worker', 'Gardener', 'Petrol Pump Attendant', 
+      'Office Boy', 'Tea Boy', 'Baggage Handler', 'Laundry Worker', 'Pest Control Worker'
+    ]
   }
 
-  const handleSaveJob = (jobId: string) => {
-    if (typeof window !== 'undefined') {
-      const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]')
-      if (!savedJobs.includes(jobId)) {
-        savedJobs.push(jobId)
-        localStorage.setItem('savedJobs', JSON.stringify(savedJobs))
-        alert('Job saved to your favorites!')
-      } else {
-        alert('Job is already in your saved list!')
-      }
-    }
-  }
-
-  const handleShareJob = (job: JobPost) => {
-    if (navigator.share) {
-      navigator.share({
-        title: job.title,
-        text: `Check out this job opportunity: ${job.title} in ${job.city}`,
-        url: window.location.href
-      })
-    } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(window.location.href)
-      alert('Job link copied to clipboard!')
-    }
-  }
-
-  const handlePostJob = () => {
-    window.location.href = '/employer-login'
-  }
-
-  const handleCreateProfile = () => {
-    window.location.href = '/create-profile'
-  }
+  const totalJobs = Object.values(INDIVIDUAL_JOBS_URL_MAP).length
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-navy-900 mb-4">
-            Latest Job Opportunities
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover exciting career opportunities across the Gulf region. 
-            Connect with top employers and advance your career.
-          </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-primary-600 to-navy-800 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              All Job Categories in UAE & Saudi Arabia
+            </h1>
+            <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
+              Browse all {totalJobs} job types across {ALL_CITIES.length} cities. 
+              Find specific job opportunities and apply directly to top companies.
+            </p>
+            
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+              <div className="bg-white/10 rounded-lg p-4">
+                <div className="text-2xl font-bold text-gold-400">{totalJobs}</div>
+                <div className="text-gray-200 text-sm">Job Types</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4">
+                <div className="text-2xl font-bold text-gold-400">{ALL_CITIES.length}</div>
+                <div className="text-gray-200 text-sm">Cities</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4">
+                <div className="text-2xl font-bold text-gold-400">1000+</div>
+                <div className="text-gray-200 text-sm">Companies</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4">
+                <div className="text-2xl font-bold text-gold-400">Free</div>
+                <div className="text-gray-200 text-sm">Application</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Breadcrumb */}
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <nav className="flex text-sm">
+            <Link href="/" className="text-gray-500 hover:text-primary-600">Home</Link>
+            <ChevronRightIcon className="h-4 w-4 mx-2 text-gray-400" />
+            <span className="text-gray-900">All Jobs</span>
+          </nav>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        {/* Quick Apply Section */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-12">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-navy-900 mb-4">
+              Apply to Multiple Companies at Once
+            </h2>
+            <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+              Create your profile once and apply to hundreds of companies across the Gulf region. 
+              Get hired faster with our streamlined application process.
+            </p>
+            <Link 
+              href="/create-profile"
+              className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors inline-block"
+            >
+              Create Profile & Start Applying
+            </Link>
+          </div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white rounded-lg shadow-sm border p-6 text-center">
-            <div className="text-3xl font-bold text-primary-600 mb-2">{mockJobs.length}</div>
-            <div className="text-gray-600">Active Job Posts</div>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm border p-6 text-center">
-            <div className="text-3xl font-bold text-primary-600 mb-2">15+</div>
-            <div className="text-gray-600">Job Categories</div>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm border p-6 text-center">
-            <div className="text-3xl font-bold text-primary-600 mb-2">500+</div>
-            <div className="text-gray-600">Hiring Companies</div>
-          </div>
-        </div>
-
-        {/* Job Listings */}
-        <div className="space-y-6">
-          {mockJobs.map((job) => (
-            <div key={job.id} className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
-              {/* Job Header */}
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-navy-900 mb-2">{job.title}</h2>
-                  <div className="flex flex-wrap items-center gap-4 text-gray-600 mb-3">
-                    <div className="flex items-center gap-1">
-                      <BriefcaseIcon className="h-4 w-4" />
-                      <span>{job.jobTitle}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <MapPinIcon className="h-4 w-4" />
-                      <span>{job.city}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <CurrencyDollarIcon className="h-4 w-4" />
-                      <span>AED {job.salaryRange.min.toLocaleString()} - {job.salaryRange.max.toLocaleString()}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <ClockIcon className="h-4 w-4" />
-                      <span>{job.createdAt.toLocaleDateString()}</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                    Active
-                  </span>
-                </div>
+        {/* Job Categories */}
+        <div className="space-y-8">
+          {Object.entries(jobsByCategory).map(([category, jobs]) => (
+            <div key={category} className="bg-white rounded-lg shadow-sm border p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <BriefcaseIcon className="h-8 w-8 text-primary-600" />
+                <h3 className="text-2xl font-bold text-navy-900">{category}</h3>
+                <span className="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium">
+                  {jobs.length} Jobs
+                </span>
               </div>
-
-              {/* Job Description */}
-              <p className="text-gray-700 mb-4">{job.description}</p>
-
-              {/* Requirements and Benefits */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <h3 className="font-semibold text-navy-900 mb-2">Requirements:</h3>
-                  <ul className="text-gray-700 text-sm space-y-1">
-                    {job.requirements.map((req, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-primary-600 mt-1">•</span>
-                        <span>{req}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-navy-900 mb-2">Benefits:</h3>
-                  <ul className="text-gray-700 text-sm space-y-1">
-                    {job.benefits.map((benefit, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-green-600 mt-1">•</span>
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={() => handleApplyNow(job.id)}
-                  className="btn-primary flex-1 sm:flex-none"
-                >
-                  Apply Now
-                </button>
-                <button
-                  onClick={() => handleSaveJob(job.id)}
-                  className="btn-secondary flex-1 sm:flex-none"
-                >
-                  Save Job
-                </button>
-                <button
-                  onClick={() => handleShareJob(job)}
-                  className="btn-secondary flex-1 sm:flex-none"
-                >
-                  Share
-                </button>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {jobs.map((job) => {
+                  const jobSlug = INDIVIDUAL_JOBS_URL_MAP[job]
+                  if (!jobSlug) return null
+                  
+                  return (
+                    <div key={job} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <h4 className="text-lg font-semibold text-navy-900 mb-3">{job}</h4>
+                      <div className="space-y-2">
+                        {cityUrls.slice(0, 4).map((city) => (
+                          <Link
+                            key={`${jobSlug}-${city.slug}`}
+                            href={`/jobs/${city.slug}/${jobSlug}`}
+                            className="block text-sm text-primary-600 hover:text-primary-700 hover:underline"
+                          >
+                            {city.name} Jobs →
+                          </Link>
+                        ))}
+                        {cityUrls.length > 4 && (
+                          <details className="mt-2">
+                            <summary className="text-sm text-gray-500 cursor-pointer hover:text-primary-600">
+                              Show more cities...
+                            </summary>
+                            <div className="mt-2 space-y-1">
+                              {cityUrls.slice(4).map((city) => (
+                                <Link
+                                  key={`${jobSlug}-${city.slug}`}
+                                  href={`/jobs/${city.slug}/${jobSlug}`}
+                                  className="block text-sm text-primary-600 hover:text-primary-700 hover:underline pl-4"
+                                >
+                                  {city.name} Jobs →
+                                </Link>
+                              ))}
+                            </div>
+                          </details>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           ))}
         </div>
 
-        {/* CTA for Employers */}
-        <div className="mt-16 bg-gradient-to-r from-primary-600 to-navy-800 text-white rounded-lg p-8 text-center">
-          <BuildingOfficeIcon className="h-12 w-12 mx-auto mb-4 text-gold-400" />
-          <h2 className="text-2xl font-bold mb-4">Looking to Hire?</h2>
-          <p className="text-lg mb-6 text-gray-200">
-            Post your job openings and connect with skilled workers across the Gulf region
-          </p>
-          <button
-            onClick={handlePostJob}
-            className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-3 px-8 rounded-lg text-lg transition-colors"
-          >
-            Post a Job
-          </button>
+        {/* Popular Destinations */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mt-8">
+          <h3 className="text-2xl font-bold text-navy-900 mb-6 text-center">
+            Popular Job Destinations
+          </h3>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cityUrls.map((city) => (
+              <div key={city.slug} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-xl font-semibold text-navy-900">{city.name}</h4>
+                  <MapPinIcon className="h-6 w-6 text-gray-400" />
+                </div>
+                <div className="space-y-2 mb-4">
+                  <Link href={`/jobs/${city.slug}/light-vehicle-driver`} className="block text-sm text-primary-600 hover:underline">
+                    Driver Jobs →
+                  </Link>
+                  <Link href={`/jobs/${city.slug}/housemaid`} className="block text-sm text-primary-600 hover:underline">
+                    Housemaid Jobs →
+                  </Link>
+                  <Link href={`/jobs/${city.slug}/construction-laborer`} className="block text-sm text-primary-600 hover:underline">
+                    Construction Jobs →
+                  </Link>
+                  <Link href={`/jobs/${city.slug}/security-guard`} className="block text-sm text-primary-600 hover:underline">
+                    Security Jobs →
+                  </Link>
+                </div>
+                <Link 
+                  href={`/jobs/${city.slug}/housemaid`}
+                  className="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700"
+                >
+                  View All {city.name} Jobs
+                  <ChevronRightIcon className="h-4 w-4 ml-1" />
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* For Workers CTA */}
-        <div className="mt-8 bg-white rounded-lg shadow-sm border p-8 text-center">
-          <h2 className="text-2xl font-bold text-navy-900 mb-4">New to the Platform?</h2>
-          <p className="text-gray-600 mb-6">
-            Create your worker profile today and get discovered by top employers
-          </p>
-          <button
-            onClick={handleCreateProfile}
-            className="btn-primary"
-          >
-            Create Worker Profile
-          </button>
+        {/* Search Tips */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 sm:p-8 mt-8">
+          <h3 className="text-2xl font-bold text-navy-900 mb-4 text-center">
+            Tips for Finding the Right Job
+          </h3>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="text-4xl mb-3">🎯</div>
+              <h4 className="text-lg font-semibold text-navy-900 mb-2">Be Specific</h4>
+              <p className="text-gray-700 text-sm">
+                Use specific job titles like "Light Vehicle Driver" instead of just "Driver" 
+                to find the most relevant opportunities.
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="text-4xl mb-3">📍</div>
+              <h4 className="text-lg font-semibold text-navy-900 mb-2">Choose Your City</h4>
+              <p className="text-gray-700 text-sm">
+                Different cities offer different opportunities and benefits. 
+                Research each location to find the best fit for you.
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="text-4xl mb-3">📄</div>
+              <h4 className="text-lg font-semibold text-navy-900 mb-2">Complete Profile</h4>
+              <p className="text-gray-700 text-sm">
+                A complete profile with experience and documents increases 
+                your chances of getting hired quickly.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
