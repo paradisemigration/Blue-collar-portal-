@@ -1007,33 +1007,62 @@ export const JOB_CATEGORIES_URL_MAP = {
   'Other Common Jobs': 'general-workers'
 }
 
-// City slug to display name mapping for UAE
+// All supported cities by country
 export const UAE_CITIES = [
   'Dubai',
-  'Abu Dhabi', 
+  'Abu Dhabi',
   'Sharjah',
   'Ras Al Khaimah',
   'Fujairah',
   'Ajman'
 ]
 
+export const SAUDI_ARABIA_CITIES = [
+  'Riyadh',
+  'Jeddah',
+  'Khobar',
+  'Dammam',
+  'Mecca',
+  'Medina'
+]
+
+export const ALL_CITIES = [...UAE_CITIES, ...SAUDI_ARABIA_CITIES]
+
 export function getCityDisplayName(citySlug: string): string {
   const cityMap: Record<string, string> = {
+    // UAE Cities
     'dubai': 'Dubai',
     'abu-dhabi': 'Abu Dhabi',
-    'sharjah': 'Sharjah', 
+    'sharjah': 'Sharjah',
     'ras-al-khaimah': 'Ras Al Khaimah',
     'fujairah': 'Fujairah',
-    'ajman': 'Ajman'
+    'ajman': 'Ajman',
+    // Saudi Arabia Cities
+    'riyadh': 'Riyadh',
+    'jeddah': 'Jeddah',
+    'khobar': 'Khobar',
+    'dammam': 'Dammam',
+    'mecca': 'Mecca',
+    'medina': 'Medina'
   }
   return cityMap[citySlug] || citySlug
+}
+
+export function getJobDisplayName(jobSlug: string): string {
+  // Reverse lookup from INDIVIDUAL_JOBS_URL_MAP
+  for (const [displayName, slug] of Object.entries(INDIVIDUAL_JOBS_URL_MAP)) {
+    if (slug === jobSlug) {
+      return displayName
+    }
+  }
+  return jobSlug
 }
 
 export function getCategoryDisplayName(categorySlug: string): string {
   const categoryMap: Record<string, string> = {
     'domestic-workers': 'Domestic & Personal Care Workers',
     'construction-workers': 'Construction & Infrastructure',
-    'technical-workers': 'Mechanical & Technical', 
+    'technical-workers': 'Mechanical & Technical',
     'factory-workers': 'Manufacturing & Factory',
     'driver': 'Transport & Logistics',
     'cleaning-workers': 'Cleaning & Maintenance',
@@ -1044,4 +1073,14 @@ export function getCategoryDisplayName(categorySlug: string): string {
     'general-workers': 'Other Common Jobs'
   }
   return categoryMap[categorySlug] || categorySlug
+}
+
+export function getCompaniesForCity(city: string): Company[] {
+  return UAE_COMPANIES[city] || SAUDI_ARABIA_COMPANIES[city] || []
+}
+
+export function getCityCountry(city: string): string {
+  if (UAE_CITIES.includes(city)) return 'UAE'
+  if (SAUDI_ARABIA_CITIES.includes(city)) return 'Saudi Arabia'
+  return 'Unknown'
 }
