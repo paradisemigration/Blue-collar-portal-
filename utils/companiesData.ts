@@ -11,6 +11,321 @@ export interface CityCompanies {
   [key: string]: Company[]
 }
 
+export const SAUDI_ARABIA_COMPANIES: CityCompanies = {
+  'Riyadh': [
+    {
+      name: 'Saudi Aramco',
+      industry: 'Oil & Gas',
+      size: '70,000+ employees',
+      description: 'National oil company with significant operations in Riyadh'
+    },
+    {
+      name: 'SABIC',
+      industry: 'Petrochemicals',
+      size: '35,000+ employees',
+      description: 'State-owned petrochemical giant'
+    },
+    {
+      name: 'Almarai',
+      industry: 'Food & Dairy',
+      size: '40,000+ employees',
+      description: 'Leading dairy and food processing company'
+    },
+    {
+      name: 'STC Group',
+      industry: 'Telecommunications',
+      size: '20,000+ employees',
+      description: 'Major telecommunications provider'
+    },
+    {
+      name: 'Samba Financial Group',
+      industry: 'Banking & Financial Services',
+      size: '8,000+ employees',
+      description: 'Prominent banking and financial services company'
+    },
+    {
+      name: 'Saudi Electricity Company',
+      industry: 'Utilities',
+      size: '32,000+ employees',
+      description: 'State-owned electricity provider'
+    },
+    {
+      name: 'Saudi Advanced Industries Company',
+      industry: 'Industrial Conglomerate',
+      size: '15,000+ employees',
+      description: 'Conglomerate with diverse industrial interests'
+    },
+    {
+      name: 'Saudi Awwal Bank',
+      industry: 'Banking & Financial Services',
+      size: '5,000+ employees',
+      description: 'One of the oldest banks in Saudi Arabia'
+    },
+    {
+      name: 'Saudi Oger',
+      industry: 'Construction & Contracting',
+      size: '25,000+ employees',
+      description: 'Construction and contracting company'
+    },
+    {
+      name: 'Saudi Research and Media Group',
+      industry: 'Media & Entertainment',
+      size: '3,000+ employees',
+      description: 'Media conglomerate'
+    },
+    {
+      name: 'Savvy Games Group',
+      industry: 'Gaming & Entertainment',
+      size: '1,000+ employees',
+      description: 'Gaming and entertainment company'
+    },
+    {
+      name: 'Shawarmer',
+      industry: 'Food & Restaurants',
+      size: '5,000+ employees',
+      description: 'Popular fast-food chain specializing in shawarma'
+    },
+    {
+      name: 'SACO Hardware',
+      industry: 'Retail & Hardware',
+      size: '3,000+ employees',
+      description: 'Retailer of hardware and home improvement products'
+    },
+    {
+      name: 'Saudi Manpower Solutions Company',
+      industry: 'Human Resources',
+      size: '10,000+ employees',
+      description: 'Provider of workforce solutions'
+    },
+    {
+      name: 'Triangular Pyramid Factory',
+      industry: 'Manufacturing - Construction Materials',
+      size: '1,000+ employees',
+      description: 'Manufacturer of construction materials'
+    },
+    {
+      name: 'Tahaluf',
+      industry: 'Technology & Consulting',
+      size: '500+ employees',
+      description: 'Technology and consulting firm'
+    },
+    {
+      name: 'Weqaya',
+      industry: 'Insurance',
+      size: '800+ employees',
+      description: 'Insurance and risk management company'
+    },
+    {
+      name: 'Al Habtoor Group',
+      industry: 'Hospitality & Real Estate',
+      size: '12,000+ employees',
+      description: 'Conglomerate with interests in hospitality and real estate'
+    },
+    {
+      name: 'Al Faisaliah Group',
+      industry: 'Diversified Business',
+      size: '8,000+ employees',
+      description: 'Diversified business group'
+    },
+    {
+      name: 'Al Shoula Group',
+      industry: 'Transportation & Logistics',
+      size: '3,000+ employees',
+      description: 'Transportation and logistics company'
+    }
+  ],
+  'Jeddah': [
+    {
+      name: 'E. A. Juffali and Brothers',
+      industry: 'Diversified Business',
+      size: '50,000+ employees',
+      description: 'Largest private enterprise in Saudi Arabia'
+    },
+    {
+      name: 'Al-Dawaa Pharmacies',
+      industry: 'Healthcare & Pharmaceuticals',
+      size: '8,000+ employees',
+      description: 'Leading pharmacy chain'
+    },
+    {
+      name: 'Jarir Bookstore',
+      industry: 'Retail & Electronics',
+      size: '5,000+ employees',
+      description: 'Retailer of books, electronics, and office supplies'
+    },
+    {
+      name: 'Al-Futtaim Group',
+      industry: 'Retail & Automotive',
+      size: '35,000+ employees',
+      description: 'Retail and automotive conglomerate'
+    },
+    {
+      name: 'Al-Muhaidib Group',
+      industry: 'Diversified Business',
+      size: '15,000+ employees',
+      description: 'Diversified business group'
+    },
+    {
+      name: 'Alireza Group',
+      industry: 'Diversified Business',
+      size: '20,000+ employees',
+      description: 'Conglomerate with interests in various sectors'
+    },
+    {
+      name: 'Al-Zamil Group',
+      industry: 'Industrial & Manufacturing',
+      size: '10,000+ employees',
+      description: 'Industrial and manufacturing company'
+    },
+    {
+      name: 'Al-Bilad Bank',
+      industry: 'Banking & Financial Services',
+      size: '3,000+ employees',
+      description: 'Banking and financial services provider'
+    },
+    {
+      name: 'Al-Khodari Sons Company',
+      industry: 'Construction & Contracting',
+      size: '5,000+ employees',
+      description: 'Construction and contracting firm'
+    },
+    {
+      name: 'Al-Suwaidi Industrial Services',
+      industry: 'Industrial Services',
+      size: '2,000+ employees',
+      description: 'Provider of industrial services'
+    }
+  ],
+  'Khobar': [
+    {
+      name: 'Sipchem',
+      industry: 'Petrochemicals',
+      size: '3,000+ employees',
+      description: 'Petrochemical company'
+    },
+    {
+      name: 'Saudi Aramco',
+      industry: 'Oil & Gas',
+      size: '15,000+ employees',
+      description: 'Oil and gas company with significant operations in Khobar'
+    },
+    {
+      name: 'Al-Khobar International School',
+      industry: 'Education',
+      size: '500+ employees',
+      description: 'Educational institution'
+    },
+    {
+      name: 'Al Khobar International Trading',
+      industry: 'Trading & Commerce',
+      size: '1,000+ employees',
+      description: 'Trading company'
+    },
+    {
+      name: 'Al Khobar Industrial Company',
+      industry: 'Industrial Manufacturing',
+      size: '2,000+ employees',
+      description: 'Industrial manufacturing firm'
+    }
+  ],
+  'Dammam': [
+    {
+      name: 'Saudi Aramco',
+      industry: 'Oil & Gas',
+      size: '20,000+ employees',
+      description: 'Oil and gas company with major operations in Dammam'
+    },
+    {
+      name: 'Saudi Electricity Company',
+      industry: 'Utilities',
+      size: '5,000+ employees',
+      description: 'Electricity provider with facilities in Dammam'
+    },
+    {
+      name: 'Al Khobar International Trading',
+      industry: 'Trading & Commerce',
+      size: '800+ employees',
+      description: 'Trading company with a presence in Dammam'
+    },
+    {
+      name: 'Al Khobar Industrial Company',
+      industry: 'Industrial Manufacturing',
+      size: '1,500+ employees',
+      description: 'Industrial manufacturing firm operating in Dammam'
+    },
+    {
+      name: 'Dammam Industrial Company',
+      industry: 'Industrial Manufacturing',
+      size: '2,000+ employees',
+      description: 'Industrial manufacturing company'
+    }
+  ],
+  'Mecca': [
+    {
+      name: 'Saudi Binladin Group',
+      industry: 'Construction & Contracting',
+      size: '100,000+ employees',
+      description: 'Construction and contracting company'
+    },
+    {
+      name: 'Al Haramain Railway',
+      industry: 'Transportation',
+      size: '2,000+ employees',
+      description: 'Transportation company operating the high-speed rail'
+    },
+    {
+      name: 'Al-Madina Al-Munawara Company',
+      industry: 'Real Estate Development',
+      size: '1,000+ employees',
+      description: 'Real estate development firm'
+    },
+    {
+      name: 'Al-Balad Al-Ameen',
+      industry: 'Urban Development',
+      size: '1,500+ employees',
+      description: 'Urban development company'
+    },
+    {
+      name: 'Al-Ansar Group',
+      industry: 'Diversified Business',
+      size: '5,000+ employees',
+      description: 'Diversified business group'
+    }
+  ],
+  'Medina': [
+    {
+      name: 'Saudi Binladin Group',
+      industry: 'Construction & Contracting',
+      size: '80,000+ employees',
+      description: 'Construction and contracting company'
+    },
+    {
+      name: 'Al-Madina Al-Munawara Company',
+      industry: 'Real Estate Development',
+      size: '800+ employees',
+      description: 'Real estate development firm'
+    },
+    {
+      name: 'Al-Balad Al-Ameen',
+      industry: 'Urban Development',
+      size: '1,200+ employees',
+      description: 'Urban development company'
+    },
+    {
+      name: 'Al-Ansar Group',
+      industry: 'Diversified Business',
+      size: '4,000+ employees',
+      description: 'Diversified business group'
+    },
+    {
+      name: 'Al-Madina Media Group',
+      industry: 'Media & Publishing',
+      size: '500+ employees',
+      description: 'Media and publishing company'
+    }
+  ]
+}
+
 export const UAE_COMPANIES: CityCompanies = {
   'Dubai': [
     {
