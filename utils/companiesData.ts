@@ -11,6 +11,135 @@ export interface CityCompanies {
   [key: string]: Company[]
 }
 
+export const BAHRAIN_COMPANIES: CityCompanies = {
+  'Manama': [
+    {
+      name: 'Bahrain Petroleum Company (BAPCO)',
+      industry: 'Oil & Gas',
+      size: '4,000+ employees',
+      description: 'Oil refining and distribution'
+    },
+    {
+      name: 'Aluminium Bahrain (ALBA)',
+      industry: 'Aluminum Manufacturing',
+      size: '3,000+ employees',
+      description: 'Aluminium production'
+    },
+    {
+      name: 'National Bank of Bahrain (NBB)',
+      industry: 'Banking & Financial Services',
+      size: '2,000+ employees',
+      description: 'Commercial banking services'
+    },
+    {
+      name: 'Bahrain Telecommunications Company (Batelco)',
+      industry: 'Telecommunications',
+      size: '2,500+ employees',
+      description: 'Telecommunications services'
+    },
+    {
+      name: 'Gulf Air',
+      industry: 'Aviation',
+      size: '4,000+ employees',
+      description: 'National airline'
+    },
+    {
+      name: 'Bahrain International Circuit',
+      industry: 'Motorsport & Entertainment',
+      size: '500+ employees',
+      description: 'Motorsport venue'
+    }
+  ],
+  'Muharraq': [
+    {
+      name: 'Al Hidd Mall',
+      industry: 'Retail & Entertainment',
+      size: '1,000+ employees',
+      description: 'Retail and entertainment'
+    },
+    {
+      name: 'Dragon City',
+      industry: 'Retail & Wholesale',
+      size: '2,000+ employees',
+      description: 'Retail and wholesale'
+    },
+    {
+      name: 'Lagoon Park - Amwaj Island',
+      industry: 'Retail & Leisure',
+      size: '500+ employees',
+      description: 'Retail and leisure'
+    },
+    {
+      name: 'Lulu HyperMarket/Muharraq Central Market',
+      industry: 'Retail & Groceries',
+      size: '800+ employees',
+      description: 'Retail and groceries'
+    },
+    {
+      name: 'Oasis Mall',
+      industry: 'Retail & Entertainment',
+      size: '1,200+ employees',
+      description: 'Retail and entertainment'
+    },
+    {
+      name: 'Mall of Dilmunia',
+      industry: 'Retail & Leisure',
+      size: '600+ employees',
+      description: 'Retail and leisure'
+    },
+    {
+      name: 'Seef Al Muharraq Mall Bahrain',
+      industry: 'Retail & Entertainment',
+      size: '900+ employees',
+      description: 'Retail and entertainment'
+    }
+  ],
+  'Riffa': [
+    {
+      name: 'Al Enma Mall',
+      industry: 'Retail & Entertainment',
+      size: '800+ employees',
+      description: 'Retail and entertainment'
+    },
+    {
+      name: 'Oasis Mall',
+      industry: 'Retail & Entertainment',
+      size: '1,000+ employees',
+      description: 'Retail and entertainment'
+    },
+    {
+      name: 'Wadi Al Sail Mall',
+      industry: 'Retail & Entertainment',
+      size: '700+ employees',
+      description: 'Retail and entertainment'
+    }
+  ],
+  'Saar': [
+    {
+      name: 'Saar Mall',
+      industry: 'Retail & Entertainment',
+      size: '600+ employees',
+      description: 'Retail and entertainment'
+    }
+  ],
+  'Sitra': [
+    {
+      name: 'Sitra Mall',
+      industry: 'Retail & Entertainment',
+      size: '500+ employees',
+      description: 'Retail and entertainment'
+    }
+  ],
+  'Tubli': [
+    {
+      name: 'Ansar Gallery',
+      industry: 'Retail & Wholesale',
+      size: '400+ employees',
+      description: 'Retail and wholesale'
+    }
+  ]
+}
+
 export const KUWAIT_COMPANIES: CityCompanies = {
   'Kuwait City': [
     {
