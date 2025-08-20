@@ -287,37 +287,60 @@ export default function CreateProfile() {
       let detectedFromIP = false
 
       try {
-        // Try IP-based detection first with timeout
-        const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 3000)
+        // Try multiple IP-based detection APIs
+        const apis = [
+          'https://ipapi.co/json/',
+          'https://ip-api.com/json/',
+          'https://geolocation-db.com/json/'
+        ]
 
-        const response = await fetch('https://ipapi.co/json/', {
-          signal: controller.signal
-        })
-        clearTimeout(timeoutId)
+        for (const apiUrl of apis) {
+          try {
+            const controller = new AbortController()
+            const timeoutId = setTimeout(() => controller.abort(), 3000)
 
-        if (response.ok) {
-          const data = await response.json()
-          const countryCode = data.country_code
+            console.log('🌍 Trying location detection from:', apiUrl)
+            const response = await fetch(apiUrl, {
+              signal: controller.signal,
+              headers: {
+                'Accept': 'application/json',
+              }
+            })
+            clearTimeout(timeoutId)
 
-          // Map country codes to our supported countries
-          const countryMapping: Record<string, Country> = {
-            'AE': 'UAE',
-            'QA': 'Qatar',
-            'SA': 'Saudi Arabia',
-            'OM': 'Oman',
-            'KW': 'Kuwait',
-            'BH': 'Bahrain'
-          }
+            if (response.ok) {
+              const data = await response.json()
+              console.log('📍 Location API response:', data)
 
-          if (countryMapping[countryCode]) {
-            detectedCountry = countryMapping[countryCode]
-            detectedFromIP = true
-            console.log('✅ Location detected from IP:', detectedCountry)
+              // Handle different API response formats
+              let countryCode = data.country_code || data.countryCode || data.country_code
+
+              // Map country codes to our supported countries
+              const countryMapping: Record<string, Country> = {
+                'AE': 'UAE',
+                'QA': 'Qatar',
+                'SA': 'Saudi Arabia',
+                'OM': 'Oman',
+                'KW': 'Kuwait',
+                'BH': 'Bahrain'
+              }
+
+              if (countryCode && countryMapping[countryCode.toUpperCase()]) {
+                detectedCountry = countryMapping[countryCode.toUpperCase()]
+                detectedFromIP = true
+                console.log('✅ Location detected from IP via', apiUrl, ':', detectedCountry)
+                break // Exit loop on success
+              } else {
+                console.log('⚠️ Country not in Gulf region:', countryCode, 'from', apiUrl)
+              }
+            }
+          } catch (apiError) {
+            console.log('❌ API failed:', apiUrl, apiError)
+            continue // Try next API
           }
         }
       } catch (error) {
-        console.log('IP detection failed, trying timezone...')
+        console.log('❌ All IP detection failed, trying timezone...', error)
 
         // Fallback to timezone-based detection
         try {
