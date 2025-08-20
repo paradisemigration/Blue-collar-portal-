@@ -137,12 +137,12 @@ const JOB_DETAILS: Record<JobTitle, {
 }> = {
   'Driver': {
     descriptions: [
-      'Professional driver with clean driving record and excellent navigation skills.',
-      'Experienced driver specializing in VIP transportation and executive services.',
-      'Reliable driver with extensive knowledge of local roads and traffic patterns.',
-      'Licensed driver with experience in both personal and commercial driving.',
-      'Courteous driver with excellent customer service and punctuality.',
-      'Expert driver with defensive driving certification and safety focus.'
+      'Professional driver with 8+ years experience, clean driving record, and excellent navigation skills. Specializing in luxury vehicle handling and VIP client service with impeccable punctuality.',
+      'Experienced executive driver with expertise in high-end transportation services. Fluent in multiple languages with exceptional customer service skills and deep knowledge of Gulf region routes.',
+      'Reliable and courteous driver with extensive experience in both personal and commercial driving. Known for maintaining vehicles in pristine condition and providing safe, comfortable journeys.',
+      'Licensed professional driver with defensive driving certification and advanced safety training. Experienced in airport transfers, city tours, and long-distance travel with excellent time management.',
+      'Dedicated driver with excellent reputation for reliability and professionalism. Experienced in handling luxury sedans, SUVs, and commercial vehicles with focus on passenger comfort and safety.',
+      'Expert driver with GPS navigation expertise and comprehensive knowledge of traffic patterns. Committed to providing exceptional service with discretion, punctuality, and professional appearance.'
     ],
     salaryRange: { min: 2500, max: 4500 },
     languages: [
