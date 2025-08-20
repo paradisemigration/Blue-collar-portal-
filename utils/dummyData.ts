@@ -156,12 +156,12 @@ const JOB_DETAILS: Record<JobTitle, {
   },
   'Maid': {
     descriptions: [
-      'Dedicated housekeeping professional with attention to detail and reliability.',
-      'Experienced domestic helper skilled in all aspects of home maintenance.',
-      'Professional housekeeper with expertise in deep cleaning and organization.',
-      'Trustworthy domestic worker with excellent references and work ethic.',
-      'Skilled home care assistant with experience in family households.',
-      'Reliable cleaning professional with knowledge of modern cleaning techniques.'
+      'Dedicated housekeeping professional with 6+ years experience in luxury residences. Expert in deep cleaning, laundry care, ironing, and home organization. Known for discretion, reliability, and maintaining pristine living environments.',
+      'Experienced domestic helper skilled in comprehensive household management including cleaning, cooking, and childcare assistance. Excellent references from high-profile families with proven track record of trustworthiness.',
+      'Professional housekeeper specializing in villa and apartment maintenance. Expert in modern cleaning techniques, fabric care, and appliance operation. Flexible with scheduling and committed to exceptional service standards.',
+      'Trustworthy domestic worker with extensive experience in family households. Proficient in deep sanitization, meal preparation assistance, and maintaining organized, comfortable living spaces. Excellent communication skills.',
+      'Skilled home care specialist with training in hospitality-grade cleaning standards. Expert in time management, inventory tracking, and creating welcoming home environments. Committed to privacy and professionalism.',
+      'Reliable housekeeping professional with knowledge of eco-friendly cleaning methods and premium home care. Experienced in managing multiple properties with attention to detail and exceptional work ethic.'
     ],
     salaryRange: { min: 1800, max: 3500 },
     languages: [
