@@ -199,114 +199,156 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {/* Featured Jobs */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200 hover:shadow-lg transition-all">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="bg-blue-500 rounded-xl w-12 h-12 flex items-center justify-center">
-                  <TruckIcon className="h-6 w-6 text-white" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
+            {/* Featured Jobs - Redesigned Cards */}
+            <div className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+              {/* Job Card Header */}
+              <div className="p-4 sm:p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-blue-500 rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <TruckIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">Light Vehicle Driver</h3>
+                      <p className="text-blue-600 font-medium text-sm">Emirates Transport LLC</p>
+                    </div>
+                  </div>
+                  <span className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full font-bold animate-pulse">
+                    URGENT
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Light Vehicle Driver</h3>
-                  <p className="text-blue-600 font-medium text-sm">Emirates Transport LLC</p>
-                  <div className="flex items-center text-gray-600 text-sm mt-1">
-                    <MapPinIcon className="h-4 w-4 mr-1" />
-                    Dubai, UAE
+
+                <div className="flex items-center text-gray-600 text-sm mb-4">
+                  <MapPinIcon className="h-4 w-4 mr-1 text-gray-400" />
+                  <span>Dubai, UAE</span>
+                </div>
+
+                {/* Job Details Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">AED 2,500</div>
+                    <div className="text-xs text-gray-600">Min Salary</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">2-3 yrs</div>
+                    <div className="text-xs text-gray-600">Experience</div>
                   </div>
                 </div>
-                <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-medium">
-                  URGENT
-                </span>
-              </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Salary:</span>
-                  <span className="font-semibold text-navy-900">AED 2,500 - 3,500</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Experience:</span>
-                  <span className="font-semibold text-navy-900">2-3 years</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Type:</span>
-                  <span className="font-semibold text-navy-900">Full-time</span>
+
+                {/* Job Type Badge */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-medium">Full-time</span>
+                  <span className="text-gray-500 text-xs">Posted today</span>
                 </div>
               </div>
-              <Link href="/dubai/driver" className="btn-primary w-full text-center py-2">
-                View Details
-              </Link>
+
+              {/* Action Button */}
+              <div className="p-4 sm:p-6 pt-0">
+                <Link href="/dubai/driver" className="block w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                  Apply Now
+                </Link>
+              </div>
             </div>
 
-            <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-6 border border-pink-200 hover:shadow-lg transition-all">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="bg-pink-500 rounded-xl w-12 h-12 flex items-center justify-center">
-                  <HomeIcon className="h-6 w-6 text-white" />
+            <div className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+              {/* Job Card Header */}
+              <div className="p-4 sm:p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-pink-500 rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <HomeIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-pink-600 transition-colors">Housemaid</h3>
+                      <p className="text-pink-600 font-medium text-sm">Al Mansouri Family</p>
+                    </div>
+                  </div>
+                  <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-bold">
+                    FEATURED
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Housemaid</h3>
-                  <p className="text-pink-600 font-medium text-sm">Al Mansouri Family</p>
-                  <div className="flex items-center text-gray-600 text-sm mt-1">
-                    <MapPinIcon className="h-4 w-4 mr-1" />
-                    Doha, Qatar
+
+                <div className="flex items-center text-gray-600 text-sm mb-4">
+                  <MapPinIcon className="h-4 w-4 mr-1 text-gray-400" />
+                  <span>Doha, Qatar</span>
+                </div>
+
+                {/* Job Details Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">QAR 1,800</div>
+                    <div className="text-xs text-gray-600">Min Salary</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">1-2 yrs</div>
+                    <div className="text-xs text-gray-600">Experience</div>
                   </div>
                 </div>
-                <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-medium">
-                  FEATURED
-                </span>
-              </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Salary:</span>
-                  <span className="font-semibold text-navy-900">QAR 1,800 - 2,500</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Experience:</span>
-                  <span className="font-semibold text-navy-900">1-2 years</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Type:</span>
-                  <span className="font-semibold text-navy-900">Live-in</span>
+
+                {/* Job Type Badge */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full font-medium">Live-in</span>
+                  <span className="text-gray-500 text-xs">Posted 2 days ago</span>
                 </div>
               </div>
-              <Link href="/doha/maid" className="btn-primary w-full text-center py-2">
-                View Details
-              </Link>
+
+              {/* Action Button */}
+              <div className="p-4 sm:p-6 pt-0">
+                <Link href="/doha/maid" className="block w-full bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                  Apply Now
+                </Link>
+              </div>
             </div>
 
-            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-6 border border-yellow-200 hover:shadow-lg transition-all">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="bg-yellow-500 rounded-xl w-12 h-12 flex items-center justify-center">
-                  <BoltIcon className="h-6 w-6 text-white" />
+            <div className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+              {/* Job Card Header */}
+              <div className="p-4 sm:p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-yellow-500 rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <BoltIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-yellow-600 transition-colors">Electrician</h3>
+                      <p className="text-yellow-600 font-medium text-sm">Saudi Electric Company</p>
+                    </div>
+                  </div>
+                  <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-bold">
+                    NEW
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Electrician</h3>
-                  <p className="text-yellow-600 font-medium text-sm">Saudi Electric Company</p>
-                  <div className="flex items-center text-gray-600 text-sm mt-1">
-                    <MapPinIcon className="h-4 w-4 mr-1" />
-                    Riyadh, Saudi Arabia
+
+                <div className="flex items-center text-gray-600 text-sm mb-4">
+                  <MapPinIcon className="h-4 w-4 mr-1 text-gray-400" />
+                  <span>Riyadh, Saudi Arabia</span>
+                </div>
+
+                {/* Job Details Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">SAR 3,000</div>
+                    <div className="text-xs text-gray-600">Min Salary</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">3+ yrs</div>
+                    <div className="text-xs text-gray-600">Experience</div>
                   </div>
                 </div>
-                <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full font-medium">
-                  NEW
-                </span>
-              </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Salary:</span>
-                  <span className="font-semibold text-navy-900">SAR 3,000 - 5,000</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Experience:</span>
-                  <span className="font-semibold text-navy-900">3+ years</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Type:</span>
-                  <span className="font-semibold text-navy-900">Contract</span>
+
+                {/* Job Type Badge */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full font-medium">Contract</span>
+                  <span className="text-gray-500 text-xs">Posted 1 day ago</span>
                 </div>
               </div>
-              <Link href="/riyadh/electrician" className="btn-primary w-full text-center py-2">
-                View Details
-              </Link>
+
+              {/* Action Button */}
+              <div className="p-4 sm:p-6 pt-0">
+                <Link href="/riyadh/electrician" className="block w-full bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                  Apply Now
+                </Link>
+              </div>
             </div>
 
             <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200 hover:shadow-lg transition-all">
