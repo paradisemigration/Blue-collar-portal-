@@ -1,5 +1,9 @@
 import { MetadataRoute } from 'next'
-import { GULF_REGIONS } from '../utils/dummyData'
+import {
+  ALL_CITIES,
+  JOB_CATEGORIES_URL_MAP,
+  INDIVIDUAL_JOBS_URL_MAP
+} from '../utils/companiesData'
 
 // All job titles available in the platform (complete list of 70+ jobs)
 const JOB_TITLES = [
