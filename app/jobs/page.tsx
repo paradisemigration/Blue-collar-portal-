@@ -293,6 +293,55 @@ export default function JobsPage() {
         </div>
       </div>
 
+      {/* Related Job Opportunities */}
+      <div className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-navy-900 mb-4">Popular Job Opportunities</h2>
+            <p className="text-gray-600 text-lg">
+              Trending job searches across the Gulf region
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: 'Driver Jobs in Dubai', href: '/jobs/dubai/driver', companies: '150+', urgent: true },
+              { title: 'Domestic Workers in Abu Dhabi', href: '/jobs/abu-dhabi/domestic-workers', companies: '200+' },
+              { title: 'Construction Workers in Riyadh', href: '/jobs/riyadh/construction-workers', companies: '180+', urgent: true },
+              { title: 'Technical Workers in Doha', href: '/jobs/doha/technical-workers', companies: '120+' },
+              { title: 'Hospitality Workers in Kuwait City', href: '/jobs/kuwait-city/hospitality-workers', companies: '90+' },
+              { title: 'Factory Workers in Manama', href: '/jobs/manama/factory-workers', companies: '110+', urgent: true }
+            ].map((job, index) => (
+              <Link
+                key={index}
+                href={job.href}
+                className="bg-white rounded-lg p-6 shadow-sm border hover:shadow-md transition-all group"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <BriefcaseIcon className="h-6 w-6 text-primary-600 mt-1" />
+                  {job.urgent && (
+                    <span className="bg-red-100 text-red-700 text-xs font-medium px-2 py-1 rounded-full">
+                      Urgent
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-lg font-semibold text-navy-900 mb-2 group-hover:text-primary-600 transition-colors">
+                  {job.title}
+                </h3>
+                <div className="flex items-center text-gray-600 text-sm mb-3">
+                  <BuildingOfficeIcon className="h-4 w-4 mr-1" />
+                  <span>{job.companies} companies hiring</span>
+                </div>
+                <div className="flex items-center text-primary-600 text-sm font-medium">
+                  <span>View opportunities</span>
+                  <ChevronRightIcon className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Success Stories */}
       <div className="py-12 bg-primary-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
