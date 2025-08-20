@@ -99,35 +99,47 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   ]
 
-  // Generate all city/job combination pages (43 cities × 70+ jobs = 3,000+ pages)
-  const cityJobPages = []
+  // Generate job pages for the new routing structure
+  const jobPages = []
 
   // High priority cities (major economic centers)
   const majorCities = ['Dubai', 'Riyadh', 'Doha', 'Kuwait City', 'Abu Dhabi', 'Muscat', 'Manama']
-  // High demand jobs
-  const popularJobs = ['Driver', 'Maid', 'Housemaid', 'Security Guard', 'Cook', 'Cleaner', 'Housekeeping Staff', 'Construction Worker', 'Construction Laborer', 'Auto Mechanic', 'Nanny (Childcare Worker)']
+  // High demand job categories
+  const popularCategories = ['driver', 'domestic-workers', 'construction-workers', 'hospitality-workers', 'cleaning-workers']
+  // High demand individual jobs
+  const popularJobs = ['cook', 'driver', 'maid', 'security-guard', 'cleaner', 'electrician', 'mechanic']
 
-  // Get all cities from GULF_REGIONS
-  const allCities = Object.values(GULF_REGIONS).flatMap(region => region.cities)
+  // Generate city/category combination pages
+  for (const city of ALL_CITIES) {
+    const citySlug = cityToSlug(city)
 
-  for (const city of allCities) {
-    for (const job of JOB_TITLES) {
-      const citySlug = cityToSlug(city)
-      const jobSlug = jobToSlug(job)
+    // Add job category pages
+    for (const category of JOB_CATEGORIES) {
+      let priority = 0.7 // Base priority for category pages
+      if (majorCities.includes(city)) priority += 0.1
+      if (popularCategories.includes(category)) priority += 0.1
+      priority = Math.min(priority, 0.85)
 
-      // Determine priority based on city and job popularity
-      let priority = 0.6 // Base priority
-      if (majorCities.includes(city)) priority += 0.15
-      if (popularJobs.includes(job)) priority += 0.1
+      jobPages.push({
+        url: `${baseUrl}/jobs/${citySlug}/${category}`,
+        lastModified: currentDate,
+        changeFrequency: 'daily' as const,
+        priority: Math.round(priority * 100) / 100,
+      })
+    }
 
-      // Cap at 0.9 to keep homepage and browse as highest priority
-      priority = Math.min(priority, 0.9)
+    // Add individual job pages (higher priority for popular jobs)
+    for (const job of INDIVIDUAL_JOBS) {
+      let priority = 0.65 // Base priority for individual jobs
+      if (majorCities.includes(city)) priority += 0.1
+      if (popularJobs.includes(job)) priority += 0.15
+      priority = Math.min(priority, 0.8)
 
-      cityJobPages.push({
-        url: `${baseUrl}/${citySlug}/${jobSlug}`,
+      jobPages.push({
+        url: `${baseUrl}/jobs/${citySlug}/${job}`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
-        priority: Math.round(priority * 100) / 100, // Round to 2 decimal places
+        priority: Math.round(priority * 100) / 100,
       })
     }
   }
