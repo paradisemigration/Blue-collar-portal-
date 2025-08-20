@@ -351,112 +351,154 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200 hover:shadow-lg transition-all">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="bg-green-500 rounded-xl w-12 h-12 flex items-center justify-center">
-                  <WrenchScrewdriverIcon className="h-6 w-6 text-white" />
+            <div className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+              {/* Job Card Header */}
+              <div className="p-4 sm:p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-green-500 rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <WrenchScrewdriverIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors">Plumber</h3>
+                      <p className="text-green-600 font-medium text-sm">Al Ain Water Company</p>
+                    </div>
+                  </div>
+                  <span className="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded-full font-bold">
+                    HOT
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Plumber</h3>
-                  <p className="text-green-600 font-medium text-sm">Al Ain Water Company</p>
-                  <div className="flex items-center text-gray-600 text-sm mt-1">
-                    <MapPinIcon className="h-4 w-4 mr-1" />
-                    Abu Dhabi, UAE
+
+                <div className="flex items-center text-gray-600 text-sm mb-4">
+                  <MapPinIcon className="h-4 w-4 mr-1 text-gray-400" />
+                  <span>Abu Dhabi, UAE</span>
+                </div>
+
+                {/* Job Details Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">AED 2,800</div>
+                    <div className="text-xs text-gray-600">Min Salary</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">2+ yrs</div>
+                    <div className="text-xs text-gray-600">Experience</div>
                   </div>
                 </div>
-                <span className="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded-full font-medium">
-                  HOT
-                </span>
-              </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Salary:</span>
-                  <span className="font-semibold text-navy-900">AED 2,800 - 4,200</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Experience:</span>
-                  <span className="font-semibold text-navy-900">2+ years</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Type:</span>
-                  <span className="font-semibold text-navy-900">Full-time</span>
+
+                {/* Job Type Badge */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">Full-time</span>
+                  <span className="text-gray-500 text-xs">Posted 3 hours ago</span>
                 </div>
               </div>
-              <Link href="/abu-dhabi/plumber" className="btn-primary w-full text-center py-2">
-                View Details
-              </Link>
+
+              {/* Action Button */}
+              <div className="p-4 sm:p-6 pt-0">
+                <Link href="/abu-dhabi/plumber" className="block w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                  Apply Now
+                </Link>
+              </div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200 hover:shadow-lg transition-all">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="bg-purple-500 rounded-xl w-12 h-12 flex items-center justify-center">
-                  <SparklesIcon className="h-6 w-6 text-white" />
+            <div className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+              {/* Job Card Header */}
+              <div className="p-4 sm:p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-purple-500 rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <SparklesIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-purple-600 transition-colors">Cleaner</h3>
+                      <p className="text-purple-600 font-medium text-sm">Kuwait Towers Mall</p>
+                    </div>
+                  </div>
+                  <span className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full font-bold animate-pulse">
+                    APPLY NOW
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Cleaner</h3>
-                  <p className="text-purple-600 font-medium text-sm">Kuwait Towers Mall</p>
-                  <div className="flex items-center text-gray-600 text-sm mt-1">
-                    <MapPinIcon className="h-4 w-4 mr-1" />
-                    Kuwait City, Kuwait
+
+                <div className="flex items-center text-gray-600 text-sm mb-4">
+                  <MapPinIcon className="h-4 w-4 mr-1 text-gray-400" />
+                  <span>Kuwait City, Kuwait</span>
+                </div>
+
+                {/* Job Details Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">KWD 180</div>
+                    <div className="text-xs text-gray-600">Min Salary</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">1+ yrs</div>
+                    <div className="text-xs text-gray-600">Experience</div>
                   </div>
                 </div>
-                <span className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full font-medium">
-                  APPLY NOW
-                </span>
-              </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Salary:</span>
-                  <span className="font-semibold text-navy-900">KWD 180 - 250</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Experience:</span>
-                  <span className="font-semibold text-navy-900">1+ years</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Type:</span>
-                  <span className="font-semibold text-navy-900">Part-time</span>
+
+                {/* Job Type Badge */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full font-medium">Part-time</span>
+                  <span className="text-gray-500 text-xs">Posted 6 hours ago</span>
                 </div>
               </div>
-              <Link href="/kuwait-city/cleaner" className="btn-primary w-full text-center py-2">
-                View Details
-              </Link>
+
+              {/* Action Button */}
+              <div className="p-4 sm:p-6 pt-0">
+                <Link href="/kuwait-city/cleaner" className="block w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                  Apply Now
+                </Link>
+              </div>
             </div>
 
-            <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-6 border border-indigo-200 hover:shadow-lg transition-all">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="bg-indigo-500 rounded-xl w-12 h-12 flex items-center justify-center">
-                  <EyeIcon className="h-6 w-6 text-white" />
+            <div className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+              {/* Job Card Header */}
+              <div className="p-4 sm:p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-indigo-500 rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <EyeIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">Security Guard</h3>
+                      <p className="text-indigo-600 font-medium text-sm">Bahrain Bay Security</p>
+                    </div>
+                  </div>
+                  <span className="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full font-bold">
+                    PREMIUM
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Security Guard</h3>
-                  <p className="text-indigo-600 font-medium text-sm">Bahrain Bay Security</p>
-                  <div className="flex items-center text-gray-600 text-sm mt-1">
-                    <MapPinIcon className="h-4 w-4 mr-1" />
-                    Manama, Bahrain
+
+                <div className="flex items-center text-gray-600 text-sm mb-4">
+                  <MapPinIcon className="h-4 w-4 mr-1 text-gray-400" />
+                  <span>Manama, Bahrain</span>
+                </div>
+
+                {/* Job Details Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">BHD 220</div>
+                    <div className="text-xs text-gray-600">Min Salary</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-gray-900">2+ yrs</div>
+                    <div className="text-xs text-gray-600">Experience</div>
                   </div>
                 </div>
-                <span className="bg-teal-100 text-teal-700 text-xs px-2 py-1 rounded-full font-medium">
-                  PREMIUM
-                </span>
-              </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Salary:</span>
-                  <span className="font-semibold text-navy-900">BHD 220 - 320</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Experience:</span>
-                  <span className="font-semibold text-navy-900">2+ years</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Type:</span>
-                  <span className="font-semibold text-navy-900">Shifts</span>
+
+                {/* Job Type Badge */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full font-medium">Shifts</span>
+                  <span className="text-gray-500 text-xs">Posted 1 week ago</span>
                 </div>
               </div>
-              <Link href="/manama/security-guard" className="btn-primary w-full text-center py-2">
-                View Details
-              </Link>
+
+              {/* Action Button */}
+              <div className="p-4 sm:p-6 pt-0">
+                <Link href="/manama/security-guard" className="block w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                  Apply Now
+                </Link>
+              </div>
             </div>
           </div>
 
