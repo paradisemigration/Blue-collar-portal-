@@ -309,7 +309,15 @@ export default function JobListingPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
+
+      <div className="min-h-screen bg-gray-50">
       {/* Hero Banner */}
       <div className="bg-gradient-to-br from-primary-600 to-navy-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -522,5 +530,6 @@ export default function JobListingPage({ params }: PageProps) {
         </div>
       </div>
     </div>
+    </>
   )
 }
