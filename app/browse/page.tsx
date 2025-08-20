@@ -598,155 +598,183 @@ export default function BrowseWorkers() {
         </div>
       </div>
 
-      {/* Enhanced Profile Modal */}
+      {/* Modern Profile Modal */}
       {selectedWorker && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[95vh] overflow-hidden border border-gray-200">
             {/* Modal Header */}
-            <div className="bg-gradient-to-r from-primary-500 to-blue-600 text-white px-6 py-5">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+            <div className="relative bg-gradient-to-br from-primary-500 via-blue-600 to-purple-600 text-white px-8 py-6">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="relative flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
                     <EyeIcon className="h-6 w-6" />
                   </div>
-                  Worker Profile
-                </h2>
+                  <div>
+                    <h2 className="text-2xl font-bold">Worker Profile</h2>
+                    <p className="text-white/80 text-sm">Detailed Information</p>
+                  </div>
+                </div>
                 <button
                   onClick={closeProfileModal}
-                  className="text-white/80 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
+                  className="text-white/80 hover:text-white transition-colors p-3 hover:bg-white/10 rounded-2xl"
                 >
                   <XMarkIcon className="h-6 w-6" />
                 </button>
               </div>
             </div>
 
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
-              {/* Enhanced Profile Header */}
-              <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
-                <div className="relative">
-                  <div className="relative">
+            <div className="p-8 overflow-y-auto max-h-[calc(95vh-120px)]">
+              {/* Profile Header */}
+              <div className="text-center mb-8">
+                <div className="relative inline-block mb-6">
+                  <div className="relative w-32 h-32 mx-auto">
                     <img
                       src={selectedWorker.profilePicture}
                       alt={selectedWorker.fullName}
-                      className={`w-24 h-24 rounded-3xl object-cover border-4 border-gray-100 shadow-lg transition-all duration-300 ${
+                      className={`w-full h-full rounded-full object-cover border-4 border-white shadow-2xl transition-all duration-300 ${
                         !isSubscribed ? 'filter blur-md' : ''
                       }`}
                     />
-                    {/* Blur overlay for non-premium users */}
                     {!isSubscribed && (
-                      <div className="absolute inset-0 bg-gray-200/30 rounded-3xl border-4 border-gray-100 flex items-center justify-center">
-                        <LockClosedIcon className="h-8 w-8 text-gray-600" />
+                      <div className="absolute inset-0 bg-black/30 rounded-full border-4 border-white flex items-center justify-center">
+                        <LockClosedIcon className="h-10 w-10 text-white drop-shadow-lg" />
                       </div>
                     )}
                   </div>
-                  <div className="absolute -bottom-2 -right-2 bg-green-500 rounded-full p-2 border-4 border-white">
-                    <CheckBadgeIcon className="h-5 w-5 text-white" />
+                  {/* Status Indicators */}
+                  <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-emerald-500 rounded-full border-4 border-white shadow-xl flex items-center justify-center">
+                    <div className="w-4 h-4 bg-white rounded-full"></div>
+                  </div>
+                  <div className="absolute -top-2 -right-2">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-xl ${
+                      selectedWorker.visaStatus === 'Work Visa' ? 'bg-emerald-500' :
+                      selectedWorker.visaStatus === 'Freelance Visa' ? 'bg-blue-500' :
+                      selectedWorker.visaStatus === 'Visit Visa' ? 'bg-amber-500' :
+                      'bg-gray-500'
+                    }`}>
+                      <CheckBadgeIcon className="h-6 w-6 text-white" />
+                    </div>
                   </div>
                 </div>
-                
-                <div className="text-center sm:text-left flex-1">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-2">{selectedWorker.fullName}</h3>
-                  <p className="text-xl text-primary-600 font-semibold mb-3">{selectedWorker.jobTitle}</p>
-                  <div className="flex items-center justify-center sm:justify-start text-gray-600 mb-3">
-                    <MapPinIcon className="h-5 w-5 mr-2" />
-                    {selectedWorker.city}, {selectedWorker.country}
-                  </div>
-                  <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium ${
-                    selectedWorker.visaStatus === 'Work Visa' ? 'bg-green-100 text-green-800' :
-                    selectedWorker.visaStatus === 'Freelance Visa' ? 'bg-blue-100 text-blue-800' :
-                    selectedWorker.visaStatus === 'Visit Visa' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-gray-100 text-gray-800'
-                  }`}>
-                    {selectedWorker.visaStatus}
-                  </span>
+
+                <h3 className="text-3xl font-bold text-gray-900 mb-2">{selectedWorker.fullName}</h3>
+                <p className="text-xl text-primary-600 font-semibold mb-4">{selectedWorker.jobTitle}</p>
+
+                <div className="flex items-center justify-center text-gray-600 mb-4">
+                  <MapPinIcon className="h-5 w-5 mr-2" />
+                  <span>{selectedWorker.city}, {selectedWorker.country}</span>
+                </div>
+
+                <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold shadow-lg ${
+                  selectedWorker.visaStatus === 'Work Visa' ? 'bg-emerald-500 text-white' :
+                  selectedWorker.visaStatus === 'Freelance Visa' ? 'bg-blue-500 text-white' :
+                  selectedWorker.visaStatus === 'Visit Visa' ? 'bg-amber-500 text-white' :
+                  'bg-gray-500 text-white'
+                }`}>
+                  {selectedWorker.visaStatus}
                 </div>
               </div>
 
-              {/* Enhanced Stats Grid */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-1">{selectedWorker.yearsExperience}</div>
-                  <div className="text-blue-500 font-medium">Years Experience</div>
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 gap-6 mb-8">
+                <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl p-6 text-center text-white shadow-xl">
+                  <div className="text-4xl font-bold mb-2">{selectedWorker.yearsExperience}</div>
+                  <div className="text-blue-100 text-sm font-medium uppercase tracking-wider">Years Experience</div>
                 </div>
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 text-center">
-                  <div className="text-3xl font-bold text-green-600 mb-1">{selectedWorker.expectedSalary}</div>
-                  <div className="text-green-500 font-medium">Expected Salary</div>
+                <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl p-6 text-center text-white shadow-xl">
+                  <div className="text-3xl font-bold mb-2">{selectedWorker.expectedSalary}</div>
+                  <div className="text-emerald-100 text-sm font-medium uppercase tracking-wider">Expected Salary</div>
                 </div>
               </div>
 
-              {/* Enhanced Languages */}
+              {/* Languages */}
               <div className="mb-8">
-                <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
-                  Languages
+                <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                    <span className="text-white text-sm font-bold">💬</span>
+                  </div>
+                  Languages Spoken
                 </h4>
                 <div className="flex flex-wrap gap-3">
                   {selectedWorker.languagesSpoken.map((lang) => (
-                    <span key={lang} className="bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 px-4 py-2 rounded-xl text-sm font-medium">
+                    <span key={lang} className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
                       {lang}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Enhanced About */}
+              {/* About */}
               <div className="mb-8">
-                <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
-                  About
+                <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
+                    <span className="text-white text-sm font-bold">ℹ️</span>
+                  </div>
+                  About Professional
                 </h4>
-                <div className="bg-gray-50 rounded-2xl p-6">
-                  <p className="text-gray-700 leading-relaxed">{selectedWorker.aboutMe}</p>
+                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-3xl p-6 border border-gray-200">
+                  <p className="text-gray-700 leading-relaxed text-base">{selectedWorker.aboutMe}</p>
                 </div>
               </div>
 
-              {/* Contact Premium Notice */}
-              <div className="bg-gradient-to-r from-gold-50 to-yellow-50 border-2 border-gold-200 rounded-2xl p-6 mb-6">
+              {/* Premium Benefits Notice */}
+              <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-red-50 border-2 border-amber-300 rounded-3xl p-6 mb-8">
                 <div className="text-center">
-                  <div className="flex justify-center mb-3">
-                    <div className="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center">
-                      <LockClosedIcon className="h-6 w-6 text-white" />
+                  <div className="flex justify-center mb-4">
+                    <div className="w-16 h-16 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
+                      <LockClosedIcon className="h-8 w-8 text-white" />
                     </div>
                   </div>
-                  <h4 className="text-lg font-bold text-gold-800 mb-2">Premium Access Benefits</h4>
-                  <p className="text-gold-700 mb-4">Unlock complete profile access including clear photos and direct contact details</p>
-                  <div className="grid grid-cols-2 gap-2 text-sm text-gold-600 mb-4">
-                    <span className="flex items-center gap-1">
-                      📱 Phone Number
-                    </span>
-                    <span className="flex items-center gap-1">
-                      📧 Email Address
-                    </span>
-                    <span className="flex items-center gap-1">
-                      📸 Clear Photos
-                    </span>
-                    <span className="flex items-center gap-1">
-                      ✅ Verified Details
-                    </span>
+                  <h4 className="text-xl font-bold text-amber-800 mb-3">🌟 Premium Access Benefits</h4>
+                  <p className="text-amber-700 mb-6 text-base">Unlock the complete profile experience with crystal-clear photos and instant contact access</p>
+
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="bg-white/60 rounded-2xl p-4 border border-amber-200">
+                      <div className="text-2xl mb-2">📱</div>
+                      <div className="font-bold text-amber-800 text-sm">Direct Phone</div>
+                      <div className="text-amber-600 text-xs">Instant calling</div>
+                    </div>
+                    <div className="bg-white/60 rounded-2xl p-4 border border-amber-200">
+                      <div className="text-2xl mb-2">📧</div>
+                      <div className="font-bold text-amber-800 text-sm">Email Contact</div>
+                      <div className="text-amber-600 text-xs">Professional reach</div>
+                    </div>
+                    <div className="bg-white/60 rounded-2xl p-4 border border-amber-200">
+                      <div className="text-2xl mb-2">📸</div>
+                      <div className="font-bold text-amber-800 text-sm">HD Photos</div>
+                      <div className="text-amber-600 text-xs">Crystal clear</div>
+                    </div>
+                    <div className="bg-white/60 rounded-2xl p-4 border border-amber-200">
+                      <div className="text-2xl mb-2">✅</div>
+                      <div className="font-bold text-amber-800 text-sm">Verified Info</div>
+                      <div className="text-amber-600 text-xs">Trusted profiles</div>
+                    </div>
                   </div>
+
                   {!isSubscribed && (
-                    <div className="bg-gold-100 border border-gold-200 rounded-lg p-3 mt-3">
-                      <p className="text-gold-800 text-xs">
-                        🔒 Profile photos are currently blurred. Subscribe to view clear images and contact details.
+                    <div className="bg-gradient-to-r from-red-100 to-pink-100 border border-red-200 rounded-2xl p-4">
+                      <p className="text-red-800 text-sm font-medium">
+                        🔐 Photos are currently blurred for your protection. Upgrade to Premium to unlock all features and connect directly with workers.
                       </p>
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Enhanced Actions */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              {/* Action Buttons */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Link
                   href="/pricing"
-                  className="flex-1 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-3 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  className="bg-gradient-to-r from-primary-500 via-blue-600 to-purple-600 hover:from-primary-600 hover:via-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
                 >
-                  <CreditCardIcon className="h-5 w-5" />
-                  Unlock Contact Details
-                  <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+                  <CreditCardIcon className="h-6 w-6" />
+                  <span>Unlock Premium Access</span>
+                  <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                 </Link>
                 <button
                   onClick={closeProfileModal}
-                  className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-4 px-6 rounded-2xl transition-colors"
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-4 px-6 rounded-2xl transition-all duration-300 hover:shadow-lg"
                 >
                   Close Profile
                 </button>
