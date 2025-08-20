@@ -17,7 +17,8 @@ import {
   PaintBrushIcon,
   EyeIcon,
   FireIcon,
-  ScissorsIcon
+  ScissorsIcon,
+  BriefcaseIcon
 } from '@heroicons/react/24/outline'
 
 export default function Home() {
