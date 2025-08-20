@@ -370,64 +370,60 @@ export default function BrowseWorkers() {
           )}
         </div>
 
-        {/* Modern Profile Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        {/* Professional Profile Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {displayedWorkers.map((worker) => (
-            <div key={worker.id} className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 hover:border-primary-200">
-              {/* Premium Overlay Indicator */}
+            <div key={worker.id} className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-primary-300">
+              {/* Premium Badge */}
               {!isSubscribed && (
-                <div className="absolute top-4 left-4 z-20">
-                  <div className="bg-gradient-to-r from-amber-400 to-orange-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
+                <div className="absolute top-3 left-3 z-20">
+                  <div className="bg-amber-500 text-white px-2 py-1 rounded-md text-xs font-semibold flex items-center gap-1">
                     <LockClosedIcon className="h-3 w-3" />
                     PREMIUM
                   </div>
                 </div>
               )}
 
-              {/* Header Section */}
-              <div className="relative bg-gradient-to-br from-primary-50 via-blue-50 to-purple-50 px-6 pt-6 pb-4">
-                {/* Visa Status Badge */}
-                <div className="absolute top-4 right-4 z-10">
-                  <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold shadow-md border-2 ${
-                    worker.visaStatus === 'Work Visa' ? 'bg-emerald-500 text-white border-emerald-400' :
-                    worker.visaStatus === 'Freelance Visa' ? 'bg-blue-500 text-white border-blue-400' :
-                    worker.visaStatus === 'Visit Visa' ? 'bg-amber-500 text-white border-amber-400' :
-                    'bg-gray-500 text-white border-gray-400'
-                  }`}>
-                    {worker.visaStatus}
-                  </div>
+              {/* Visa Status Badge */}
+              <div className="absolute top-3 right-3 z-10">
+                <div className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-semibold ${
+                  worker.visaStatus === 'Work Visa' ? 'bg-green-100 text-green-800 border border-green-200' :
+                  worker.visaStatus === 'Freelance Visa' ? 'bg-blue-100 text-blue-800 border border-blue-200' :
+                  worker.visaStatus === 'Visit Visa' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
+                  'bg-gray-100 text-gray-800 border border-gray-200'
+                }`}>
+                  {worker.visaStatus}
                 </div>
+              </div>
 
+              {/* Header Section */}
+              <div className="px-6 pt-8 pb-4 bg-gray-50 border-b border-gray-100">
                 {/* Profile Photo */}
                 <div className="flex justify-center mb-4">
                   <div className="relative">
-                    <div className="relative w-24 h-24 mx-auto">
+                    <div className="relative w-20 h-20">
                       <img
                         src={worker.profilePicture}
                         alt={worker.fullName}
-                        className={`w-full h-full rounded-full object-cover border-4 border-white shadow-xl transition-all duration-300 ${
+                        className={`w-full h-full rounded-full object-cover border-3 border-white shadow-md transition-all duration-300 ${
                           !isSubscribed ? 'filter blur-sm' : ''
                         }`}
                       />
                       {!isSubscribed && (
-                        <div className="absolute inset-0 bg-black/20 rounded-full border-4 border-white flex items-center justify-center">
-                          <LockClosedIcon className="h-8 w-8 text-white drop-shadow-lg" />
+                        <div className="absolute inset-0 bg-black/20 rounded-full border-3 border-white flex items-center justify-center">
+                          <LockClosedIcon className="h-6 w-6 text-white drop-shadow-lg" />
                         </div>
                       )}
                     </div>
-                    {/* Online Status */}
-                    <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-emerald-500 rounded-full border-3 border-white shadow-lg flex items-center justify-center">
-                      <div className="w-3 h-3 bg-white rounded-full"></div>
-                    </div>
                     {/* Verification Badge */}
-                    <div className="absolute -top-1 -right-1">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-lg ${
-                        worker.visaStatus === 'Work Visa' ? 'bg-emerald-500' :
+                    <div className="absolute -bottom-1 -right-1">
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center shadow-sm border-2 border-white ${
+                        worker.visaStatus === 'Work Visa' ? 'bg-green-500' :
                         worker.visaStatus === 'Freelance Visa' ? 'bg-blue-500' :
-                        worker.visaStatus === 'Visit Visa' ? 'bg-amber-500' :
+                        worker.visaStatus === 'Visit Visa' ? 'bg-yellow-500' :
                         'bg-gray-500'
                       }`}>
-                        <CheckBadgeIcon className="h-5 w-5 text-white" />
+                        <CheckBadgeIcon className="h-4 w-4 text-white" />
                       </div>
                     </div>
                   </div>
@@ -435,10 +431,10 @@ export default function BrowseWorkers() {
 
                 {/* Name and Title */}
                 <div className="text-center">
-                  <h3 className="text-xl font-bold text-gray-900 mb-1 truncate">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     {worker.fullName}
                   </h3>
-                  <p className="text-primary-600 font-semibold text-base mb-2 truncate">
+                  <p className="text-primary-600 font-medium text-sm mb-2">
                     {worker.jobTitle}
                   </p>
                   <div className="flex items-center justify-center text-gray-500 text-sm">
@@ -449,73 +445,69 @@ export default function BrowseWorkers() {
               </div>
 
               {/* Content Section */}
-              <div className="p-6 space-y-6">
-                {/* Compact Stats Pills */}
-                <div className="flex justify-center gap-2">
-                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-full px-3 py-2 text-center text-white shadow-md hover:shadow-lg transition-shadow">
-                    <div className="flex items-center gap-1.5">
-                      <div className="text-sm font-bold">{worker.yearsExperience}</div>
-                      <div className="text-blue-200 text-xs font-medium">yrs</div>
-                    </div>
+              <div className="p-6">
+                {/* Stats Row */}
+                <div className="flex justify-center gap-4 mb-4">
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-gray-900">{worker.yearsExperience}</div>
+                    <div className="text-xs text-gray-500 font-medium">Years Exp.</div>
                   </div>
-                  <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full px-3 py-2 text-center text-white shadow-md hover:shadow-lg transition-shadow">
-                    <div className="flex items-center gap-1.5">
-                      <div className="text-sm font-bold">{worker.expectedSalary}</div>
-                      <div className="text-emerald-200 text-xs font-medium">/mo</div>
-                    </div>
+                  <div className="w-px bg-gray-200"></div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-gray-900">{worker.expectedSalary}</div>
+                    <div className="text-xs text-gray-500 font-medium">Expected</div>
                   </div>
                 </div>
 
                 {/* Languages */}
-                <div>
-                  <div className="text-sm font-bold text-gray-800 mb-3 uppercase tracking-wide">Languages</div>
-                  <div className="flex flex-wrap gap-2">
-                    {worker.languagesSpoken.slice(0, 2).map((lang) => (
-                      <span key={lang} className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-xs font-bold shadow-md">
+                <div className="mb-4">
+                  <div className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Languages</div>
+                  <div className="flex flex-wrap gap-1">
+                    {worker.languagesSpoken.slice(0, 3).map((lang) => (
+                      <span key={lang} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium">
                         {lang}
                       </span>
                     ))}
-                    {worker.languagesSpoken.length > 2 && (
-                      <span className="bg-gray-700 text-white px-4 py-2 rounded-full text-xs font-bold shadow-md">
-                        +{worker.languagesSpoken.length - 2}
+                    {worker.languagesSpoken.length > 3 && (
+                      <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded text-xs font-medium">
+                        +{worker.languagesSpoken.length - 3}
                       </span>
                     )}
                   </div>
                 </div>
 
                 {/* About Preview */}
-                <div>
-                  <div className="text-sm font-bold text-gray-800 mb-2 uppercase tracking-wide">About</div>
-                  <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed">
+                <div className="mb-4">
+                  <div className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Summary</div>
+                  <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
                     {worker.aboutMe}
                   </p>
                 </div>
               </div>
 
               {/* Action Section */}
-              <div className="p-6 pt-0">
-                <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="px-6 pb-6">
+                <div className="flex gap-2 mb-3">
                   <button
                     onClick={() => handleViewProfile(worker)}
-                    className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 px-4 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
                   >
                     <EyeIcon className="h-4 w-4" />
-                    <span className="text-sm">View</span>
+                    <span className="text-sm">View Profile</span>
                   </button>
                   <Link
                     href="/pricing"
-                    className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold py-3 px-4 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-2"
+                    className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
                   >
                     <CreditCardIcon className="h-4 w-4" />
-                    <span className="text-sm">Unlock</span>
+                    <span className="text-sm">Contact</span>
                   </Link>
                 </div>
 
                 {/* Premium Notice */}
-                <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-3 text-center">
-                  <p className="text-xs text-amber-800 font-medium">
-                    <span className="inline-block mr-1">🔐</span>
-                    Unlock clear photos & contact details with Premium
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-2 text-center">
+                  <p className="text-xs text-amber-700 font-medium">
+                    🔒 Unlock contact details with Premium
                   </p>
                 </div>
               </div>
@@ -602,111 +594,100 @@ export default function BrowseWorkers() {
         </div>
       </div>
 
-      {/* Modern Profile Modal */}
+      {/* Professional Profile Modal - Mobile Optimized */}
       {selectedWorker && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[95vh] overflow-hidden border border-gray-200">
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[95vh] overflow-hidden border border-gray-300">
             {/* Modal Header */}
-            <div className="relative bg-gradient-to-br from-primary-500 via-blue-600 to-purple-600 text-white px-8 py-6">
-              <div className="absolute inset-0 bg-black/10"></div>
-              <div className="relative flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                    <EyeIcon className="h-6 w-6" />
+            <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
+                    <EyeIcon className="h-5 w-5 text-primary-600" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold">Worker Profile</h2>
-                    <p className="text-white/80 text-sm">Detailed Information</p>
+                    <h2 className="text-lg font-semibold text-gray-900">Worker Profile</h2>
+                    <p className="text-sm text-gray-500">Professional Details</p>
                   </div>
                 </div>
                 <button
                   onClick={closeProfileModal}
-                  className="text-white/80 hover:text-white transition-colors p-3 hover:bg-white/10 rounded-2xl"
+                  className="text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-100 rounded-lg"
                 >
-                  <XMarkIcon className="h-6 w-6" />
+                  <XMarkIcon className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
-            <div className="p-8 overflow-y-auto max-h-[calc(95vh-120px)]">
+            <div className="px-4 sm:px-6 py-6 overflow-y-auto max-h-[calc(95vh-120px)]">
               {/* Profile Header */}
-              <div className="text-center mb-8">
-                <div className="relative inline-block mb-6">
-                  <div className="relative w-32 h-32 mx-auto">
+              <div className="text-center mb-6">
+                <div className="relative inline-block mb-4">
+                  <div className="relative w-24 h-24 mx-auto">
                     <img
                       src={selectedWorker.profilePicture}
                       alt={selectedWorker.fullName}
-                      className={`w-full h-full rounded-full object-cover border-4 border-white shadow-2xl transition-all duration-300 ${
+                      className={`w-full h-full rounded-full object-cover border-3 border-white shadow-lg transition-all duration-300 ${
                         !isSubscribed ? 'filter blur-md' : ''
                       }`}
                     />
                     {!isSubscribed && (
-                      <div className="absolute inset-0 bg-black/30 rounded-full border-4 border-white flex items-center justify-center">
-                        <LockClosedIcon className="h-10 w-10 text-white drop-shadow-lg" />
+                      <div className="absolute inset-0 bg-black/20 rounded-full border-3 border-white flex items-center justify-center">
+                        <LockClosedIcon className="h-8 w-8 text-white drop-shadow-lg" />
                       </div>
                     )}
                   </div>
-                  {/* Status Indicators */}
-                  <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-emerald-500 rounded-full border-4 border-white shadow-xl flex items-center justify-center">
-                    <div className="w-4 h-4 bg-white rounded-full"></div>
-                  </div>
-                  <div className="absolute -top-2 -right-2">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-xl ${
-                      selectedWorker.visaStatus === 'Work Visa' ? 'bg-emerald-500' :
+                  {/* Verification Badge */}
+                  <div className="absolute -top-1 -right-1">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md border-2 border-white ${
+                      selectedWorker.visaStatus === 'Work Visa' ? 'bg-green-500' :
                       selectedWorker.visaStatus === 'Freelance Visa' ? 'bg-blue-500' :
-                      selectedWorker.visaStatus === 'Visit Visa' ? 'bg-amber-500' :
+                      selectedWorker.visaStatus === 'Visit Visa' ? 'bg-yellow-500' :
                       'bg-gray-500'
                     }`}>
-                      <CheckBadgeIcon className="h-6 w-6 text-white" />
+                      <CheckBadgeIcon className="h-5 w-5 text-white" />
                     </div>
                   </div>
                 </div>
 
-                <h3 className="text-3xl font-bold text-gray-900 mb-2">{selectedWorker.fullName}</h3>
-                <p className="text-xl text-primary-600 font-semibold mb-4">{selectedWorker.jobTitle}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">{selectedWorker.fullName}</h3>
+                <p className="text-primary-600 font-medium mb-2">{selectedWorker.jobTitle}</p>
 
-                <div className="flex items-center justify-center text-gray-600 mb-4">
-                  <MapPinIcon className="h-5 w-5 mr-2" />
+                <div className="flex items-center justify-center text-gray-500 text-sm mb-3">
+                  <MapPinIcon className="h-4 w-4 mr-1" />
                   <span>{selectedWorker.city}, {selectedWorker.country}</span>
                 </div>
 
-                <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold shadow-lg ${
-                  selectedWorker.visaStatus === 'Work Visa' ? 'bg-emerald-500 text-white' :
-                  selectedWorker.visaStatus === 'Freelance Visa' ? 'bg-blue-500 text-white' :
-                  selectedWorker.visaStatus === 'Visit Visa' ? 'bg-amber-500 text-white' :
-                  'bg-gray-500 text-white'
+                <div className={`inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold ${
+                  selectedWorker.visaStatus === 'Work Visa' ? 'bg-green-100 text-green-800 border border-green-200' :
+                  selectedWorker.visaStatus === 'Freelance Visa' ? 'bg-blue-100 text-blue-800 border border-blue-200' :
+                  selectedWorker.visaStatus === 'Visit Visa' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
+                  'bg-gray-100 text-gray-800 border border-gray-200'
                 }`}>
                   {selectedWorker.visaStatus}
                 </div>
               </div>
 
-              {/* Compact Stats Pills */}
-              <div className="flex justify-center gap-4 mb-8">
-                <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-full px-6 py-3 text-center text-white shadow-lg hover:shadow-xl transition-all">
-                  <div className="flex items-center gap-2">
-                    <div className="text-xl font-bold">{selectedWorker.yearsExperience}</div>
-                    <div className="text-blue-200 text-sm font-medium">years exp</div>
+              {/* Stats Section */}
+              <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-900">{selectedWorker.yearsExperience}</div>
+                    <div className="text-sm text-gray-500 font-medium">Years Experience</div>
                   </div>
-                </div>
-                <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full px-6 py-3 text-center text-white shadow-lg hover:shadow-xl transition-all">
-                  <div className="flex items-center gap-2">
-                    <div className="text-xl font-bold">{selectedWorker.expectedSalary}</div>
-                    <div className="text-emerald-200 text-sm font-medium">per month</div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-900">{selectedWorker.expectedSalary}</div>
+                    <div className="text-sm text-gray-500 font-medium">Expected Salary</div>
                   </div>
                 </div>
               </div>
 
               {/* Languages */}
-              <div className="mb-8">
-                <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">💬</span>
-                  </div>
-                  Languages Spoken
-                </h4>
-                <div className="flex flex-wrap gap-3">
+              <div className="mb-6">
+                <h4 className="text-base font-semibold text-gray-900 mb-3">Languages Spoken</h4>
+                <div className="flex flex-wrap gap-2">
                   {selectedWorker.languagesSpoken.map((lang) => (
-                    <span key={lang} className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                    <span key={lang} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-md text-sm font-medium">
                       {lang}
                     </span>
                   ))}
@@ -714,75 +695,57 @@ export default function BrowseWorkers() {
               </div>
 
               {/* About */}
-              <div className="mb-8">
-                <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">ℹ️</span>
-                  </div>
-                  About Professional
-                </h4>
-                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-3xl p-6 border border-gray-200">
-                  <p className="text-gray-700 leading-relaxed text-base">{selectedWorker.aboutMe}</p>
+              <div className="mb-6">
+                <h4 className="text-base font-semibold text-gray-900 mb-3">About Professional</h4>
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                  <p className="text-gray-700 leading-relaxed text-sm">{selectedWorker.aboutMe}</p>
                 </div>
               </div>
 
-              {/* Premium Benefits Notice */}
-              <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-red-50 border-2 border-amber-300 rounded-3xl p-6 mb-8">
+              {/* Premium Benefits Notice - Mobile Optimized */}
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
                 <div className="text-center">
-                  <div className="flex justify-center mb-4">
-                    <div className="w-16 h-16 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
-                      <LockClosedIcon className="h-8 w-8 text-white" />
+                  <div className="flex justify-center mb-3">
+                    <div className="w-12 h-12 bg-amber-500 rounded-lg flex items-center justify-center">
+                      <LockClosedIcon className="h-6 w-6 text-white" />
                     </div>
                   </div>
-                  <h4 className="text-xl font-bold text-amber-800 mb-3">🌟 Premium Access Benefits</h4>
-                  <p className="text-amber-700 mb-6 text-base">Unlock the complete profile experience with crystal-clear photos and instant contact access</p>
+                  <h4 className="text-base font-semibold text-amber-800 mb-2">Premium Access Benefits</h4>
+                  <p className="text-amber-700 mb-4 text-sm">Unlock complete profile access with contact details and high-quality photos</p>
 
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="bg-white/60 rounded-2xl p-4 border border-amber-200">
-                      <div className="text-2xl mb-2">📱</div>
-                      <div className="font-bold text-amber-800 text-sm">Direct Phone</div>
-                      <div className="text-amber-600 text-xs">Instant calling</div>
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    <div className="bg-white rounded-lg p-3 border border-amber-200">
+                      <div className="text-lg mb-1">📱</div>
+                      <div className="font-medium text-amber-800 text-xs">Direct Contact</div>
                     </div>
-                    <div className="bg-white/60 rounded-2xl p-4 border border-amber-200">
-                      <div className="text-2xl mb-2">📧</div>
-                      <div className="font-bold text-amber-800 text-sm">Email Contact</div>
-                      <div className="text-amber-600 text-xs">Professional reach</div>
-                    </div>
-                    <div className="bg-white/60 rounded-2xl p-4 border border-amber-200">
-                      <div className="text-2xl mb-2">📸</div>
-                      <div className="font-bold text-amber-800 text-sm">HD Photos</div>
-                      <div className="text-amber-600 text-xs">Crystal clear</div>
-                    </div>
-                    <div className="bg-white/60 rounded-2xl p-4 border border-amber-200">
-                      <div className="text-2xl mb-2">✅</div>
-                      <div className="font-bold text-amber-800 text-sm">Verified Info</div>
-                      <div className="text-amber-600 text-xs">Trusted profiles</div>
+                    <div className="bg-white rounded-lg p-3 border border-amber-200">
+                      <div className="text-lg mb-1">📸</div>
+                      <div className="font-medium text-amber-800 text-xs">Clear Photos</div>
                     </div>
                   </div>
 
                   {!isSubscribed && (
-                    <div className="bg-gradient-to-r from-red-100 to-pink-100 border border-red-200 rounded-2xl p-4">
-                      <p className="text-red-800 text-sm font-medium">
-                        🔐 Photos are currently blurred for your protection. Upgrade to Premium to unlock all features and connect directly with workers.
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                      <p className="text-red-800 text-xs font-medium">
+                        🔒 Contact details hidden. Upgrade to Premium for full access.
                       </p>
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Action Buttons - Mobile Optimized */}
+              <div className="space-y-3">
                 <Link
                   href="/pricing"
-                  className="bg-gradient-to-r from-primary-500 via-blue-600 to-purple-600 hover:from-primary-600 hover:via-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
+                  className="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors duration-200"
                 >
-                  <CreditCardIcon className="h-6 w-6" />
+                  <CreditCardIcon className="h-5 w-5" />
                   <span>Unlock Premium Access</span>
-                  <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                 </Link>
                 <button
                   onClick={closeProfileModal}
-                  className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-4 px-6 rounded-2xl transition-all duration-300 hover:shadow-lg"
+                  className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors duration-200"
                 >
                   Close Profile
                 </button>
