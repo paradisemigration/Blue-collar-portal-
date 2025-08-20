@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { 
   PhotoIcon, 
@@ -1058,7 +1058,7 @@ export default function CreateProfile() {
                     <option value={3}>💪 3 years</option>
                     <option value={4}>⚡ 4 years</option>
                     <option value={5}>🎯 5 years</option>
-                    <option value={6}>��� 6+ years</option>
+                    <option value={6}>🏆 6+ years</option>
                     <option value={7}>🌟 7+ years</option>
                     <option value={8}>💎 8+ years</option>
                     <option value={9}>🔥 9+ years</option>
