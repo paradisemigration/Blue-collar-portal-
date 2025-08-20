@@ -32,12 +32,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/browse`,
-      lastModified: currentDate,
-      changeFrequency: 'hourly' as const,
-      priority: 0.95,
-    },
-    {
       url: `${baseUrl}/create-profile`,
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
