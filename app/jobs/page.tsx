@@ -7,16 +7,18 @@ import {
   ClockIcon,
   StarIcon,
   ChevronRightIcon,
-  HomeIcon
+  HomeIcon,
+  CurrencyDollarIcon
 } from '@heroicons/react/24/outline'
-import { 
-  ALL_CITIES, 
-  JOB_CATEGORIES_URL_MAP, 
+import {
+  ALL_CITIES,
+  JOB_CATEGORIES_URL_MAP,
   getCityDisplayName,
   getCategoryDisplayName,
   getCityCountry,
   getCompaniesForCity
 } from '../../utils/companiesData'
+import { getJobProfilesForCity } from '../../utils/jobProfiles'
 
 export const metadata = {
   title: 'Latest Jobs in Gulf Region - UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain | Apply Online',
@@ -195,71 +197,119 @@ export default function JobsPage() {
         </div>
       </div>
 
-      {/* Browse by City */}
+      {/* Browse by City with Job Profiles */}
       <div className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-navy-900 mb-4">Browse Jobs by City</h2>
             <p className="text-gray-600 text-lg">
-              Explore opportunities in major Gulf cities
+              Explore opportunities in major Gulf cities with featured job listings
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="space-y-12">
             {ALL_CITIES.map((city, index) => {
               const citySlug = city.toLowerCase().replace(/\s+/g, '-')
               const companies = getCompaniesForCity(city)
               const country = getCityCountry(city)
-              
+              const jobProfiles = getJobProfilesForCity(city)
+
               return (
-                <div key={index} className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
-                  <div className="flex items-center mb-4">
-                    <div className="bg-primary-100 p-3 rounded-lg mr-4">
-                      <MapPinIcon className="h-6 w-6 text-primary-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-navy-900">{city}</h3>
-                      <p className="text-gray-600 text-sm">{country}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center text-gray-600 text-sm">
-                      <BuildingOfficeIcon className="h-4 w-4 mr-2" />
-                      <span>{companies.length} companies</span>
-                    </div>
-                    <div className="flex items-center text-gray-600 text-sm">
-                      <BriefcaseIcon className="h-4 w-4 mr-2" />
-                      <span>15+ job categories</span>
+                <div key={index} className="bg-white rounded-lg shadow-sm border overflow-hidden">
+                  {/* City Header */}
+                  <div className="bg-gradient-to-r from-primary-50 to-blue-50 p-6 border-b">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <div className="bg-primary-100 p-3 rounded-lg mr-4">
+                          <MapPinIcon className="h-8 w-8 text-primary-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-navy-900">{city}</h3>
+                          <p className="text-gray-600">{country}</p>
+                          <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                            <div className="flex items-center">
+                              <BuildingOfficeIcon className="h-4 w-4 mr-1" />
+                              <span>{companies.length} companies</span>
+                            </div>
+                            <div className="flex items-center">
+                              <BriefcaseIcon className="h-4 w-4 mr-1" />
+                              <span>{jobProfiles.length} featured jobs</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <Link
+                          href={`/jobs/${citySlug}/driver`}
+                          className="text-sm bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded text-center transition-colors"
+                        >
+                          Driver Jobs
+                        </Link>
+                        <Link
+                          href={`/jobs/${citySlug}/domestic-workers`}
+                          className="text-sm bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded text-center transition-colors"
+                        >
+                          Domestic Jobs
+                        </Link>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Popular categories for this city */}
-                  <div className="grid grid-cols-2 gap-2 mb-4">
-                    {Object.entries(JOB_CATEGORIES_URL_MAP).slice(0, 4).map(([key, value]) => (
+                  {/* Job Profiles Grid */}
+                  <div className="p-6">
+                    <h4 className="text-lg font-semibold text-navy-900 mb-4">Featured Job Opportunities in {city}</h4>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                      {jobProfiles.slice(0, 10).map((job, jobIndex) => (
+                        <Link
+                          key={job.id}
+                          href="/create-profile"
+                          className="bg-gray-50 hover:bg-white border border-gray-200 hover:border-primary-300 rounded-lg p-4 transition-all group hover:shadow-md"
+                        >
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="bg-primary-100 p-2 rounded-lg">
+                              <BriefcaseIcon className="h-5 w-5 text-primary-600" />
+                            </div>
+                            {job.urgent && (
+                              <span className="bg-red-100 text-red-700 text-xs font-medium px-2 py-1 rounded-full">
+                                Urgent
+                              </span>
+                            )}
+                          </div>
+
+                          <h5 className="font-semibold text-navy-900 mb-1 group-hover:text-primary-600 transition-colors">
+                            {job.title}
+                          </h5>
+
+                          <p className="text-sm text-gray-600 mb-2">{job.company}</p>
+
+                          <div className="flex items-center text-sm text-gray-600 mb-2">
+                            <CurrencyDollarIcon className="h-4 w-4 mr-1" />
+                            <span>{job.salary}</span>
+                          </div>
+
+                          <div className="flex items-center justify-between text-xs text-gray-500">
+                            <span>{job.type}</span>
+                            <span>{job.posted}</span>
+                          </div>
+
+                          <div className="mt-3 text-primary-600 text-sm font-medium">
+                            Apply Now →
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+
+                    {/* View All Jobs Link */}
+                    <div className="text-center mt-6">
                       <Link
-                        key={key}
-                        href={`/jobs/${citySlug}/${value}`}
-                        className="text-xs bg-gray-100 hover:bg-primary-100 text-gray-700 hover:text-primary-700 px-2 py-1 rounded text-center transition-colors"
+                        href={`/jobs/${citySlug}/driver`}
+                        className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
                       >
-                        {getCategoryDisplayName(value)}
+                        View all jobs in {city}
+                        <ChevronRightIcon className="h-4 w-4 ml-1" />
                       </Link>
-                    ))}
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <Link
-                      href={`/jobs/${citySlug}/driver`}
-                      className="text-xs bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded text-center transition-colors"
-                    >
-                      Driver Jobs
-                    </Link>
-                    <Link
-                      href={`/jobs/${citySlug}/domestic-workers`}
-                      className="text-xs bg-green-600 hover:bg-green-700 text-white py-2 px-3 rounded text-center transition-colors"
-                    >
-                      Domestic Jobs
-                    </Link>
+                    </div>
                   </div>
                 </div>
               )
