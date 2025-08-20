@@ -245,7 +245,7 @@ export default function Home() {
 
               {/* Action Button */}
               <div className="p-4 sm:p-6 pt-0">
-                <Link href="/dubai/driver" className="block w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                <Link href="/jobs/dubai/driver" className="block w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
                   Apply Now
                 </Link>
               </div>
@@ -295,7 +295,7 @@ export default function Home() {
 
               {/* Action Button */}
               <div className="p-4 sm:p-6 pt-0">
-                <Link href="/doha/maid" className="block w-full bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                <Link href="/jobs/doha/maid" className="block w-full bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
                   Apply Now
                 </Link>
               </div>
@@ -345,7 +345,7 @@ export default function Home() {
 
               {/* Action Button */}
               <div className="p-4 sm:p-6 pt-0">
-                <Link href="/riyadh/electrician" className="block w-full bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                <Link href="/jobs/riyadh/electrician" className="block w-full bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
                   Apply Now
                 </Link>
               </div>
@@ -395,7 +395,7 @@ export default function Home() {
 
               {/* Action Button */}
               <div className="p-4 sm:p-6 pt-0">
-                <Link href="/abu-dhabi/plumber" className="block w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                <Link href="/jobs/abu-dhabi/plumber" className="block w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
                   Apply Now
                 </Link>
               </div>
@@ -445,7 +445,7 @@ export default function Home() {
 
               {/* Action Button */}
               <div className="p-4 sm:p-6 pt-0">
-                <Link href="/kuwait-city/cleaner" className="block w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                <Link href="/jobs/kuwait-city/cleaner" className="block w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
                   Apply Now
                 </Link>
               </div>
@@ -495,7 +495,7 @@ export default function Home() {
 
               {/* Action Button */}
               <div className="p-4 sm:p-6 pt-0">
-                <Link href="/manama/security-guard" className="block w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
+                <Link href="/jobs/manama/security-guard" className="block w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105">
                   Apply Now
                 </Link>
               </div>
