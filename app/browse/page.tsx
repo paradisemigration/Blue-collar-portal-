@@ -705,15 +705,29 @@ export default function BrowseWorkers() {
                       <LockClosedIcon className="h-6 w-6 text-white" />
                     </div>
                   </div>
-                  <h4 className="text-lg font-bold text-gold-800 mb-2">Premium Contact Information</h4>
-                  <p className="text-gold-700 mb-4">Unlock direct contact details including phone number and email to connect instantly</p>
-                  <div className="flex gap-2 text-sm text-gold-600 mb-4">
-                    <span>📱 Phone Number</span>
-                    <span>•</span>
-                    <span>📧 Email Address</span>
-                    <span>•</span>
-                    <span>✅ Verified Contact</span>
+                  <h4 className="text-lg font-bold text-gold-800 mb-2">Premium Access Benefits</h4>
+                  <p className="text-gold-700 mb-4">Unlock complete profile access including clear photos and direct contact details</p>
+                  <div className="grid grid-cols-2 gap-2 text-sm text-gold-600 mb-4">
+                    <span className="flex items-center gap-1">
+                      📱 Phone Number
+                    </span>
+                    <span className="flex items-center gap-1">
+                      📧 Email Address
+                    </span>
+                    <span className="flex items-center gap-1">
+                      📸 Clear Photos
+                    </span>
+                    <span className="flex items-center gap-1">
+                      ✅ Verified Details
+                    </span>
                   </div>
+                  {!isSubscribed && (
+                    <div className="bg-gold-100 border border-gold-200 rounded-lg p-3 mt-3">
+                      <p className="text-gold-800 text-xs">
+                        🔒 Profile photos are currently blurred. Subscribe to view clear images and contact details.
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 
