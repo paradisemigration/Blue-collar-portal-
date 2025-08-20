@@ -114,7 +114,7 @@ const jobCategories = {
     ]
   },
   'Transport & Logistics': {
-    emoji: '🚚',
+    emoji: '����',
     jobs: [
       'Truck Driver',
       'Delivery Driver',
@@ -287,8 +287,15 @@ export default function CreateProfile() {
       let detectedFromIP = false
 
       try {
-        // Try IP-based detection first
-        const response = await fetch('https://ipapi.co/json/', { timeout: 3000 })
+        // Try IP-based detection first with timeout
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 3000)
+
+        const response = await fetch('https://ipapi.co/json/', {
+          signal: controller.signal
+        })
+        clearTimeout(timeoutId)
+
         if (response.ok) {
           const data = await response.json()
           const countryCode = data.country_code
