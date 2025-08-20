@@ -251,6 +251,7 @@ export default function CreateProfile() {
   const [duplicateError, setDuplicateError] = useState<string>('')
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [isFormInitialized, setIsFormInitialized] = useState(false)
+  const photoUploadRef = useRef<HTMLInputElement>(null)
 
   const selectedJobTitle = watch('jobTitle')
   const selectedJobCategory = watch('jobCategory')
