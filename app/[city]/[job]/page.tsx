@@ -641,6 +641,7 @@ interface PageProps {
 export default function CityJobPage({ params }: PageProps) {
   const [workers, setWorkers] = useState<Worker[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isSubscribed, setIsSubscribed] = useState(false) // Set to false to show payment gating
 
   const router = useRouter()
 
@@ -806,11 +807,20 @@ export default function CityJobPage({ params }: PageProps) {
                 <div key={worker.id} className="card hover:shadow-lg transition-shadow">
                   {/* Profile Header */}
                   <div className="flex items-start gap-4 mb-4">
-                    <img
-                      src={worker.profilePicture}
-                      alt={worker.fullName}
-                      className="w-16 h-16 rounded-full object-cover"
-                    />
+                    <div className="relative">
+                      <img
+                        src={worker.profilePicture}
+                        alt={worker.fullName}
+                        className={`w-16 h-16 rounded-full object-cover transition-all duration-300 ${
+                          !isSubscribed ? 'filter blur-sm' : ''
+                        }`}
+                      />
+                      {!isSubscribed && (
+                        <div className="absolute inset-0 bg-blue-500/30 rounded-full flex items-center justify-center">
+                          <LockClosedIcon className="h-6 w-6 text-white drop-shadow-lg" />
+                        </div>
+                      )}
+                    </div>
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-navy-900">{worker.fullName}</h3>
                       <div className="flex items-center gap-2">
@@ -866,10 +876,17 @@ export default function CityJobPage({ params }: PageProps) {
                       <EyeIcon className="h-4 w-4" />
                       View Profile
                     </button>
-                    <button className="btn-primary flex-1 flex items-center justify-center gap-2">
+                    <Link href="/pricing" className="btn-primary flex-1 flex items-center justify-center gap-2">
                       <LockClosedIcon className="h-4 w-4" />
                       Unlock Contact
-                    </button>
+                    </Link>
+                  </div>
+
+                  {/* Premium Notice */}
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 text-center mt-3">
+                    <p className="text-xs text-blue-700 font-medium">
+                      🔒 Premium required for contact details
+                    </p>
                   </div>
                 </div>
               ))}
