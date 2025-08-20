@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
+import Link from 'next/link'
 import {
   MagnifyingGlassIcon,
   FunnelIcon,
@@ -12,7 +13,14 @@ import {
   CheckBadgeIcon,
   XMarkIcon,
   PhoneIcon,
-  EnvelopeIcon
+  EnvelopeIcon,
+  ChevronRightIcon,
+  HomeIcon,
+  CreditCardIcon,
+  ArrowTopRightOnSquareIcon,
+  ClockIcon,
+  AdjustmentsHorizontalIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, FilterOptions } from '../../types'
 import { generateDummyWorkers } from '../../utils/dummyData'
@@ -116,13 +124,12 @@ const cities: City[] = [
 export default function BrowseWorkers() {
   const [searchTerm, setSearchTerm] = useState('')
   const [showFilters, setShowFilters] = useState(false)
-  const [isSubscribed, setIsSubscribed] = useState(true) // Enable all profiles for testing
+  const [isSubscribed, setIsSubscribed] = useState(false) // Set to false to show payment flow
   const [filters, setFilters] = useState<FilterOptions>({})
   const [workers, setWorkers] = useState<Worker[]>([])
   const [displayCount, setDisplayCount] = useState(30)
   const [isLoading, setIsLoading] = useState(false)
   const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null)
-  const [showContactPopup, setShowContactPopup] = useState<Worker | null>(null)
 
   useEffect(() => {
     // Load all workers (real + dummy data)
@@ -178,17 +185,6 @@ export default function BrowseWorkers() {
     }, 500)
   }
 
-  const handleUnlockProfile = (workerId: string) => {
-    if (!isSubscribed) {
-      alert('Please subscribe to view contact details. Visit our pricing page to get started!')
-      return
-    }
-    const worker = workers.find(w => w.id === workerId)
-    if (worker) {
-      setShowContactPopup(worker)
-    }
-  }
-
   const handleViewProfile = (worker: Worker) => {
     setSelectedWorker(worker)
   }
@@ -197,54 +193,107 @@ export default function BrowseWorkers() {
     setSelectedWorker(null)
   }
 
+  // Function to get verification badge color based on visa status
+  const getVerificationColor = (visaStatus: string) => {
+    switch (visaStatus) {
+      case 'Work Visa':
+        return 'text-green-500'
+      case 'Freelance Visa':
+        return 'text-blue-500'
+      case 'Visit Visa':
+        return 'text-yellow-500'
+      default:
+        return 'text-gray-400'
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">
-            Find Skilled Workers
-          </h1>
-          <p className="text-gray-600 text-lg">
-            Discover the perfect candidate for your business needs
-          </p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      {/* Breadcrumbs */}
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <nav className="flex items-center text-sm">
+            <Link href="/" className="text-gray-500 hover:text-primary-600 flex items-center transition-colors">
+              <HomeIcon className="h-4 w-4 mr-1" />
+              Home
+            </Link>
+            <ChevronRightIcon className="h-4 w-4 mx-2 text-gray-400" />
+            <span className="text-gray-900 font-medium">Browse Workers</span>
+          </nav>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        {/* Hero Header */}
+        <div className="text-center mb-8 sm:mb-12">
+          <div className="max-w-3xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+              Find Your Perfect 
+              <span className="bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent"> Worker</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-600 mb-6">
+              Connect with skilled professionals across the Gulf region. Browse verified profiles and find the ideal candidate for your needs.
+            </p>
+            
+            {/* Quick Stats */}
+            <div className="flex justify-center items-center gap-6 sm:gap-8 text-sm text-gray-500">
+              <div className="flex items-center gap-2">
+                <UserGroupIcon className="h-5 w-5 text-primary-500" />
+                <span>{workers.length}+ Profiles</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckBadgeIcon className="h-5 w-5 text-green-500" />
+                <span>Verified Workers</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <ClockIcon className="h-5 w-5 text-blue-500" />
+                <span>24/7 Support</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Search and Filter Bar */}
-        <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 mb-8">
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        {/* Enhanced Search and Filter Bar */}
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6 mb-8">
+          <div className="flex flex-col lg:flex-row gap-4">
             {/* Search */}
             <div className="flex-1 relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+              </div>
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search by name, job title, or city..."
-                className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                placeholder="Search by name, job title, or location..."
+                className="block w-full pl-12 pr-4 py-3.5 text-base border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
               />
             </div>
 
             {/* Filter Toggle */}
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="btn-secondary flex items-center justify-center gap-2 px-4 py-2.5 sm:py-3 text-sm sm:text-base whitespace-nowrap"
+              className={`flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl font-medium transition-all duration-200 ${
+                showFilters 
+                  ? 'bg-primary-600 text-white shadow-lg' 
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
             >
-              <FunnelIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-              Filters
+              <AdjustmentsHorizontalIcon className="h-5 w-5" />
+              <span className="hidden sm:inline">Filters</span>
             </button>
           </div>
 
           {/* Advanced Filters */}
           {showFilters && (
             <div className="mt-6 pt-6 border-t border-gray-200">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Job Title</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Job Category</label>
                   <select
                     value={filters.jobTitle || ''}
                     onChange={(e) => handleFilterChange('jobTitle', e.target.value || undefined)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   >
                     <option value="">All Jobs</option>
                     {jobTitles.map(title => (
@@ -254,11 +303,11 @@ export default function BrowseWorkers() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Location</label>
                   <select
                     value={filters.city || ''}
                     onChange={(e) => handleFilterChange('city', e.target.value || undefined)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   >
                     <option value="">All Cities</option>
                     {cities.map(city => (
@@ -268,418 +317,385 @@ export default function BrowseWorkers() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Experience</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Experience (Years)</label>
                   <div className="flex gap-2">
                     <input
                       type="number"
                       placeholder="Min"
                       value={filters.minExperience || ''}
                       onChange={(e) => handleFilterChange('minExperience', e.target.value ? parseInt(e.target.value) : undefined)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                      className="w-full px-3 py-2.5 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                     <input
                       type="number"
                       placeholder="Max"
                       value={filters.maxExperience || ''}
                       onChange={(e) => handleFilterChange('maxExperience', e.target.value ? parseInt(e.target.value) : undefined)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                      className="w-full px-3 py-2.5 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Salary (Local Currency)</label>
-                  <div className="flex gap-2">
-                    <input
-                      type="number"
-                      placeholder="Min"
-                      value={filters.minSalary || ''}
-                      onChange={(e) => handleFilterChange('minSalary', e.target.value ? parseInt(e.target.value) : undefined)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
-                    />
-                    <input
-                      type="number"
-                      placeholder="Max"
-                      value={filters.maxSalary || ''}
-                      onChange={(e) => handleFilterChange('maxSalary', e.target.value ? parseInt(e.target.value) : undefined)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
-                    />
-                  </div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Visa Status</label>
+                  <select
+                    value={filters.visaStatus || ''}
+                    onChange={(e) => handleFilterChange('visaStatus', e.target.value || undefined)}
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  >
+                    <option value="">All Visa Types</option>
+                    <option value="Work Visa">Work Visa</option>
+                    <option value="Visit Visa">Visit Visa</option>
+                    <option value="Freelance Visa">Freelance Visa</option>
+                    <option value="Expired Visa">Expired Visa</option>
+                    <option value="No Visa">No Visa</option>
+                  </select>
                 </div>
               </div>
 
-              {/* Visa Status Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Visa Status
-                </label>
-                <select
-                  value={filters.visaStatus || ''}
-                  onChange={(e) => handleFilterChange('visaStatus', e.target.value || undefined)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
-                >
-                  <option value="">All visa types</option>
-                  <option value="Work Visa">Work Visa</option>
-                  <option value="Visit Visa">Visit Visa</option>
-                  <option value="Freelance Visa">Freelance Visa</option>
-                  <option value="Expired Visa">Expired Visa</option>
-                  <option value="No Visa">No Visa</option>
-                </select>
-              </div>
-
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mt-4">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <button
                   onClick={clearFilters}
-                  className="text-gray-600 hover:text-gray-800 text-sm"
+                  className="text-gray-600 hover:text-gray-800 font-medium transition-colors"
                 >
                   Clear all filters
                 </button>
-                <span className="text-sm text-gray-600">
-                  Showing {displayedWorkers.length} of {filteredWorkers.length} workers
-                </span>
+                <div className="bg-gray-100 px-4 py-2 rounded-lg">
+                  <span className="text-sm font-medium text-gray-700">
+                    Showing {displayedWorkers.length} of {filteredWorkers.length} workers
+                  </span>
+                </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* Results Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Enhanced Results Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
           {displayedWorkers.map((worker) => (
-            <div key={worker.id} className="card hover:shadow-lg transition-shadow">
-              {/* Profile Header */}
-              <div className="flex items-start gap-4 mb-4">
-                <img
-                  src={worker.profilePicture}
-                  alt={worker.fullName}
-                  className="w-16 h-16 rounded-full object-cover"
-                />
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-navy-900">{worker.fullName}</h3>
-                  <p className="text-primary-600 font-medium">{worker.jobTitle}</p>
-                  <div className="flex items-center text-gray-600 text-sm mt-1">
-                    <MapPinIcon className="h-4 w-4 mr-1" />
-                    {worker.city}, {worker.country}
+            <div key={worker.id} className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden">
+              {/* Profile Header with Enhanced Design */}
+              <div className="relative p-6 pb-4">
+                {/* Background Gradient */}
+                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-r from-primary-500/10 to-blue-500/10 rounded-t-2xl"></div>
+                
+                <div className="relative flex items-start gap-4">
+                  <div className="relative">
+                    <img
+                      src={worker.profilePicture}
+                      alt={worker.fullName}
+                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-4 border-white shadow-lg"
+                    />
+                    {/* Online Status Indicator */}
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-3 border-white flex items-center justify-center">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 truncate">{worker.fullName}</h3>
+                        <p className="text-primary-600 font-semibold text-sm sm:text-base truncate">{worker.jobTitle}</p>
+                      </div>
+                      <CheckBadgeIcon className={`h-6 w-6 flex-shrink-0 ${getVerificationColor(worker.visaStatus)}`} />
+                    </div>
+                    
+                    <div className="flex items-center text-gray-500 text-sm mt-2">
+                      <MapPinIcon className="h-4 w-4 mr-1 flex-shrink-0" />
+                      <span className="truncate">{worker.city}, {worker.country}</span>
+                    </div>
                   </div>
                 </div>
-                {(worker.visaStatus === 'Work Visa' || worker.visaStatus === 'Freelance Visa') && (
-                  <CheckBadgeIcon className="h-5 w-5 text-green-500" title={worker.visaStatus} />
-                )}
-              </div>
 
-              {/* Stats */}
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-navy-900">{worker.yearsExperience}</div>
-                  <div className="text-gray-600 text-sm">Years Exp.</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-navy-900">{worker.expectedSalary}</div>
-                  <div className="text-gray-600 text-sm">Local Currency/Month</div>
+                {/* Visa Status Badge */}
+                <div className="absolute top-4 right-4">
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                    worker.visaStatus === 'Work Visa' ? 'bg-green-100 text-green-800' :
+                    worker.visaStatus === 'Freelance Visa' ? 'bg-blue-100 text-blue-800' :
+                    worker.visaStatus === 'Visit Visa' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-gray-100 text-gray-800'
+                  }`}>
+                    {worker.visaStatus}
+                  </span>
                 </div>
               </div>
 
-              {/* Languages */}
-              <div className="mb-4">
-                <div className="text-sm text-gray-700 mb-2">Languages:</div>
-                <div className="flex flex-wrap gap-1">
-                  {worker.languagesSpoken.slice(0, 3).map((lang) => (
-                    <span key={lang} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
+              {/* Enhanced Stats */}
+              <div className="px-6 pb-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3">
+                    <div className="text-2xl font-bold text-blue-600">{worker.yearsExperience}</div>
+                    <div className="text-blue-500 text-xs font-medium">Years Exp.</div>
+                  </div>
+                  <div className="text-center bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-3">
+                    <div className="text-xl font-bold text-green-600">{worker.expectedSalary}</div>
+                    <div className="text-green-500 text-xs font-medium">Expected/Month</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Enhanced Languages */}
+              <div className="px-6 pb-4">
+                <div className="text-sm font-medium text-gray-700 mb-2">Languages</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {worker.languagesSpoken.slice(0, 2).map((lang) => (
+                    <span key={lang} className="bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
                       {lang}
                     </span>
                   ))}
-                  {worker.languagesSpoken.length > 3 && (
-                    <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
-                      +{worker.languagesSpoken.length - 3} more
+                  {worker.languagesSpoken.length > 2 && (
+                    <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-medium">
+                      +{worker.languagesSpoken.length - 2}
                     </span>
                   )}
                 </div>
               </div>
 
-              {/* About Me Preview */}
-              <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                {worker.aboutMe}
-              </p>
-
-              {/* Actions */}
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleViewProfile(worker)}
-                  className="btn-secondary flex-1 flex items-center justify-center gap-2"
-                >
-                  <EyeIcon className="h-4 w-4" />
-                  View Profile
-                </button>
-                <button
-                  onClick={() => handleUnlockProfile(worker.id)}
-                  className="btn-primary flex-1 flex items-center justify-center gap-2"
-                >
-                  <LockClosedIcon className="h-4 w-4" />
-                  Unlock Contact
-                </button>
+              {/* Enhanced About Preview */}
+              <div className="px-6 pb-6">
+                <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
+                  {worker.aboutMe}
+                </p>
               </div>
 
-              {/* Subscription Notice */}
-              {!isSubscribed && (
-                <div className="mt-3 p-3 bg-gold-50 border border-gold-200 rounded-lg">
-                  <p className="text-gold-800 text-xs text-center">
-                    Subscribe to view contact details and unlock profiles
+              {/* Enhanced Action Buttons */}
+              <div className="px-6 pb-6">
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => handleViewProfile(worker)}
+                    className="flex-1 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 transform hover:scale-105"
+                  >
+                    <EyeIcon className="h-4 w-4" />
+                    <span className="text-sm">View</span>
+                  </button>
+                  <Link
+                    href="/pricing"
+                    className="flex-1 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  >
+                    <CreditCardIcon className="h-4 w-4" />
+                    <span className="text-sm">Unlock</span>
+                  </Link>
+                </div>
+                
+                {/* Premium Notice */}
+                <div className="mt-3 text-center">
+                  <p className="text-xs text-gray-500">
+                    💎 <span className="font-medium">Unlock contact details</span> with premium access
                   </p>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Load More Button */}
+        {/* Enhanced Load More Button */}
         {displayedWorkers.length < filteredWorkers.length && (
-          <div className="text-center mt-8">
+          <div className="text-center mt-12">
             <button
               onClick={loadMoreWorkers}
               disabled={isLoading}
-              className="btn-primary px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-lg hover:shadow-xl disabled:shadow-none flex items-center gap-3 mx-auto"
             >
               {isLoading ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Loading...
-                </div>
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Loading more workers...
+                </>
               ) : (
-                `Load More Workers (${filteredWorkers.length - displayedWorkers.length} remaining)`
+                <>
+                  <ArrowTopRightOnSquareIcon className="h-5 w-5" />
+                  Load More Workers ({filteredWorkers.length - displayedWorkers.length} remaining)
+                </>
               )}
             </button>
           </div>
         )}
 
-        {/* No Results */}
+        {/* Enhanced No Results */}
         {filteredWorkers.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
-              <BriefcaseIcon className="h-16 w-16 mx-auto" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No workers found</h3>
-            <p className="text-gray-600 mb-4">Try adjusting your search criteria or filters</p>
-            <button onClick={clearFilters} className="btn-primary">
-              Clear Filters
-            </button>
-          </div>
-        )}
-
-        {/* Subscription CTA */}
-        {!isSubscribed && displayedWorkers.length > 0 && (
-          <div className="mt-12 bg-primary-600 text-white rounded-lg p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">Unlock Full Access</h3>
-            <p className="text-lg mb-6 text-gray-200">
-              Subscribe to view contact details and connect with workers directly
-            </p>
-            <button className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-3 px-8 rounded-lg text-lg transition-colors">
-              View Pricing Plans
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Profile Modal */}
-      {selectedWorker && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-navy-900">Worker Profile</h2>
-              <button
-                onClick={closeProfileModal}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
-              >
-                <XMarkIcon className="h-6 w-6" />
+          <div className="text-center py-16">
+            <div className="bg-gradient-to-r from-primary-100 to-blue-100 rounded-3xl p-8 max-w-md mx-auto">
+              <BriefcaseIcon className="h-20 w-20 mx-auto text-primary-400 mb-4" />
+              <h3 className="text-xl font-bold text-gray-900 mb-2">No workers found</h3>
+              <p className="text-gray-600 mb-6">Try adjusting your search criteria or browse all available workers</p>
+              <button onClick={clearFilters} className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+                Clear All Filters
               </button>
             </div>
+          </div>
+        )}
 
-            <div className="p-6">
-              {/* Profile Header */}
-              <div className="flex flex-col sm:flex-row items-start gap-6 mb-6">
-                <img
-                  src={selectedWorker.profilePicture}
-                  alt={selectedWorker.fullName}
-                  className="w-24 h-24 rounded-full object-cover mx-auto sm:mx-0"
-                />
-                <div className="text-center sm:text-left flex-1">
-                  <h3 className="text-2xl font-bold text-navy-900 mb-2">{selectedWorker.fullName}</h3>
-                  <p className="text-lg text-primary-600 font-medium mb-2">{selectedWorker.jobTitle}</p>
-                  <div className="flex items-center justify-center sm:justify-start text-gray-600 mb-2">
-                    <MapPinIcon className="h-4 w-4 mr-1" />
-                    {selectedWorker.city}, {selectedWorker.country}
-                  </div>
-                  {(selectedWorker.visaStatus === 'Work Visa' || selectedWorker.visaStatus === 'Freelance Visa') && (
-                    <div className="flex items-center justify-center sm:justify-start gap-1">
-                      <CheckBadgeIcon className="h-5 w-5 text-green-500" />
-                      <span className="text-green-600 text-sm font-medium">{selectedWorker.visaStatus}</span>
-                    </div>
-                  )}
-                </div>
+        {/* Enhanced Premium CTA */}
+        <div className="mt-16 bg-gradient-to-r from-primary-600 via-blue-600 to-purple-600 rounded-3xl p-8 sm:p-12 text-white text-center relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-4 left-4 w-32 h-32 bg-white rounded-full"></div>
+            <div className="absolute bottom-4 right-4 w-24 h-24 bg-white rounded-full"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white rounded-full"></div>
+          </div>
+          
+          <div className="relative z-10">
+            <h3 className="text-3xl sm:text-4xl font-bold mb-4">Unlock Premium Access</h3>
+            <p className="text-xl sm:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
+              Get instant access to contact details, verified profiles, and priority support
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <div className="flex items-center gap-2 text-blue-100">
+                <CheckBadgeIcon className="h-5 w-5 text-green-300" />
+                <span>Direct Contact Access</span>
               </div>
-
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-navy-900">{selectedWorker.yearsExperience}</div>
-                  <div className="text-gray-600 text-sm">Years Experience</div>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-navy-900">{selectedWorker.expectedSalary}</div>
-                  <div className="text-gray-600 text-sm">Expected Salary</div>
-                </div>
+              <div className="flex items-center gap-2 text-blue-100">
+                <CheckBadgeIcon className="h-5 w-5 text-green-300" />
+                <span>Verified Profiles Only</span>
               </div>
-
-              {/* Languages */}
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold text-navy-900 mb-3">Languages</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedWorker.languagesSpoken.map((lang) => (
-                    <span key={lang} className="bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-sm">
-                      {lang}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* About */}
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold text-navy-900 mb-3">About</h4>
-                <p className="text-gray-700 leading-relaxed">{selectedWorker.aboutMe}</p>
-              </div>
-
-              {/* Contact Information */}
-              {isSubscribed && (
-                <div className="mb-6 p-4 bg-green-50 rounded-lg border border-green-200">
-                  <h4 className="text-lg font-semibold text-green-900 mb-3">Contact Information</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <PhoneIcon className="h-4 w-4 text-green-600" />
-                      <span className="text-green-800">{selectedWorker.phoneNumber}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-600">✉</span>
-                      <span className="text-green-800">{selectedWorker.email}</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Actions */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                {!isSubscribed ? (
-                  <button
-                    onClick={() => handleUnlockProfile(selectedWorker.id)}
-                    className="btn-primary flex-1 flex items-center justify-center gap-2"
-                  >
-                    <LockClosedIcon className="h-4 w-4" />
-                    Unlock Contact Details
-                  </button>
-                ) : (
-                  <a
-                    href={`tel:${selectedWorker.phoneNumber}`}
-                    className="btn-primary flex-1 flex items-center justify-center gap-2"
-                  >
-                    <PhoneIcon className="h-4 w-4" />
-                    Call Now
-                  </a>
-                )}
-                <button
-                  onClick={closeProfileModal}
-                  className="btn-secondary flex-1"
-                >
-                  Close
-                </button>
+              <div className="flex items-center gap-2 text-blue-100">
+                <CheckBadgeIcon className="h-5 w-5 text-green-300" />
+                <span>24/7 Support</span>
               </div>
             </div>
+
+            <Link 
+              href="/pricing"
+              className="inline-flex items-center gap-3 bg-white text-primary-600 font-bold py-4 px-8 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
+            >
+              <CreditCardIcon className="h-6 w-6" />
+              View Pricing Plans
+              <ArrowTopRightOnSquareIcon className="h-5 w-5" />
+            </Link>
           </div>
         </div>
-      )}
+      </div>
 
-      {/* Contact Details Popup */}
-      {showContactPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full">
-            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-5 rounded-t-3xl">
+      {/* Enhanced Profile Modal */}
+      {selectedWorker && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-primary-500 to-blue-600 text-white px-6 py-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-xl font-bold flex items-center gap-2">
-                  🎉 Contact Unlocked!
-                </h3>
+                <h2 className="text-2xl font-bold flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <EyeIcon className="h-6 w-6" />
+                  </div>
+                  Worker Profile
+                </h2>
                 <button
-                  onClick={() => setShowContactPopup(null)}
-                  className="text-white/80 hover:text-white transition-colors"
+                  onClick={closeProfileModal}
+                  className="text-white/80 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
                 >
                   <XMarkIcon className="h-6 w-6" />
                 </button>
               </div>
             </div>
 
-            <div className="p-6">
-              <div className="flex items-center gap-4 mb-6">
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+              {/* Enhanced Profile Header */}
+              <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
                 <div className="relative">
                   <img
-                    src={showContactPopup.profilePicture}
-                    alt={showContactPopup.fullName}
-                    className="w-16 h-16 rounded-2xl object-cover"
+                    src={selectedWorker.profilePicture}
+                    alt={selectedWorker.fullName}
+                    className="w-24 h-24 rounded-3xl object-cover border-4 border-gray-100 shadow-lg"
                   />
-                  <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-1">
-                    <CheckBadgeIcon className="h-4 w-4 text-white" />
+                  <div className="absolute -bottom-2 -right-2 bg-green-500 rounded-full p-2 border-4 border-white">
+                    <CheckBadgeIcon className="h-5 w-5 text-white" />
                   </div>
                 </div>
-                <div>
-                  <h4 className="text-lg font-bold text-navy-900">{showContactPopup.fullName}</h4>
-                  <p className="text-primary-600 font-medium">{showContactPopup.jobTitle}</p>
-                  <p className="text-gray-500 text-sm">{showContactPopup.city}, {showContactPopup.country}</p>
+                
+                <div className="text-center sm:text-left flex-1">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-2">{selectedWorker.fullName}</h3>
+                  <p className="text-xl text-primary-600 font-semibold mb-3">{selectedWorker.jobTitle}</p>
+                  <div className="flex items-center justify-center sm:justify-start text-gray-600 mb-3">
+                    <MapPinIcon className="h-5 w-5 mr-2" />
+                    {selectedWorker.city}, {selectedWorker.country}
+                  </div>
+                  <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium ${
+                    selectedWorker.visaStatus === 'Work Visa' ? 'bg-green-100 text-green-800' :
+                    selectedWorker.visaStatus === 'Freelance Visa' ? 'bg-blue-100 text-blue-800' :
+                    selectedWorker.visaStatus === 'Visit Visa' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-gray-100 text-gray-800'
+                  }`}>
+                    {selectedWorker.visaStatus}
+                  </span>
                 </div>
               </div>
 
-              <div className="space-y-4 mb-6">
-                <a
-                  href={`tel:${showContactPopup.phoneNumber}`}
-                  className="flex items-center gap-4 p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-2xl hover:from-green-100 hover:to-green-200 transition-all"
-                >
-                  <div className="bg-green-500 rounded-xl p-3">
-                    <PhoneIcon className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-gray-900">Phone Number</div>
-                    <div className="text-green-600 font-medium">{showContactPopup.phoneNumber}</div>
-                  </div>
-                </a>
-
-                <a
-                  href={`mailto:${showContactPopup.email}`}
-                  className="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl hover:from-blue-100 hover:to-blue-200 transition-all"
-                >
-                  <div className="bg-blue-500 rounded-xl p-3">
-                    <EnvelopeIcon className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-gray-900">Email Address</div>
-                    <div className="text-blue-600 font-medium">{showContactPopup.email}</div>
-                  </div>
-                </a>
+              {/* Enhanced Stats Grid */}
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 text-center">
+                  <div className="text-3xl font-bold text-blue-600 mb-1">{selectedWorker.yearsExperience}</div>
+                  <div className="text-blue-500 font-medium">Years Experience</div>
+                </div>
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 text-center">
+                  <div className="text-3xl font-bold text-green-600 mb-1">{selectedWorker.expectedSalary}</div>
+                  <div className="text-green-500 font-medium">Expected Salary</div>
+                </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <a
-                  href={`tel:${showContactPopup.phoneNumber}`}
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-                >
-                  <PhoneIcon className="h-4 w-4" />
-                  Call
-                </a>
-                <a
-                  href={`mailto:${showContactPopup.email}`}
-                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-                >
-                  <EnvelopeIcon className="h-4 w-4" />
-                  Email
-                </a>
+              {/* Enhanced Languages */}
+              <div className="mb-8">
+                <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                  Languages
+                </h4>
+                <div className="flex flex-wrap gap-3">
+                  {selectedWorker.languagesSpoken.map((lang) => (
+                    <span key={lang} className="bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 px-4 py-2 rounded-xl text-sm font-medium">
+                      {lang}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              <div className="mt-4 text-center">
-                <p className="text-xs text-gray-500">
-                  📱 Contact details are now available for direct communication
-                </p>
+              {/* Enhanced About */}
+              <div className="mb-8">
+                <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                  About
+                </h4>
+                <div className="bg-gray-50 rounded-2xl p-6">
+                  <p className="text-gray-700 leading-relaxed">{selectedWorker.aboutMe}</p>
+                </div>
+              </div>
+
+              {/* Contact Premium Notice */}
+              <div className="bg-gradient-to-r from-gold-50 to-yellow-50 border-2 border-gold-200 rounded-2xl p-6 mb-6">
+                <div className="text-center">
+                  <div className="flex justify-center mb-3">
+                    <div className="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center">
+                      <LockClosedIcon className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                  <h4 className="text-lg font-bold text-gold-800 mb-2">Premium Contact Information</h4>
+                  <p className="text-gold-700 mb-4">Unlock direct contact details including phone number and email to connect instantly</p>
+                  <div className="flex gap-2 text-sm text-gold-600 mb-4">
+                    <span>📱 Phone Number</span>
+                    <span>•</span>
+                    <span>📧 Email Address</span>
+                    <span>•</span>
+                    <span>✅ Verified Contact</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Enhanced Actions */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/pricing"
+                  className="flex-1 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-3 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  <CreditCardIcon className="h-5 w-5" />
+                  Unlock Contact Details
+                  <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+                </Link>
+                <button
+                  onClick={closeProfileModal}
+                  className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-4 px-6 rounded-2xl transition-colors"
+                >
+                  Close Profile
+                </button>
               </div>
             </div>
           </div>
