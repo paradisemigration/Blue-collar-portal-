@@ -7,8 +7,27 @@ export interface Company {
   description: string
 }
 
+export interface JobProfile {
+  id: string
+  title: string
+  company: string
+  location: string
+  salary: string
+  type: string
+  experience: string
+  posted: string
+  description: string
+  requirements: string[]
+  benefits: string[]
+  urgent?: boolean
+}
+
 export interface CityCompanies {
   [key: string]: Company[]
+}
+
+export interface CityJobProfiles {
+  [key: string]: JobProfile[]
 }
 
 export const BAHRAIN_COMPANIES: CityCompanies = {
@@ -1978,6 +1997,545 @@ export const BAHRAIN_CITIES = [
 ]
 
 export const ALL_CITIES = [...UAE_CITIES, ...SAUDI_ARABIA_CITIES, ...QATAR_CITIES, ...OMAN_CITIES, ...KUWAIT_CITIES, ...BAHRAIN_CITIES]
+
+// Job Profiles by City
+export const CITY_JOB_PROFILES: CityJobProfiles = {
+  'Dubai': [
+    {
+      id: 'dub-001',
+      title: 'Light Vehicle Driver',
+      company: 'Emirates Transport',
+      location: 'Dubai, UAE',
+      salary: 'AED 2,500 - 3,500',
+      type: 'Full-time',
+      experience: '2-3 years',
+      posted: '2 days ago',
+      description: 'Seeking experienced light vehicle driver for delivery services across Dubai.',
+      requirements: ['Valid UAE driving license', 'Clean driving record', 'English speaking'],
+      benefits: ['Free accommodation', 'Transportation allowance', 'Health insurance'],
+      urgent: true
+    },
+    {
+      id: 'dub-002',
+      title: 'Housemaid',
+      company: 'Al Ghurair',
+      location: 'Dubai, UAE',
+      salary: 'AED 1,800 - 2,200',
+      type: 'Live-in',
+      experience: '1-2 years',
+      posted: '1 day ago',
+      description: 'Live-in housemaid required for family villa in Dubai Marina.',
+      requirements: ['Previous housekeeping experience', 'References required', 'Basic English'],
+      benefits: ['Free accommodation', 'Meals provided', 'Annual leave'],
+      urgent: true
+    },
+    {
+      id: 'dub-003',
+      title: 'Construction Worker',
+      company: 'ASGC Construction',
+      location: 'Dubai, UAE',
+      salary: 'AED 1,600 - 2,000',
+      type: 'Full-time',
+      experience: '1-3 years',
+      posted: '3 days ago',
+      description: 'Construction workers needed for major residential project in Dubai South.',
+      requirements: ['Physical fitness', 'Construction experience', 'Safety awareness'],
+      benefits: ['Shared accommodation', 'Transportation', 'Overtime pay']
+    },
+    {
+      id: 'dub-004',
+      title: 'Restaurant Cook',
+      company: 'Jumeirah Group',
+      location: 'Dubai, UAE',
+      salary: 'AED 2,200 - 3,000',
+      type: 'Full-time',
+      experience: '2-4 years',
+      posted: '4 days ago',
+      description: 'Experienced cook required for luxury hotel restaurant.',
+      requirements: ['Culinary experience', 'Food safety certification', 'Team player'],
+      benefits: ['Staff accommodation', 'Meals', 'Career development']
+    },
+    {
+      id: 'dub-005',
+      title: 'Security Guard',
+      company: 'Transguard Group',
+      location: 'Dubai, UAE',
+      salary: 'AED 2,000 - 2,800',
+      type: 'Shift work',
+      experience: '1-2 years',
+      posted: '5 days ago',
+      description: 'Security guard position for commercial building in DIFC.',
+      requirements: ['Security training certificate', 'Good physical condition', 'Alert and responsible'],
+      benefits: ['Health insurance', 'Uniform provided', 'Training programs']
+    },
+    {
+      id: 'dub-006',
+      title: 'Warehouse Worker',
+      company: 'DP World',
+      location: 'Dubai, UAE',
+      salary: 'AED 1,800 - 2,400',
+      type: 'Full-time',
+      experience: '1-2 years',
+      posted: '6 days ago',
+      description: 'Warehouse operations role at Dubai logistics hub.',
+      requirements: ['Warehouse experience', 'Forklift license preferred', 'Physical stamina'],
+      benefits: ['Transportation', 'Medical insurance', 'Performance bonus']
+    },
+    {
+      id: 'dub-007',
+      title: 'Electrician',
+      company: 'Emaar Properties',
+      location: 'Dubai, UAE',
+      salary: 'AED 3,000 - 4,500',
+      type: 'Full-time',
+      experience: '3-5 years',
+      posted: '1 week ago',
+      description: 'Licensed electrician for residential and commercial projects.',
+      requirements: ['Electrical license', 'UAE experience', 'Problem-solving skills'],
+      benefits: ['Company accommodation', 'Tool allowance', 'Annual bonus']
+    },
+    {
+      id: 'dub-008',
+      title: 'Cleaner',
+      company: 'Dulsco',
+      location: 'Dubai, UAE',
+      salary: 'AED 1,400 - 1,800',
+      type: 'Full-time',
+      experience: '6 months - 1 year',
+      posted: '1 week ago',
+      description: 'Office and commercial cleaning positions available.',
+      requirements: ['Basic cleaning experience', 'Attention to detail', 'Reliable'],
+      benefits: ['Free accommodation', 'Transportation', 'Equipment provided']
+    },
+    {
+      id: 'dub-009',
+      title: 'Delivery Driver',
+      company: 'Careem',
+      location: 'Dubai, UAE',
+      salary: 'AED 2,000 - 3,500',
+      type: 'Flexible',
+      experience: '1-2 years',
+      posted: '1 week ago',
+      description: 'Food and package delivery driver for app-based service.',
+      requirements: ['Valid driving license', 'Own vehicle preferred', 'Smartphone'],
+      benefits: ['Flexible hours', 'Fuel allowance', 'Performance incentives']
+    },
+    {
+      id: 'dub-010',
+      title: 'Factory Worker',
+      company: 'Al Ghurair',
+      location: 'Dubai, UAE',
+      salary: 'AED 1,600 - 2,200',
+      type: 'Full-time',
+      experience: '1-2 years',
+      posted: '1 week ago',
+      description: 'Production line worker for manufacturing facility.',
+      requirements: ['Factory experience', 'Shift flexibility', 'Safety conscious'],
+      benefits: ['Shared accommodation', 'Meals', 'Health insurance']
+    }
+  ],
+  'Abu Dhabi': [
+    {
+      id: 'adh-001',
+      title: 'Heavy Vehicle Driver',
+      company: 'ADNOC',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 3,500 - 4,500',
+      type: 'Full-time',
+      experience: '3-5 years',
+      posted: '1 day ago',
+      description: 'Heavy vehicle driver for oil and gas transportation.',
+      requirements: ['Heavy vehicle license', 'Hazmat certification', 'UAE experience'],
+      benefits: ['Company housing', 'Life insurance', 'Annual bonus'],
+      urgent: true
+    },
+    {
+      id: 'adh-002',
+      title: 'Nanny',
+      company: 'Private Family',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 2,500 - 3,500',
+      type: 'Live-in',
+      experience: '2-4 years',
+      posted: '2 days ago',
+      description: 'Experienced nanny for 2 children in Corniche area.',
+      requirements: ['Childcare experience', 'First aid certified', 'English fluent'],
+      benefits: ['Private room', 'Paid holidays', 'Health insurance']
+    },
+    {
+      id: 'adh-003',
+      title: 'Welder',
+      company: 'ADNOC',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 2,800 - 3,800',
+      type: 'Full-time',
+      experience: '3-5 years',
+      posted: '3 days ago',
+      description: 'Certified welder for offshore oil platform projects.',
+      requirements: ['Welding certification', 'Offshore experience', 'Safety training'],
+      benefits: ['Rotation schedule', 'Free accommodation', 'Medical coverage']
+    },
+    {
+      id: 'adh-004',
+      title: 'Hotel Housekeeper',
+      company: 'Four Seasons',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 1,800 - 2,400',
+      type: 'Full-time',
+      experience: '1-3 years',
+      posted: '4 days ago',
+      description: 'Housekeeping staff for luxury 5-star hotel.',
+      requirements: ['Hotel experience', 'Attention to detail', 'Physical stamina'],
+      benefits: ['Staff accommodation', 'Uniform', 'Training provided']
+    },
+    {
+      id: 'adh-005',
+      title: 'Mechanic',
+      company: 'Al Naboodah Group',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 2,500 - 3,500',
+      type: 'Full-time',
+      experience: '2-4 years',
+      posted: '5 days ago',
+      description: 'Auto mechanic for heavy equipment maintenance.',
+      requirements: ['Mechanical certification', 'Heavy machinery experience', 'Diagnostic skills'],
+      benefits: ['Workshop tools provided', 'Health insurance', 'Overtime pay']
+    },
+    {
+      id: 'adh-006',
+      title: 'Office Boy',
+      company: 'Mubadala',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 1,500 - 2,000',
+      type: 'Full-time',
+      experience: '6 months - 1 year',
+      posted: '6 days ago',
+      description: 'Office support role for corporate headquarters.',
+      requirements: ['Basic English', 'Presentable appearance', 'Helpful attitude'],
+      benefits: ['Transportation', 'Meals', 'Medical insurance']
+    },
+    {
+      id: 'adh-007',
+      title: 'Gardener',
+      company: 'Private Villa',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 1,800 - 2,400',
+      type: 'Full-time',
+      experience: '1-3 years',
+      posted: '1 week ago',
+      description: 'Gardener for luxury private villa with extensive landscaping.',
+      requirements: ['Gardening experience', 'Knowledge of plants', 'Physical fitness'],
+      benefits: ['Accommodation provided', 'Equipment', 'Annual leave']
+    },
+    {
+      id: 'adh-008',
+      title: 'Laundry Worker',
+      company: 'Rotana Hotels',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 1,600 - 2,000',
+      type: 'Full-time',
+      experience: '1-2 years',
+      posted: '1 week ago',
+      description: 'Hotel laundry operations for luxury hotel chain.',
+      requirements: ['Laundry experience', 'Quality standards', 'Team player'],
+      benefits: ['Staff housing', 'Uniform', 'Career growth']
+    },
+    {
+      id: 'adh-009',
+      title: 'Painter',
+      company: 'Arabtec Construction',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 1,800 - 2,600',
+      type: 'Full-time',
+      experience: '2-3 years',
+      posted: '1 week ago',
+      description: 'Painter for residential and commercial construction projects.',
+      requirements: ['Painting experience', 'Quality finishing', 'Color knowledge'],
+      benefits: ['Shared accommodation', 'Tools provided', 'Performance bonus']
+    },
+    {
+      id: 'adh-010',
+      title: 'Kitchen Helper',
+      company: 'Emirates Palace',
+      location: 'Abu Dhabi, UAE',
+      salary: 'AED 1,400 - 1,900',
+      type: 'Full-time',
+      experience: '6 months - 1 year',
+      posted: '1 week ago',
+      description: 'Kitchen assistant for luxury hotel restaurant.',
+      requirements: ['Food preparation experience', 'Hygiene standards', 'Fast-paced work'],
+      benefits: ['Staff meals', 'Accommodation', 'Training']
+    }
+  ],
+  'Sharjah': [
+    {
+      id: 'shj-001',
+      title: 'Taxi Driver',
+      company: 'Sharjah Taxi',
+      location: 'Sharjah, UAE',
+      salary: 'AED 2,200 - 3,000',
+      type: 'Full-time',
+      experience: '2-3 years',
+      posted: '1 day ago',
+      description: 'Taxi driver for city transport service.',
+      requirements: ['UAE driving license', 'Clean record', 'Customer service'],
+      benefits: ['Company vehicle', 'Fuel allowance', 'Commission'],
+      urgent: true
+    },
+    {
+      id: 'shj-002',
+      title: 'Domestic Helper',
+      company: 'Private Family',
+      location: 'Sharjah, UAE',
+      salary: 'AED 1,600 - 2,200',
+      type: 'Live-in',
+      experience: '1-2 years',
+      posted: '2 days ago',
+      description: 'Domestic helper for family apartment in Al Nahda.',
+      requirements: ['Housework experience', 'Cooking skills', 'Trustworthy'],
+      benefits: ['Private room', 'Family meals', 'Annual ticket']
+    },
+    {
+      id: 'shj-003',
+      title: 'Mason',
+      company: 'Shapoorji Pallonji',
+      location: 'Sharjah, UAE',
+      salary: 'AED 1,800 - 2,400',
+      type: 'Full-time',
+      experience: '2-4 years',
+      posted: '3 days ago',
+      description: 'Mason for residential construction projects.',
+      requirements: ['Masonry skills', 'Blueprint reading', 'Quality work'],
+      benefits: ['Accommodation', 'Transportation', 'Overtime']
+    },
+    {
+      id: 'shj-004',
+      title: 'Barista',
+      company: 'Costa Coffee',
+      location: 'Sharjah, UAE',
+      salary: 'AED 1,800 - 2,400',
+      type: 'Full-time',
+      experience: '1-2 years',
+      posted: '4 days ago',
+      description: 'Barista for busy mall location.',
+      requirements: ['Coffee making skills', 'Customer service', 'English speaking'],
+      benefits: ['Training provided', 'Tips', 'Career advancement']
+    },
+    {
+      id: 'shj-005',
+      title: 'Watchman',
+      company: 'Bee\'ah',
+      location: 'Sharjah, UAE',
+      salary: 'AED 1,800 - 2,200',
+      type: 'Shift work',
+      experience: '1-2 years',
+      posted: '5 days ago',
+      description: 'Night watchman for industrial facility.',
+      requirements: ['Security experience', 'Night shift availability', 'Alert'],
+      benefits: ['Accommodation', 'Medical', 'Shift allowance']
+    },
+    {
+      id: 'shj-006',
+      title: 'Forklift Operator',
+      company: 'Gulftainer',
+      location: 'Sharjah, UAE',
+      salary: 'AED 2,200 - 2,800',
+      type: 'Full-time',
+      experience: '2-3 years',
+      posted: '6 days ago',
+      description: 'Forklift operator for port container operations.',
+      requirements: ['Forklift license', 'Port experience', 'Safety certified'],
+      benefits: ['Transportation', 'Health insurance', 'Performance bonus']
+    },
+    {
+      id: 'shj-007',
+      title: 'AC Technician',
+      company: 'Al Shirawi Group',
+      location: 'Sharjah, UAE',
+      salary: 'AED 2,500 - 3,200',
+      type: 'Full-time',
+      experience: '2-4 years',
+      posted: '1 week ago',
+      description: 'HVAC technician for commercial installations.',
+      requirements: ['HVAC certification', 'Installation experience', 'Problem solving'],
+      benefits: ['Company vehicle', 'Tools', 'Medical insurance']
+    },
+    {
+      id: 'shj-008',
+      title: 'Tailor',
+      company: 'Al Ansari Tailoring',
+      location: 'Sharjah, UAE',
+      salary: 'AED 1,800 - 2,600',
+      type: 'Full-time',
+      experience: '3-5 years',
+      posted: '1 week ago',
+      description: 'Experienced tailor for mens and ladies clothing.',
+      requirements: ['Tailoring skills', 'Measurement expertise', 'Quality finishing'],
+      benefits: ['Accommodation', 'Equipment provided', 'Commission']
+    },
+    {
+      id: 'shj-009',
+      title: 'Dishwasher',
+      company: 'Applebee\'s',
+      location: 'Sharjah, UAE',
+      salary: 'AED 1,400 - 1,800',
+      type: 'Full-time',
+      experience: '6 months - 1 year',
+      posted: '1 week ago',
+      description: 'Dishwasher for busy restaurant kitchen.',
+      requirements: ['Kitchen experience', 'Fast-paced work', 'Cleanliness'],
+      benefits: ['Staff meals', 'Accommodation', 'Tips']
+    },
+    {
+      id: 'shj-010',
+      title: 'Packer',
+      company: 'Union Coop',
+      location: 'Sharjah, UAE',
+      salary: 'AED 1,500 - 2,000',
+      type: 'Full-time',
+      experience: '6 months - 1 year',
+      posted: '1 week ago',
+      description: 'Packing and sorting for retail distribution center.',
+      requirements: ['Warehouse experience', 'Physical stamina', 'Attention to detail'],
+      benefits: ['Transportation', 'Health insurance', 'Overtime pay']
+    }
+  ],
+  // Continue with other cities...
+  'Ajman': [
+    {
+      id: 'ajm-001',
+      title: 'Bus Driver',
+      company: 'RTA Ajman',
+      location: 'Ajman, UAE',
+      salary: 'AED 2,800 - 3,600',
+      type: 'Full-time',
+      experience: '3-5 years',
+      posted: '1 day ago',
+      description: 'Public bus driver for city transport routes.',
+      requirements: ['Heavy vehicle license', 'Clean driving record', 'Customer service'],
+      benefits: ['Government benefits', 'Pension', 'Medical insurance'],
+      urgent: true
+    },
+    {
+      id: 'ajm-002',
+      title: 'Live-in Maid',
+      company: 'Private Household',
+      location: 'Ajman, UAE',
+      salary: 'AED 1,500 - 2,000',
+      type: 'Live-in',
+      experience: '1-3 years',
+      posted: '2 days ago',
+      description: 'Live-in maid for family with 3 children.',
+      requirements: ['Housework experience', 'Child care', 'Cooking'],
+      benefits: ['Free accommodation', 'Meals', 'Annual leave']
+    },
+    {
+      id: 'ajm-003',
+      title: 'Carpenter',
+      company: 'Ajman Municipality',
+      location: 'Ajman, UAE',
+      salary: 'AED 2,200 - 2,800',
+      type: 'Full-time',
+      experience: '2-4 years',
+      posted: '3 days ago',
+      description: 'Carpenter for municipal maintenance projects.',
+      requirements: ['Carpentry skills', 'Tool knowledge', 'Quality work'],
+      benefits: ['Government job', 'Benefits package', 'Job security']
+    },
+    {
+      id: 'ajm-004',
+      title: 'Restaurant Server',
+      company: 'Al Bahar Restaurant',
+      location: 'Ajman, UAE',
+      salary: 'AED 1,600 - 2,200',
+      type: 'Full-time',
+      experience: '1-2 years',
+      posted: '4 days ago',
+      description: 'Server for family restaurant with sea view.',
+      requirements: ['Restaurant experience', 'English/Arabic', 'Friendly manner'],
+      benefits: ['Tips', 'Staff meals', 'Training']
+    },
+    {
+      id: 'ajm-005',
+      title: 'Lifeguard',
+      company: 'Ajman Beach Resort',
+      location: 'Ajman, UAE',
+      salary: 'AED 2,000 - 2,600',
+      type: 'Full-time',
+      experience: '1-2 years',
+      posted: '5 days ago',
+      description: 'Certified lifeguard for beach resort.',
+      requirements: ['Lifeguard certification', 'Swimming skills', 'First aid'],
+      benefits: ['Accommodation', 'Meals', 'Training']
+    },
+    {
+      id: 'ajm-006',
+      title: 'Maintenance Helper',
+      company: 'Ajman University',
+      location: 'Ajman, UAE',
+      salary: 'AED 1,600 - 2,000',
+      type: 'Full-time',
+      experience: '1-2 years',
+      posted: '6 days ago',
+      description: 'General maintenance for university facilities.',
+      requirements: ['Basic maintenance skills', 'Physical fitness', 'Reliable'],
+      benefits: ['University benefits', 'Training', 'Job security']
+    },
+    {
+      id: 'ajm-007',
+      title: 'Plumber',
+      company: 'Skyline Construction',
+      location: 'Ajman, UAE',
+      salary: 'AED 2,400 - 3,200',
+      type: 'Full-time',
+      experience: '2-4 years',
+      posted: '1 week ago',
+      description: 'Plumber for residential and commercial projects.',
+      requirements: ['Plumbing certification', 'Installation skills', 'Problem solving'],
+      benefits: ['Tools provided', 'Accommodation', 'Medical']
+    },
+    {
+      id: 'ajm-008',
+      title: 'Car Wash Attendant',
+      company: 'Quick Clean Car Wash',
+      location: 'Ajman, UAE',
+      salary: 'AED 1,400 - 1,800',
+      type: 'Full-time',
+      experience: '6 months - 1 year',
+      posted: '1 week ago',
+      description: 'Car washing and detailing services.',
+      requirements: ['Car care experience', 'Attention to detail', 'Physical work'],
+      benefits: ['Tips', 'Accommodation', 'Training']
+    },
+    {
+      id: 'ajm-009',
+      title: 'Tea Boy',
+      company: 'Government Office',
+      location: 'Ajman, UAE',
+      salary: 'AED 1,200 - 1,600',
+      type: 'Full-time',
+      experience: '6 months',
+      posted: '1 week ago',
+      description: 'Tea and refreshment service for government office.',
+      requirements: ['Basic English', 'Presentable', 'Punctual'],
+      benefits: ['Government benefits', 'Stability', 'Medical']
+    },
+    {
+      id: 'ajm-010',
+      title: 'Assembly Worker',
+      company: 'Ajman Industries',
+      location: 'Ajman, UAE',
+      salary: 'AED 1,600 - 2,200',
+      type: 'Full-time',
+      experience: '1-2 years',
+      posted: '1 week ago',
+      description: 'Assembly line worker for electronics manufacturing.',
+      requirements: ['Factory experience', 'Manual dexterity', 'Quality focus'],
+      benefits: ['Accommodation', 'Transportation', 'Overtime']
+    }
+  ]
+  // Add more cities following the same pattern...
+}
 
 export function getCityDisplayName(citySlug: string): string {
   const cityMap: Record<string, string> = {
