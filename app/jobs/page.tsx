@@ -263,7 +263,7 @@ export default function JobsPage() {
                       {jobProfiles.slice(0, 8).map((job, jobIndex) => (
                         <Link
                           key={job.id}
-                          href={`/${citySlug}/${job.title.toLowerCase().replace(/\s+/g, '-').replace(/[()]/g, '')}`}
+                          href={`/jobs/${citySlug}/${job.title.toLowerCase().replace(/\s+/g, '-').replace(/[()]/g, '')}`}
                           className="bg-gray-50 hover:bg-white border border-gray-200 hover:border-primary-300 rounded-lg p-4 transition-all group hover:shadow-md"
                         >
                           <div className="flex items-start justify-between mb-3">
