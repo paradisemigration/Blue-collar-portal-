@@ -615,11 +615,21 @@ export default function BrowseWorkers() {
               {/* Enhanced Profile Header */}
               <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
                 <div className="relative">
-                  <img
-                    src={selectedWorker.profilePicture}
-                    alt={selectedWorker.fullName}
-                    className="w-24 h-24 rounded-3xl object-cover border-4 border-gray-100 shadow-lg"
-                  />
+                  <div className="relative">
+                    <img
+                      src={selectedWorker.profilePicture}
+                      alt={selectedWorker.fullName}
+                      className={`w-24 h-24 rounded-3xl object-cover border-4 border-gray-100 shadow-lg transition-all duration-300 ${
+                        !isSubscribed ? 'filter blur-md' : ''
+                      }`}
+                    />
+                    {/* Blur overlay for non-premium users */}
+                    {!isSubscribed && (
+                      <div className="absolute inset-0 bg-gray-200/30 rounded-3xl border-4 border-gray-100 flex items-center justify-center">
+                        <LockClosedIcon className="h-8 w-8 text-gray-600" />
+                      </div>
+                    )}
+                  </div>
                   <div className="absolute -bottom-2 -right-2 bg-green-500 rounded-full p-2 border-4 border-white">
                     <CheckBadgeIcon className="h-5 w-5 text-white" />
                   </div>
