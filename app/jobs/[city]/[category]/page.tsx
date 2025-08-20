@@ -261,6 +261,42 @@ export default function JobListingPage({ params }: PageProps) {
 
   const faqs = generateFAQs()
 
+  // Generate structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    "title": `${isIndividualJob ? jobDisplay : categoryDisplay} Jobs in ${cityDisplay}`,
+    "description": `Find ${isIndividualJob ? jobDisplay?.toLowerCase() : categoryDisplay.toLowerCase()} opportunities in ${cityDisplay}, ${country}. Apply to verified companies with competitive salaries and benefits.`,
+    "hiringOrganization": {
+      "@type": "Organization",
+      "name": "Go Get Hires",
+      "sameAs": "https://www.gogethires.com"
+    },
+    "jobLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": cityDisplay,
+        "addressCountry": country
+      }
+    },
+    "employmentType": "FULL_TIME",
+    "validThrough": new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+    "datePosted": new Date().toISOString(),
+    "industry": isIndividualJob ? jobDisplay : categoryDisplay,
+    "occupationalCategory": categoryDisplay,
+    "workHours": "Full-time",
+    "salaryCurrency": country === 'UAE' ? 'AED' : country === 'Qatar' ? 'QAR' : country === 'Saudi Arabia' ? 'SAR' : country === 'Kuwait' ? 'KWD' : country === 'Bahrain' ? 'BHD' : 'OMR',
+    "jobBenefits": [
+      "Health insurance",
+      "Accommodation provided",
+      "Transportation allowance",
+      "Visa sponsorship",
+      "Annual leave",
+      "End of service benefits"
+    ]
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
