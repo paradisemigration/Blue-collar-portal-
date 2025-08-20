@@ -397,44 +397,34 @@ export default function JobListingPage({ params }: PageProps) {
           </div>
 
           {/* Quick Apply Section */}
-          <div className="bg-gradient-to-r from-primary-600 via-blue-600 to-purple-600 text-white rounded-2xl p-8 mb-8 relative overflow-hidden">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-4 left-4 w-32 h-32 bg-white rounded-full"></div>
-              <div className="absolute bottom-4 right-4 w-24 h-24 bg-white rounded-full"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white rounded-full"></div>
-            </div>
-
-            <div className="text-center relative z-10">
-              <div className="mb-4">
-                <span className="text-6xl">🚀</span>
-              </div>
-              <h3 className="text-2xl font-bold mb-3">⚡ Quick Apply to ALL Companies</h3>
-              <p className="text-blue-100 mb-6 text-lg max-w-2xl mx-auto">
-                Create your professional profile once and apply to multiple companies with a single click.
-                Get hired faster with our streamlined process!
+          <div className="bg-primary-600 text-white rounded-lg p-8 mb-8">
+            <div className="text-center">
+              <h3 className="text-2xl font-semibold mb-4">Apply to Multiple Companies</h3>
+              <p className="text-primary-100 mb-6 text-lg max-w-2xl mx-auto">
+                Create your professional profile and apply to all listed companies with a single submission.
+                Streamline your job search process.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Link
                   href="/create-profile"
-                  className="bg-white text-primary-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-xl text-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+                  className="bg-white text-primary-600 hover:bg-gray-100 font-medium py-3 px-8 rounded-md text-lg transition-colors duration-200 flex items-center gap-2"
                 >
-                  <BriefcaseIcon className="h-6 w-6" />
-                  Create Profile & Apply Now - FREE
+                  <BriefcaseIcon className="h-5 w-5" />
+                  Create Profile & Apply
                 </Link>
-                <div className="flex items-center gap-2 text-blue-100">
-                  <CheckBadgeIcon className="h-5 w-5 text-green-300" />
-                  <span className="text-sm">100% Free • No Hidden Charges</span>
+                <div className="flex items-center gap-2 text-primary-100">
+                  <CheckBadgeIcon className="h-4 w-4" />
+                  <span className="text-sm">Free Application Process</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Companies List - Redesigned Professional Cards */}
-        <div className="bg-white rounded-xl shadow-lg border p-6 sm:p-8 mb-8">
+        {/* Companies List - Professional Corporate Design */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
           <h3 className="text-2xl font-bold text-navy-900 mb-6 text-center">
-            🏢 Premium Companies Hiring {categoryDisplay} in {cityDisplay}
+            Premium Companies Hiring {categoryDisplay} in {cityDisplay}
           </h3>
 
           <div className="grid gap-8">
@@ -444,29 +434,33 @@ export default function JobListingPage({ params }: PageProps) {
               const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 
               return (
-                <div key={index} className="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 hover:border-primary-300 overflow-hidden">
+                <div key={index} className="group relative bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 overflow-hidden">
                   {/* Company Header */}
-                  <div className="bg-gradient-to-r from-primary-600 to-blue-600 text-white p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-4">
-                        <div className="bg-white/20 backdrop-blur-sm p-3 rounded-xl">
-                          <BuildingOfficeIcon className="h-8 w-8 text-white" />
+                  <div className="bg-gray-50 border-b border-gray-200 p-6">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start gap-4">
+                        <div className="bg-white shadow-sm border border-gray-200 p-3 rounded-lg">
+                          <BuildingOfficeIcon className="h-7 w-7 text-gray-600" />
                         </div>
-                        <div>
-                          <h4 className="text-2xl font-bold mb-1">{company.name}</h4>
-                          <div className="flex items-center gap-2">
-                            <CheckBadgeIcon className="h-5 w-5 text-green-300" />
-                            <span className="text-sm text-blue-100 font-medium">Verified Employer</span>
+                        <div className="flex-1">
+                          <h4 className="text-xl font-semibold text-gray-900 mb-2">{company.name}</h4>
+                          <div className="flex items-center gap-2 mb-3">
+                            <CheckBadgeIcon className="h-4 w-4 text-green-600" />
+                            <span className="text-sm text-gray-600 font-medium">Verified Employer</span>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-gray-600">
+                            <div className="flex items-center gap-1">
+                              <StarIcon className="h-4 w-4 text-amber-500 fill-current" />
+                              <span className="font-medium">4.8</span>
+                            </div>
+                            <div className="bg-gray-200 w-px h-4"></div>
+                            <span>{company.industry}</span>
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold mb-2">
-                          ⚡ HIRING NOW
-                        </div>
-                        <div className="flex items-center gap-1 text-blue-100 text-sm">
-                          <StarIcon className="h-4 w-4 fill-current text-yellow-400" />
-                          <span>4.8 Rating</span>
+                        <div className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium">
+                          Currently Hiring
                         </div>
                       </div>
                     </div>
@@ -476,91 +470,95 @@ export default function JobListingPage({ params }: PageProps) {
                   <div className="p-6">
                     {/* Company Info Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                      <div className="bg-blue-50 rounded-lg p-4 text-center">
-                        <BriefcaseIcon className="h-6 w-6 text-blue-600 mx-auto mb-2" />
-                        <div className="text-sm font-semibold text-gray-900">{company.industry}</div>
-                        <div className="text-xs text-gray-600">Industry</div>
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
+                        <BriefcaseIcon className="h-5 w-5 text-gray-600 mx-auto mb-2" />
+                        <div className="text-sm font-medium text-gray-900">{company.industry}</div>
+                        <div className="text-xs text-gray-500 mt-1">Industry</div>
                       </div>
-                      <div className="bg-green-50 rounded-lg p-4 text-center">
-                        <UserGroupIcon className="h-6 w-6 text-green-600 mx-auto mb-2" />
-                        <div className="text-sm font-semibold text-gray-900">{company.size}</div>
-                        <div className="text-xs text-gray-600">Company Size</div>
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
+                        <UserGroupIcon className="h-5 w-5 text-gray-600 mx-auto mb-2" />
+                        <div className="text-sm font-medium text-gray-900">{company.size}</div>
+                        <div className="text-xs text-gray-500 mt-1">Company Size</div>
                       </div>
-                      <div className="bg-purple-50 rounded-lg p-4 text-center">
-                        <MapPinIcon className="h-6 w-6 text-purple-600 mx-auto mb-2" />
-                        <div className="text-sm font-semibold text-gray-900">{cityDisplay}</div>
-                        <div className="text-xs text-gray-600">Location</div>
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
+                        <MapPinIcon className="h-5 w-5 text-gray-600 mx-auto mb-2" />
+                        <div className="text-sm font-medium text-gray-900">{cityDisplay}</div>
+                        <div className="text-xs text-gray-500 mt-1">Location</div>
                       </div>
                     </div>
 
                     {/* Company Description */}
                     <div className="mb-6">
-                      <h5 className="text-lg font-semibold text-gray-900 mb-3">About Company</h5>
-                      <p className="text-gray-700 leading-relaxed">{company.description}</p>
+                      <h5 className="text-base font-semibold text-gray-900 mb-3">Company Overview</h5>
+                      <p className="text-gray-700 leading-relaxed text-sm">{company.description}</p>
                     </div>
 
                     {/* Benefits & Highlights */}
                     <div className="mb-6">
-                      <h5 className="text-lg font-semibold text-gray-900 mb-3">💼 What We Offer</h5>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div className="bg-green-100 text-green-800 px-3 py-2 rounded-lg text-center text-sm font-medium">
-                          🏠 Accommodation
+                      <h5 className="text-base font-semibold text-gray-900 mb-3">Employee Benefits</h5>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="flex items-center gap-2 text-sm text-gray-700">
+                          <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                          <span>Accommodation Provided</span>
                         </div>
-                        <div className="bg-blue-100 text-blue-800 px-3 py-2 rounded-lg text-center text-sm font-medium">
-                          🚗 Transport
+                        <div className="flex items-center gap-2 text-sm text-gray-700">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                          <span>Transportation</span>
                         </div>
-                        <div className="bg-purple-100 text-purple-800 px-3 py-2 rounded-lg text-center text-sm font-medium">
-                          🏥 Health Insurance
+                        <div className="flex items-center gap-2 text-sm text-gray-700">
+                          <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                          <span>Health Insurance</span>
                         </div>
-                        <div className="bg-orange-100 text-orange-800 px-3 py-2 rounded-lg text-center text-sm font-medium">
-                          📄 Visa Support
+                        <div className="flex items-center gap-2 text-sm text-gray-700">
+                          <div className="w-2 h-2 bg-orange-600 rounded-full"></div>
+                          <span>Visa Sponsorship</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Quick Stats */}
-                    <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
                       <div className="grid grid-cols-3 gap-4 text-center">
-                        <div>
-                          <div className="text-2xl font-bold text-green-600">95%</div>
-                          <div className="text-xs text-gray-600">Hiring Rate</div>
+                        <div className="border-r border-gray-300 last:border-r-0">
+                          <div className="text-lg font-semibold text-gray-900">95%</div>
+                          <div className="text-xs text-gray-600 mt-1">Success Rate</div>
+                        </div>
+                        <div className="border-r border-gray-300 last:border-r-0">
+                          <div className="text-lg font-semibold text-gray-900">24h</div>
+                          <div className="text-xs text-gray-600 mt-1">Response Time</div>
                         </div>
                         <div>
-                          <div className="text-2xl font-bold text-blue-600">24h</div>
-                          <div className="text-xs text-gray-600">Response Time</div>
-                        </div>
-                        <div>
-                          <div className="text-2xl font-bold text-purple-600">{Math.floor(Math.random() * 50) + 10}</div>
-                          <div className="text-xs text-gray-600">Open Positions</div>
+                          <div className="text-lg font-semibold text-gray-900">{Math.floor(Math.random() * 50) + 10}</div>
+                          <div className="text-xs text-gray-600 mt-1">Open Positions</div>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="px-6 pb-6">
-                    <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="px-6 pb-6 bg-gray-50 border-t border-gray-200">
+                    <div className="flex flex-col sm:flex-row gap-3 mb-4">
                       <Link
                         href="/create-profile"
-                        className="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center flex items-center justify-center gap-2"
+                        className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 text-center flex items-center justify-center gap-2"
                       >
-                        <BriefcaseIcon className="h-5 w-5" />
-                        Apply Now - Free
+                        <BriefcaseIcon className="h-4 w-4" />
+                        Apply to Position
                       </Link>
                       <a
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 min-w-fit"
+                        className="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 flex items-center justify-center gap-2 min-w-fit"
                       >
-                        <PhoneIcon className="h-5 w-5" />
-                        Share on WhatsApp
+                        <PhoneIcon className="h-4 w-4" />
+                        Share via WhatsApp
                       </a>
                     </div>
 
                     {/* Additional Actions */}
-                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-2 text-gray-600">
                         <ClockIcon className="h-4 w-4" />
                         <span>Posted {Math.floor(Math.random() * 5) + 1} days ago</span>
                       </div>
@@ -577,10 +575,10 @@ export default function JobListingPage({ params }: PageProps) {
                             alert('Job link copied to clipboard!');
                           }
                         }}
-                        className="flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                        className="flex items-center gap-1 text-primary-600 hover:text-primary-700 font-medium transition-colors"
                       >
                         <ShareIcon className="h-4 w-4" />
-                        Share Job
+                        Share
                       </button>
                     </div>
                   </div>
