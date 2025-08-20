@@ -420,11 +420,11 @@ export default function JobsPage() {
             >
               Create Your Profile
             </Link>
-            <Link 
-              href="/browse"
+            <Link
+              href="/jobs/dubai/driver"
               className="bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors border border-white/20"
             >
-              Browse All Jobs
+              View Driver Jobs
             </Link>
           </div>
         </div>
