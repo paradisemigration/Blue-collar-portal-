@@ -374,50 +374,71 @@ export default function BrowseWorkers() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
           {displayedWorkers.map((worker) => (
             <div key={worker.id} className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden">
-              {/* Profile Header with Enhanced Design */}
+              {/* Profile Header with Fixed Layout */}
               <div className="relative p-6 pb-4">
                 {/* Background Gradient */}
                 <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-r from-primary-500/10 to-blue-500/10 rounded-t-2xl"></div>
-                
-                <div className="relative flex items-start gap-4">
+
+                {/* Visa Status Badge - Positioned to avoid overlap */}
+                <div className="absolute top-3 right-3 z-10">
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium shadow-sm ${
+                    worker.visaStatus === 'Work Visa' ? 'bg-green-100 text-green-800 border border-green-200' :
+                    worker.visaStatus === 'Freelance Visa' ? 'bg-blue-100 text-blue-800 border border-blue-200' :
+                    worker.visaStatus === 'Visit Visa' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
+                    'bg-gray-100 text-gray-800 border border-gray-200'
+                  }`}>
+                    {worker.visaStatus}
+                  </span>
+                </div>
+
+                <div className="relative flex items-start gap-4 mt-2">
                   <div className="relative">
-                    <img
-                      src={worker.profilePicture}
-                      alt={worker.fullName}
-                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-4 border-white shadow-lg"
-                    />
+                    <div className="relative">
+                      <img
+                        src={worker.profilePicture}
+                        alt={worker.fullName}
+                        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-4 border-white shadow-lg transition-all duration-300 ${
+                          !isSubscribed ? 'filter blur-md' : ''
+                        }`}
+                      />
+                      {/* Blur overlay for non-premium users */}
+                      {!isSubscribed && (
+                        <div className="absolute inset-0 bg-gray-200/30 rounded-2xl border-4 border-white flex items-center justify-center">
+                          <LockClosedIcon className="h-6 w-6 text-gray-600" />
+                        </div>
+                      )}
+                    </div>
                     {/* Online Status Indicator */}
                     <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-3 border-white flex items-center justify-center">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
                   </div>
-                  
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 truncate">{worker.fullName}</h3>
-                        <p className="text-primary-600 font-semibold text-sm sm:text-base truncate">{worker.jobTitle}</p>
+
+                  <div className="flex-1 min-w-0 pr-20">
+                    {/* Name and Job Title */}
+                    <div className="mb-3">
+                      <div className="flex items-start gap-2">
+                        <div className="flex-1">
+                          <h3 className="text-lg sm:text-xl font-bold text-gray-900 truncate leading-tight">
+                            {worker.fullName}
+                          </h3>
+                          <p className="text-primary-600 font-semibold text-sm sm:text-base truncate mt-1">
+                            {worker.jobTitle}
+                          </p>
+                        </div>
+                        {/* Verification Icon - Positioned clearly */}
+                        <div className="flex-shrink-0 mt-1">
+                          <CheckBadgeIcon className={`h-6 w-6 ${getVerificationColor(worker.visaStatus)}`} />
+                        </div>
                       </div>
-                      <CheckBadgeIcon className={`h-6 w-6 flex-shrink-0 ${getVerificationColor(worker.visaStatus)}`} />
                     </div>
-                    
-                    <div className="flex items-center text-gray-500 text-sm mt-2">
+
+                    {/* Location */}
+                    <div className="flex items-center text-gray-500 text-sm">
                       <MapPinIcon className="h-4 w-4 mr-1 flex-shrink-0" />
                       <span className="truncate">{worker.city}, {worker.country}</span>
                     </div>
                   </div>
-                </div>
-
-                {/* Visa Status Badge */}
-                <div className="absolute top-4 right-4">
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
-                    worker.visaStatus === 'Work Visa' ? 'bg-green-100 text-green-800' :
-                    worker.visaStatus === 'Freelance Visa' ? 'bg-blue-100 text-blue-800' :
-                    worker.visaStatus === 'Visit Visa' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-gray-100 text-gray-800'
-                  }`}>
-                    {worker.visaStatus}
-                  </span>
                 </div>
               </div>
 
