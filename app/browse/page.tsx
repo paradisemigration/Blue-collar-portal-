@@ -370,146 +370,149 @@ export default function BrowseWorkers() {
           )}
         </div>
 
-        {/* Enhanced Results Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+        {/* Modern Profile Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {displayedWorkers.map((worker) => (
-            <div key={worker.id} className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden">
-              {/* Profile Header with Fixed Layout */}
-              <div className="relative p-6 pb-4">
-                {/* Background Gradient */}
-                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-r from-primary-500/10 to-blue-500/10 rounded-t-2xl"></div>
+            <div key={worker.id} className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 hover:border-primary-200">
+              {/* Premium Overlay Indicator */}
+              {!isSubscribed && (
+                <div className="absolute top-4 left-4 z-20">
+                  <div className="bg-gradient-to-r from-amber-400 to-orange-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
+                    <LockClosedIcon className="h-3 w-3" />
+                    PREMIUM
+                  </div>
+                </div>
+              )}
 
-                {/* Visa Status Badge - Positioned to avoid overlap */}
-                <div className="absolute top-3 right-3 z-10">
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium shadow-sm ${
-                    worker.visaStatus === 'Work Visa' ? 'bg-green-100 text-green-800 border border-green-200' :
-                    worker.visaStatus === 'Freelance Visa' ? 'bg-blue-100 text-blue-800 border border-blue-200' :
-                    worker.visaStatus === 'Visit Visa' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
-                    'bg-gray-100 text-gray-800 border border-gray-200'
+              {/* Header Section */}
+              <div className="relative bg-gradient-to-br from-primary-50 via-blue-50 to-purple-50 px-6 pt-6 pb-4">
+                {/* Visa Status Badge */}
+                <div className="absolute top-4 right-4 z-10">
+                  <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold shadow-md border-2 ${
+                    worker.visaStatus === 'Work Visa' ? 'bg-emerald-500 text-white border-emerald-400' :
+                    worker.visaStatus === 'Freelance Visa' ? 'bg-blue-500 text-white border-blue-400' :
+                    worker.visaStatus === 'Visit Visa' ? 'bg-amber-500 text-white border-amber-400' :
+                    'bg-gray-500 text-white border-gray-400'
                   }`}>
                     {worker.visaStatus}
-                  </span>
+                  </div>
                 </div>
 
-                <div className="relative flex items-start gap-4 mt-2">
+                {/* Profile Photo */}
+                <div className="flex justify-center mb-4">
                   <div className="relative">
-                    <div className="relative">
+                    <div className="relative w-24 h-24 mx-auto">
                       <img
                         src={worker.profilePicture}
                         alt={worker.fullName}
-                        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-4 border-white shadow-lg transition-all duration-300 ${
-                          !isSubscribed ? 'filter blur-md' : ''
+                        className={`w-full h-full rounded-full object-cover border-4 border-white shadow-xl transition-all duration-300 ${
+                          !isSubscribed ? 'filter blur-sm' : ''
                         }`}
                       />
-                      {/* Blur overlay for non-premium users */}
                       {!isSubscribed && (
-                        <div className="absolute inset-0 bg-gray-200/30 rounded-2xl border-4 border-white flex items-center justify-center">
-                          <LockClosedIcon className="h-6 w-6 text-gray-600" />
+                        <div className="absolute inset-0 bg-black/20 rounded-full border-4 border-white flex items-center justify-center">
+                          <LockClosedIcon className="h-8 w-8 text-white drop-shadow-lg" />
                         </div>
                       )}
                     </div>
-                    {/* Online Status Indicator */}
-                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-3 border-white flex items-center justify-center">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                    {/* Online Status */}
+                    <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-emerald-500 rounded-full border-3 border-white shadow-lg flex items-center justify-center">
+                      <div className="w-3 h-3 bg-white rounded-full"></div>
                     </div>
-                  </div>
-
-                  <div className="flex-1 min-w-0 pr-20">
-                    {/* Name and Job Title */}
-                    <div className="mb-3">
-                      <div className="flex items-start gap-2">
-                        <div className="flex-1">
-                          <h3 className="text-lg sm:text-xl font-bold text-gray-900 truncate leading-tight">
-                            {worker.fullName}
-                          </h3>
-                          <p className="text-primary-600 font-semibold text-sm sm:text-base truncate mt-1">
-                            {worker.jobTitle}
-                          </p>
-                        </div>
-                        {/* Verification Icon - Positioned clearly */}
-                        <div className="flex-shrink-0 mt-1">
-                          <CheckBadgeIcon className={`h-6 w-6 ${getVerificationColor(worker.visaStatus)}`} />
-                        </div>
+                    {/* Verification Badge */}
+                    <div className="absolute -top-1 -right-1">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-lg ${
+                        worker.visaStatus === 'Work Visa' ? 'bg-emerald-500' :
+                        worker.visaStatus === 'Freelance Visa' ? 'bg-blue-500' :
+                        worker.visaStatus === 'Visit Visa' ? 'bg-amber-500' :
+                        'bg-gray-500'
+                      }`}>
+                        <CheckBadgeIcon className="h-5 w-5 text-white" />
                       </div>
                     </div>
+                  </div>
+                </div>
 
-                    {/* Location */}
-                    <div className="flex items-center text-gray-500 text-sm">
-                      <MapPinIcon className="h-4 w-4 mr-1 flex-shrink-0" />
-                      <span className="truncate">{worker.city}, {worker.country}</span>
-                    </div>
+                {/* Name and Title */}
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1 truncate">
+                    {worker.fullName}
+                  </h3>
+                  <p className="text-primary-600 font-semibold text-base mb-2 truncate">
+                    {worker.jobTitle}
+                  </p>
+                  <div className="flex items-center justify-center text-gray-500 text-sm">
+                    <MapPinIcon className="h-4 w-4 mr-1" />
+                    <span>{worker.city}, {worker.country}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Enhanced Stats */}
-              <div className="px-6 pb-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3">
-                    <div className="text-2xl font-bold text-blue-600">{worker.yearsExperience}</div>
-                    <div className="text-blue-500 text-xs font-medium">Years Exp.</div>
+              {/* Content Section */}
+              <div className="p-6 space-y-6">
+                {/* Stats Cards */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-4 text-center text-white shadow-lg">
+                    <div className="text-2xl font-bold mb-1">{worker.yearsExperience}</div>
+                    <div className="text-blue-100 text-xs font-medium uppercase tracking-wide">Years Exp</div>
                   </div>
-                  <div className="text-center bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-3">
-                    <div className="text-xl font-bold text-green-600">{worker.expectedSalary}</div>
-                    <div className="text-green-500 text-xs font-medium">Expected/Month</div>
+                  <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-4 text-center text-white shadow-lg">
+                    <div className="text-xl font-bold mb-1">{worker.expectedSalary}</div>
+                    <div className="text-emerald-100 text-xs font-medium uppercase tracking-wide">Per Month</div>
                   </div>
+                </div>
+
+                {/* Languages */}
+                <div>
+                  <div className="text-sm font-bold text-gray-800 mb-3 uppercase tracking-wide">Languages</div>
+                  <div className="flex flex-wrap gap-2">
+                    {worker.languagesSpoken.slice(0, 2).map((lang) => (
+                      <span key={lang} className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-xs font-bold shadow-md">
+                        {lang}
+                      </span>
+                    ))}
+                    {worker.languagesSpoken.length > 2 && (
+                      <span className="bg-gray-700 text-white px-4 py-2 rounded-full text-xs font-bold shadow-md">
+                        +{worker.languagesSpoken.length - 2}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* About Preview */}
+                <div>
+                  <div className="text-sm font-bold text-gray-800 mb-2 uppercase tracking-wide">About</div>
+                  <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed">
+                    {worker.aboutMe}
+                  </p>
                 </div>
               </div>
 
-              {/* Enhanced Languages */}
-              <div className="px-6 pb-4">
-                <div className="text-sm font-medium text-gray-700 mb-2">Languages</div>
-                <div className="flex flex-wrap gap-1.5">
-                  {worker.languagesSpoken.slice(0, 2).map((lang) => (
-                    <span key={lang} className="bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
-                      {lang}
-                    </span>
-                  ))}
-                  {worker.languagesSpoken.length > 2 && (
-                    <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-medium">
-                      +{worker.languagesSpoken.length - 2}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Enhanced About Preview */}
-              <div className="px-6 pb-6">
-                <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
-                  {worker.aboutMe}
-                </p>
-              </div>
-
-              {/* Enhanced Action Buttons */}
-              <div className="px-6 pb-6">
-                <div className="flex gap-3">
+              {/* Action Section */}
+              <div className="p-6 pt-0">
+                <div className="grid grid-cols-2 gap-3 mb-4">
                   <button
                     onClick={() => handleViewProfile(worker)}
-                    className="flex-1 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 transform hover:scale-105"
+                    className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 px-4 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
                   >
                     <EyeIcon className="h-4 w-4" />
                     <span className="text-sm">View</span>
                   </button>
                   <Link
                     href="/pricing"
-                    className="flex-1 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold py-3 px-4 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-2"
                   >
                     <CreditCardIcon className="h-4 w-4" />
                     <span className="text-sm">Unlock</span>
                   </Link>
                 </div>
-                
+
                 {/* Premium Notice */}
-                <div className="mt-3 text-center">
-                  <p className="text-xs text-gray-500">
-                    💎 <span className="font-medium">Premium access unlocks</span> clear photos & contact details
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-3 text-center">
+                  <p className="text-xs text-amber-800 font-medium">
+                    <span className="inline-block mr-1">🔐</span>
+                    Unlock clear photos & contact details with Premium
                   </p>
-                  {!isSubscribed && (
-                    <p className="text-xs text-gray-400 mt-1 flex items-center justify-center gap-1">
-                      <LockClosedIcon className="h-3 w-3" />
-                      Photos blurred until subscription
-                    </p>
-                  )}
                 </div>
               </div>
             </div>
