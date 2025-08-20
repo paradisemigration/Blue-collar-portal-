@@ -278,52 +278,69 @@ export default function CreateProfile() {
     }
   }, [selectedJobCategory, setValue, watchedValues.jobTitle])
 
-  // Set default location (disabled auto-detection to prevent fetch errors)
+  // Enhanced location detection
   useEffect(() => {
-    const setDefaults = () => {
-      // Try timezone-based detection first (no fetch required)
+    const detectLocation = async () => {
+      let detectedCountry: Country = 'UAE'
+      let detectedFromIP = false
+
       try {
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-        let detectedCountry: Country = 'UAE'
+        // Try IP-based detection first
+        const response = await fetch('https://ipapi.co/json/', { timeout: 3000 })
+        if (response.ok) {
+          const data = await response.json()
+          const countryCode = data.country_code
 
-        if (timezone.includes('Qatar') || timezone.includes('Doha')) detectedCountry = 'Qatar'
-        else if (timezone.includes('Riyadh') || timezone.includes('Saudi')) detectedCountry = 'Saudi Arabia'
-        else if (timezone.includes('Muscat') || timezone.includes('Oman')) detectedCountry = 'Oman'
-        else if (timezone.includes('Kuwait')) detectedCountry = 'Kuwait'
-        else if (timezone.includes('Bahrain') || timezone.includes('Manama')) detectedCountry = 'Bahrain'
-        else if (timezone.includes('Dubai') || timezone.includes('UAE')) detectedCountry = 'UAE'
+          // Map country codes to our supported countries
+          const countryMapping: Record<string, Country> = {
+            'AE': 'UAE',
+            'QA': 'Qatar',
+            'SA': 'Saudi Arabia',
+            'OM': 'Oman',
+            'KW': 'Kuwait',
+            'BH': 'Bahrain'
+          }
 
-        const info = countryInfo[detectedCountry]
-        setLocationInfo({
-          country: detectedCountry,
-          currency: info.currency,
-          currencySymbol: info.currencySymbol,
-          phoneCode: info.phoneCode,
-          detectedFromIP: false
-        })
-
-        setValue('country', detectedCountry)
-        setValue('phoneNumber', info.phoneCode)
-
-        console.log('✅ Location set based on timezone:', detectedCountry)
+          if (countryMapping[countryCode]) {
+            detectedCountry = countryMapping[countryCode]
+            detectedFromIP = true
+            console.log('✅ Location detected from IP:', detectedCountry)
+          }
+        }
       } catch (error) {
-        // Fallback to UAE default
-        console.log('Using UAE as default location')
-        const defaultInfo = countryInfo['UAE']
-        setLocationInfo({
-          country: 'UAE',
-          currency: defaultInfo.currency,
-          currencySymbol: defaultInfo.currencySymbol,
-          phoneCode: defaultInfo.phoneCode,
-          detectedFromIP: false
-        })
-        setValue('country', 'UAE')
-        setValue('phoneNumber', defaultInfo.phoneCode)
+        console.log('IP detection failed, trying timezone...')
+
+        // Fallback to timezone-based detection
+        try {
+          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+          if (timezone.includes('Qatar') || timezone.includes('Doha')) detectedCountry = 'Qatar'
+          else if (timezone.includes('Riyadh') || timezone.includes('Saudi')) detectedCountry = 'Saudi Arabia'
+          else if (timezone.includes('Muscat') || timezone.includes('Oman')) detectedCountry = 'Oman'
+          else if (timezone.includes('Kuwait')) detectedCountry = 'Kuwait'
+          else if (timezone.includes('Bahrain') || timezone.includes('Manama')) detectedCountry = 'Bahrain'
+          else if (timezone.includes('Dubai') || timezone.includes('UAE')) detectedCountry = 'UAE'
+
+          console.log('✅ Location detected from timezone:', detectedCountry)
+        } catch (tzError) {
+          console.log('Using UAE as default location')
+        }
       }
+
+      const info = countryInfo[detectedCountry]
+      setLocationInfo({
+        country: detectedCountry,
+        currency: info.currency,
+        currencySymbol: info.currencySymbol,
+        phoneCode: info.phoneCode,
+        detectedFromIP
+      })
+
+      setValue('country', detectedCountry)
+      setValue('phoneNumber', info.phoneCode)
     }
 
-    // Set defaults immediately
-    setDefaults()
+    detectLocation()
   }, [setValue])
 
   // Update location info when country changes
@@ -455,8 +472,13 @@ export default function CreateProfile() {
   }
 
   const getFieldError = (fieldName: string, value: any): boolean => {
+    // Don't show errors for phone number on initial load
+    if (fieldName === 'phoneNumber' && !touchedFields.has('phoneNumber') && touchedFields.size === 0) {
+      return false
+    }
+
     if (!touchedFields.has(fieldName) && !value) return false
-    
+
     switch (fieldName) {
       case 'fullName':
         return !value || value.length < 2
@@ -838,7 +860,7 @@ export default function CreateProfile() {
                   {locationInfo && (
                     <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
                       <CheckCircleIcon className="h-3 w-3" />
-                      Auto-detected: {locationInfo.country}
+                      {locationInfo.detectedFromIP ? 'Auto-detected from IP' : 'Auto-detected'}: {locationInfo.country}
                     </p>
                   )}
                 </div>
