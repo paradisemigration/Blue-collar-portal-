@@ -794,6 +794,7 @@ export default function CreateProfile() {
                     <label className="absolute -bottom-1 -right-1 bg-blue-600 hover:bg-blue-700 text-white p-1.5 rounded-lg cursor-pointer shadow-lg transition-colors">
                       <CloudArrowUpIcon className="h-4 w-4" />
                       <input
+                        ref={photoUploadRef}
                         type="file"
                         accept="image/*"
                         onChange={handleFileUpload}
