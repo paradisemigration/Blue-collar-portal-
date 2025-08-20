@@ -807,38 +807,42 @@ export default function CreateProfile() {
               </div>
               
               <div className="p-4 sm:p-6 space-y-6">
-                {/* Profile Picture */}
-                <div className="flex flex-col items-center space-y-4">
-                  <div className="relative">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden border-4 border-white shadow-lg">
+                {/* Profile Picture - Prominent Upload */}
+                <div className="flex flex-col items-center space-y-4 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-dashed border-blue-300">
+                  <label className="relative cursor-pointer group">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center overflow-hidden border-4 border-blue-200 shadow-lg group-hover:border-blue-400 transition-all duration-200">
                       {profilePicturePreview ? (
-                        <img 
-                          src={profilePicturePreview} 
-                          alt="Profile" 
+                        <img
+                          src={profilePicturePreview}
+                          alt="Profile"
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <PhotoIcon className="h-8 w-8 text-gray-400" />
+                        <div className="text-center">
+                          <CloudArrowUpIcon className="h-10 w-10 text-blue-400 mx-auto mb-1" />
+                          <span className="text-xs text-blue-600 font-medium">Click to upload</span>
+                        </div>
                       )}
                     </div>
-                    <label className="absolute -bottom-1 -right-1 bg-blue-600 hover:bg-blue-700 text-white p-1.5 rounded-lg cursor-pointer shadow-lg transition-colors">
-                      <CloudArrowUpIcon className="h-4 w-4" />
-                      <input
-                        ref={photoUploadRef}
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileUpload}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
+                    <div className="absolute -bottom-2 -right-2 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full cursor-pointer shadow-lg transition-colors group-hover:scale-110">
+                      <PhotoIcon className="h-4 w-4" />
+                    </div>
+                    <input
+                      ref={photoUploadRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                  </label>
                   <div className="text-center">
-                    <p className="text-sm font-medium text-gray-700">Profile Photo</p>
+                    <p className="text-sm font-bold text-blue-700">Upload Your Photo</p>
                     <div className="flex items-center justify-center gap-1 mt-1">
                       <span className="text-xs text-blue-600 font-medium">Optional</span>
                       <span className="text-xs text-gray-400">•</span>
-                      <span className="text-xs text-green-600 font-medium">+80% more responses</span>
+                      <span className="text-xs text-green-600 font-bold">+80% more responses!</span>
                     </div>
+                    <p className="text-xs text-gray-500 mt-1">JPG, PNG up to 5MB</p>
                   </div>
                 </div>
 
