@@ -1,11 +1,13 @@
 import Link from 'next/link'
-import { 
-  MapPinIcon, 
-  BriefcaseIcon, 
+import {
+  MapPinIcon,
+  BriefcaseIcon,
   BuildingOfficeIcon,
   UserGroupIcon,
   ClockIcon,
-  StarIcon
+  StarIcon,
+  ChevronRightIcon,
+  HomeIcon
 } from '@heroicons/react/24/outline'
 import { 
   ALL_CITIES, 
@@ -49,6 +51,19 @@ export default function JobsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Breadcrumbs */}
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <nav className="flex text-sm items-center">
+            <Link href="/" className="text-gray-500 hover:text-primary-600 flex items-center">
+              <HomeIcon className="h-4 w-4 mr-1" />
+              Home
+            </Link>
+            <ChevronRightIcon className="h-4 w-4 mx-2 text-gray-400" />
+            <span className="text-gray-900 font-medium">Latest Jobs</span>
+          </nav>
+        </div>
+      </div>
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary-600 to-navy-800 text-white py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -187,12 +202,20 @@ export default function JobsPage() {
                     ))}
                   </div>
 
-                  <Link
-                    href={`/browse?city=${citySlug}`}
-                    className="w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-2 px-4 rounded-lg text-sm font-medium transition-colors inline-block"
-                  >
-                    View All Jobs
-                  </Link>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link
+                      href={`/jobs/${citySlug}/driver`}
+                      className="text-xs bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded text-center transition-colors"
+                    >
+                      Driver Jobs
+                    </Link>
+                    <Link
+                      href={`/jobs/${citySlug}/domestic-workers`}
+                      className="text-xs bg-secondary-600 hover:bg-secondary-700 text-white py-2 px-3 rounded text-center transition-colors"
+                    >
+                      Domestic Jobs
+                    </Link>
+                  </div>
                 </div>
               )
             })}
@@ -249,15 +272,20 @@ export default function JobsPage() {
                     })}
                   </div>
 
-                  <Link
-                    href={`/browse?category=${value}`}
-                    className="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center"
-                  >
-                    View all positions
-                    <svg className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link
+                      href={`/jobs/dubai/${value}`}
+                      className="text-xs bg-primary-600 hover:bg-primary-700 text-white py-1.5 px-2 rounded text-center transition-colors"
+                    >
+                      Dubai
+                    </Link>
+                    <Link
+                      href={`/jobs/riyadh/${value}`}
+                      className="text-xs bg-secondary-600 hover:bg-secondary-700 text-white py-1.5 px-2 rounded text-center transition-colors"
+                    >
+                      Riyadh
+                    </Link>
+                  </div>
                 </div>
               )
             })}
