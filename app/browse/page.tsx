@@ -680,15 +680,19 @@ export default function BrowseWorkers() {
                 </div>
               </div>
 
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl p-6 text-center text-white shadow-xl">
-                  <div className="text-4xl font-bold mb-2">{selectedWorker.yearsExperience}</div>
-                  <div className="text-blue-100 text-sm font-medium uppercase tracking-wider">Years Experience</div>
+              {/* Compact Stats Pills */}
+              <div className="flex justify-center gap-4 mb-8">
+                <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-full px-6 py-3 text-center text-white shadow-lg hover:shadow-xl transition-all">
+                  <div className="flex items-center gap-2">
+                    <div className="text-xl font-bold">{selectedWorker.yearsExperience}</div>
+                    <div className="text-blue-200 text-sm font-medium">years exp</div>
+                  </div>
                 </div>
-                <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl p-6 text-center text-white shadow-xl">
-                  <div className="text-3xl font-bold mb-2">{selectedWorker.expectedSalary}</div>
-                  <div className="text-emerald-100 text-sm font-medium uppercase tracking-wider">Expected Salary</div>
+                <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full px-6 py-3 text-center text-white shadow-lg hover:shadow-xl transition-all">
+                  <div className="flex items-center gap-2">
+                    <div className="text-xl font-bold">{selectedWorker.expectedSalary}</div>
+                    <div className="text-emerald-200 text-sm font-medium">per month</div>
+                  </div>
                 </div>
               </div>
 
