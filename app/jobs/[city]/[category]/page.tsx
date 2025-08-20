@@ -643,12 +643,12 @@ export default function JobListingPage({ params }: PageProps) {
         {/* Market Overview Section */}
         <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
           <h2 className="text-2xl font-bold text-navy-900 mb-6">
-            {isIndividualJob ? jobDisplay : categoryDisplay} Job Market in {cityDisplay}, {country}: Complete Guide 2024
+            {isIndividualJob ? jobDisplay : categoryDisplay} Job Market in {cityDisplay}, {country}: Complete Guide 2025
           </h2>
 
           <div className="prose prose-lg max-w-none">
             <p className="text-gray-700 leading-relaxed mb-6">
-              The {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} job market in {cityDisplay} is experiencing unprecedented growth in 2024.
+              The {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} job market in {cityDisplay} is experiencing unprecedented growth in 2025.
               With {country}'s booming economy and infrastructure development, demand for skilled {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} has reached an all-time high.
               {cityDisplay} offers some of the most competitive salaries and comprehensive benefits packages for {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} in the Gulf region.
             </p>
@@ -686,7 +686,7 @@ export default function JobListingPage({ params }: PageProps) {
         {/* Salary and Benefits Deep Dive */}
         <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
           <h2 className="text-2xl font-bold text-navy-900 mb-6">
-            {isIndividualJob ? jobDisplay : categoryDisplay} Salary Guide & Benefits in {cityDisplay} 2024
+            {isIndividualJob ? jobDisplay : categoryDisplay} Salary Guide & Benefits in {cityDisplay} 2025
           </h2>
 
           <div className="grid lg:grid-cols-3 gap-8">
@@ -942,7 +942,7 @@ export default function JobListingPage({ params }: PageProps) {
 
           <div className="grid lg:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-lg font-semibold text-navy-900 mb-4">Market Trends 2024</h3>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">Market Trends 2025</h3>
               <div className="space-y-4">
                 <div className="border-l-4 border-blue-500 pl-4">
                   <h4 className="font-semibold text-navy-900 mb-2">Increased Demand</h4>
@@ -1012,6 +1012,316 @@ export default function JobListingPage({ params }: PageProps) {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Related Jobs Tags Section */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8">
+          <h2 className="text-2xl font-bold text-navy-900 mb-6 text-center">
+            Related {isIndividualJob ? 'Job Opportunities' : 'Jobs'} in {country}
+          </h2>
+
+          <div className="space-y-6">
+            {/* Same City Different Jobs */}
+            <div>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">Other Jobs in {cityDisplay}</h3>
+              <div className="flex flex-wrap gap-2">
+                <Link href={`/jobs/${params.city}/driver`} className="bg-blue-100 hover:bg-blue-200 text-blue-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Driver Jobs {cityDisplay}
+                </Link>
+                <Link href={`/jobs/${params.city}/domestic-workers`} className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Domestic Workers {cityDisplay}
+                </Link>
+                <Link href={`/jobs/${params.city}/construction-workers`} className="bg-orange-100 hover:bg-orange-200 text-orange-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Construction Jobs {cityDisplay}
+                </Link>
+                <Link href={`/jobs/${params.city}/technical-workers`} className="bg-purple-100 hover:bg-purple-200 text-purple-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Technical Jobs {cityDisplay}
+                </Link>
+                <Link href={`/jobs/${params.city}/factory-workers`} className="bg-indigo-100 hover:bg-indigo-200 text-indigo-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Factory Jobs {cityDisplay}
+                </Link>
+                <Link href={`/jobs/${params.city}/security-workers`} className="bg-red-100 hover:bg-red-200 text-red-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Security Jobs {cityDisplay}
+                </Link>
+                <Link href={`/jobs/${params.city}/retail-workers`} className="bg-pink-100 hover:bg-pink-200 text-pink-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Retail Jobs {cityDisplay}
+                </Link>
+                <Link href={`/jobs/${params.city}/office-workers`} className="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Office Jobs {cityDisplay}
+                </Link>
+              </div>
+            </div>
+
+            {/* Same Job Different Cities */}
+            <div>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">{isIndividualJob ? jobDisplay : categoryDisplay} Jobs in Other Cities</h3>
+              <div className="flex flex-wrap gap-2">
+                {country === 'UAE' && (
+                  <>
+                    <Link href={`/jobs/dubai/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Dubai
+                    </Link>
+                    <Link href={`/jobs/abu-dhabi/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Abu Dhabi
+                    </Link>
+                    <Link href={`/jobs/sharjah/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Sharjah
+                    </Link>
+                    <Link href={`/jobs/ajman/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Ajman
+                    </Link>
+                    <Link href={`/jobs/ras-al-khaimah/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} RAK
+                    </Link>
+                  </>
+                )}
+                {country === 'Qatar' && (
+                  <>
+                    <Link href={`/jobs/doha/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Doha
+                    </Link>
+                    <Link href={`/jobs/al-rayyan/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Al Rayyan
+                    </Link>
+                    <Link href={`/jobs/al-wakrah/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Al Wakrah
+                    </Link>
+                  </>
+                )}
+                {country === 'Saudi Arabia' && (
+                  <>
+                    <Link href={`/jobs/riyadh/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Riyadh
+                    </Link>
+                    <Link href={`/jobs/jeddah/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Jeddah
+                    </Link>
+                    <Link href={`/jobs/dammam/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Dammam
+                    </Link>
+                  </>
+                )}
+                {country === 'Kuwait' && (
+                  <>
+                    <Link href={`/jobs/kuwait-city/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Kuwait City
+                    </Link>
+                    <Link href={`/jobs/hawalli/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Hawalli
+                    </Link>
+                  </>
+                )}
+                {country === 'Bahrain' && (
+                  <>
+                    <Link href={`/jobs/manama/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Manama
+                    </Link>
+                    <Link href={`/jobs/riffa/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Riffa
+                    </Link>
+                  </>
+                )}
+                {country === 'Oman' && (
+                  <>
+                    <Link href={`/jobs/muscat/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Muscat
+                    </Link>
+                    <Link href={`/jobs/salalah/${params.category}`} className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      {isIndividualJob ? jobDisplay : categoryDisplay} Salalah
+                    </Link>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Popular Job Searches Across Gulf */}
+            <div>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">Popular Jobs Across Gulf Region</h3>
+              <div className="flex flex-wrap gap-2">
+                <Link href="/jobs/dubai/driver" className="bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Driver Jobs Dubai
+                </Link>
+                <Link href="/jobs/doha/maid" className="bg-pink-50 hover:bg-pink-100 text-pink-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Maid Jobs Doha
+                </Link>
+                <Link href="/jobs/riyadh/construction-workers" className="bg-orange-50 hover:bg-orange-100 text-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Construction Riyadh
+                </Link>
+                <Link href="/jobs/abu-dhabi/security-workers" className="bg-red-50 hover:bg-red-100 text-red-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Security Abu Dhabi
+                </Link>
+                <Link href="/jobs/kuwait-city/technical-workers" className="bg-purple-50 hover:bg-purple-100 text-purple-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Technical Kuwait
+                </Link>
+                <Link href="/jobs/manama/office-workers" className="bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Office Jobs Manama
+                </Link>
+                <Link href="/jobs/muscat/retail-workers" className="bg-yellow-50 hover:bg-yellow-100 text-yellow-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Retail Muscat
+                </Link>
+                <Link href="/jobs/sharjah/factory-workers" className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Factory Sharjah
+                </Link>
+                <Link href="/jobs/jeddah/domestic-workers" className="bg-teal-50 hover:bg-teal-100 text-teal-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Domestic Jeddah
+                </Link>
+                <Link href="/jobs/dubai/electrician" className="bg-amber-50 hover:bg-amber-100 text-amber-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Electrician Dubai
+                </Link>
+                <Link href="/jobs/doha/plumber" className="bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Plumber Doha
+                </Link>
+                <Link href="/jobs/riyadh/carpenter" className="bg-lime-50 hover:bg-lime-100 text-lime-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Carpenter Riyadh
+                </Link>
+                <Link href="/jobs/abu-dhabi/welder" className="bg-rose-50 hover:bg-rose-100 text-rose-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Welder Abu Dhabi
+                </Link>
+                <Link href="/jobs/dubai/cook" className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Cook Dubai
+                </Link>
+                <Link href="/jobs/doha/nanny" className="bg-violet-50 hover:bg-violet-100 text-violet-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Nanny Doha
+                </Link>
+                <Link href="/jobs/riyadh/mason" className="bg-slate-50 hover:bg-slate-100 text-slate-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Mason Riyadh
+                </Link>
+                <Link href="/jobs/kuwait-city/painter" className="bg-zinc-50 hover:bg-zinc-100 text-zinc-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Painter Kuwait
+                </Link>
+                <Link href="/jobs/manama/cleaner" className="bg-stone-50 hover:bg-stone-100 text-stone-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Cleaner Manama
+                </Link>
+                <Link href="/jobs/muscat/gardener" className="bg-red-50 hover:bg-red-100 text-red-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Gardener Muscat
+                </Link>
+                <Link href="/jobs/dubai/mechanic" className="bg-orange-50 hover:bg-orange-100 text-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Mechanic Dubai
+                </Link>
+                <Link href="/jobs/doha/supervisor" className="bg-yellow-50 hover:bg-yellow-100 text-yellow-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Supervisor Doha
+                </Link>
+                <Link href="/jobs/riyadh/foreman" className="bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Foreman Riyadh
+                </Link>
+                <Link href="/jobs/abu-dhabi/operator" className="bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Operator Abu Dhabi
+                </Link>
+                <Link href="/jobs/sharjah/assistant" className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Assistant Sharjah
+                </Link>
+                <Link href="/jobs/ajman/helper" className="bg-purple-50 hover:bg-purple-100 text-purple-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Helper Ajman
+                </Link>
+                <Link href="/jobs/dubai/technician" className="bg-pink-50 hover:bg-pink-100 text-pink-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Technician Dubai
+                </Link>
+                <Link href="/jobs/doha/specialist" className="bg-teal-50 hover:bg-teal-100 text-teal-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Specialist Doha
+                </Link>
+                <Link href="/jobs/riyadh/coordinator" className="bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Coordinator Riyadh
+                </Link>
+                <Link href="/jobs/kuwait-city/executive" className="bg-sky-50 hover:bg-sky-100 text-sky-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Executive Kuwait
+                </Link>
+                <Link href="/jobs/manama/administrator" className="bg-rose-50 hover:bg-rose-100 text-rose-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Administrator Manama
+                </Link>
+                <Link href="/jobs/muscat/representative" className="bg-amber-50 hover:bg-amber-100 text-amber-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Representative Muscat
+                </Link>
+                <Link href="/jobs/dubai/associate" className="bg-lime-50 hover:bg-lime-100 text-lime-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Associate Dubai
+                </Link>
+                <Link href="/jobs/doha/consultant" className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Consultant Doha
+                </Link>
+                <Link href="/jobs/riyadh/analyst" className="bg-violet-50 hover:bg-violet-100 text-violet-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Analyst Riyadh
+                </Link>
+                <Link href="/jobs/abu-dhabi/officer" className="bg-fuchsia-50 hover:bg-fuchsia-100 text-fuchsia-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Officer Abu Dhabi
+                </Link>
+                <Link href="/jobs/dubai/inspector" className="bg-neutral-50 hover:bg-neutral-100 text-neutral-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Inspector Dubai
+                </Link>
+                <Link href="/jobs/doha/attendant" className="bg-gray-50 hover:bg-gray-100 text-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Attendant Doha
+                </Link>
+                <Link href="/jobs/riyadh/worker" className="bg-slate-50 hover:bg-slate-100 text-slate-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Worker Riyadh
+                </Link>
+                <Link href="/jobs/kuwait-city/staff" className="bg-zinc-50 hover:bg-zinc-100 text-zinc-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Staff Kuwait City
+                </Link>
+                <Link href="/jobs/manama/employee" className="bg-stone-50 hover:bg-stone-100 text-stone-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Employee Manama
+                </Link>
+                <Link href="/jobs/muscat/professional" className="bg-red-50 hover:bg-red-100 text-red-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Professional Muscat
+                </Link>
+                <Link href="/jobs/dubai/expert" className="bg-orange-50 hover:bg-orange-100 text-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Expert Dubai
+                </Link>
+                <Link href="/jobs/sharjah/lead" className="bg-yellow-50 hover:bg-yellow-100 text-yellow-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Lead Sharjah
+                </Link>
+                <Link href="/jobs/ajman/senior" className="bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Senior Ajman
+                </Link>
+                <Link href="/jobs/ras-al-khaimah/junior" className="bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Junior RAK
+                </Link>
+                <Link href="/jobs/fujairah/trainee" className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Trainee Fujairah
+                </Link>
+                <Link href="/jobs/umm-al-quwain/intern" className="bg-purple-50 hover:bg-purple-100 text-purple-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Intern Umm Al Quwain
+                </Link>
+                <Link href="/jobs/al-ain/graduate" className="bg-pink-50 hover:bg-pink-100 text-pink-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Graduate Al Ain
+                </Link>
+                <Link href="/jobs/dubai/freelance" className="bg-teal-50 hover:bg-teal-100 text-teal-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Freelance Dubai
+                </Link>
+                <Link href="/jobs/doha/contract" className="bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Contract Doha
+                </Link>
+                <Link href="/jobs/riyadh/permanent" className="bg-sky-50 hover:bg-sky-100 text-sky-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Permanent Riyadh
+                </Link>
+                <Link href="/jobs/abu-dhabi/temporary" className="bg-rose-50 hover:bg-rose-100 text-rose-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Temporary Abu Dhabi
+                </Link>
+                <Link href="/jobs/kuwait-city/part-time" className="bg-amber-50 hover:bg-amber-100 text-amber-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Part Time Kuwait
+                </Link>
+                <Link href="/jobs/manama/full-time" className="bg-lime-50 hover:bg-lime-100 text-lime-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Full Time Manama
+                </Link>
+              </div>
+            </div>
+
+            {/* Browse by Categories */}
+            <div>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">Browse Jobs by Category</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                <Link href="/browse" className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-3 rounded-lg text-sm font-medium transition-all text-center">
+                  🔍 Browse All Workers
+                </Link>
+                <Link href="/jobs" className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-3 rounded-lg text-sm font-medium transition-all text-center">
+                  💼 All Job Listings
+                </Link>
+                <Link href="/create-profile" className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-4 py-3 rounded-lg text-sm font-medium transition-all text-center">
+                  👤 Create Profile
+                </Link>
+                <Link href="/pricing" className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-4 py-3 rounded-lg text-sm font-medium transition-all text-center">
+                  💰 View Pricing
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
