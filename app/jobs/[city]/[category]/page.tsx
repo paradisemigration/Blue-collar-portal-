@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import Head from 'next/head'
 import {
   BriefcaseIcon,
   MapPinIcon,
