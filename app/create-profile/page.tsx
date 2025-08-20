@@ -250,6 +250,7 @@ export default function CreateProfile() {
   const [completedSteps, setCompletedSteps] = useState<number[]>([])
   const [duplicateError, setDuplicateError] = useState<string>('')
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
+  const [isFormInitialized, setIsFormInitialized] = useState(false)
 
   const selectedJobTitle = watch('jobTitle')
   const selectedJobCategory = watch('jobCategory')
