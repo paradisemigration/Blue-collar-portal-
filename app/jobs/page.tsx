@@ -111,32 +111,32 @@ export default function JobsPage() {
           </nav>
         </div>
       </div>
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-primary-600 to-navy-800 text-white py-16 lg:py-24">
+      {/* Hero Section - Mobile Optimized */}
+      <div className="bg-gradient-to-br from-primary-600 to-navy-800 text-white py-12 sm:py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
               Find Your Next Job in the Gulf
             </h1>
-            <p className="text-xl lg:text-2xl text-gray-200 mb-8 max-w-4xl mx-auto">
-              Discover thousands of job opportunities across UAE, Saudi Arabia, and Qatar. 
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 mb-6 sm:mb-8 max-w-4xl mx-auto px-4">
+              Discover thousands of job opportunities across UAE, Saudi Arabia, and Qatar.
               Connect with top employers and advance your career today.
             </p>
-            
-            {/* Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
+
+            {/* Stats - Mobile Responsive Grid */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mb-6 sm:mb-8">
               {PLATFORM_STATS.map((stat, index) => (
-                <div key={index} className="bg-white/10 rounded-lg p-4 lg:p-6">
-                  <stat.icon className="h-8 w-8 mx-auto mb-2 text-gold-400" />
-                  <div className="text-2xl lg:text-3xl font-bold text-gold-400">{stat.number}</div>
-                  <div className="text-gray-200 text-sm lg:text-base">{stat.label}</div>
+                <div key={index} className="bg-white/10 rounded-lg p-3 sm:p-4 lg:p-6">
+                  <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-2 text-gold-400" />
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gold-400">{stat.number}</div>
+                  <div className="text-gray-200 text-xs sm:text-sm lg:text-base">{stat.label}</div>
                 </div>
               ))}
             </div>
 
-            <Link 
+            <Link
               href="/create-profile"
-              className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-4 px-8 rounded-lg text-lg transition-colors inline-block"
+              className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg text-base sm:text-lg transition-colors inline-block"
             >
               Create Your Profile
             </Link>
@@ -154,7 +154,7 @@ export default function JobsPage() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {POPULAR_SEARCHES.map((search, index) => {
               const cityDisplay = getCityDisplayName(search.city)
               const categoryDisplay = getCategoryDisplayName(search.category)
@@ -164,7 +164,7 @@ export default function JobsPage() {
                 <Link 
                   key={index}
                   href={`/jobs/${search.city}/${search.category}`}
-                  className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow group"
+                  className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 hover:shadow-lg transition-shadow group"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="bg-primary-100 p-3 rounded-lg group-hover:bg-primary-200 transition-colors">
@@ -239,7 +239,7 @@ export default function JobsPage() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="hidden sm:grid grid-cols-2 gap-2">
                         <Link
                           href={`/jobs/${citySlug}/driver`}
                           className="text-sm bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded text-center transition-colors"
@@ -259,11 +259,11 @@ export default function JobsPage() {
                   {/* Job Profiles Grid */}
                   <div className="p-6">
                     <h4 className="text-lg font-semibold text-navy-900 mb-4">Featured Job Opportunities in {city}</h4>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                      {jobProfiles.slice(0, 10).map((job, jobIndex) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+                      {jobProfiles.slice(0, 8).map((job, jobIndex) => (
                         <Link
                           key={job.id}
-                          href="/create-profile"
+                          href={`/${citySlug}/${job.title.toLowerCase().replace(/\s+/g, '-').replace(/[()]/g, '')}`}
                           className="bg-gray-50 hover:bg-white border border-gray-200 hover:border-primary-300 rounded-lg p-4 transition-all group hover:shadow-md"
                         >
                           <div className="flex items-start justify-between mb-3">
