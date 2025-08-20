@@ -502,8 +502,14 @@ export default function BrowseWorkers() {
                 {/* Premium Notice */}
                 <div className="mt-3 text-center">
                   <p className="text-xs text-gray-500">
-                    💎 <span className="font-medium">Unlock contact details</span> with premium access
+                    💎 <span className="font-medium">Premium access unlocks</span> clear photos & contact details
                   </p>
+                  {!isSubscribed && (
+                    <p className="text-xs text-gray-400 mt-1 flex items-center justify-center gap-1">
+                      <LockClosedIcon className="h-3 w-3" />
+                      Photos blurred until subscription
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
