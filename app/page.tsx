@@ -134,15 +134,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Popular Jobs Section */}
+      {/* Hire Workers Section */}
       <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">
-              Popular Job Categories
+              Hire Verified Workers
             </h2>
             <p className="text-gray-600 text-lg">
-              Explore the most in-demand jobs across Gulf cities
+              Connect with skilled professionals across Gulf cities
             </p>
           </div>
 
@@ -173,14 +173,258 @@ export default function Home() {
             })}
           </div>
 
-          {/* View All Jobs Button */}
+          {/* Browse Workers Button */}
           <div className="text-center mt-10">
             <Link
               href="/browse"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-700 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-xl text-lg transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
             >
-              <MagnifyingGlassIcon className="h-5 w-5" />
-              View All Jobs
+              <UserGroupIcon className="h-5 w-5" />
+              Browse All Workers
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Jobs Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">
+              Latest Job Opportunities
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Discover exciting employment opportunities across the Gulf region
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {/* Featured Jobs */}
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200 hover:shadow-lg transition-all">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-blue-500 rounded-xl w-12 h-12 flex items-center justify-center">
+                  <TruckIcon className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Light Vehicle Driver</h3>
+                  <p className="text-blue-600 font-medium text-sm">Emirates Transport LLC</p>
+                  <div className="flex items-center text-gray-600 text-sm mt-1">
+                    <MapPinIcon className="h-4 w-4 mr-1" />
+                    Dubai, UAE
+                  </div>
+                </div>
+                <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-medium">
+                  URGENT
+                </span>
+              </div>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Salary:</span>
+                  <span className="font-semibold text-navy-900">AED 2,500 - 3,500</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Experience:</span>
+                  <span className="font-semibold text-navy-900">2-3 years</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Type:</span>
+                  <span className="font-semibold text-navy-900">Full-time</span>
+                </div>
+              </div>
+              <Link href="/dubai/driver" className="btn-primary w-full text-center py-2">
+                View Details
+              </Link>
+            </div>
+
+            <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-6 border border-pink-200 hover:shadow-lg transition-all">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-pink-500 rounded-xl w-12 h-12 flex items-center justify-center">
+                  <HomeIcon className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Housemaid</h3>
+                  <p className="text-pink-600 font-medium text-sm">Al Mansouri Family</p>
+                  <div className="flex items-center text-gray-600 text-sm mt-1">
+                    <MapPinIcon className="h-4 w-4 mr-1" />
+                    Doha, Qatar
+                  </div>
+                </div>
+                <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-medium">
+                  FEATURED
+                </span>
+              </div>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Salary:</span>
+                  <span className="font-semibold text-navy-900">QAR 1,800 - 2,500</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Experience:</span>
+                  <span className="font-semibold text-navy-900">1-2 years</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Type:</span>
+                  <span className="font-semibold text-navy-900">Live-in</span>
+                </div>
+              </div>
+              <Link href="/doha/maid" className="btn-primary w-full text-center py-2">
+                View Details
+              </Link>
+            </div>
+
+            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-6 border border-yellow-200 hover:shadow-lg transition-all">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-yellow-500 rounded-xl w-12 h-12 flex items-center justify-center">
+                  <BoltIcon className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Electrician</h3>
+                  <p className="text-yellow-600 font-medium text-sm">Saudi Electric Company</p>
+                  <div className="flex items-center text-gray-600 text-sm mt-1">
+                    <MapPinIcon className="h-4 w-4 mr-1" />
+                    Riyadh, Saudi Arabia
+                  </div>
+                </div>
+                <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full font-medium">
+                  NEW
+                </span>
+              </div>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Salary:</span>
+                  <span className="font-semibold text-navy-900">SAR 3,000 - 5,000</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Experience:</span>
+                  <span className="font-semibold text-navy-900">3+ years</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Type:</span>
+                  <span className="font-semibold text-navy-900">Contract</span>
+                </div>
+              </div>
+              <Link href="/riyadh/electrician" className="btn-primary w-full text-center py-2">
+                View Details
+              </Link>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200 hover:shadow-lg transition-all">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-green-500 rounded-xl w-12 h-12 flex items-center justify-center">
+                  <WrenchScrewdriverIcon className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Plumber</h3>
+                  <p className="text-green-600 font-medium text-sm">Al Ain Water Company</p>
+                  <div className="flex items-center text-gray-600 text-sm mt-1">
+                    <MapPinIcon className="h-4 w-4 mr-1" />
+                    Abu Dhabi, UAE
+                  </div>
+                </div>
+                <span className="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded-full font-medium">
+                  HOT
+                </span>
+              </div>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Salary:</span>
+                  <span className="font-semibold text-navy-900">AED 2,800 - 4,200</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Experience:</span>
+                  <span className="font-semibold text-navy-900">2+ years</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Type:</span>
+                  <span className="font-semibold text-navy-900">Full-time</span>
+                </div>
+              </div>
+              <Link href="/abu-dhabi/plumber" className="btn-primary w-full text-center py-2">
+                View Details
+              </Link>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200 hover:shadow-lg transition-all">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-purple-500 rounded-xl w-12 h-12 flex items-center justify-center">
+                  <SparklesIcon className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Cleaner</h3>
+                  <p className="text-purple-600 font-medium text-sm">Kuwait Towers Mall</p>
+                  <div className="flex items-center text-gray-600 text-sm mt-1">
+                    <MapPinIcon className="h-4 w-4 mr-1" />
+                    Kuwait City, Kuwait
+                  </div>
+                </div>
+                <span className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full font-medium">
+                  APPLY NOW
+                </span>
+              </div>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Salary:</span>
+                  <span className="font-semibold text-navy-900">KWD 180 - 250</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Experience:</span>
+                  <span className="font-semibold text-navy-900">1+ years</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Type:</span>
+                  <span className="font-semibold text-navy-900">Part-time</span>
+                </div>
+              </div>
+              <Link href="/kuwait-city/cleaner" className="btn-primary w-full text-center py-2">
+                View Details
+              </Link>
+            </div>
+
+            <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-6 border border-indigo-200 hover:shadow-lg transition-all">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-indigo-500 rounded-xl w-12 h-12 flex items-center justify-center">
+                  <EyeIcon className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-navy-900 mb-1">Security Guard</h3>
+                  <p className="text-indigo-600 font-medium text-sm">Bahrain Bay Security</p>
+                  <div className="flex items-center text-gray-600 text-sm mt-1">
+                    <MapPinIcon className="h-4 w-4 mr-1" />
+                    Manama, Bahrain
+                  </div>
+                </div>
+                <span className="bg-teal-100 text-teal-700 text-xs px-2 py-1 rounded-full font-medium">
+                  PREMIUM
+                </span>
+              </div>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Salary:</span>
+                  <span className="font-semibold text-navy-900">BHD 220 - 320</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Experience:</span>
+                  <span className="font-semibold text-navy-900">2+ years</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Type:</span>
+                  <span className="font-semibold text-navy-900">Shifts</span>
+                </div>
+              </div>
+              <Link href="/manama/security-guard" className="btn-primary w-full text-center py-2">
+                View Details
+              </Link>
+            </div>
+          </div>
+
+          {/* View All Jobs Button */}
+          <div className="text-center">
+            <Link
+              href="/jobs"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-700 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-xl text-lg transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              <BriefcaseIcon className="h-5 w-5" />
+              View All Job Opportunities
             </Link>
           </div>
         </div>
