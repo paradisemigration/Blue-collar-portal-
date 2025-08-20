@@ -281,7 +281,7 @@ export default function JobsPage() {
                     </Link>
                     <Link
                       href={`/jobs/riyadh/${value}`}
-                      className="text-xs bg-secondary-600 hover:bg-secondary-700 text-white py-1.5 px-2 rounded text-center transition-colors"
+                      className="text-xs bg-green-600 hover:bg-green-700 text-white py-1.5 px-2 rounded text-center transition-colors"
                     >
                       Riyadh
                     </Link>
