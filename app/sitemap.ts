@@ -144,7 +144,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  console.log(`Generated sitemap with ${mainPages.length + cityJobPages.length} pages (${cityJobPages.length} city/job combinations)`)
-  
-  return [...mainPages, ...cityJobPages]
+  console.log(`Generated sitemap with ${mainPages.length + jobPages.length} pages:`)
+  console.log(`- Main pages: ${mainPages.length}`)
+  console.log(`- Job pages: ${jobPages.length} (${ALL_CITIES.length} cities × ${JOB_CATEGORIES.length + INDIVIDUAL_JOBS.length} job types)`)
+
+  return [...mainPages, ...jobPages]
 }
