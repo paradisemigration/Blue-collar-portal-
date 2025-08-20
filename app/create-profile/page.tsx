@@ -342,7 +342,13 @@ export default function CreateProfile() {
       setValue('phoneNumber', info.phoneCode)
 
       // Mark form as initialized after location is set
-      setTimeout(() => setIsFormInitialized(true), 100)
+      setTimeout(() => {
+        setIsFormInitialized(true)
+        // Focus on photo upload area after initialization
+        if (photoUploadRef.current) {
+          photoUploadRef.current.focus()
+        }
+      }, 500)
     }
 
     detectLocation()
