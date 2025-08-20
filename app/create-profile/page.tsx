@@ -476,8 +476,11 @@ export default function CreateProfile() {
   }
 
   const getFieldError = (fieldName: string, value: any): boolean => {
+    // Don't show errors until form is properly initialized
+    if (!isFormInitialized) return false
+
     // Don't show errors for phone number on initial load
-    if (fieldName === 'phoneNumber' && !touchedFields.has('phoneNumber') && touchedFields.size === 0) {
+    if (fieldName === 'phoneNumber' && !touchedFields.has('phoneNumber')) {
       return false
     }
 
@@ -1055,7 +1058,7 @@ export default function CreateProfile() {
                     <option value={3}>💪 3 years</option>
                     <option value={4}>⚡ 4 years</option>
                     <option value={5}>🎯 5 years</option>
-                    <option value={6}>🏆 6+ years</option>
+                    <option value={6}>��� 6+ years</option>
                     <option value={7}>🌟 7+ years</option>
                     <option value={8}>💎 8+ years</option>
                     <option value={9}>🔥 9+ years</option>
