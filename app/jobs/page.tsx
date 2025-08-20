@@ -19,9 +19,54 @@ import {
 } from '../../utils/companiesData'
 
 export const metadata = {
-  title: 'Latest Jobs - Find Work Opportunities in UAE, Saudi Arabia & Qatar',
-  description: 'Browse the latest job opportunities for blue-collar workers across the Gulf region. Find driver, maid, construction, and other skilled worker positions.',
-  keywords: 'jobs gulf, work opportunities UAE, Saudi jobs, Qatar employment, driver jobs, maid jobs, construction workers',
+  title: 'Latest Jobs in Gulf Region - UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain | Apply Online',
+  description: 'Find latest job opportunities across 29 Gulf cities. Browse 500+ companies hiring drivers, domestic workers, construction, technical, and hospitality jobs. Apply online today.',
+  keywords: 'jobs gulf region, UAE jobs, Saudi Arabia employment, Qatar jobs, Oman careers, Kuwait jobs, Bahrain employment, driver jobs, maid jobs, construction workers, apply online jobs',
+  authors: [{ name: 'Go Get Hires' }],
+  creator: 'Go Get Hires',
+  publisher: 'Go Get Hires',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://www.gogethires.com'),
+  alternates: {
+    canonical: '/jobs',
+  },
+  openGraph: {
+    title: 'Latest Jobs in Gulf Region - Apply Online Today',
+    description: 'Find job opportunities in UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain. 500+ companies hiring across 29 cities.',
+    url: '/jobs',
+    siteName: 'Go Get Hires',
+    images: [
+      {
+        url: '/og-jobs.png',
+        width: 1200,
+        height: 630,
+        alt: 'Latest Jobs in Gulf Region',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Latest Jobs in Gulf Region - Apply Online',
+    description: 'Find job opportunities in UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain. Apply online today.',
+    images: ['/og-jobs.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 }
 
 // Popular job combinations for quick access
