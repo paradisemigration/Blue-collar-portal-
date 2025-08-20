@@ -639,11 +639,367 @@ export default function JobListingPage({ params }: PageProps) {
           </div>
         </div>
 
+        {/* SEO Content Sections */}
+        {/* Market Overview Section */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
+          <h2 className="text-2xl font-bold text-navy-900 mb-6">
+            {isIndividualJob ? jobDisplay : categoryDisplay} Job Market in {cityDisplay}, {country}: Complete Guide 2024
+          </h2>
+
+          <div className="prose prose-lg max-w-none">
+            <p className="text-gray-700 leading-relaxed mb-6">
+              The {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} job market in {cityDisplay} is experiencing unprecedented growth in 2024.
+              With {country}'s booming economy and infrastructure development, demand for skilled {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} has reached an all-time high.
+              {cityDisplay} offers some of the most competitive salaries and comprehensive benefits packages for {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} in the Gulf region.
+            </p>
+
+            <h3 className="text-xl font-semibold text-navy-900 mb-4">
+              Why Choose {cityDisplay} for {isIndividualJob ? jobDisplay : categoryDisplay} Career?
+            </h3>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <h4 className="text-lg font-semibold text-navy-900 mb-3">Economic Advantages</h4>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Tax-free income for {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()}</li>
+                  <li>High salary packages with annual increments</li>
+                  <li>Comprehensive healthcare and insurance benefits</li>
+                  <li>End-of-service gratuity as per {country} labor law</li>
+                  <li>Annual paid leave and return ticket provisions</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="text-lg font-semibold text-navy-900 mb-3">Career Growth Opportunities</h4>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Skill development and training programs</li>
+                  <li>Promotion opportunities within companies</li>
+                  <li>International work experience certification</li>
+                  <li>Networking with global professionals</li>
+                  <li>Industry-specific certifications and qualifications</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Salary and Benefits Deep Dive */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
+          <h2 className="text-2xl font-bold text-navy-900 mb-6">
+            {isIndividualJob ? jobDisplay : categoryDisplay} Salary Guide & Benefits in {cityDisplay} 2024
+          </h2>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <h3 className="text-xl font-semibold text-navy-900 mb-4">Salary Ranges by Experience Level</h3>
+
+              <div className="space-y-4 mb-6">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-semibold text-navy-900">Entry Level (0-2 years)</span>
+                    <span className="text-lg font-bold text-primary-600">
+                      {country === 'UAE' ? 'AED 2,000 - 3,500' :
+                       country === 'Qatar' ? 'QAR 2,200 - 3,800' :
+                       country === 'Saudi Arabia' ? 'SAR 2,100 - 3,600' :
+                       country === 'Kuwait' ? 'KWD 180 - 320' :
+                       country === 'Bahrain' ? 'BHD 200 - 350' :
+                       'OMR 200 - 350'}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600">Perfect for fresh graduates and career starters in {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()}</p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-semibold text-navy-900">Mid Level (3-5 years)</span>
+                    <span className="text-lg font-bold text-primary-600">
+                      {country === 'UAE' ? 'AED 3,500 - 5,500' :
+                       country === 'Qatar' ? 'QAR 3,800 - 6,000' :
+                       country === 'Saudi Arabia' ? 'SAR 3,600 - 5,800' :
+                       country === 'Kuwait' ? 'KWD 320 - 500' :
+                       country === 'Bahrain' ? 'BHD 350 - 550' :
+                       'OMR 350 - 550'}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600">Experienced professionals with proven track record in {cityDisplay}</p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-semibold text-navy-900">Senior Level (5+ years)</span>
+                    <span className="text-lg font-bold text-primary-600">
+                      {country === 'UAE' ? 'AED 5,500 - 8,000+' :
+                       country === 'Qatar' ? 'QAR 6,000 - 8,500+' :
+                       country === 'Saudi Arabia' ? 'SAR 5,800 - 8,200+' :
+                       country === 'Kuwait' ? 'KWD 500 - 750+' :
+                       country === 'Bahrain' ? 'BHD 550 - 800+' :
+                       'OMR 550 - 800+'}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600">Senior professionals and supervisory roles with leadership responsibilities</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold text-navy-900 mb-4">Complete Benefits Package</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Free Accommodation</div>
+                    <div className="text-sm text-gray-600">Furnished housing or housing allowance</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Transportation</div>
+                    <div className="text-sm text-gray-600">Company transport or allowance</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Health Insurance</div>
+                    <div className="text-sm text-gray-600">Comprehensive medical coverage</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Annual Leave</div>
+                    <div className="text-sm text-gray-600">30 days paid vacation + ticket</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-red-500 rounded-full mt-2"></div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Visa Sponsorship</div>
+                    <div className="text-sm text-gray-600">Complete immigration support</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Skills and Requirements Section */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
+          <h2 className="text-2xl font-bold text-navy-900 mb-6">
+            Essential Skills & Requirements for {isIndividualJob ? jobDisplay : categoryDisplay} in {cityDisplay}
+          </h2>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-semibold text-navy-900 mb-4">Technical Skills Required</h3>
+              <div className="space-y-3">
+                {isIndividualJob && jobDisplay.toLowerCase().includes('driver') ? (
+                  <>
+                    <div className="bg-blue-50 rounded-lg p-4">
+                      <div className="font-semibold text-navy-900 mb-2">Valid Driving License</div>
+                      <p className="text-sm text-gray-700">{country} driving license or international license with local conversion</p>
+                    </div>
+                    <div className="bg-green-50 rounded-lg p-4">
+                      <div className="font-semibold text-navy-900 mb-2">Vehicle Knowledge</div>
+                      <p className="text-sm text-gray-700">Understanding of vehicle maintenance, safety checks, and basic troubleshooting</p>
+                    </div>
+                    <div className="bg-purple-50 rounded-lg p-4">
+                      <div className="font-semibold text-navy-900 mb-2">Navigation Skills</div>
+                      <p className="text-sm text-gray-700">GPS navigation, route planning, and knowledge of {cityDisplay} roads</p>
+                    </div>
+                  </>
+                ) : isIndividualJob && jobDisplay.toLowerCase().includes('maid') ? (
+                  <>
+                    <div className="bg-pink-50 rounded-lg p-4">
+                      <div className="font-semibold text-navy-900 mb-2">Household Management</div>
+                      <p className="text-sm text-gray-700">Comprehensive cleaning, organizing, and household maintenance skills</p>
+                    </div>
+                    <div className="bg-green-50 rounded-lg p-4">
+                      <div className="font-semibold text-navy-900 mb-2">Laundry & Ironing</div>
+                      <p className="text-sm text-gray-700">Expert knowledge of fabric care, washing techniques, and professional ironing</p>
+                    </div>
+                    <div className="bg-blue-50 rounded-lg p-4">
+                      <div className="font-semibold text-navy-900 mb-2">Cooking Skills</div>
+                      <p className="text-sm text-gray-700">Basic to advanced cooking, meal preparation, and kitchen hygiene</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="bg-blue-50 rounded-lg p-4">
+                      <div className="font-semibold text-navy-900 mb-2">Industry-Specific Skills</div>
+                      <p className="text-sm text-gray-700">Relevant technical knowledge and hands-on experience in {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()}</p>
+                    </div>
+                    <div className="bg-green-50 rounded-lg p-4">
+                      <div className="font-semibold text-navy-900 mb-2">Safety Compliance</div>
+                      <p className="text-sm text-gray-700">Understanding of {country} workplace safety regulations and best practices</p>
+                    </div>
+                    <div className="bg-purple-50 rounded-lg p-4">
+                      <div className="font-semibold text-navy-900 mb-2">Professional Certifications</div>
+                      <p className="text-sm text-gray-700">Relevant certifications or willingness to obtain required qualifications</p>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold text-navy-900 mb-4">Soft Skills & Personal Qualities</h3>
+              <div className="space-y-3">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="font-semibold text-navy-900 mb-2">Communication Skills</div>
+                  <p className="text-sm text-gray-700">Basic English and/or Arabic communication for effective workplace interaction</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="font-semibold text-navy-900 mb-2">Cultural Adaptability</div>
+                  <p className="text-sm text-gray-700">Respect for {country} culture, traditions, and professional workplace norms</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="font-semibold text-navy-900 mb-2">Reliability & Punctuality</div>
+                  <p className="text-sm text-gray-700">Consistent attendance, meeting deadlines, and maintaining professional standards</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="font-semibold text-navy-900 mb-2">Problem-Solving</div>
+                  <p className="text-sm text-gray-700">Ability to handle challenges independently and seek appropriate guidance</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Living in City Guide */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
+          <h2 className="text-2xl font-bold text-navy-900 mb-6">
+            Living and Working in {cityDisplay}: Complete Guide for {isIndividualJob ? jobDisplay : categoryDisplay}
+          </h2>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">Cost of Living</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="text-gray-700">Accommodation</span>
+                  <span className="font-semibold">Usually Provided</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="text-gray-700">Monthly Groceries</span>
+                  <span className="font-semibold">
+                    {country === 'UAE' ? 'AED 800-1200' :
+                     country === 'Qatar' ? 'QAR 900-1300' :
+                     country === 'Saudi Arabia' ? 'SAR 850-1250' :
+                     country === 'Kuwait' ? 'KWD 70-110' :
+                     country === 'Bahrain' ? 'BHD 80-120' :
+                     'OMR 80-120'}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="text-gray-700">Transportation</span>
+                  <span className="font-semibold">Company Provided</span>
+                </div>
+                <div className="flex justify-between items-center py-2">
+                  <span className="text-gray-700">Entertainment</span>
+                  <span className="font-semibold">
+                    {country === 'UAE' ? 'AED 500-800' :
+                     country === 'Qatar' ? 'QAR 550-900' :
+                     country === 'Saudi Arabia' ? 'SAR 500-850' :
+                     country === 'Kuwait' ? 'KWD 45-75' :
+                     country === 'Bahrain' ? 'BHD 50-80' :
+                     'OMR 50-80'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">Lifestyle & Culture</h3>
+              <div className="space-y-3 text-sm text-gray-700">
+                <p><strong>Climate:</strong> {cityDisplay} has a {country === 'UAE' || country === 'Qatar' ? 'hot desert climate with mild winters' : country === 'Saudi Arabia' ? 'arid climate with seasonal variations' : 'hot and humid climate with mild winters'}.</p>
+                <p><strong>Languages:</strong> Arabic is official, English widely spoken in business and daily life.</p>
+                <p><strong>Weekend:</strong> {country === 'Saudi Arabia' ? 'Friday-Saturday' : 'Friday-Saturday in most sectors'}.</p>
+                <p><strong>Currency:</strong> {country === 'UAE' ? 'UAE Dirham (AED)' : country === 'Qatar' ? 'Qatari Riyal (QAR)' : country === 'Saudi Arabia' ? 'Saudi Riyal (SAR)' : country === 'Kuwait' ? 'Kuwaiti Dinar (KWD)' : country === 'Bahrain' ? 'Bahraini Dinar (BHD)' : 'Omani Rial (OMR)'}.</p>
+                <p><strong>Time Zone:</strong> {country === 'UAE' || country === 'Oman' ? 'GMT+4' : 'GMT+3'}.</p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">Work Environment</h3>
+              <div className="space-y-3 text-sm text-gray-700">
+                <p><strong>Working Hours:</strong> Typically 8-10 hours per day, 6 days per week for {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()}.</p>
+                <p><strong>Overtime:</strong> Compensated as per {country} Labor Law with premium rates.</p>
+                <p><strong>Holidays:</strong> Islamic holidays plus national days are public holidays.</p>
+                <p><strong>Professional Growth:</strong> Many companies offer training and advancement opportunities.</p>
+                <p><strong>Workplace Safety:</strong> Strict safety standards enforced across all industries.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Industry Trends and Future Outlook */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
+          <h2 className="text-2xl font-bold text-navy-900 mb-6">
+            {isIndividualJob ? jobDisplay : categoryDisplay} Industry Trends & Future Outlook in {cityDisplay}
+          </h2>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">Market Trends 2024</h3>
+              <div className="space-y-4">
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h4 className="font-semibold text-navy-900 mb-2">Increased Demand</h4>
+                  <p className="text-sm text-gray-700">
+                    {cityDisplay}'s rapid development and {country}'s Vision initiatives are driving unprecedented demand for skilled {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()}.
+                  </p>
+                </div>
+
+                <div className="border-l-4 border-green-500 pl-4">
+                  <h4 className="font-semibold text-navy-900 mb-2">Salary Growth</h4>
+                  <p className="text-sm text-gray-700">
+                    Average salaries for {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} in {cityDisplay} have increased by 15-20% in the past year due to high demand.
+                  </p>
+                </div>
+
+                <div className="border-l-4 border-purple-500 pl-4">
+                  <h4 className="font-semibold text-navy-900 mb-2">Technology Integration</h4>
+                  <p className="text-sm text-gray-700">
+                    Modern tools and technology are being integrated into {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} roles, enhancing efficiency and job satisfaction.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-navy-900 mb-4">Future Opportunities</h3>
+              <div className="space-y-4">
+                <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4">
+                  <h4 className="font-semibold text-navy-900 mb-2">Career Advancement</h4>
+                  <p className="text-sm text-gray-700">
+                    Senior {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} can advance to supervisory, training, or specialized technical roles with higher compensation.
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4">
+                  <h4 className="font-semibold text-navy-900 mb-2">Specialization Areas</h4>
+                  <p className="text-sm text-gray-700">
+                    Opportunities for specialization in high-demand areas like luxury services, industrial automation, or specialized technical skills.
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4">
+                  <h4 className="font-semibold text-navy-900 mb-2">Long-term Stability</h4>
+                  <p className="text-sm text-gray-700">
+                    {country}'s long-term development plans ensure sustained demand for {isIndividualJob ? jobDisplay.toLowerCase() : categoryDisplay.toLowerCase()} over the next decade.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* FAQ Section */}
         <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8">
-          <h3 className="text-2xl font-bold text-navy-900 mb-6 text-center">
+          <h2 className="text-2xl font-bold text-navy-900 mb-6 text-center">
             Frequently Asked Questions - {categoryDisplay} Jobs in {cityDisplay}
-          </h3>
+          </h2>
           
           <div className="space-y-6">
             {faqs.map((faq, index) => (
