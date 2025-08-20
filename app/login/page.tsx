@@ -66,7 +66,24 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-blue-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-blue-100">
+      {/* Breadcrumbs */}
+      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <nav className="flex items-center text-sm">
+            <Link href="/" className="text-gray-500 hover:text-primary-600 flex items-center transition-colors">
+              <BriefcaseIcon className="h-4 w-4 mr-1" />
+              Home
+            </Link>
+            <svg className="h-4 w-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="text-gray-900 font-medium">Sign In</span>
+          </nav>
+        </div>
+      </div>
+
+      <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <div className="bg-gradient-to-r from-primary-600 to-blue-600 p-4 rounded-full">
@@ -233,6 +250,7 @@ export default function Login() {
             </ul>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )
