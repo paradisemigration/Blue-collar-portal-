@@ -339,6 +339,9 @@ export default function CreateProfile() {
 
       setValue('country', detectedCountry)
       setValue('phoneNumber', info.phoneCode)
+
+      // Mark form as initialized after location is set
+      setTimeout(() => setIsFormInitialized(true), 100)
     }
 
     detectLocation()
