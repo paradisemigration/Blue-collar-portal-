@@ -382,7 +382,7 @@ export default function JobListingPage({ params }: PageProps) {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-12">
         {/* Introduction */}
         <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
           <div className="text-center mb-8">
@@ -397,17 +397,17 @@ export default function JobListingPage({ params }: PageProps) {
           </div>
 
           {/* Quick Apply Section */}
-          <div className="bg-primary-600 text-white rounded-lg p-8 mb-8">
+          <div className="bg-primary-600 text-white rounded-none sm:rounded-lg p-6 sm:p-8 mb-8 mx-0 sm:mx-0">
             <div className="text-center">
-              <h3 className="text-2xl font-semibold mb-4">Apply to Multiple Companies</h3>
-              <p className="text-primary-100 mb-6 text-lg max-w-2xl mx-auto">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4">Apply to Multiple Companies</h3>
+              <p className="text-primary-100 mb-6 text-base sm:text-lg max-w-2xl mx-auto px-2 sm:px-0">
                 Create your professional profile and apply to all listed companies with a single submission.
                 Streamline your job search process.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Link
                   href="/create-profile"
-                  className="bg-white text-primary-600 hover:bg-gray-100 font-medium py-3 px-8 rounded-md text-lg transition-colors duration-200 flex items-center gap-2"
+                  className="bg-white text-primary-600 hover:bg-gray-100 font-medium py-3 px-6 sm:px-8 rounded-md text-base sm:text-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto justify-center"
                 >
                   <BriefcaseIcon className="h-5 w-5" />
                   Create Profile & Apply
@@ -422,8 +422,8 @@ export default function JobListingPage({ params }: PageProps) {
         </div>
 
         {/* Companies List - Professional Corporate Design */}
-        <div className="bg-white rounded-lg shadow-sm border p-6 sm:p-8 mb-8">
-          <h3 className="text-2xl font-bold text-navy-900 mb-6 text-center">
+        <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border p-4 sm:p-8 mb-8">
+          <h3 className="text-2xl font-bold text-navy-900 mb-6 text-center px-2 sm:px-0">
             Premium Companies Hiring {categoryDisplay} in {cityDisplay}
           </h3>
 
@@ -434,17 +434,17 @@ export default function JobListingPage({ params }: PageProps) {
               const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 
               return (
-                <div key={index} className="group relative bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 overflow-hidden">
+                <div key={index} className="group relative bg-white rounded-none sm:rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border-0 sm:border border-gray-200 hover:border-gray-300 overflow-hidden mx-0 sm:mx-0">
                   {/* Company Header */}
-                  <div className="bg-gray-50 border-b border-gray-200 p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start gap-4">
-                        <div className="bg-white shadow-sm border border-gray-200 p-3 rounded-lg">
-                          <BuildingOfficeIcon className="h-7 w-7 text-gray-600" />
+                  <div className="bg-gray-50 border-b border-gray-200 p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                      <div className="flex items-start gap-3 sm:gap-4 flex-1">
+                        <div className="bg-white shadow-sm border border-gray-200 p-2 sm:p-3 rounded-lg flex-shrink-0">
+                          <BuildingOfficeIcon className="h-6 w-6 sm:h-7 sm:w-7 text-gray-600" />
                         </div>
-                        <div className="flex-1">
-                          <h4 className="text-xl font-semibold text-gray-900 mb-2">{company.name}</h4>
-                          <div className="flex items-center gap-2 mb-3">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 truncate">{company.name}</h4>
+                          <div className="flex items-center gap-2 mb-2 sm:mb-3">
                             <CheckBadgeIcon className="h-4 w-4 text-green-600" />
                             <span className="text-sm text-gray-600 font-medium">Verified Employer</span>
                           </div>
@@ -453,13 +453,13 @@ export default function JobListingPage({ params }: PageProps) {
                               <StarIcon className="h-4 w-4 text-amber-500 fill-current" />
                               <span className="font-medium">4.8</span>
                             </div>
-                            <div className="bg-gray-200 w-px h-4"></div>
-                            <span>{company.industry}</span>
+                            <div className="bg-gray-200 w-px h-4 hidden sm:block"></div>
+                            <span className="hidden sm:inline">{company.industry}</span>
                           </div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium">
+                      <div className="flex-shrink-0">
+                        <div className="bg-green-600 text-white px-3 sm:px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap">
                           Currently Hiring
                         </div>
                       </div>
@@ -467,7 +467,7 @@ export default function JobListingPage({ params }: PageProps) {
                   </div>
 
                   {/* Company Details */}
-                  <div className="p-6">
+                  <div className="p-4 sm:p-6">
                     {/* Company Info Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
@@ -536,7 +536,7 @@ export default function JobListingPage({ params }: PageProps) {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="px-6 pb-6 bg-gray-50 border-t border-gray-200">
+                  <div className="px-4 sm:px-6 pb-4 sm:pb-6 bg-gray-50 border-t border-gray-200">
                     <div className="flex flex-col sm:flex-row gap-3 mb-4">
                       <Link
                         href="/create-profile"
