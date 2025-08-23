@@ -184,9 +184,21 @@ export default function BrowseWorkers() {
   const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null)
 
   useEffect(() => {
-    // Load all workers (real + dummy data)
-    const allWorkers = loadAllWorkers()
-    setWorkers(allWorkers)
+    // Load all workers from database
+    const loadWorkers = async () => {
+      setIsLoading(true)
+      try {
+        const allWorkers = await loadAllWorkers()
+        setWorkers(allWorkers)
+        console.log(`✅ Browse - Set ${allWorkers.length} workers in state`)
+      } catch (error) {
+        console.error('Failed to load workers:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadWorkers()
   }, [])
 
   const filteredWorkers = useMemo(() => {
