@@ -988,13 +988,19 @@ export default function CreateProfile() {
         await createProfileInLocalStorage(data)
 
         // Success with localStorage fallback
-        alert('✅ Profile created successfully!\n\n(Saved locally - will sync to database when connection is available)')
+        console.log('✅ Profile created successfully in localStorage fallback')
 
-        // Dispatch auth state change and redirect
+        // Dispatch auth state change
         window.dispatchEvent(new Event('authStateChanged'))
-        setTimeout(() => {
-          router.push('/dashboard')
-        }, 1500)
+
+        // Set user data for popup
+        setCreatedUserData({
+          fullName: data.fullName,
+          email: data.email
+        })
+
+        // Show success popup (email sending might not work in fallback mode)
+        setShowSuccessPopup(true)
 
         return // Exit successfully
       } catch (localStorageError) {
@@ -1017,7 +1023,7 @@ export default function CreateProfile() {
       }
 
       // Add troubleshooting info
-      errorMessage += '\n\n🔧 Troubleshooting:\n��� Check if database is connected\n• Try refreshing the page\n• Contact support if issue persists'
+      errorMessage += '\n\n🔧 Troubleshooting:\n• Check if database is connected\n• Try refreshing the page\n• Contact support if issue persists'
 
       alert(errorMessage)
     } finally {
