@@ -119,7 +119,7 @@ export default function AdminDashboard() {
       if (response.ok) {
         const data = await response.json()
         if (data.success && data.users) {
-          console.log(`✅ Admin - Loaded ${data.users.length} users from database`)
+          console.log(`��� Admin - Loaded ${data.users.length} users from database`)
 
           // Convert date strings back to Date objects
           const users = data.users.map((user: any) => ({
@@ -1115,11 +1115,11 @@ export default function AdminDashboard() {
   }
 
   const seedDatabaseWithSampleData = async () => {
-    if (!confirm('🌱 SEED DATABASE WITH SAMPLE DATA\n\nThis will add 30 sample worker profiles to the database permanently.\n\n⚠️ This action cannot be undone.\n\nContinue?')) {
+    if (!confirm('🌱 SEED DATABASE WITH COMPREHENSIVE DATA\n\nThis will add 160-240 sample worker profiles covering:\n• 80+ job categories\n• 40+ cities across Gulf countries\n• 2-3 profiles per job category\n\n⚠️ This action cannot be undone and may take a few minutes.\n\nContinue?')) {
       return
     }
 
-    setMigrationStatus('🌱 Seeding database with sample data...')
+    setMigrationStatus('🌱 Seeding database with comprehensive sample data (80+ categories)...')
 
     try {
       console.log('🌱 Starting database seeding...')
