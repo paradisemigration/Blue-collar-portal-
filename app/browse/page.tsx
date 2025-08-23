@@ -32,22 +32,45 @@ const loadAllWorkers = (): Worker[] => {
 
     // Only access localStorage in browser environment
     if (typeof window !== 'undefined') {
+      console.log('🔍 Browse Page - Loading workers from localStorage...')
+
       // Load individual profile
       const userProfile = localStorage.getItem('userProfile')
       if (userProfile) {
-        workers.push(JSON.parse(userProfile))
+        try {
+          const profile = JSON.parse(userProfile)
+          // Convert date strings back to Date objects
+          if (profile.createdAt) profile.createdAt = new Date(profile.createdAt)
+          if (profile.updatedAt) profile.updatedAt = new Date(profile.updatedAt)
+          workers.push(profile)
+          console.log('📋 Browse - Found userProfile:', profile.fullName)
+        } catch (e) {
+          console.warn('Browse - Error parsing userProfile:', e)
+        }
       }
 
       // Load all profiles
       const allProfiles = localStorage.getItem('allUserProfiles')
       if (allProfiles) {
-        const profiles = JSON.parse(allProfiles)
-        profiles.forEach((profile: Worker) => {
-          if (!workers.find(w => w.id === profile.id)) {
-            workers.push(profile)
-          }
-        })
+        try {
+          const profiles = JSON.parse(allProfiles)
+          console.log('📋 Browse - Raw allUserProfiles count:', profiles.length)
+
+          profiles.forEach((profile: Worker) => {
+            if (!workers.find(w => w.id === profile.id)) {
+              // Convert date strings back to Date objects
+              if (profile.createdAt) profile.createdAt = new Date(profile.createdAt)
+              if (profile.updatedAt) profile.updatedAt = new Date(profile.updatedAt)
+              workers.push(profile)
+              console.log('📋 Browse - Added profile:', profile.fullName)
+            }
+          })
+        } catch (e) {
+          console.warn('Browse - Error parsing allUserProfiles:', e)
+        }
       }
+
+      console.log(`✅ Browse - Loaded ${workers.length} real user profiles`)
     }
 
     // Add comprehensive dummy data
@@ -58,6 +81,7 @@ const loadAllWorkers = (): Worker[] => {
       }
     })
 
+    console.log(`✅ Browse - Total workers (real + dummy): ${workers.length}`)
     return workers
   } catch (error) {
     console.error('Error loading workers:', error)
