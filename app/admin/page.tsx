@@ -102,12 +102,22 @@ export default function AdminDashboard() {
       // Load all user profiles from localStorage
       const profiles: Worker[] = []
 
-      // Debug: Check what's in localStorage
+      // Debug: Check what's in localStorage and current domain
       console.log('🔍 Admin Debug - Checking localStorage...')
+      console.log('Current domain:', window.location.hostname)
       console.log('userProfile exists:', !!localStorage.getItem('userProfile'))
       console.log('allUserProfiles exists:', !!localStorage.getItem('allUserProfiles'))
       console.log('isLoggedIn:', localStorage.getItem('isLoggedIn'))
       console.log('authProvider:', localStorage.getItem('authProvider'))
+
+      // Check if we're on production domain vs development
+      const isProductionDomain = window.location.hostname.includes('gogethires.com')
+      const isDevelopmentDomain = !isProductionDomain
+
+      if (isDevelopmentDomain) {
+        console.log('⚠️ Development environment detected - real user profiles may not be visible')
+        console.log('💡 Use import tools to sync profiles from gogethires.com')
+      }
 
       // Check for individual profile
       const userProfile = localStorage.getItem('userProfile')
