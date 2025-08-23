@@ -1117,11 +1117,15 @@ console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportDat
               </button>
               <div className="w-px h-6 bg-white/20"></div>
               <button
-                onClick={clearSampleData}
+                onClick={() => {
+                  cleanupSampleDataSilently()
+                  loadAdminData()
+                  alert('🧹 Sample data cleared! Only real user profiles remain.')
+                }}
                 className="bg-orange-500/20 hover:bg-orange-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-orange-300/20"
-                title="Clear sample and dummy data only"
+                title="Clear sample and dummy data immediately"
               >
-                🧹 Clear Sample Data
+                🧹 Clear Sample Data Now
               </button>
               <button
                 onClick={clearAllProfiles}
