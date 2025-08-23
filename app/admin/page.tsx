@@ -275,6 +275,37 @@ export default function AdminDashboard() {
     alert(summary)
   }
 
+  const createTestProfile = () => {
+    const testProfile = {
+      id: `test_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      fullName: 'Test User - Himanshu',
+      profilePicture: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+      jobTitle: 'Cook' as JobTitle,
+      yearsExperience: 5,
+      city: 'Dubai' as City,
+      country: 'UAE' as Country,
+      languagesSpoken: ['English', 'Hindi'],
+      expectedSalary: 3000,
+      visaStatus: 'Work Visa' as const,
+      availability: true,
+      aboutMe: 'Test profile created for debugging',
+      phoneNumber: '+971501234567',
+      email: 'himanshu@test.com',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+
+    // Save to both localStorage keys
+    localStorage.setItem('userProfile', JSON.stringify(testProfile))
+
+    const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
+    const updatedProfiles = [...existingProfiles.filter((p: any) => p.id !== testProfile.id), testProfile]
+    localStorage.setItem('allUserProfiles', JSON.stringify(updatedProfiles))
+
+    console.log('✅ Test profile created:', testProfile)
+    alert(`Test profile created: ${testProfile.fullName}\nClick Refresh to see it in the dashboard.`)
+  }
+
   if (!isAuthenticated && !loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
