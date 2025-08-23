@@ -47,6 +47,7 @@ export default function AdminDashboard() {
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedJob, setSelectedJob] = useState('')
   const [loading, setLoading] = useState(true)
+  const [migrationStatus, setMigrationStatus] = useState<string>('')
 
   useEffect(() => {
     // Check authentication
@@ -300,6 +301,160 @@ export default function AdminDashboard() {
       localStorage.setItem('allUserProfiles', JSON.stringify(updatedUsers))
       calculateStats(updatedUsers)
     }
+  }
+
+  const migrateLocalStorageToDatabase = async () => {
+    if (!confirm('🚀 MIGRATE ALL PROFILES TO DATABASE\n\nThis will migrate all localStorage profiles to the permanent database.\n\n⚠️ Make sure you have connected to Neon database first.\n\nContinue?')) {
+      return
+    }
+
+    setMigrationStatus('🔄 Starting migration...')
+    
+    try {
+      // Get profiles from localStorage
+      const profiles: any[] = []
+
+      // Get individual profile
+      const userProfile = localStorage.getItem('userProfile')
+      if (userProfile) {
+        try {
+          const profile = JSON.parse(userProfile)
+          profiles.push(profile)
+        } catch (e) {
+          console.warn('Error parsing userProfile for migration:', e)
+        }
+      }
+
+      // Get all profiles
+      const allProfiles = localStorage.getItem('allUserProfiles')
+      if (allProfiles) {
+        try {
+          const parsedProfiles = JSON.parse(allProfiles)
+          if (Array.isArray(parsedProfiles)) {
+            parsedProfiles.forEach(profile => {
+              if (!profiles.find(p => p.email === profile.email)) {
+                profiles.push(profile)
+              }
+            })
+          }
+        } catch (e) {
+          console.warn('Error parsing allUserProfiles for migration:', e)
+        }
+      }
+
+      if (profiles.length === 0) {
+        setMigrationStatus('❌ No profiles found in localStorage to migrate.')
+        setTimeout(() => setMigrationStatus(''), 3000)
+        return
+      }
+
+      setMigrationStatus(`🔄 Migrating ${profiles.length} profiles to database...`)
+      console.log(`🔄 Migrating ${profiles.length} profiles to database...`)
+
+      // Send to migration API
+      const response = await fetch('/api/admin/migrate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-token': 'admin-secret-token'
+        },
+        body: JSON.stringify({ profiles })
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        const { successful, failed, errors } = result.results
+        
+        setMigrationStatus(`✅ Migration completed! Successful: ${successful}, Failed: ${failed}`)
+        
+        let message = `🎉 MIGRATION COMPLETED!\n\n✅ Successfully migrated: ${successful} profiles\n❌ Failed: ${failed} profiles`
+
+        if (errors.length > 0) {
+          message += `\n\n⚠️ Errors:\n${errors.slice(0, 3).join('\n')}`
+          if (errors.length > 3) {
+            message += `\n... and ${errors.length - 3} more errors`
+          }
+        }
+
+        message += `\n\n🔄 Refreshing admin panel to show database profiles...`
+
+        alert(message)
+
+        // Reload admin data to show migrated profiles
+        if (successful > 0) {
+          setTimeout(() => {
+            loadAdminData()
+            setMigrationStatus('')
+          }, 1000)
+        } else {
+          setTimeout(() => setMigrationStatus(''), 5000)
+        }
+      } else {
+        throw new Error(result.error)
+      }
+
+    } catch (error) {
+      console.error('Migration failed:', error)
+      const errorMsg = `❌ Migration failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      setMigrationStatus(errorMsg)
+      alert(`Migration failed!\n\n${errorMsg}\n\n💡 Make sure:\n1. Neon database is connected\n2. Database tables exist\n3. Network connection is stable`)
+      setTimeout(() => setMigrationStatus(''), 5000)
+    }
+  }
+
+  const checkLocalStorageProfiles = () => {
+    const userProfile = localStorage.getItem('userProfile')
+    const allProfiles = localStorage.getItem('allUserProfiles')
+    
+    let totalProfiles = 0
+    let details = '📊 LOCALSTORAGE PROFILE ANALYSIS:\n\n'
+    
+    if (userProfile) {
+      try {
+        const profile = JSON.parse(userProfile)
+        details += `👤 Single Profile: ${profile.fullName} (${profile.email})\n`
+        totalProfiles = 1
+      } catch (e) {
+        details += `❌ Error reading single profile\n`
+      }
+    } else {
+      details += `👤 Single Profile: NONE\n`
+    }
+    
+    if (allProfiles) {
+      try {
+        const profiles = JSON.parse(allProfiles)
+        if (Array.isArray(profiles)) {
+          details += `📋 Multiple Profiles: ${profiles.length} found\n\n`
+          details += `🔍 PROFILE LIST:\n`
+          profiles.forEach((profile, index) => {
+            details += `[${index + 1}] ${profile.fullName || 'No Name'} (${profile.email || 'No Email'})\n`
+            details += `    Job: ${profile.jobTitle || 'N/A'}, City: ${profile.city || 'N/A'}\n`
+          })
+          totalProfiles = Math.max(totalProfiles, profiles.length)
+        }
+      } catch (e) {
+        details += `❌ Error reading multiple profiles\n`
+      }
+    } else {
+      details += `📋 Multiple Profiles: NONE\n`
+    }
+    
+    details += `\n📊 SUMMARY:\n`
+    details += `Total Profiles Found: ${totalProfiles}\n`
+    details += `Database Profiles: ${users.length}\n`
+    details += `Needs Migration: ${totalProfiles > users.length ? 'YES' : 'NO'}\n`
+    
+    if (totalProfiles > 0 && users.length === 0) {
+      details += `\n🚀 NEXT STEP: Click "Migrate to Database" button to move these profiles to permanent storage!`
+    } else if (totalProfiles > users.length) {
+      details += `\n🚀 NEXT STEP: Some profiles may need migration - click "Migrate to Database" to sync all data!`
+    } else if (totalProfiles === 0) {
+      details += `\n💡 TIP: If you expect to see profiles but don't, they might be on a different domain (like gogethires.com)`
+    }
+    
+    alert(details)
   }
 
   const debugLocalStorage = () => {
@@ -941,88 +1096,6 @@ export default function AdminDashboard() {
     alert(`✅ Added missing profile:\n\nVanshika\nLogistics Assistant, Dubai\n\nClick Refresh to see the profile in the dashboard.`)
   }
 
-  const migrateLocalStorageToDatabase = async () => {
-    if (!confirm('This will migrate all localStorage profiles to the database. Continue?')) {
-      return
-    }
-
-    try {
-      // Get profiles from localStorage
-      const profiles: any[] = []
-
-      // Get individual profile
-      const userProfile = localStorage.getItem('userProfile')
-      if (userProfile) {
-        try {
-          const profile = JSON.parse(userProfile)
-          profiles.push(profile)
-        } catch (e) {
-          console.warn('Error parsing userProfile for migration:', e)
-        }
-      }
-
-      // Get all profiles
-      const allProfiles = localStorage.getItem('allUserProfiles')
-      if (allProfiles) {
-        try {
-          const parsedProfiles = JSON.parse(allProfiles)
-          if (Array.isArray(parsedProfiles)) {
-            parsedProfiles.forEach(profile => {
-              if (!profiles.find(p => p.email === profile.email)) {
-                profiles.push(profile)
-              }
-            })
-          }
-        } catch (e) {
-          console.warn('Error parsing allUserProfiles for migration:', e)
-        }
-      }
-
-      if (profiles.length === 0) {
-        alert('No profiles found in localStorage to migrate.')
-        return
-      }
-
-      console.log(`🔄 Migrating ${profiles.length} profiles to database...`)
-
-      // Send to migration API
-      const response = await fetch('/api/admin/migrate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-token': 'admin-secret-token'
-        },
-        body: JSON.stringify({ profiles })
-      })
-
-      const result = await response.json()
-
-      if (result.success) {
-        const { successful, failed, errors } = result.results
-        let message = `Migration completed!\n\n✅ Successful: ${successful}\n❌ Failed: ${failed}`
-
-        if (errors.length > 0) {
-          message += `\n\nErrors:\n${errors.slice(0, 3).join('\n')}`
-          if (errors.length > 3) {
-            message += `\n... and ${errors.length - 3} more errors`
-          }
-        }
-
-        alert(message)
-
-        // Reload admin data to show migrated profiles
-        if (successful > 0) {
-          loadAdminData()
-        }
-      } else {
-        throw new Error(result.error)
-      }
-
-    } catch (error) {
-      console.error('Migration failed:', error)
-      alert(`Migration failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
-  }
-
   const refreshDatabaseData = async () => {
     setLoading(true)
     try {
@@ -1033,7 +1106,6 @@ export default function AdminDashboard() {
       console.error('Refresh failed:', error)
       alert(`❌ Refresh failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
-  }
   }
 
   const importProfilesFromProduction = () => {
@@ -1217,6 +1289,11 @@ console.log('✨ All profiles will then appear in your development environment!'
             <div>
               <h1 className="text-3xl font-bold">Admin Dashboard</h1>
               <p className="text-purple-100 mt-1">Manage users, profiles, and platform content</p>
+              {migrationStatus && (
+                <div className="mt-2 bg-white/10 rounded px-3 py-1 text-sm">
+                  {migrationStatus}
+                </div>
+              )}
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               {(() => {
@@ -1251,6 +1328,21 @@ console.log('✨ All profiles will then appear in your development environment!'
                 }
                 return null
               })()}
+              <div className="w-px h-6 bg-white/20"></div>
+              <button
+                onClick={checkLocalStorageProfiles}
+                className="bg-yellow-500/20 hover:bg-yellow-500/30 px-2 py-2 rounded-lg transition-colors text-xs font-medium"
+                title="Check localStorage profiles and migration status"
+              >
+                📊 Check Profiles
+              </button>
+              <button
+                onClick={migrateLocalStorageToDatabase}
+                className="bg-purple-500/20 hover:bg-purple-500/30 px-2 py-2 rounded-lg transition-colors text-xs font-medium border border-purple-300/20"
+                title="Migrate localStorage profiles to database"
+              >
+                🚀 Migrate to Database
+              </button>
               <div className="w-px h-6 bg-white/20"></div>
               <button
                 onClick={searchForProfile}
@@ -1426,292 +1518,320 @@ console.log('✨ All profiles will then appear in your development environment!'
             )
           }
         })()}
-        {/* Stats Overview */}
-        {/* Debug Info Section */}
+
+        {/* Migration Status Banner */}
         {users.length === 0 && (
-          <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <ExclamationTriangleIcon className="h-5 w-5 text-red-600" />
+          <div className="mb-6 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <ExclamationTriangleIcon className="h-6 w-6 text-red-600" />
               <h3 className="text-lg font-semibold text-red-900">No User Profiles Found</h3>
             </div>
-            <p className="text-red-700 mb-3">
-              The admin panel cannot find any user profiles. This could mean:
-            </p>
-            <ul className="text-red-600 text-sm space-y-1 mb-4">
-              <li>• Profiles are stored on <strong>gogethires.com</strong> (different domain)</li>
-              <li>• No users have created profiles yet</li>
-              <li>• localStorage was cleared or corrupted</li>
-              <li>• There's a data loading issue</li>
-            </ul>
-
-            <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
-              <p className="text-blue-800 text-sm font-medium mb-2">
-                🌐 Import Real User Profiles from gogethires.com:
-              </p>
-              <div className="flex gap-2 text-sm">
-                <button
-                  onClick={generateExportScript}
-                  className="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700"
-                >
-                  📤 Get Export Script
-                </button>
-                <button
-                  onClick={importProfileData}
-                  className="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700"
-                >
-                  📥 Import Data
-                </button>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <p className="text-red-700 mb-3">
+                  The admin panel cannot find any user profiles. This usually means profiles exist in localStorage but haven't been migrated to the database yet.
+                </p>
+                <ul className="text-red-600 text-sm space-y-1 mb-4">
+                  <li>• Users created profiles before database was set up</li>
+                  <li>• Profiles are stored locally but not in database</li>
+                  <li>• Cross-domain storage limitations</li>
+                  <li>• Migration hasn't been run yet</li>
+                </ul>
+              </div>
+              
+              <div className="bg-white rounded-lg p-4 border border-red-200">
+                <h4 className="text-red-900 font-medium mb-3">🚀 Quick Migration Steps:</h4>
+                <div className="space-y-2 text-sm">
+                  <button
+                    onClick={checkLocalStorageProfiles}
+                    className="w-full bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 text-left"
+                  >
+                    1️⃣ Check Profile Status
+                  </button>
+                  <button
+                    onClick={migrateLocalStorageToDatabase}
+                    className="w-full bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 text-left"
+                  >
+                    2️⃣ Migrate to Database
+                  </button>
+                  <button
+                    onClick={refreshDatabaseData}
+                    className="w-full bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 text-left"
+                  >
+                    3️⃣ Refresh & View Profiles
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div className="flex gap-2 text-sm flex-wrap">
-              <button
-                onClick={refreshDatabaseData}
-                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-              >
-                🔄 Refresh Database
-              </button>
-              <button
-                onClick={migrateLocalStorageToDatabase}
-                className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700"
-              >
-                🚀 Migrate to Database
-              </button>
-              <button
-                onClick={showAllLocalStorageData}
-                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
-              >
-                📋 Check All Data
-              </button>
-              <button
-                onClick={searchForProfile}
-                className="bg-yellow-600 text-white px-3 py-1 rounded hover:bg-yellow-700"
-              >
-                🔍 Search Profile
-              </button>
-              <button
-                onClick={clearSampleData}
-                className="bg-orange-600 text-white px-3 py-1 rounded hover:bg-orange-700"
-              >
-                ���� Clear Sample Data
-              </button>
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
+              <p className="text-blue-800 text-sm">
+                💡 <strong>If you're on a different domain:</strong> Use the "📤 Export Script" and "📥 Import Data" buttons to sync profiles from gogethires.com
+              </p>
             </div>
           </div>
         )}
 
+        {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-lg p-6 border">
-            <div className="flex items-center justify-between">
-              <div>
+          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <div className="flex items-center">
+              <div className="bg-blue-100 rounded-lg p-3">
+                <UserGroupIcon className="h-6 w-6 text-blue-600" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-semibold text-gray-900">{stats.totalUsers}</h3>
                 <p className="text-sm text-gray-600">Total Users</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.totalUsers}</p>
-              </div>
-              <div className="bg-blue-100 rounded-full p-3">
-                <UserGroupIcon className="h-8 w-8 text-blue-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6 border">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Cities</p>
-                <p className="text-3xl font-bold text-gray-900">{Object.keys(stats.usersByCity).length}</p>
+          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <div className="flex items-center">
+              <div className="bg-green-100 rounded-lg p-3">
+                <MapPinIcon className="h-6 w-6 text-green-600" />
               </div>
-              <div className="bg-green-100 rounded-full p-3">
-                <MapPinIcon className="h-8 w-8 text-green-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-lg p-6 border">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Job Categories</p>
-                <p className="text-3xl font-bold text-gray-900">{Object.keys(stats.usersByJob).length}</p>
-              </div>
-              <div className="bg-purple-100 rounded-full p-3">
-                <BriefcaseIcon className="h-8 w-8 text-purple-600" />
+              <div className="ml-4">
+                <h3 className="text-lg font-semibold text-gray-900">{Object.keys(stats.usersByCity).length}</h3>
+                <p className="text-sm text-gray-600">Cities Covered</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6 border">
-            <div className="flex items-center justify-between">
-              <div>
+          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <div className="flex items-center">
+              <div className="bg-purple-100 rounded-lg p-3">
+                <BriefcaseIcon className="h-6 w-6 text-purple-600" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-semibold text-gray-900">{Object.keys(stats.usersByJob).length}</h3>
+                <p className="text-sm text-gray-600">Job Types</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <div className="flex items-center">
+              <div className="bg-yellow-100 rounded-lg p-3">
+                <GlobeAltIcon className="h-6 w-6 text-yellow-600" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-semibold text-gray-900">{Object.keys(stats.usersByCountry).length}</h3>
                 <p className="text-sm text-gray-600">Countries</p>
-                <p className="text-3xl font-bold text-gray-900">{Object.keys(stats.usersByCountry).length}</p>
-              </div>
-              <div className="bg-orange-100 rounded-full p-3">
-                <GlobeAltIcon className="h-8 w-8 text-orange-600" />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          {/* User Management */}
-          <div className="xl:col-span-2">
-            <div className="bg-white rounded-xl shadow-lg border">
-              <div className="p-6 border-b border-gray-200">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">User Management</h2>
-                
-                {/* Search and Filters */}
-                <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                  <div className="flex-1 relative">
-                    <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <input
-                      type="text"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      placeholder="Search users..."
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                    />
-                  </div>
-                  <select
-                    value={selectedCity}
-                    onChange={(e) => setSelectedCity(e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                  >
-                    <option value="">All Cities</option>
-                    {Object.keys(stats.usersByCity).map(city => (
-                      <option key={city} value={city}>{city}</option>
-                    ))}
-                  </select>
-                  <select
-                    value={selectedJob}
-                    onChange={(e) => setSelectedJob(e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                  >
-                    <option value="">All Jobs</option>
-                    {Object.keys(stats.usersByJob).map(job => (
-                      <option key={job} value={job}>{job}</option>
-                    ))}
-                  </select>
-                </div>
+        {/* Filters */}
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-8">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Search by name, email, or job title..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                />
               </div>
+            </div>
+            
+            <div className="sm:w-48">
+              <select
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              >
+                <option value="">All Cities</option>
+                {Object.keys(stats.usersByCity).sort().map(city => (
+                  <option key={city} value={city}>{city}</option>
+                ))}
+              </select>
+            </div>
 
-              {/* Users List */}
-              <div className="p-6">
-                <div className="space-y-4">
-                  {filteredUsers.map((user) => (
-                    <div key={user.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                      <div className="flex items-center gap-4">
+            <div className="sm:w-48">
+              <select
+                value={selectedJob}
+                onChange={(e) => setSelectedJob(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              >
+                <option value="">All Jobs</option>
+                {Object.keys(stats.usersByJob).sort().map(job => (
+                  <option key={job} value={job}>{job}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Users Table */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h2 className="text-lg font-semibold text-gray-900">
+              User Profiles ({filteredUsers.length})
+            </h2>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    User
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Job & Location
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Experience
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Contact
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Created
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredUsers.map((user) => (
+                  <tr key={user.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
                         <img
+                          className="h-10 w-10 rounded-full object-cover"
                           src={user.profilePicture}
                           alt={user.fullName}
-                          className="w-12 h-12 rounded-full object-cover"
                         />
-                        <div>
-                          <h3 className="font-semibold text-gray-900">{user.fullName}</h3>
-                          <p className="text-sm text-gray-600">{user.jobTitle} • {user.city}</p>
-                          <p className="text-xs text-gray-500">{user.email}</p>
+                        <div className="ml-4">
+                          <div className="text-sm font-medium text-gray-900">
+                            {user.fullName}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            ID: {user.id?.substring(0, 8)}...
+                          </div>
                         </div>
                       </div>
-                      
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{user.jobTitle}</div>
+                      <div className="text-sm text-gray-500">{user.city}, {user.country}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{user.yearsExperience} years</div>
+                      <div className="text-sm text-gray-500">AED {user.expectedSalary?.toLocaleString()}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{user.email}</div>
+                      <div className="text-sm text-gray-500">{user.phoneNumber}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex items-center gap-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          user.visaStatus === 'Work Visa' ? 'bg-green-100 text-green-800' :
-                          user.visaStatus === 'Visit Visa' ? 'bg-blue-100 text-blue-800' :
-                          user.visaStatus === 'Freelance Visa' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
-                          {user.visaStatus}
-                        </span>
-                        
-                        <Link 
-                          href={`/admin/user/${user.id}`}
-                          className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
-                        >
-                          <EyeIcon className="h-4 w-4" />
-                        </Link>
-                        <Link 
+                        <Link
                           href={`/admin/edit-user/${user.id}`}
-                          className="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors"
+                          className="text-indigo-600 hover:text-indigo-900"
+                          title="Edit user"
                         >
                           <PencilIcon className="h-4 w-4" />
                         </Link>
-                        <button 
+                        <button
+                          onClick={() => alert(`User Details:\n\nName: ${user.fullName}\nEmail: ${user.email}\nJob: ${user.jobTitle}\nLocation: ${user.city}, ${user.country}\nExperience: ${user.yearsExperience} years\nSalary: AED ${user.expectedSalary?.toLocaleString()}\nVisa: ${user.visaStatus}\nLanguages: ${user.languagesSpoken?.join(', ')}\nAbout: ${user.aboutMe}`)}
+                          className="text-green-600 hover:text-green-900"
+                          title="View details"
+                        >
+                          <EyeIcon className="h-4 w-4" />
+                        </button>
+                        <button
                           onClick={() => deleteUser(user.id)}
-                          className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                          className="text-red-600 hover:text-red-900"
+                          title="Delete user"
                         >
                           <TrashIcon className="h-4 w-4" />
                         </button>
                       </div>
-                    </div>
-                  ))}
-                </div>
-                
-                {filteredUsers.length === 0 && (
-                  <div className="text-center py-8">
-                    <UserGroupIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500">No users found matching your criteria</p>
-                  </div>
-                )}
-              </div>
-            </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* City/Job Pages Stats */}
-            <div className="bg-white rounded-xl shadow-lg border p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">City/Job Pages</h3>
-              <div className="space-y-3 max-h-64 overflow-y-auto">
-                {getCityJobCombinations().map((combo, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                    <div>
-                      <Link 
-                        href={combo.url}
-                        className="text-sm font-medium text-blue-600 hover:text-blue-800"
-                      >
-                        {combo.city}/{combo.job}
-                      </Link>
-                      <p className="text-xs text-gray-500">{combo.count} users</p>
-                    </div>
-                    <Link 
-                      href={`/admin/seo${combo.url}`}
-                      className="p-1 text-gray-400 hover:text-gray-600"
-                    >
-                      <CogIcon className="h-4 w-4" />
-                    </Link>
-                  </div>
-                ))}
-              </div>
+          {filteredUsers.length === 0 && (
+            <div className="text-center py-12">
+              <UserGroupIcon className="mx-auto h-12 w-12 text-gray-400" />
+              <h3 className="mt-2 text-sm font-medium text-gray-900">No users found</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                {users.length === 0 
+                  ? "No user profiles exist yet. Users can create profiles through the main website."
+                  : "No users match the current search criteria. Try adjusting your filters."
+                }
+              </p>
             </div>
-
-            {/* Quick Stats */}
-            <div className="bg-white rounded-xl shadow-lg border p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Users by City</h3>
-              <div className="space-y-2">
-                {Object.entries(stats.usersByCity)
-                  .sort(([,a], [,b]) => b - a)
-                  .slice(0, 5)
-                  .map(([city, count]) => (
-                  <div key={city} className="flex justify-between">
-                    <span className="text-sm text-gray-600">{city}</span>
-                    <span className="text-sm font-semibold text-gray-900">{count}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg border p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Users by Job</h3>
-              <div className="space-y-2">
-                {Object.entries(stats.usersByJob)
-                  .sort(([,a], [,b]) => b - a)
-                  .slice(0, 5)
-                  .map(([job, count]) => (
-                  <div key={job} className="flex justify-between">
-                    <span className="text-sm text-gray-600">{job}</span>
-                    <span className="text-sm font-semibold text-gray-900">{count}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          )}
         </div>
+
+        {/* City-Job Combinations */}
+        {users.length > 0 && (
+          <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900">Popular City-Job Combinations</h2>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      City
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Job Title
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Count
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Page URL
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {getCityJobCombinations().slice(0, 10).map((combo, index) => (
+                    <tr key={index} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {combo.city}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {combo.job}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          {combo.count} user{combo.count !== 1 ? 's' : ''}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <Link href={combo.url} className="text-indigo-600 hover:text-indigo-900">
+                          {combo.url}
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
