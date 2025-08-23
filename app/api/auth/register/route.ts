@@ -9,6 +9,19 @@ function hashPassword(password: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if database is configured
+    if (!process.env.DATABASE_URL) {
+      console.warn('Database not configured, registration will fail gracefully')
+      return NextResponse.json(
+        {
+          error: 'Database not configured',
+          fallback: true,
+          message: 'Profile will be saved locally instead'
+        },
+        { status: 503 }
+      )
+    }
+
     const body = await request.json()
     const { email, phone, fullName, userType, password } = body
 
