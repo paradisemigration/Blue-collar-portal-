@@ -681,86 +681,99 @@ export default function CreateProfile() {
     setIsSubmitting(true)
 
     try {
-      console.log('📝 Creating user and worker profile in database...')
+      console.log('📝 Attempting to create user and worker profile...')
 
-      // Step 1: Register user
-      const registerResponse = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: data.email,
-          phone: data.phoneNumber,
-          fullName: data.fullName,
-          userType: 'worker'
-        })
-      })
+      // Try database first, fall back to localStorage
+      let profileCreatedInDatabase = false
 
-      if (!registerResponse.ok) {
-        const errorData = await registerResponse.json()
-        if (registerResponse.status === 409) {
-          // User already exists, try to login
-          console.log('👤 User already exists, attempting login...')
-          const loginResponse = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: data.email
-            })
+      try {
+        // Step 1: Register user
+        const registerResponse = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: data.email,
+            phone: data.phoneNumber,
+            fullName: data.fullName,
+            userType: 'worker'
           })
+        })
 
-          if (!loginResponse.ok) {
-            throw new Error('Login failed for existing user')
+        if (!registerResponse.ok) {
+          const errorData = await registerResponse.json()
+          if (registerResponse.status === 409) {
+            // User already exists, try to login
+            console.log('👤 User already exists, attempting login...')
+            const loginResponse = await fetch('/api/auth/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: data.email
+              })
+            })
+
+            if (!loginResponse.ok) {
+              throw new Error('Login failed for existing user')
+            }
+          } else {
+            throw new Error(errorData.error || 'Failed to register user')
+          }
+        }
+
+        console.log('✅ User registration/login successful')
+
+        // Step 2: Create worker profile
+        const profileResponse = await fetch('/api/profiles/workers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include', // Include cookies for session
+          body: JSON.stringify({
+            jobCategory: data.jobCategory,
+            jobTitle: data.jobTitle,
+            customJobTitle: data.customJobTitle,
+            jobProfile: data.jobProfile,
+            yearsExperience: data.yearsExperience,
+            city: data.city,
+            country: data.country,
+            expectedSalary: data.expectedSalary,
+            visaStatus: data.visaStatus,
+            languagesSpoken: data.languagesSpoken,
+            aboutMe: data.aboutMe,
+            profilePictureUrl: profilePicturePreview || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+          })
+        })
+
+        if (profileResponse.ok) {
+          console.log('✅ Worker profile created successfully in database')
+          profileCreatedInDatabase = true
+
+          // Update localStorage for backward compatibility
+          try {
+            const profileData = await profileResponse.json()
+            localStorage.setItem('userProfile', JSON.stringify(profileData.profile))
+            localStorage.setItem('isLoggedIn', 'true')
+            localStorage.setItem('authProvider', 'database')
+            console.log('✅ localStorage updated for compatibility')
+          } catch (storageError) {
+            console.warn('⚠️ localStorage update failed, but profile is saved in database:', storageError)
           }
         } else {
-          throw new Error(errorData.error || 'Failed to register user')
+          throw new Error('Database profile creation failed')
         }
-      }
 
-      console.log('✅ User registration/login successful')
+      } catch (databaseError) {
+        console.warn('⚠️ Database creation failed, falling back to localStorage:', databaseError)
 
-      // Step 2: Create worker profile
-      const profileResponse = await fetch('/api/profiles/workers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Include cookies for session
-        body: JSON.stringify({
-          jobCategory: data.jobCategory,
-          jobTitle: data.jobTitle,
-          customJobTitle: data.customJobTitle,
-          jobProfile: data.jobProfile,
-          yearsExperience: data.yearsExperience,
-          city: data.city,
-          country: data.country,
-          expectedSalary: data.expectedSalary,
-          visaStatus: data.visaStatus,
-          languagesSpoken: data.languagesSpoken,
-          aboutMe: data.aboutMe,
-          profilePictureUrl: profilePicturePreview || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
-        })
-      })
-
-      if (!profileResponse.ok) {
-        const errorData = await profileResponse.json()
-        throw new Error(errorData.error || 'Failed to create profile')
-      }
-
-      console.log('✅ Worker profile created successfully in database')
-
-      // Update localStorage for backward compatibility (optional)
-      try {
-        const profileData = await profileResponse.json()
-        localStorage.setItem('userProfile', JSON.stringify(profileData.profile))
-        localStorage.setItem('isLoggedIn', 'true')
-        localStorage.setItem('authProvider', 'database')
-        console.log('✅ localStorage updated for compatibility')
-      } catch (storageError) {
-        console.warn('⚠️ localStorage update failed, but profile is saved in database:', storageError)
+        // Fallback: Create profile in localStorage
+        console.log('📝 Creating profile in localStorage as fallback...')
+        await createProfileInLocalStorage(data)
+        console.log('✅ Profile created successfully in localStorage')
       }
 
       // Dispatch auth state change event to update header
