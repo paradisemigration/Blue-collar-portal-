@@ -30,24 +30,72 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get profile data from localStorage (in real app, this would be an API call)
-    const profileData = localStorage.getItem('userProfile')
-    if (profileData) {
-      const profile = JSON.parse(profileData)
+    loadUserProfile()
+  }, [])
 
-      // Fix profile picture if it's stored incorrectly
-      if (profile.profilePicture && typeof profile.profilePicture === 'object') {
-        // If it's a File object (shows as [object Object]), use a default image
-        profile.profilePicture = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
-      } else if (!profile.profilePicture || profile.profilePicture === '') {
-        // If no profile picture, use default
-        profile.profilePicture = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+  const loadUserProfile = async () => {
+    try {
+      // First try to load from database API
+      console.log('🔍 Loading user profile from database...')
+
+      const response = await fetch('/api/profiles/me', {
+        credentials: 'include'
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success && data.profile) {
+          console.log('✅ Profile loaded from database:', data.profile.fullName)
+
+          // Process the profile data
+          const profile = {
+            ...data.profile,
+            // Ensure profile picture is properly handled
+            profilePicture: data.profile.profilePicture || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+          }
+
+          setUserProfile(profile)
+          setLoading(false)
+          return
+        }
       }
 
-      setUserProfile(profile)
+      console.warn('⚠️ Database profile fetch failed, falling back to localStorage...')
+      await loadFromLocalStorage()
+
+    } catch (error) {
+      console.error('Error loading profile from database:', error)
+      console.log('📝 Falling back to localStorage...')
+      await loadFromLocalStorage()
     }
+  }
+
+  const loadFromLocalStorage = async () => {
+    try {
+      const profileData = localStorage.getItem('userProfile')
+      if (profileData) {
+        const profile = JSON.parse(profileData)
+
+        // Fix profile picture if it's stored incorrectly
+        if (profile.profilePicture && typeof profile.profilePicture === 'object') {
+          // If it's a File object (shows as [object Object]), use a default image
+          profile.profilePicture = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+        } else if (!profile.profilePicture || profile.profilePicture === '') {
+          // If no profile picture, use default
+          profile.profilePicture = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+        }
+
+        console.log('✅ Profile loaded from localStorage:', profile.fullName)
+        setUserProfile(profile)
+      } else {
+        console.log('❌ No profile found in localStorage')
+      }
+    } catch (error) {
+      console.error('Error loading profile from localStorage:', error)
+    }
+
     setLoading(false)
-  }, [])
+  }
 
   if (loading) {
     return (
