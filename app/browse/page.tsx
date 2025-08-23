@@ -31,10 +31,10 @@ import { Worker, JobTitle, City, FilterOptions } from '../../types'
 const generateSampleData = (): Worker[] => {
   const sampleJobs: JobTitle[] = [
     'Cook', 'Housemaid', 'Driver', 'Nanny (Childcare Worker)', 'Cleaner',
-    'Electrician', 'Construction Laborer', 'Security Guard', 'Gardener (Landscaper)',
-    'Housekeeper (Residential)', 'Plumber', 'Painter', 'Mechanic', 'Waiter/Waitress',
-    'Delivery Driver', 'Carpenter', 'Welder', 'Mason (Bricklayer)', 'HVAC Technician',
-    'Factory Worker', 'Logistics Assistant', 'Maintenance Worker', 'Warehouse Worker'
+    'Electrician', 'Construction Laborer', 'Security Guard', 'Landscaper',
+    'Housekeeper (Residential)', 'Plumber', 'Painter', 'Mechanic', 'Waiter',
+    'Delivery Driver', 'Carpenter', 'Welder', 'Mason', 'HVAC Technician',
+    'Factory Worker', 'Logistics Assistant', 'Maintenance Helper', 'Warehouse Associate'
   ]
 
   const sampleCities: City[] = [
