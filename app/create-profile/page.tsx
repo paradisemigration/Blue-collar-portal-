@@ -834,6 +834,15 @@ export default function CreateProfile() {
         console.log('✅ User registration/login successful')
 
         // Step 2: Create worker profile
+        console.log('🔍 Step 2: Creating worker profile...')
+        console.log('🖼️ Profile picture debug:', {
+          hasPreview: !!profilePicturePreview,
+          type: typeof profilePicturePreview,
+          length: profilePicturePreview ? profilePicturePreview.length : 0,
+          isDataURL: profilePicturePreview?.startsWith('data:'),
+          start: profilePicturePreview?.substring(0, 50)
+        })
+
         const profileResponse = await fetch('/api/profiles/workers', {
           method: 'POST',
           headers: {
