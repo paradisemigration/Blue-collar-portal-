@@ -564,10 +564,45 @@ export default function BrowseWorkers() {
         {/* Enhanced No Results */}
         {filteredWorkers.length === 0 && (
           <div className="text-center py-16">
-            <div className="bg-gradient-to-r from-primary-100 to-blue-100 rounded-3xl p-8 max-w-md mx-auto">
+            <div className="bg-gradient-to-r from-primary-100 to-blue-100 rounded-3xl p-8 max-w-lg mx-auto">
               <BriefcaseIcon className="h-20 w-20 mx-auto text-primary-400 mb-4" />
               <h3 className="text-xl font-bold text-gray-900 mb-2">No workers found</h3>
-              <p className="text-gray-600 mb-6">Try adjusting your search criteria or browse all available workers</p>
+              <p className="text-gray-600 mb-4">Try adjusting your search criteria or browse all available workers.</p>
+
+              {/* Cross-domain localStorage explanation */}
+              {(() => {
+                const isProductionDomain = typeof window !== 'undefined' && window.location.hostname.includes('gogethires.com')
+                if (!isProductionDomain && typeof window !== 'undefined') {
+                  return (
+                    <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6 text-left">
+                      <div className="flex items-start gap-3">
+                        <div className="bg-orange-500 rounded-full p-1 mt-0.5">
+                          <svg className="h-3 w-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-sm font-semibold text-orange-900 mb-1">Development Environment</h4>
+                          <p className="text-orange-700 text-xs leading-relaxed mb-3">
+                            If you're running this site locally or on a different domain, worker profiles saved on the production site (gogethires.com) won't appear here due to browser security policies that isolate localStorage per domain.
+                          </p>
+                          <Link
+                            href="/admin"
+                            className="inline-flex items-center gap-1 text-xs bg-orange-600 text-white px-3 py-1.5 rounded-lg hover:bg-orange-700 transition-colors"
+                          >
+                            🔧 Import Profiles via Admin
+                            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                return null
+              })()}
+
               <button onClick={clearFilters} className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
                 Clear All Filters
               </button>
