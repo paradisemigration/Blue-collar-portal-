@@ -218,6 +218,63 @@ export default function AdminDashboard() {
     }
   }
 
+  const debugLocalStorage = () => {
+    console.log('🔍 FULL LOCALSTORAGE DEBUG:')
+    console.log('='.repeat(50))
+
+    // Check all localStorage keys
+    const allKeys = Object.keys(localStorage)
+    console.log('All localStorage keys:', allKeys)
+
+    // Check specific profile-related keys
+    const profileKeys = ['userProfile', 'allUserProfiles', 'isLoggedIn', 'authProvider']
+    profileKeys.forEach(key => {
+      const value = localStorage.getItem(key)
+      console.log(`${key}:`, value ? JSON.parse(value) : null)
+    })
+
+    // Check for any keys containing 'profile' or 'user'
+    const relatedKeys = allKeys.filter(key =>
+      key.toLowerCase().includes('profile') ||
+      key.toLowerCase().includes('user') ||
+      key.toLowerCase().includes('auth')
+    )
+    console.log('Profile-related keys found:', relatedKeys)
+
+    relatedKeys.forEach(key => {
+      try {
+        const value = localStorage.getItem(key)
+        console.log(`${key} (raw):`, value)
+        if (value && (value.startsWith('{') || value.startsWith('['))) {
+          console.log(`${key} (parsed):`, JSON.parse(value))
+        }
+      } catch (e) {
+        console.log(`${key} (error parsing):`, e)
+      }
+    })
+
+    // Show a summary alert
+    const userProfile = localStorage.getItem('userProfile')
+    const allProfiles = localStorage.getItem('allUserProfiles')
+    let summary = 'LocalStorage Debug Summary:\n\n'
+    summary += `userProfile: ${userProfile ? 'EXISTS' : 'NOT FOUND'}\n`
+    summary += `allUserProfiles: ${allProfiles ? 'EXISTS' : 'NOT FOUND'}\n`
+
+    if (allProfiles) {
+      try {
+        const parsed = JSON.parse(allProfiles)
+        summary += `allUserProfiles count: ${Array.isArray(parsed) ? parsed.length : 'NOT AN ARRAY'}\n`
+      } catch (e) {
+        summary += `allUserProfiles: ERROR PARSING\n`
+      }
+    }
+
+    summary += `\nTotal localStorage keys: ${allKeys.length}\n`
+    summary += `Profile-related keys: ${relatedKeys.length}`
+
+    alert(summary)
+  }
+
   if (!isAuthenticated && !loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
