@@ -1231,12 +1231,24 @@ console.log('✨ All profiles will then appear in your development environment!'
   }
 
   const openProductionAdmin = () => {
+    if (!isClient) return
     const productionUrl = 'https://gogethires.com/admin'
     window.open(productionUrl, '_blank')
 
     setTimeout(() => {
       alert(`🌐 Production admin opened in new tab!\n\n📋 TO SYNC PROFILES:\n1. Login to production admin (admin/admin123)\n2. Use the export/import tools there\n3. OR manage real user profiles directly on production\n\n💡 Real user profiles should appear automatically on gogethires.com`)
     }, 1000)
+  }
+
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading admin dashboard...</p>
+        </div>
+      </div>
+    )
   }
 
   if (!isAuthenticated && !loading) {
