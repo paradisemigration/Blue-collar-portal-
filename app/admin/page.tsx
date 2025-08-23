@@ -831,6 +831,13 @@ export default function AdminDashboard() {
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               <button
+                onClick={searchForProfile}
+                className="bg-yellow-500/20 hover:bg-yellow-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
+                title="Search for specific profile"
+              >
+                🔍 Search
+              </button>
+              <button
                 onClick={showAllLocalStorageData}
                 className="bg-blue-500/20 hover:bg-blue-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
                 title="Show all localStorage data"
