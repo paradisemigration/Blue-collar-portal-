@@ -53,6 +53,14 @@ export default function AdminDashboard() {
     const authStatus = localStorage.getItem('adminAuth')
     if (authStatus === 'true') {
       setIsAuthenticated(true)
+
+      // Auto-clean sample data on first load
+      const hasCleanedSampleData = localStorage.getItem('hasCleanedSampleData')
+      if (!hasCleanedSampleData) {
+        cleanupSampleDataSilently()
+        localStorage.setItem('hasCleanedSampleData', 'true')
+      }
+
       loadAdminData()
     } else {
       setLoading(false)
