@@ -1457,6 +1457,20 @@ console.log('✨ All profiles will then appear in your development environment!'
               >
                 🚀 Migrate to Database
               </button>
+              <button
+                onClick={seedDatabaseWithSampleData}
+                className="bg-green-500/20 hover:bg-green-500/30 px-2 py-2 rounded-lg transition-colors text-xs font-medium border border-green-300/20"
+                title="Add 30 sample profiles to database permanently"
+              >
+                🌱 Seed Database
+              </button>
+              <button
+                onClick={checkSeedingStatus}
+                className="bg-indigo-500/20 hover:bg-indigo-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
+                title="Check database seeding status"
+              >
+                📊 Check Status
+              </button>
               <div className="w-px h-6 bg-white/20"></div>
               <button
                 onClick={searchForProfile}
