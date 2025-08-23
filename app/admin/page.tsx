@@ -1294,6 +1294,16 @@ console.log('✨ All profiles will then appear in your development environment!'
               </button>
               <div className="w-px h-6 bg-white/20"></div>
               <button
+                onClick={refreshDatabaseData}
+                className="bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-1 border border-blue-300/20"
+                title="Refresh database data"
+              >
+                <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Refresh DB
+              </button>
+              <button
                 onClick={loadAdminData}
                 className="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-1"
                 title="Refresh user data"
@@ -1428,7 +1438,7 @@ console.log('✨ All profiles will then appear in your development environment!'
               The admin panel cannot find any user profiles. This could mean:
             </p>
             <ul className="text-red-600 text-sm space-y-1 mb-4">
-              <li>�� Profiles are stored on <strong>gogethires.com</strong> (different domain)</li>
+              <li>• Profiles are stored on <strong>gogethires.com</strong> (different domain)</li>
               <li>• No users have created profiles yet</li>
               <li>• localStorage was cleared or corrupted</li>
               <li>• There's a data loading issue</li>
@@ -1483,7 +1493,7 @@ console.log('✨ All profiles will then appear in your development environment!'
                 onClick={clearSampleData}
                 className="bg-orange-600 text-white px-3 py-1 rounded hover:bg-orange-700"
               >
-                🧹 Clear Sample Data
+                ���� Clear Sample Data
               </button>
             </div>
           </div>
