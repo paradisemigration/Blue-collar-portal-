@@ -53,10 +53,27 @@ interface LocationInfo {
 const createProfileInLocalStorage = async (data: WorkerFormData) => {
   const profileId = `worker_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 
+  // Convert profile picture File to base64 data URL if it exists
+  let profilePictureUrl = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+
+  if (data.profilePicture && data.profilePicture instanceof File) {
+    try {
+      // Convert File to base64 data URL
+      const reader = new FileReader()
+      profilePictureUrl = await new Promise<string>((resolve) => {
+        reader.onload = () => resolve(reader.result as string)
+        reader.readAsDataURL(data.profilePicture!)
+      })
+    } catch (error) {
+      console.warn('Error converting profile picture to base64:', error)
+      // Keep default image if conversion fails
+    }
+  }
+
   const profileData = {
     id: profileId,
     fullName: data.fullName,
-    profilePicture: data.profilePicture || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+    profilePicture: profilePictureUrl,
     jobCategory: data.jobCategory,
     jobTitle: data.jobTitle,
     customJobTitle: data.customJobTitle,
