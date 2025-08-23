@@ -1210,6 +1210,51 @@ export default function AdminDashboard() {
     }
   }
 
+  const checkSystemHealth = async () => {
+    try {
+      console.log('🏥 Checking system health...')
+
+      const response = await fetch('/api/health')
+      const healthData = await response.json()
+
+      let message = `🏥 SYSTEM HEALTH CHECK:\n\n`
+      message += `Overall Status: ${healthData.status.toUpperCase()}\n`
+      message += `Timestamp: ${new Date(healthData.timestamp).toLocaleString()}\n\n`
+
+      // Database check
+      const dbCheck = healthData.checks.database
+      message += `🗄️ Database: ${dbCheck.status.toUpperCase()}\n`
+      message += `   ${dbCheck.message}\n`
+      if (dbCheck.details.totalProfiles !== undefined) {
+        message += `   Total Profiles: ${dbCheck.details.totalProfiles}\n`
+        message += `   Sample Profiles: ${dbCheck.details.sampleProfiles}\n`
+        message += `   Real Profiles: ${dbCheck.details.realProfiles}\n`
+      }
+      message += '\n'
+
+      // Environment check
+      const envCheck = healthData.checks.environment
+      message += `⚙️ Environment: ${envCheck.status.toUpperCase()}\n`
+      message += `   ${envCheck.message}\n`
+      message += `   Database URL: ${envCheck.details.DATABASE_URL}\n`
+      message += `   Node Environment: ${envCheck.details.NODE_ENV}\n\n`
+
+      if (healthData.status === 'unhealthy') {
+        message += `❌ Issues found! Check the details above.`
+      } else if (healthData.status === 'degraded') {
+        message += `⚠️ Some warnings found, but system is functional.`
+      } else {
+        message += `✅ All systems operational!`
+      }
+
+      alert(message)
+
+    } catch (error) {
+      console.error('Health check failed:', error)
+      alert(`❌ Health check failed: ${error instanceof Error ? error.message : 'Network error - API may be down'}`)
+    }
+  }
+
   const importProfilesFromProduction = () => {
     const instructions = `
 To import real user profiles from gogethires.com:
