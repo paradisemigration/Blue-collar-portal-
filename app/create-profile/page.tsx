@@ -1581,23 +1581,40 @@ export default function CreateProfile() {
                 </button>
               ) : (
                 <div className="space-y-3">
-                  {/* Debug Button (Development only) */}
+                  {/* Debug Buttons (Development only) */}
                   {process.env.NODE_ENV === 'development' && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const values = getValues()
-                        console.log('🔧 DEBUG - Current form values:', values)
-                        console.log('🔧 DEBUG - Languages:', values.languagesSpoken)
-                        console.log('🔧 DEBUG - Validation step 4:', validateStep(4))
-                        console.log('🔧 DEBUG - Touched fields:', Array.from(touchedFields))
-                        console.log('🔧 DEBUG - Duplicate error:', duplicateError)
-                        alert(`Debug Info:\nLanguages: ${values.languagesSpoken?.length || 0} selected\nStep 4 valid: ${validateStep(4)}\nCheck console for details`)
-                      }}
-                      className="w-full px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 transition-colors"
-                    >
-                      🔧 Debug Form State
-                    </button>
+                    <div className="space-y-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const values = getValues()
+                          console.log('🔧 DEBUG - Current form values:', values)
+                          console.log('🔧 DEBUG - Languages:', values.languagesSpoken)
+                          console.log('🔧 DEBUG - Validation step 4:', validateStep(4))
+                          console.log('🔧 DEBUG - Touched fields:', Array.from(touchedFields))
+                          console.log('🔧 DEBUG - Duplicate error:', duplicateError)
+
+                          // Check localStorage state
+                          const userProfile = localStorage.getItem('userProfile')
+                          const allProfiles = localStorage.getItem('allUserProfiles')
+                          console.log('🔧 DEBUG - localStorage userProfile:', userProfile ? 'EXISTS' : 'MISSING')
+                          console.log('🔧 DEBUG - localStorage allUserProfiles:', allProfiles ? 'EXISTS' : 'MISSING')
+
+                          alert(`Debug Info:\nLanguages: ${values.languagesSpoken?.length || 0} selected\nStep 4 valid: ${validateStep(4)}\nuserProfile: ${userProfile ? 'EXISTS' : 'MISSING'}\nallUserProfiles: ${allProfiles ? 'EXISTS' : 'MISSING'}\n\nCheck console for detailed logs`)
+                        }}
+                        className="w-full px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 transition-colors"
+                      >
+                        🔧 Debug Form & Storage
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={clearLocalStorageAndRetry}
+                        className="w-full px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors"
+                      >
+                        🧹 Clear Storage & Refresh
+                      </button>
+                    </div>
                   )}
 
                   <button
