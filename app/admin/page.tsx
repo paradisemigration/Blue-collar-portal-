@@ -1118,6 +1118,98 @@ export default function AdminDashboard() {
     }
   }
 
+  const seedDatabaseWithSampleData = async () => {
+    if (!confirm('🌱 SEED DATABASE WITH SAMPLE DATA\n\nThis will add 30 sample worker profiles to the database permanently.\n\n⚠️ This action cannot be undone.\n\nContinue?')) {
+      return
+    }
+
+    setMigrationStatus('🌱 Seeding database with sample data...')
+
+    try {
+      console.log('🌱 Starting database seeding...')
+
+      const response = await fetch('/api/admin/seed', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-token': 'admin-secret-token'
+        }
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        const { successful, failed, errors } = result.results || { successful: 0, failed: 0, errors: [] }
+
+        setMigrationStatus(`✅ Database seeded! Added: ${successful} profiles`)
+
+        let message = `🎉 DATABASE SEEDED SUCCESSFULLY!\n\n✅ Added: ${successful} sample profiles\n❌ Failed: ${failed} profiles`
+
+        if (errors && errors.length > 0) {
+          message += `\n\n⚠️ Errors:\n${errors.slice(0, 3).join('\n')}`
+          if (errors.length > 3) {
+            message += `\n... and ${errors.length - 3} more errors`
+          }
+        }
+
+        message += `\n\n🔄 Refreshing admin panel to show all profiles...`
+
+        alert(message)
+
+        // Reload admin data to show seeded profiles
+        setTimeout(() => {
+          loadAdminData()
+          setMigrationStatus('')
+        }, 1000)
+      } else {
+        throw new Error(result.error)
+      }
+
+    } catch (error) {
+      console.error('Database seeding failed:', error)
+      const errorMsg = `❌ Database seeding failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      setMigrationStatus(errorMsg)
+      alert(`Database seeding failed!\n\n${errorMsg}\n\n💡 Make sure:\n1. Neon database is connected\n2. Database tables exist\n3. Network connection is stable`)
+      setTimeout(() => setMigrationStatus(''), 5000)
+    }
+  }
+
+  const checkSeedingStatus = async () => {
+    try {
+      const response = await fetch('/api/admin/seed', {
+        headers: {
+          'x-admin-token': 'admin-secret-token'
+        }
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        const { totalProfiles, sampleProfiles, realProfiles, needsSeeding } = result
+
+        let message = `📊 DATABASE STATUS:\n\n`
+        message += `Total Profiles: ${totalProfiles}\n`
+        message += `Sample Profiles: ${sampleProfiles}\n`
+        message += `Real Profiles: ${realProfiles}\n\n`
+
+        if (needsSeeding) {
+          message += `⚠️ Database needs seeding (has ${sampleProfiles}/30 sample profiles)\n\n`
+          message += `💡 Click "🌱 Seed Database" to add missing sample profiles`
+        } else {
+          message += `✅ Database is properly seeded with sample data!`
+        }
+
+        alert(message)
+      } else {
+        throw new Error(result.error)
+      }
+
+    } catch (error) {
+      console.error('Check seeding status failed:', error)
+      alert(`❌ Failed to check seeding status: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    }
+  }
+
   const importProfilesFromProduction = () => {
     const instructions = `
 To import real user profiles from gogethires.com:
