@@ -25,7 +25,7 @@ import {
   AdjustmentsHorizontalIcon,
   UserGroupIcon
 } from '@heroicons/react/24/outline'
-import { Worker, JobTitle, City, FilterOptions } from '../../types'
+import { Worker, JobTitle, City, Country, FilterOptions } from '../../types'
 
 // Generate sample data for demonstration
 const generateSampleData = (): Worker[] => {
