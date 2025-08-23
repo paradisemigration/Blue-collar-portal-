@@ -33,7 +33,18 @@ export default function Dashboard() {
     // Get profile data from localStorage (in real app, this would be an API call)
     const profileData = localStorage.getItem('userProfile')
     if (profileData) {
-      setUserProfile(JSON.parse(profileData))
+      const profile = JSON.parse(profileData)
+
+      // Fix profile picture if it's stored incorrectly
+      if (profile.profilePicture && typeof profile.profilePicture === 'object') {
+        // If it's a File object (shows as [object Object]), use a default image
+        profile.profilePicture = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+      } else if (!profile.profilePicture || profile.profilePicture === '') {
+        // If no profile picture, use default
+        profile.profilePicture = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+      }
+
+      setUserProfile(profile)
     }
     setLoading(false)
   }, [])
