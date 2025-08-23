@@ -163,6 +163,19 @@ const loadAllWorkers = async (): Promise<Worker[]> => {
       return workers
     }
 
+    // Handle case where database returns empty or fallback response
+    if (data.fallback || !data.success || (data.profiles && data.profiles.length === 0)) {
+      console.warn('Database returned empty or fallback response, trying localStorage')
+      const localStorageData = await loadWorkersFromLocalStorage()
+      if (localStorageData.length > 0) {
+        return localStorageData
+      }
+
+      // If no localStorage data, return sample data
+      console.log('📋 Using sample data (30 profiles)')
+      return generateSampleData()
+    }
+
     // If no database data, fall back to localStorage
     console.warn('No profiles found in database, falling back to localStorage')
     const localStorageData = await loadWorkersFromLocalStorage()
