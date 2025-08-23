@@ -48,8 +48,15 @@ export default function AdminDashboard() {
   const [selectedJob, setSelectedJob] = useState('')
   const [loading, setLoading] = useState(true)
   const [migrationStatus, setMigrationStatus] = useState<string>('')
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isClient) return
+
     // Check authentication
     const authStatus = localStorage.getItem('adminAuth')
     if (authStatus === 'true') {
