@@ -134,33 +134,63 @@ function generateSampleProfiles() {
     'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=400&h=400&fit=crop&crop=face'
   ]
 
-  return Array.from({ length: 30 }, (_, index) => {
-    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)]
-    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)]
-    const jobTitle = sampleJobs[Math.floor(Math.random() * sampleJobs.length)]
-    const city = sampleCities[Math.floor(Math.random() * sampleCities.length)]
-    const country = countries[Math.floor(Math.random() * countries.length)]
-    const experience = Math.floor(Math.random() * 15) + 1
-    const salary = Math.floor(Math.random() * 4000) + 1500
-    
-    return {
-      fullName: `${firstName} ${lastName}`,
-      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}.sample@gogethires.com`,
-      phone: `+971${Math.floor(Math.random() * 90000000) + 10000000}`,
-      jobCategory: getJobCategory(jobTitle),
-      jobTitle,
-      customJobTitle: undefined,
-      jobProfile: `Experienced ${jobTitle.toLowerCase()} with ${experience} years of professional experience in the Gulf region.`,
-      yearsExperience: experience,
-      city,
-      country,
-      expectedSalary: salary,
-      visaStatus: visaStatuses[Math.floor(Math.random() * visaStatuses.length)],
-      languagesSpoken: languages[Math.floor(Math.random() * languages.length)],
-      aboutMe: `Professional ${jobTitle.toLowerCase()} with ${experience} years of experience. Dedicated, reliable, and hardworking individual seeking new opportunities in ${city}.`,
-      profilePictureUrl: profilePictures[index % profilePictures.length]
+  // Generate profiles: 2-3 profiles per job category distributed across cities
+  const profiles = []
+
+  sampleJobs.forEach((jobTitle, jobIndex) => {
+    // Create 2-3 profiles per job category
+    const profilesPerJob = Math.floor(Math.random() * 2) + 2 // 2-3 profiles
+
+    for (let i = 0; i < profilesPerJob; i++) {
+      const firstName = firstNames[Math.floor(Math.random() * firstNames.length)]
+      const lastName = lastNames[Math.floor(Math.random() * lastNames.length)]
+
+      // Distribute across different cities
+      const cityIndex = (jobIndex * profilesPerJob + i) % sampleCities.length
+      const city = sampleCities[cityIndex]
+
+      // Assign country based on city
+      let country = 'UAE'
+      if (['Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Medina', 'Khobar', 'Tabuk', 'Abha'].includes(city)) {
+        country = 'Saudi Arabia'
+      } else if (['Doha', 'Al Rayyan', 'Al Wakrah', 'Al Khor', 'Umm Salal', 'Al Daayen'].includes(city)) {
+        country = 'Qatar'
+      } else if (['Kuwait City', 'Hawalli', 'Farwaniya', 'Ahmadi', 'Jahra', 'Mubarak Al-Kabeer'].includes(city)) {
+        country = 'Kuwait'
+      } else if (['Muscat', 'Salalah', 'Nizwa', 'Sur', 'Sohar', 'Rustaq', 'Barka', 'Ibri'].includes(city)) {
+        country = 'Oman'
+      } else if (['Manama', 'Riffa', 'Muharraq', 'Hamad Town', 'Isa Town', 'Sitra'].includes(city)) {
+        country = 'Bahrain'
+      }
+
+      const experience = Math.floor(Math.random() * 15) + 1
+      const salary = Math.floor(Math.random() * 4000) + 1500
+
+      // Create unique email and phone for each profile
+      const profileIndex = profiles.length
+
+      profiles.push({
+        fullName: `${firstName} ${lastName}`,
+        email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}.${profileIndex}.sample@gogethires.com`,
+        phone: `+971${Math.floor(Math.random() * 90000000) + 10000000}`,
+        jobCategory: getJobCategory(jobTitle),
+        jobTitle,
+        customJobTitle: undefined,
+        jobProfile: `Experienced ${jobTitle.toLowerCase()} with ${experience} years of professional experience in the Gulf region.`,
+        yearsExperience: experience,
+        city,
+        country,
+        expectedSalary: salary,
+        visaStatus: visaStatuses[Math.floor(Math.random() * visaStatuses.length)],
+        languagesSpoken: languages[Math.floor(Math.random() * languages.length)],
+        aboutMe: `Professional ${jobTitle.toLowerCase()} with ${experience} years of experience. Dedicated, reliable, and hardworking individual seeking new opportunities in ${city}.`,
+        profilePictureUrl: profilePictures[profileIndex % profilePictures.length]
+      })
     }
   })
+
+  console.log(`📊 Generated ${profiles.length} profiles across ${sampleJobs.length} job categories and ${sampleCities.length} cities`)
+  return profiles
 }
 
 // POST - Seed database with sample data
