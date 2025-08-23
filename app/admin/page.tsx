@@ -97,13 +97,54 @@ export default function AdminDashboard() {
     filterUsers()
   }, [users, searchTerm, selectedCity, selectedJob])
 
-  const loadAdminData = () => {
+  const loadAdminData = async () => {
     try {
-      // Load all user profiles from localStorage
+      setLoading(true)
+      console.log('🔍 Admin Debug - Loading users from database...')
+
+      // Try to fetch from database first
+      const response = await fetch('/api/admin/users', {
+        headers: {
+          'x-admin-token': 'admin-secret-token' // Simple admin auth for now
+        }
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success && data.users) {
+          console.log(`✅ Admin - Loaded ${data.users.length} users from database`)
+
+          // Convert date strings back to Date objects
+          const users = data.users.map((user: any) => ({
+            ...user,
+            createdAt: user.createdAt ? new Date(user.createdAt) : new Date(),
+            updatedAt: user.updatedAt ? new Date(user.updatedAt) : new Date()
+          }))
+
+          setUsers(users)
+          calculateStats(users)
+          setLoading(false)
+          return
+        }
+      }
+
+      console.warn('⚠️ Database fetch failed, falling back to localStorage...')
+      await loadAdminDataFromLocalStorage()
+
+    } catch (error) {
+      console.error('Error loading admin data from database:', error)
+      console.log('Falling back to localStorage...')
+      await loadAdminDataFromLocalStorage()
+    }
+  }
+
+  const loadAdminDataFromLocalStorage = async () => {
+    try {
+      // Load all user profiles from localStorage as fallback
       const profiles: Worker[] = []
 
       // Debug: Check what's in localStorage and current domain
-      console.log('🔍 Admin Debug - Checking localStorage...')
+      console.log('🔍 Admin Debug - Checking localStorage (fallback)...')
       console.log('Current domain:', window.location.hostname)
       console.log('userProfile exists:', !!localStorage.getItem('userProfile'))
       console.log('allUserProfiles exists:', !!localStorage.getItem('allUserProfiles'))
@@ -134,7 +175,7 @@ export default function AdminDashboard() {
         }
       }
 
-      // Check for multiple profiles (would be stored differently in real app)
+      // Check for multiple profiles
       const allProfiles = localStorage.getItem('allUserProfiles')
       if (allProfiles) {
         try {
@@ -148,7 +189,6 @@ export default function AdminDashboard() {
               if (profile.updatedAt) profile.updatedAt = new Date(profile.updatedAt)
               return profile
             })
-            // Only filter out obvious demo profiles, keep everything else including test data for now
             .filter(profile =>
               !profile.id?.startsWith('demo') &&
               !profile.email?.includes('demo') &&
@@ -174,38 +214,14 @@ export default function AdminDashboard() {
         index === self.findIndex(p => p.id === profile.id)
       )
 
-      console.log(`✅ Admin Dashboard loaded ${uniqueProfiles.length} unique user profiles`)
-      uniqueProfiles.forEach(profile => {
-        console.log(`- ${profile.fullName} (${profile.jobTitle}, ${profile.city}) - ID: ${profile.id}`)
-      })
-
-      // Show detailed localStorage info
-      const rawUserProfile = localStorage.getItem('userProfile')
-      const rawAllProfiles = localStorage.getItem('allUserProfiles')
-      console.log('📊 localStorage Summary:')
-      console.log(`- userProfile: ${rawUserProfile ? 'EXISTS' : 'MISSING'}`)
-      console.log(`- allUserProfiles: ${rawAllProfiles ? 'EXISTS' : 'MISSING'}`)
-
-      if (rawAllProfiles) {
-        try {
-          const parsed = JSON.parse(rawAllProfiles)
-          console.log(`- allUserProfiles contains ${Array.isArray(parsed) ? parsed.length : 'INVALID'} items`)
-          if (Array.isArray(parsed)) {
-            parsed.forEach((p, i) => {
-              console.log(`  [${i}] ${p.fullName || 'UNNAMED'} (${p.jobTitle || 'NO_JOB'}) - ${p.email || 'NO_EMAIL'}`)
-            })
-          }
-        } catch (e) {
-          console.error('Error parsing allUserProfiles:', e)
-        }
-      }
+      console.log(`✅ Admin Dashboard loaded ${uniqueProfiles.length} unique user profiles from localStorage`)
 
       setUsers(uniqueProfiles)
       calculateStats(uniqueProfiles)
       setLoading(false)
 
     } catch (error) {
-      console.error('Error loading admin data:', error)
+      console.error('Error loading admin data from localStorage:', error)
       setLoading(false)
     }
   }
