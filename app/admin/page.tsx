@@ -56,6 +56,32 @@ export default function AdminDashboard() {
     } else {
       setLoading(false)
     }
+
+    // Listen for profile creation events
+    const handleAuthStateChange = () => {
+      console.log('🔄 Auth state changed - reloading admin data...')
+      if (authStatus === 'true') {
+        loadAdminData()
+      }
+    }
+
+    // Listen for storage changes (when profile is created in another tab/window)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'allUserProfiles' || e.key === 'userProfile') {
+        console.log(`🔄 localStorage ${e.key} changed - reloading admin data...`)
+        if (authStatus === 'true') {
+          setTimeout(() => loadAdminData(), 100) // Small delay to ensure data is written
+        }
+      }
+    }
+
+    window.addEventListener('authStateChanged', handleAuthStateChange)
+    window.addEventListener('storage', handleStorageChange)
+
+    return () => {
+      window.removeEventListener('authStateChanged', handleAuthStateChange)
+      window.removeEventListener('storage', handleStorageChange)
+    }
   }, [])
 
   useEffect(() => {
@@ -629,7 +655,7 @@ export default function AdminDashboard() {
       }
     }
 
-    console.log('🔍 COMPLETE LOCALSTORAGE DUMP:', allData)
+    console.log('���� COMPLETE LOCALSTORAGE DUMP:', allData)
 
     // Create a formatted display
     let display = 'COMPLETE LOCALSTORAGE CONTENTS:\n\n'
