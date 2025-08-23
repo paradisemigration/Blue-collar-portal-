@@ -364,13 +364,20 @@ export default function AdminDashboard() {
               <h1 className="text-3xl font-bold">Admin Dashboard</h1>
               <p className="text-purple-100 mt-1">Manage users, profiles, and platform content</p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <button
                 onClick={debugLocalStorage}
                 className="bg-red-500/20 hover:bg-red-500/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm"
                 title="Debug localStorage"
               >
                 🐛 Debug
+              </button>
+              <button
+                onClick={createTestProfile}
+                className="bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm"
+                title="Create test profile"
+              >
+                ➕ Test
               </button>
               <button
                 onClick={loadAdminData}
