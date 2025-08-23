@@ -55,8 +55,8 @@ const generateSampleData = (): Worker[] => {
     'Smith', 'Brown', 'Davis', 'Miller', 'Jones', 'Williams', 'Taylor'
   ]
 
-  const countries = ['UAE', 'Qatar', 'Kuwait', 'Saudi Arabia', 'Oman', 'Bahrain']
-  const visaStatuses = ['Work Visa', 'Residence Visa', 'Visit Visa']
+  const countries: Country[] = ['UAE', 'Qatar', 'Kuwait', 'Saudi Arabia', 'Oman', 'Bahrain']
+  const visaStatuses: Array<'Work Visa' | 'Visit Visa' | 'Freelance Visa' | 'Expired Visa' | 'No Visa'> = ['Work Visa', 'Visit Visa', 'Freelance Visa']
   const languages = [
     ['English', 'Arabic'], ['English', 'Hindi'], ['English', 'Urdu'],
     ['Arabic', 'French'], ['English', 'Spanish'], ['English', 'Filipino'],
