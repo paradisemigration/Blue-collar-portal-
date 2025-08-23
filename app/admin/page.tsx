@@ -98,7 +98,7 @@ export default function AdminDashboard() {
       window.removeEventListener('authStateChanged', handleAuthStateChange)
       window.removeEventListener('storage', handleStorageChange)
     }
-  }, [])
+  }, [isClient])
 
   useEffect(() => {
     filterUsers()
@@ -1213,7 +1213,7 @@ export default function AdminDashboard() {
       const response = await fetch('/api/health')
       const healthData = await response.json()
 
-      let message = `��� SYSTEM HEALTH CHECK:\n\n`
+      let message = `🏥 SYSTEM HEALTH CHECK:\n\n`
       message += `Overall Status: ${healthData.status.toUpperCase()}\n`
       message += `Timestamp: ${new Date(healthData.timestamp).toLocaleString()}\n\n`
 
