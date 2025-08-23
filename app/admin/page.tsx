@@ -1063,11 +1063,32 @@ console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportDat
               The admin panel cannot find any user profiles. This could mean:
             </p>
             <ul className="text-red-600 text-sm space-y-1 mb-4">
+              <li>• Profiles are stored on <strong>gogethires.com</strong> (different domain)</li>
               <li>• No users have created profiles yet</li>
-              <li>• Profiles are stored in a different browser/domain</li>
               <li>• localStorage was cleared or corrupted</li>
               <li>• There's a data loading issue</li>
             </ul>
+
+            <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+              <p className="text-blue-800 text-sm font-medium mb-2">
+                🌐 Import Real User Profiles from gogethires.com:
+              </p>
+              <div className="flex gap-2 text-sm">
+                <button
+                  onClick={generateExportScript}
+                  className="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700"
+                >
+                  📤 Get Export Script
+                </button>
+                <button
+                  onClick={importProfileData}
+                  className="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700"
+                >
+                  📥 Import Data
+                </button>
+              </div>
+            </div>
+
             <div className="flex gap-2 text-sm flex-wrap">
               <button
                 onClick={showAllLocalStorageData}
@@ -1091,7 +1112,7 @@ console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportDat
                 onClick={createRealUserProfiles}
                 className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
               >
-                ➕ Create Real User Profiles
+                ➕ Create Test Profiles
               </button>
             </div>
           </div>
