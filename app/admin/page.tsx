@@ -1243,43 +1243,33 @@ console.log('✨ All profiles will then appear in your development environment!'
                       <p className="text-orange-700 text-sm mb-2">
                         Real user profiles from <strong>gogethires.com</strong> won't show here due to cross-domain storage limitations.
                       </p>
-                      <div className="flex gap-2 mb-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
                         <button
-                          onClick={generateExportScript}
-                          className="bg-orange-600 text-white px-3 py-1 rounded text-xs hover:bg-orange-700 transition-colors"
+                          onClick={openProductionAdmin}
+                          className="bg-green-600 text-white px-3 py-2 rounded text-xs hover:bg-green-700 transition-colors font-medium flex items-center justify-center gap-1"
                         >
-                          📤 Get Export Script
+                          🌐 Open Production Admin
+                          <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
                         </button>
-                        <button
-                          onClick={importProfileData}
-                          className="bg-teal-600 text-white px-3 py-1 rounded text-xs hover:bg-teal-700 transition-colors"
-                        >
-                          📥 Import Profiles
-                        </button>
-                        <button
-                          onClick={() => {
-                            const instructions = `
-To see real user profiles in this development environment:
-
-1. Open gogethires.com/admin in new tab
-2. Press F12 (Developer Tools)
-3. Click "📤 Get Export Script" here to copy the script
-4. Paste script in gogethires.com console
-5. Copy the exported data
-6. Come back here and click "📥 Import Profiles"
-7. Paste the data and click OK
-
-This will sync all real user profiles to this admin panel.
-                            `
-                            alert(instructions.trim())
-                          }}
-                          className="bg-gray-600 text-white px-3 py-1 rounded text-xs hover:bg-gray-700 transition-colors"
-                        >
-                          ❓ Help
-                        </button>
+                        <div className="flex gap-1">
+                          <button
+                            onClick={generateExportScript}
+                            className="flex-1 bg-orange-600 text-white px-2 py-2 rounded text-xs hover:bg-orange-700 transition-colors"
+                          >
+                            📤 Export
+                          </button>
+                          <button
+                            onClick={importProfileData}
+                            className="flex-1 bg-teal-600 text-white px-2 py-2 rounded text-xs hover:bg-teal-700 transition-colors"
+                          >
+                            📥 Import
+                          </button>
+                        </div>
                       </div>
-                      <p className="text-orange-600 text-xs">
-                        💡 <strong>Recommended:</strong> Use gogethires.com/admin for managing real user profiles.
+                      <p className="text-orange-600 text-xs leading-relaxed">
+                        💡 <strong>Recommended:</strong> Use the Production Admin button above to manage real user profiles directly on gogethires.com where they appear automatically.
                       </p>
                     </div>
                   </div>
