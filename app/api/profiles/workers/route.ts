@@ -13,8 +13,18 @@ async function getUserFromSession(request: NextRequest) {
 // GET - Get all worker profiles (for browse page)
 export async function GET(request: NextRequest) {
   try {
+    // Check if database is available
+    if (!process.env.DATABASE_URL) {
+      console.warn('Database not configured, returning empty profiles')
+      return NextResponse.json({
+        success: true,
+        profiles: [],
+        message: 'Database not configured'
+      })
+    }
+
     const profiles = await db.getAllWorkerProfiles()
-    
+
     // Format profiles for frontend
     const formattedProfiles = profiles.map(profile => ({
       id: profile.id,
@@ -45,10 +55,15 @@ export async function GET(request: NextRequest) {
 
   } catch (error) {
     console.error('Get profiles error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+
+    // Return a graceful response instead of 500 error
+    // This allows the frontend to fall back to sample data
+    return NextResponse.json({
+      success: false,
+      profiles: [],
+      error: 'Database temporarily unavailable',
+      fallback: true
+    }, { status: 200 }) // Return 200 so frontend can handle gracefully
   }
 }
 
