@@ -655,7 +655,7 @@ export default function AdminDashboard() {
       }
     }
 
-    console.log('��� COMPLETE LOCALSTORAGE DUMP:', allData)
+    console.log('🔍 COMPLETE LOCALSTORAGE DUMP:', allData)
 
     // Create a formatted display
     let display = 'COMPLETE LOCALSTORAGE CONTENTS:\n\n'
@@ -762,7 +762,7 @@ export default function AdminDashboard() {
       summary += '• Profile was created in different browser\n'
       summary += '• localStorage was cleared\n'
       summary += '• Profile creation failed\n'
-      summary += '��� Different domain/origin\n'
+      summary += '• Different domain/origin\n'
     } else if (foundInAllProfiles.length > 0 && foundInCurrentUsers.length === 0) {
       summary += '⚠️ Profile exists in localStorage but not loaded in admin!\n'
       summary += 'Try clicking Refresh button.\n'
@@ -1052,7 +1052,7 @@ console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportDat
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Domain Info Banner */}
-        <div className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+        <div data-domain-banner className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
           <div className="flex items-start justify-between">
             <div className="flex items-start gap-3">
               <div className="bg-blue-500 rounded-full p-2 mt-0.5">
