@@ -1215,16 +1215,10 @@ This will sync all real user profiles to this admin panel.
                 🔍 Search Profile
               </button>
               <button
-                onClick={addMissingVanshikaProfile}
-                className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700"
+                onClick={clearSampleData}
+                className="bg-orange-600 text-white px-3 py-1 rounded hover:bg-orange-700"
               >
-                👤 Add Vanshika
-              </button>
-              <button
-                onClick={createRealUserProfiles}
-                className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
-              >
-                ➕ Create Test Profiles
+                🧹 Clear Sample Data
               </button>
             </div>
           </div>
@@ -1335,7 +1329,7 @@ This will sync all real user profiles to this admin panel.
                         />
                         <div>
                           <h3 className="font-semibold text-gray-900">{user.fullName}</h3>
-                          <p className="text-sm text-gray-600">{user.jobTitle} ��� {user.city}</p>
+                          <p className="text-sm text-gray-600">{user.jobTitle} • {user.city}</p>
                           <p className="text-xs text-gray-500">{user.email}</p>
                         </div>
                       </div>
