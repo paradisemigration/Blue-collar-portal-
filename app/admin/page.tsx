@@ -973,7 +973,7 @@ This will sync real user profiles from production to this environment.
 
       if (parsedData.isLoggedIn) {
         localStorage.setItem('isLoggedIn', parsedData.isLoggedIn)
-        console.log('��� Imported isLoggedIn')
+        console.log('✅ Imported isLoggedIn')
       }
 
       if (parsedData.authProvider) {
@@ -1013,21 +1013,40 @@ const exportData = {
   authProvider: localStorage.getItem('authProvider')
 };
 
-console.log('='.repeat(50));
-console.log('GOGETHIRES.COM PROFILE EXPORT');
-console.log('='.repeat(50));
-console.log('Copy everything between the lines below:');
-console.log('-'.repeat(50));
+console.clear();
+console.log('='.repeat(60));
+console.log('🚀 GOGETHIRES.COM PROFILE EXPORT');
+console.log('='.repeat(60));
+console.log('📊 Profiles found:', exportData.allUserProfiles ? JSON.parse(exportData.allUserProfiles).length : 0);
+console.log('');
+console.log('📋 Copy the JSON data below (everything between the dashes):');
+console.log('-'.repeat(60));
 console.log(JSON.stringify(exportData, null, 2));
-console.log('-'.repeat(50));
-console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportData.allUserProfiles).length : 0);
+console.log('-'.repeat(60));
+console.log('');
+console.log('✅ Next steps:');
+console.log('1. Copy the JSON data above');
+console.log('2. Go back to your development admin panel');
+console.log('3. Click "📥 Import Data" button');
+console.log('4. Paste the data and click OK');
+console.log('');
+console.log('✨ All profiles will then appear in your development environment!');
     `
 
     navigator.clipboard.writeText(script.trim()).then(() => {
-      alert(`✅ Export script copied to clipboard!\n\n1. Go to gogethires.com/admin\n2. Open Developer Tools (F12)\n3. Paste the script in Console\n4. Copy the export data\n5. Come back here and click "📋 Import Data"`)
+      alert(`✅ Export script copied to clipboard!\n\n📋 QUICK STEPS:\n1. Go to gogethires.com/admin\n2. Press F12 (Developer Tools)\n3. Paste the script in Console\n4. Copy the export data shown\n5. Come back here and click "📥 Import Data"\n\n💡 This will sync all real user profiles to this development environment.`)
     }).catch(() => {
       alert(`Copy this script manually:\n\n${script.trim()}`)
     })
+  }
+
+  const openProductionAdmin = () => {
+    const productionUrl = 'https://gogethires.com/admin'
+    window.open(productionUrl, '_blank')
+
+    setTimeout(() => {
+      alert(`🌐 Production admin opened in new tab!\n\n📋 TO SYNC PROFILES:\n1. Login to production admin (admin/admin123)\n2. Use the export/import tools there\n3. OR manage real user profiles directly on production\n\n💡 Real user profiles should appear automatically on gogethires.com`)
+    }, 1000)
   }
 
   if (!isAuthenticated && !loading) {
