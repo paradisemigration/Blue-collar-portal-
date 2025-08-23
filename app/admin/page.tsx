@@ -277,6 +277,150 @@ export default function AdminDashboard() {
     alert(summary)
   }
 
+  const createRealUserProfiles = () => {
+    // Simulate real users who created profiles through the form
+    const realUsers = [
+      {
+        id: `worker_${Date.now()}_1`,
+        fullName: 'Himanshu Kumar',
+        profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+        jobCategory: 'Hospitality & Food',
+        jobTitle: 'Cook' as JobTitle,
+        customJobTitle: undefined,
+        jobProfile: 'Experienced cook specializing in Indian and Continental cuisine',
+        yearsExperience: 5,
+        city: 'Dubai' as City,
+        country: 'UAE' as Country,
+        languagesSpoken: ['English', 'Hindi', 'Arabic'],
+        expectedSalary: 3000,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Experienced cook with 5 years in Gulf region. Specialized in multiple cuisines.',
+        phoneNumber: '+971501234567',
+        email: 'himanshu.real@gmail.com',
+        createdAt: new Date(Date.now() - 86400000 * 5), // 5 days ago
+        updatedAt: new Date(Date.now() - 86400000 * 5)
+      },
+      {
+        id: `worker_${Date.now()}_2`,
+        fullName: 'Vanshika Sharma',
+        profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b593?w=400&h=400&fit=crop&crop=face',
+        jobCategory: 'Domestic & Personal Care Workers',
+        jobTitle: 'Housemaid' as JobTitle,
+        customJobTitle: undefined,
+        jobProfile: 'Professional housemaid with attention to detail',
+        yearsExperience: 3,
+        city: 'Abu Dhabi' as City,
+        country: 'UAE' as Country,
+        languagesSpoken: ['English', 'Hindi'],
+        expectedSalary: 2500,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Dedicated housemaid with excellent cleaning skills and 3 years experience.',
+        phoneNumber: '+971507654321',
+        email: 'vanshika.real@gmail.com',
+        createdAt: new Date(Date.now() - 86400000 * 4), // 4 days ago
+        updatedAt: new Date(Date.now() - 86400000 * 4)
+      },
+      {
+        id: `worker_${Date.now()}_3`,
+        fullName: 'Rahul Gupta',
+        profilePicture: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+        jobCategory: 'Construction & Infrastructure',
+        jobTitle: 'Electrician' as JobTitle,
+        customJobTitle: undefined,
+        jobProfile: 'Certified electrician with industrial experience',
+        yearsExperience: 7,
+        city: 'Sharjah' as City,
+        country: 'UAE' as Country,
+        languagesSpoken: ['English', 'Hindi', 'Arabic'],
+        expectedSalary: 4000,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Certified electrician with 7 years of experience in residential and commercial projects.',
+        phoneNumber: '+971509876543',
+        email: 'rahul.real@gmail.com',
+        createdAt: new Date(Date.now() - 86400000 * 3), // 3 days ago
+        updatedAt: new Date(Date.now() - 86400000 * 3)
+      },
+      {
+        id: `worker_${Date.now()}_4`,
+        fullName: 'Priya Patel',
+        profilePicture: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
+        jobCategory: 'Domestic & Personal Care Workers',
+        jobTitle: 'Nanny (Childcare Worker)' as JobTitle,
+        customJobTitle: undefined,
+        jobProfile: 'Caring childcare professional with early childhood education',
+        yearsExperience: 4,
+        city: 'Doha' as City,
+        country: 'Qatar' as Country,
+        languagesSpoken: ['English', 'Hindi', 'Gujarati'],
+        expectedSalary: 3200,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Caring nanny with 4 years experience. Great with children of all ages.',
+        phoneNumber: '+97433445566',
+        email: 'priya.real@gmail.com',
+        createdAt: new Date(Date.now() - 86400000 * 2), // 2 days ago
+        updatedAt: new Date(Date.now() - 86400000 * 2)
+      },
+      {
+        id: `worker_${Date.now()}_5`,
+        fullName: 'Mohammad Ali',
+        profilePicture: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
+        jobCategory: 'Transport & Logistics',
+        jobTitle: 'Driver' as JobTitle,
+        customJobTitle: undefined,
+        jobProfile: 'Professional driver with clean driving record',
+        yearsExperience: 6,
+        city: 'Kuwait City' as City,
+        country: 'Kuwait' as Country,
+        languagesSpoken: ['Arabic', 'English'],
+        expectedSalary: 3500,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Professional driver with 6 years experience and clean driving record.',
+        phoneNumber: '+96566778899',
+        email: 'mohammad.real@gmail.com',
+        createdAt: new Date(Date.now() - 86400000 * 1), // 1 day ago
+        updatedAt: new Date(Date.now() - 86400000 * 1)
+      }
+    ]
+
+    // Save to localStorage exactly like the create-profile form does
+    realUsers.forEach((user, index) => {
+      // For the first user, also set as current user profile
+      if (index === 0) {
+        localStorage.setItem('userProfile', JSON.stringify(user))
+        localStorage.setItem('isLoggedIn', 'true')
+        localStorage.setItem('authProvider', 'profile')
+      }
+    })
+
+    // Update allUserProfiles array
+    const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
+    const allProfiles = [...existingProfiles]
+
+    realUsers.forEach(user => {
+      // Remove any existing profile with same ID
+      const index = allProfiles.findIndex(p => p.id === user.id)
+      if (index >= 0) {
+        allProfiles[index] = user
+      } else {
+        allProfiles.push(user)
+      }
+    })
+
+    localStorage.setItem('allUserProfiles', JSON.stringify(allProfiles))
+
+    console.log('✅ Created realistic user profiles:', realUsers.map(p => p.fullName))
+
+    // Trigger auth state change event
+    window.dispatchEvent(new Event('authStateChanged'))
+
+    alert(`✅ Created 5 realistic user profiles:\n${realUsers.map(p => `• ${p.fullName} (${p.jobTitle}, ${p.city})`).join('\n')}\n\nThese profiles simulate real users who created profiles through the form.\nClick Refresh to see them.`)
+  }
+
   const createTestProfile = () => {
     const sampleProfiles = [
       {
