@@ -1062,25 +1062,18 @@ console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportDat
               </button>
               <div className="w-px h-6 bg-white/20"></div>
               <button
-                onClick={createRealUserProfiles}
-                className="bg-green-500/20 hover:bg-green-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
-                title="Create realistic user profiles"
+                onClick={clearSampleData}
+                className="bg-orange-500/20 hover:bg-orange-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-orange-300/20"
+                title="Clear sample and dummy data only"
               >
-                ➕ Real Users
-              </button>
-              <button
-                onClick={addMissingVanshikaProfile}
-                className="bg-purple-500/20 hover:bg-purple-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
-                title="Add missing Vanshika profile"
-              >
-                👤 Add Vanshika
+                🧹 Clear Sample Data
               </button>
               <button
                 onClick={clearAllProfiles}
                 className="bg-red-600/20 hover:bg-red-600/30 px-2 py-2 rounded-lg transition-colors text-xs"
                 title="Clear all profiles"
               >
-                🗑️ Clear
+                🗑️ Clear All
               </button>
               <div className="w-px h-6 bg-white/20"></div>
               <button
@@ -1213,7 +1206,7 @@ This will sync all real user profiles to this admin panel.
                 onClick={showAllLocalStorageData}
                 className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
               >
-                �� Check All Data
+                📋 Check All Data
               </button>
               <button
                 onClick={searchForProfile}
@@ -1342,7 +1335,7 @@ This will sync all real user profiles to this admin panel.
                         />
                         <div>
                           <h3 className="font-semibold text-gray-900">{user.fullName}</h3>
-                          <p className="text-sm text-gray-600">{user.jobTitle} • {user.city}</p>
+                          <p className="text-sm text-gray-600">{user.jobTitle} ��� {user.city}</p>
                           <p className="text-xs text-gray-500">{user.email}</p>
                         </div>
                       </div>
