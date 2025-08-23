@@ -1444,6 +1444,12 @@ console.log('✨ All profiles will then appear in your development environment!'
 
             <div className="flex gap-2 text-sm flex-wrap">
               <button
+                onClick={migrateLocalStorageToDatabase}
+                className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700"
+              >
+                🚀 Migrate to Database
+              </button>
+              <button
                 onClick={showAllLocalStorageData}
                 className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
               >
