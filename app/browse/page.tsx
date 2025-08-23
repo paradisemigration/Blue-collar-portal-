@@ -1,5 +1,8 @@
 'use client'
 
+// Make this page dynamic to avoid SSR issues
+export const dynamic = 'force-dynamic'
+
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import {
@@ -818,7 +821,7 @@ export default function BrowseWorkers() {
                       <div className="font-medium text-amber-800 text-xs">Direct Contact</div>
                     </div>
                     <div className="bg-white rounded-lg p-3 border border-amber-200">
-                      <div className="text-lg mb-1">📸</div>
+                      <div className="text-lg mb-1">��</div>
                       <div className="font-medium text-amber-800 text-xs">Clear Photos</div>
                     </div>
                   </div>
