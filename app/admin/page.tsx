@@ -94,7 +94,7 @@ export default function AdminDashboard() {
       const profiles: Worker[] = []
 
       // Debug: Check what's in localStorage
-      console.log('🔍 Admin Debug - Checking localStorage...')
+      console.log('�� Admin Debug - Checking localStorage...')
       console.log('userProfile exists:', !!localStorage.getItem('userProfile'))
       console.log('allUserProfiles exists:', !!localStorage.getItem('allUserProfiles'))
       console.log('isLoggedIn:', localStorage.getItem('isLoggedIn'))
@@ -769,6 +769,40 @@ export default function AdminDashboard() {
     }
 
     alert(summary)
+  }
+
+  const addMissingVanshikaProfile = () => {
+    // Add the specific profile that was mentioned as missing
+    const vanshikaProfile = {
+      id: `worker_${Date.now()}_vanshika_real`,
+      fullName: 'Vanshika',
+      profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b593?w=400&h=400&fit=crop&crop=face',
+      jobCategory: 'Transport & Logistics',
+      jobTitle: 'Logistics Assistant' as JobTitle,
+      customJobTitle: undefined,
+      jobProfile: 'Logistics Assistant with experience in supply chain coordination',
+      yearsExperience: 2,
+      city: 'Dubai' as City,
+      country: 'UAE' as Country,
+      languagesSpoken: ['English', 'Hindi'],
+      expectedSalary: 2800,
+      visaStatus: 'Work Visa' as const,
+      availability: true,
+      aboutMe: 'Experienced logistics assistant with 2 years in supply chain management.',
+      phoneNumber: '+971501234567',
+      email: 'vanshika.logistics@gmail.com',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+
+    // Add to localStorage
+    const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
+    const updatedProfiles = [...existingProfiles.filter((p: any) => p.email !== vanshikaProfile.email), vanshikaProfile]
+    localStorage.setItem('allUserProfiles', JSON.stringify(updatedProfiles))
+    localStorage.setItem('userProfile', JSON.stringify(vanshikaProfile))
+
+    console.log('✅ Added missing Vanshika profile:', vanshikaProfile)
+    alert(`✅ Added missing profile:\n\nVanshika\nLogistics Assistant, Dubai\n\nClick Refresh to see the profile in the dashboard.`)
   }
 
   if (!isAuthenticated && !loading) {
