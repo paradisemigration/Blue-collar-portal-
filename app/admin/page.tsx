@@ -1,6 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+
+// Make this page dynamic to avoid SSR issues
+export const dynamic = 'force-dynamic'
 import Link from 'next/link'
 import {
   UserGroupIcon,
