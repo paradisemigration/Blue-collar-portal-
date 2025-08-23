@@ -712,11 +712,11 @@ export default function AdminDashboard() {
                 🐛 Debug
               </button>
               <button
-                onClick={createTestProfile}
+                onClick={createRealUserProfiles}
                 className="bg-green-500/20 hover:bg-green-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
-                title="Create test profiles"
+                title="Create realistic user profiles"
               >
-                ➕ Test
+                ➕ Real Users
               </button>
               <button
                 onClick={clearAllProfiles}
