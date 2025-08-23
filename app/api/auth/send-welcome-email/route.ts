@@ -28,10 +28,7 @@ export async function POST(request: NextRequest) {
 
     // Update user with temporary password in database
     try {
-      await db.query(
-        'UPDATE users SET password_hash = $1, updated_at = NOW() WHERE id = $2',
-        [hashedPassword, userId]
-      )
+      await db.updateUserPassword(userId, hashedPassword)
       console.log('✅ Temporary password saved to database')
     } catch (dbError) {
       console.error('❌ Failed to save password to database:', dbError)
