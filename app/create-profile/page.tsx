@@ -95,6 +95,46 @@ const createProfileInLocalStorage = async (data: WorkerFormData) => {
   return profileData
 }
 
+// Database health check function
+const checkDatabaseHealth = async () => {
+  try {
+    console.log('🏥 Checking database health...')
+    const response = await fetch('/api/health')
+    const healthData = await response.json()
+
+    let message = `🏥 DATABASE HEALTH CHECK:\n\n`
+    message += `Status: ${healthData.status.toUpperCase()}\n\n`
+
+    const dbCheck = healthData.checks?.database
+    if (dbCheck) {
+      message += `Database: ${dbCheck.status.toUpperCase()}\n`
+      message += `Message: ${dbCheck.message}\n`
+
+      if (dbCheck.details?.connectionString) {
+        message += `Connection: ${dbCheck.details.connectionString}\n`
+      }
+    }
+
+    const envCheck = healthData.checks?.environment
+    if (envCheck) {
+      message += `\nEnvironment: ${envCheck.status.toUpperCase()}\n`
+      message += `Database URL: ${envCheck.details?.DATABASE_URL || 'Not configured'}\n`
+    }
+
+    if (healthData.status === 'unhealthy') {
+      message += `\n❌ Database issues detected!\n`
+      message += `💡 Profiles will be saved to localStorage until database is fixed.`
+    } else {
+      message += `\n✅ Database is working properly!`
+    }
+
+    alert(message)
+  } catch (error) {
+    console.error('Health check failed:', error)
+    alert(`❌ Health check failed: ${error instanceof Error ? error.message : 'Unknown error'}\n\n💡 This likely means the database is not connected.\nProfiles will be saved locally.`)
+  }
+}
+
 const jobCategories = {
   'Domestic & Personal Care Workers': {
     emoji: '🏠',
