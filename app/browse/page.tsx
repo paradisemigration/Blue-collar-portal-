@@ -73,6 +73,14 @@ const loadAllWorkers = (): Worker[] => {
     }
 
     console.log(`✅ Browse - Total real workers loaded: ${workers.length}`)
+
+    // Add domain detection logging
+    const isProductionDomain = typeof window !== 'undefined' && window.location.hostname.includes('gogethires.com')
+    if (typeof window !== 'undefined' && !isProductionDomain && workers.length === 0) {
+      console.log('⚠️ Development environment: Real user profiles from gogethires.com won\'t appear here')
+      console.log('💡 Use the import tools in admin panel to sync profiles from production')
+    }
+
     return workers
   } catch (error) {
     console.error('Error loading workers:', error)
