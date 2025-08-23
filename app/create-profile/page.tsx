@@ -872,6 +872,14 @@ export default function CreateProfile() {
           // Update localStorage for backward compatibility
           try {
             const profileData = await profileResponse.json()
+            console.log('📄 Profile data received from database:', {
+              fullName: profileData.profile?.fullName,
+              hasProfilePicture: !!profileData.profile?.profilePicture,
+              profilePictureType: typeof profileData.profile?.profilePicture,
+              profilePictureLength: profileData.profile?.profilePicture?.length,
+              profilePictureStart: profileData.profile?.profilePicture?.substring(0, 50)
+            })
+
             localStorage.setItem('userProfile', JSON.stringify(profileData.profile))
             localStorage.setItem('isLoggedIn', 'true')
             localStorage.setItem('authProvider', 'database')
