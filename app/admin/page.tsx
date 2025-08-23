@@ -1428,7 +1428,7 @@ console.log('✨ All profiles will then appear in your development environment!'
               The admin panel cannot find any user profiles. This could mean:
             </p>
             <ul className="text-red-600 text-sm space-y-1 mb-4">
-              <li>• Profiles are stored on <strong>gogethires.com</strong> (different domain)</li>
+              <li>�� Profiles are stored on <strong>gogethires.com</strong> (different domain)</li>
               <li>• No users have created profiles yet</li>
               <li>• localStorage was cleared or corrupted</li>
               <li>• There's a data loading issue</li>
@@ -1455,6 +1455,12 @@ console.log('✨ All profiles will then appear in your development environment!'
             </div>
 
             <div className="flex gap-2 text-sm flex-wrap">
+              <button
+                onClick={refreshDatabaseData}
+                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+              >
+                🔄 Refresh Database
+              </button>
               <button
                 onClick={migrateLocalStorageToDatabase}
                 className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700"
