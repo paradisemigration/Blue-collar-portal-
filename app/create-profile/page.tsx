@@ -853,8 +853,14 @@ export default function CreateProfile() {
           } catch (storageError) {
             console.warn('⚠️ localStorage update failed, but profile is saved in database:', storageError)
           }
+        } else if (profileResponse.status === 503) {
+          // Database not configured, this will trigger the fallback
+          const errorData = await profileResponse.json()
+          console.log('🗄️ Database not configured for profile creation, using localStorage fallback')
+          throw new Error('Database not configured - using localStorage')
         } else {
-          throw new Error('Database profile creation failed')
+          const errorData = await profileResponse.json()
+          throw new Error(errorData.error || 'Database profile creation failed')
         }
 
       } catch (databaseError) {
