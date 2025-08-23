@@ -1021,7 +1021,19 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error('Migration failed:', error)
       alert(`Migration failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
+  }
+
+  const refreshDatabaseData = async () => {
+    setLoading(true)
+    try {
+      console.log('🔄 Refreshing all database data...')
+      await loadAdminData()
+      alert(`✅ Database refreshed successfully!\n\nNow showing all real user profiles from the database.`)
+    } catch (error) {
+      console.error('Refresh failed:', error)
+      alert(`❌ Refresh failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
+  }
   }
 
   const importProfilesFromProduction = () => {
