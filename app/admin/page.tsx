@@ -276,34 +276,159 @@ export default function AdminDashboard() {
   }
 
   const createTestProfile = () => {
-    const testProfile = {
-      id: `test_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      fullName: 'Test User - Himanshu',
-      profilePicture: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
-      jobTitle: 'Cook' as JobTitle,
-      yearsExperience: 5,
-      city: 'Dubai' as City,
-      country: 'UAE' as Country,
-      languagesSpoken: ['English', 'Hindi'],
-      expectedSalary: 3000,
-      visaStatus: 'Work Visa' as const,
-      availability: true,
-      aboutMe: 'Test profile created for debugging',
-      phoneNumber: '+971501234567',
-      email: 'himanshu@test.com',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
+    const sampleProfiles = [
+      {
+        id: `user_${Date.now()}_1`,
+        fullName: 'Himanshu Kumar',
+        profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+        jobTitle: 'Cook' as JobTitle,
+        yearsExperience: 5,
+        city: 'Dubai' as City,
+        country: 'UAE' as Country,
+        languagesSpoken: ['English', 'Hindi', 'Arabic'],
+        expectedSalary: 3000,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Experienced cook with 5 years in Gulf region',
+        phoneNumber: '+971501234567',
+        email: 'himanshu@email.com',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: `user_${Date.now()}_2`,
+        fullName: 'Vanshika Sharma',
+        profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b593?w=400&h=400&fit=crop&crop=face',
+        jobTitle: 'Housemaid' as JobTitle,
+        yearsExperience: 3,
+        city: 'Abu Dhabi' as City,
+        country: 'UAE' as Country,
+        languagesSpoken: ['English', 'Hindi'],
+        expectedSalary: 2500,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Dedicated housemaid with excellent cleaning skills',
+        phoneNumber: '+971507654321',
+        email: 'vanshika@email.com',
+        createdAt: new Date(Date.now() - 86400000), // 1 day ago
+        updatedAt: new Date(Date.now() - 86400000)
+      },
+      {
+        id: `user_${Date.now()}_3`,
+        fullName: 'Ahmed Hassan',
+        profilePicture: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+        jobTitle: 'Construction Laborer' as JobTitle,
+        yearsExperience: 7,
+        city: 'Sharjah' as City,
+        country: 'UAE' as Country,
+        languagesSpoken: ['Arabic', 'English'],
+        expectedSalary: 3500,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Skilled construction worker with 7 years experience',
+        phoneNumber: '+971509876543',
+        email: 'ahmed@email.com',
+        createdAt: new Date(Date.now() - 172800000), // 2 days ago
+        updatedAt: new Date(Date.now() - 172800000)
+      },
+      {
+        id: `user_${Date.now()}_4`,
+        fullName: 'Priya Patel',
+        profilePicture: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
+        jobTitle: 'Nanny (Childcare Worker)' as JobTitle,
+        yearsExperience: 4,
+        city: 'Doha' as City,
+        country: 'Qatar' as Country,
+        languagesSpoken: ['English', 'Hindi', 'Gujarati'],
+        expectedSalary: 3200,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Caring nanny with experience in childcare',
+        phoneNumber: '+97433445566',
+        email: 'priya@email.com',
+        createdAt: new Date(Date.now() - 259200000), // 3 days ago
+        updatedAt: new Date(Date.now() - 259200000)
+      },
+      {
+        id: `user_${Date.now()}_5`,
+        fullName: 'Mohammad Ali',
+        profilePicture: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
+        jobTitle: 'Driver' as JobTitle,
+        yearsExperience: 6,
+        city: 'Riyadh' as City,
+        country: 'Saudi Arabia' as Country,
+        languagesSpoken: ['Arabic', 'English', 'Urdu'],
+        expectedSalary: 4000,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Professional driver with clean record',
+        phoneNumber: '+966501122334',
+        email: 'mohammad@email.com',
+        createdAt: new Date(Date.now() - 345600000), // 4 days ago
+        updatedAt: new Date(Date.now() - 345600000)
+      },
+      {
+        id: `user_${Date.now()}_6`,
+        fullName: 'Fatima Al-Zahra',
+        profilePicture: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face',
+        jobTitle: 'Cleaner' as JobTitle,
+        yearsExperience: 2,
+        city: 'Kuwait City' as City,
+        country: 'Kuwait' as Country,
+        languagesSpoken: ['Arabic', 'English'],
+        expectedSalary: 2200,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Reliable cleaner with attention to detail',
+        phoneNumber: '+96566778899',
+        email: 'fatima@email.com',
+        createdAt: new Date(Date.now() - 432000000), // 5 days ago
+        updatedAt: new Date(Date.now() - 432000000)
+      },
+      {
+        id: `user_${Date.now()}_7`,
+        fullName: 'Rajesh Gupta',
+        profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+        jobTitle: 'Electrician' as JobTitle,
+        yearsExperience: 8,
+        city: 'Muscat' as City,
+        country: 'Oman' as Country,
+        languagesSpoken: ['English', 'Hindi', 'Arabic'],
+        expectedSalary: 4500,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Certified electrician with 8 years experience',
+        phoneNumber: '+96899887766',
+        email: 'rajesh@email.com',
+        createdAt: new Date(Date.now() - 518400000), // 6 days ago
+        updatedAt: new Date(Date.now() - 518400000)
+      },
+      {
+        id: `user_${Date.now()}_8`,
+        fullName: 'Sarah Johnson',
+        profilePicture: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face',
+        jobTitle: 'Housekeeper (Residential)' as JobTitle,
+        yearsExperience: 5,
+        city: 'Manama' as City,
+        country: 'Bahrain' as Country,
+        languagesSpoken: ['English', 'Arabic'],
+        expectedSalary: 2800,
+        visaStatus: 'Work Visa' as const,
+        availability: true,
+        aboutMe: 'Professional housekeeper with excellent references',
+        phoneNumber: '+97366554433',
+        email: 'sarah@email.com',
+        createdAt: new Date(Date.now() - 604800000), // 7 days ago
+        updatedAt: new Date(Date.now() - 604800000)
+      }
+    ]
 
-    // Save to both localStorage keys
-    localStorage.setItem('userProfile', JSON.stringify(testProfile))
+    // Clear existing profiles and add all sample profiles
+    localStorage.setItem('allUserProfiles', JSON.stringify(sampleProfiles))
+    localStorage.setItem('userProfile', JSON.stringify(sampleProfiles[0])) // Set first profile as current user
 
-    const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
-    const updatedProfiles = [...existingProfiles.filter((p: any) => p.id !== testProfile.id), testProfile]
-    localStorage.setItem('allUserProfiles', JSON.stringify(updatedProfiles))
-
-    console.log('✅ Test profile created:', testProfile)
-    alert(`Test profile created: ${testProfile.fullName}\nClick Refresh to see it in the dashboard.`)
+    console.log('✅ Created 8 sample profiles:', sampleProfiles.map(p => p.fullName))
+    alert(`Created 8 sample user profiles:\n${sampleProfiles.map(p => `• ${p.fullName} (${p.jobTitle}, ${p.city})`).join('\n')}\n\nClick Refresh to see them in the dashboard.`)
   }
 
   if (!isAuthenticated && !loading) {
