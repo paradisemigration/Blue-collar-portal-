@@ -487,6 +487,28 @@ export default function CreateProfile() {
     }, 50)
   }
 
+  const clearLocalStorageAndRetry = () => {
+    if (confirm('This will clear all stored profile data and refresh the page. Are you sure?')) {
+      try {
+        // Clear profile-related localStorage
+        localStorage.removeItem('userProfile')
+        localStorage.removeItem('allUserProfiles')
+        localStorage.removeItem('isLoggedIn')
+        localStorage.removeItem('authProvider')
+        localStorage.removeItem('hasCleanedSampleData')
+
+        console.log('🧹 localStorage cleared successfully')
+        alert('Storage cleared! The page will refresh and you can try creating your profile again.')
+
+        // Refresh the page
+        window.location.reload()
+      } catch (error) {
+        console.error('Error clearing localStorage:', error)
+        alert('Unable to clear storage. Please manually clear your browser cache and refresh the page.')
+      }
+    }
+  }
+
   const handleFieldFocus = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev.add(fieldName)))
     
