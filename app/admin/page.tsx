@@ -773,10 +773,10 @@ export default function AdminDashboard() {
                 📋 Check All Data
               </button>
               <button
-                onClick={createTestProfile}
+                onClick={createRealUserProfiles}
                 className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
               >
-                ➕ Create Test Profiles
+                ➕ Create Real User Profiles
               </button>
             </div>
           </div>
