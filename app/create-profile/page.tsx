@@ -781,19 +781,33 @@ export default function CreateProfile() {
     } catch (error) {
       console.error('❌ Error creating profile:', error)
 
-      // More specific error messages
+      // More specific error messages with recovery options
       let errorMessage = 'Error creating profile. Please try again.'
+      let showRecoveryOption = false
+
       if (error instanceof Error) {
-        if (error.message.includes('storage')) {
-          errorMessage = 'Storage error: Please clear browser cache and try again.'
+        if (error.message.includes('storage') || error.message.includes('quota') || error.message.includes('localStorage')) {
+          errorMessage = `Storage Error: ${error.message}\n\nYour browser storage may be full or corrupted. Would you like to clear it and try again?`
+          showRecoveryOption = true
         } else if (error.message.includes('login')) {
           errorMessage = 'Login state error: Please refresh the page and try again.'
+        } else if (error.message.includes('profiles list')) {
+          errorMessage = 'Profile list update failed, but your main profile was saved. Please refresh the page to continue.'
         } else {
-          errorMessage = `Profile creation failed: ${error.message}`
+          errorMessage = `Profile creation failed: ${error.message}\n\nThis might be due to browser storage issues.`
+          showRecoveryOption = true
         }
       }
 
-      alert(errorMessage)
+      if (showRecoveryOption) {
+        const shouldClear = confirm(`${errorMessage}\n\nClick OK to clear storage and refresh, or Cancel to try again without clearing.`)
+        if (shouldClear) {
+          clearLocalStorageAndRetry()
+          return // Don't show additional alert
+        }
+      } else {
+        alert(errorMessage)
+      }
     } finally {
       setIsSubmitting(false)
     }
