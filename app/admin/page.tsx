@@ -119,7 +119,7 @@ export default function AdminDashboard() {
       if (response.ok) {
         const data = await response.json()
         if (data.success && data.users) {
-          console.log(`��� Admin - Loaded ${data.users.length} users from database`)
+          console.log(`✅ Admin - Loaded ${data.users.length} users from database`)
 
           // Convert date strings back to Date objects
           const users = data.users.map((user: any) => ({
@@ -1181,18 +1181,26 @@ export default function AdminDashboard() {
       const result = await response.json()
 
       if (result.success) {
-        const { totalProfiles, sampleProfiles, realProfiles, needsSeeding } = result
+        const { totalProfiles, sampleProfiles, realProfiles, needsSeeding, expectedProfiles, coverage } = result
 
-        let message = `📊 DATABASE STATUS:\n\n`
+        let message = `📊 DATABASE SEEDING STATUS:\n\n`
         message += `Total Profiles: ${totalProfiles}\n`
         message += `Sample Profiles: ${sampleProfiles}\n`
         message += `Real Profiles: ${realProfiles}\n\n`
+        message += `Expected: ${expectedProfiles || '160-240 profiles'}\n`
+
+        if (coverage) {
+          message += `Coverage:\n`
+          message += `• Job Categories: ${coverage.jobCategories}\n`
+          message += `• Cities: ${coverage.cities}\n`
+          message += `• Countries: ${coverage.countries}\n\n`
+        }
 
         if (needsSeeding) {
-          message += `⚠️ Database needs seeding (has ${sampleProfiles}/30 sample profiles)\n\n`
-          message += `💡 Click "🌱 Seed Database" to add missing sample profiles`
+          message += `⚠️ Database needs comprehensive seeding\n\n`
+          message += `💡 Click "🌱 Seed Database" to add full coverage with 80+ job categories`
         } else {
-          message += `✅ Database is properly seeded with sample data!`
+          message += `✅ Database is comprehensively seeded with sample data across all categories and cities!`
         }
 
         alert(message)
