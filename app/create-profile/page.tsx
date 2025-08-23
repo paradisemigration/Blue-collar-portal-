@@ -299,7 +299,7 @@ export default function CreateProfile() {
             const controller = new AbortController()
             const timeoutId = setTimeout(() => controller.abort(), 3000)
 
-            console.log('🌍 Trying location detection from:', apiUrl)
+            console.log('�� Trying location detection from:', apiUrl)
             const response = await fetch(apiUrl, {
               signal: controller.signal,
               headers: {
@@ -505,8 +505,21 @@ export default function CreateProfile() {
         return !!(values.jobCategory && values.jobTitle && values.yearsExperience && values.visaStatus)
       case 3:
         return !!(values.country && values.city && values.expectedSalary)
-      case 4:
-        return !!(values.languagesSpoken?.length > 0) // aboutMe is now optional
+      case 4: {
+      // Enhanced debugging for step 4 validation
+      const languages = values.languagesSpoken || []
+      const hasLanguages = languages.length > 0
+
+      console.log('🔍 Step 4 validation check:')
+      console.log('  - Languages array:', languages)
+      console.log('  - Languages count:', languages.length)
+      console.log('  - Has languages:', hasLanguages)
+      console.log('  - About me:', values.aboutMe)
+      console.log('  - Form initialized:', isFormInitialized)
+      console.log('  - All form values:', values)
+
+      return hasLanguages // aboutMe is optional
+    }
       default:
         return false
     }
