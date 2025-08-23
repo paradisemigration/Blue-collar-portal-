@@ -655,7 +655,7 @@ export default function AdminDashboard() {
       }
     }
 
-    console.log('���� COMPLETE LOCALSTORAGE DUMP:', allData)
+    console.log('🔍 COMPLETE LOCALSTORAGE DUMP:', allData)
 
     // Create a formatted display
     let display = 'COMPLETE LOCALSTORAGE CONTENTS:\n\n'
@@ -683,6 +683,92 @@ export default function AdminDashboard() {
     })
 
     alert(display)
+  }
+
+  const searchForProfile = () => {
+    const searchName = prompt('Enter name to search for (e.g., "Vanshika"):')
+    if (!searchName) return
+
+    console.log(`🔍 Searching for profile containing: "${searchName}"`)
+
+    // Check userProfile
+    const userProfile = localStorage.getItem('userProfile')
+    let foundInUserProfile = false
+    if (userProfile) {
+      try {
+        const profile = JSON.parse(userProfile)
+        if (profile.fullName?.toLowerCase().includes(searchName.toLowerCase())) {
+          console.log('✅ Found in userProfile:', profile)
+          foundInUserProfile = true
+        }
+      } catch (e) {
+        console.error('Error parsing userProfile:', e)
+      }
+    }
+
+    // Check allUserProfiles
+    const allProfiles = localStorage.getItem('allUserProfiles')
+    let foundInAllProfiles: any[] = []
+    if (allProfiles) {
+      try {
+        const profiles = JSON.parse(allProfiles)
+        if (Array.isArray(profiles)) {
+          foundInAllProfiles = profiles.filter(profile =>
+            profile.fullName?.toLowerCase().includes(searchName.toLowerCase())
+          )
+          console.log(`✅ Found ${foundInAllProfiles.length} matches in allUserProfiles:`, foundInAllProfiles)
+        }
+      } catch (e) {
+        console.error('Error parsing allUserProfiles:', e)
+      }
+    }
+
+    // Check current users state
+    const foundInCurrentUsers = users.filter(user =>
+      user.fullName?.toLowerCase().includes(searchName.toLowerCase())
+    )
+    console.log(`✅ Found ${foundInCurrentUsers.length} matches in current users state:`, foundInCurrentUsers)
+
+    // Summary
+    let summary = `Search Results for "${searchName}":\n\n`
+    summary += `📋 userProfile: ${foundInUserProfile ? 'FOUND' : 'NOT FOUND'}\n`
+    summary += `📋 allUserProfiles: ${foundInAllProfiles.length} matches\n`
+    summary += `📋 Current admin state: ${foundInCurrentUsers.length} matches\n\n`
+
+    if (foundInAllProfiles.length > 0) {
+      summary += 'Details from allUserProfiles:\n'
+      foundInAllProfiles.forEach((profile, i) => {
+        summary += `[${i+1}] ${profile.fullName}\n`
+        summary += `    Job: ${profile.jobTitle || profile.customJobTitle || 'N/A'}\n`
+        summary += `    City: ${profile.city || 'N/A'}\n`
+        summary += `    Email: ${profile.email || 'N/A'}\n`
+        summary += `    ID: ${profile.id || 'N/A'}\n\n`
+      })
+    }
+
+    if (foundInCurrentUsers.length > 0) {
+      summary += 'Details from current admin state:\n'
+      foundInCurrentUsers.forEach((user, i) => {
+        summary += `[${i+1}] ${user.fullName}\n`
+        summary += `    Job: ${user.jobTitle}\n`
+        summary += `    City: ${user.city}\n`
+        summary += `    Email: ${user.email}\n\n`
+      })
+    }
+
+    if (!foundInUserProfile && foundInAllProfiles.length === 0 && foundInCurrentUsers.length === 0) {
+      summary += '❌ Profile not found in any location.\n\n'
+      summary += 'Possible reasons:\n'
+      summary += '• Profile was created in different browser\n'
+      summary += '• localStorage was cleared\n'
+      summary += '• Profile creation failed\n'
+      summary += '• Different domain/origin\n'
+    } else if (foundInAllProfiles.length > 0 && foundInCurrentUsers.length === 0) {
+      summary += '⚠️ Profile exists in localStorage but not loaded in admin!\n'
+      summary += 'Try clicking Refresh button.\n'
+    }
+
+    alert(summary)
   }
 
   if (!isAuthenticated && !loading) {
