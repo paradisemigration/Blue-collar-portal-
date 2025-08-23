@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { 
-  UserGroupIcon, 
-  MapPinIcon, 
+import {
+  UserGroupIcon,
+  MapPinIcon,
   BriefcaseIcon,
   PencilIcon,
   EyeIcon,
@@ -14,7 +14,8 @@ import {
   GlobeAltIcon,
   DocumentTextIcon,
   MagnifyingGlassIcon,
-  FunnelIcon
+  FunnelIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, Country } from '../../types'
 
