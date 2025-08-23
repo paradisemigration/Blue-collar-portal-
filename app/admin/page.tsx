@@ -552,37 +552,51 @@ export default function AdminDashboard() {
               <h1 className="text-3xl font-bold">Admin Dashboard</h1>
               <p className="text-purple-100 mt-1">Manage users, profiles, and platform content</p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                onClick={showAllLocalStorageData}
+                className="bg-blue-500/20 hover:bg-blue-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
+                title="Show all localStorage data"
+              >
+                📋 All Data
+              </button>
               <button
                 onClick={debugLocalStorage}
-                className="bg-red-500/20 hover:bg-red-500/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm"
+                className="bg-red-500/20 hover:bg-red-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
                 title="Debug localStorage"
               >
                 🐛 Debug
               </button>
               <button
                 onClick={createTestProfile}
-                className="bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm"
-                title="Create test profile"
+                className="bg-green-500/20 hover:bg-green-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
+                title="Create test profiles"
               >
                 ➕ Test
               </button>
               <button
+                onClick={clearAllProfiles}
+                className="bg-red-600/20 hover:bg-red-600/30 px-2 py-2 rounded-lg transition-colors text-xs"
+                title="Clear all profiles"
+              >
+                🗑️ Clear
+              </button>
+              <button
                 onClick={loadAdminData}
-                className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+                className="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-1"
                 title="Refresh user data"
               >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
                 Refresh
               </button>
-              <Link href="/admin/seo" className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
-                <GlobeAltIcon className="h-5 w-5 inline mr-2" />
-                SEO Manager
+              <Link href="/admin/seo" className="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition-colors">
+                <GlobeAltIcon className="h-4 w-4 inline mr-1" />
+                SEO
               </Link>
               <div className="bg-white/20 rounded-full p-2">
-                <CogIcon className="h-6 w-6" />
+                <CogIcon className="h-5 w-5" />
               </div>
             </div>
           </div>
