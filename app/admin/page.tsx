@@ -1509,9 +1509,9 @@ console.log('��� All profiles will then appear in your development environ
               <button
                 onClick={seedDatabaseWithSampleData}
                 className="bg-green-500/20 hover:bg-green-500/30 px-2 py-2 rounded-lg transition-colors text-xs font-medium border border-green-300/20"
-                title="Add 30 sample profiles to database permanently"
+                title="Add 160-240 comprehensive sample profiles covering 80+ job categories across all Gulf cities"
               >
-                🌱 Seed Database
+                🌱 Seed Database (80+ Categories)
               </button>
               <button
                 onClick={checkSeedingStatus}
