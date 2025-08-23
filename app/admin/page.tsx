@@ -51,11 +51,7 @@ export default function AdminDashboard() {
   const [selectedJob, setSelectedJob] = useState('')
   const [loading, setLoading] = useState(true)
   const [migrationStatus, setMigrationStatus] = useState<string>('')
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  const [isClient, setIsClient] = useState(true)
 
   useEffect(() => {
     if (!isClient) return
@@ -1217,7 +1213,7 @@ export default function AdminDashboard() {
       const response = await fetch('/api/health')
       const healthData = await response.json()
 
-      let message = `🏥 SYSTEM HEALTH CHECK:\n\n`
+      let message = `��� SYSTEM HEALTH CHECK:\n\n`
       message += `Overall Status: ${healthData.status.toUpperCase()}\n`
       message += `Timestamp: ${new Date(healthData.timestamp).toLocaleString()}\n\n`
 
