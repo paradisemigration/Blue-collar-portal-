@@ -693,17 +693,56 @@ export default function CreateProfile() {
         throw new Error('Failed to set login state')
       }
 
-      // Also save to all profiles list
+      // Also save to all profiles list with robust error handling
       try {
-        const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
+        let existingProfiles = []
+
+        // Try to get existing profiles, handle corrupted data
+        try {
+          const profilesData = localStorage.getItem('allUserProfiles')
+          if (profilesData) {
+            const parsed = JSON.parse(profilesData)
+            if (Array.isArray(parsed)) {
+              existingProfiles = parsed
+            } else {
+              console.warn('⚠️ allUserProfiles is not an array, resetting to empty array')
+              existingProfiles = []
+            }
+          }
+        } catch (parseError) {
+          console.warn('⚠️ Error parsing allUserProfiles, resetting to empty array:', parseError)
+          existingProfiles = []
+          // Clear corrupted data
+          localStorage.removeItem('allUserProfiles')
+        }
+
         console.log('📋 Existing profiles count:', existingProfiles.length)
 
-        const updatedProfiles = [...existingProfiles.filter((p: any) => p.id !== workerProfile.id), workerProfile]
-        localStorage.setItem('allUserProfiles', JSON.stringify(updatedProfiles))
-        console.log('✅ allUserProfiles updated successfully, total count:', updatedProfiles.length)
+        // Create updated profiles list
+        const updatedProfiles = [...existingProfiles.filter((p: any) => p && p.id && p.id !== workerProfile.id), workerProfile]
+
+        // Try to save, with fallback if storage is full
+        try {
+          localStorage.setItem('allUserProfiles', JSON.stringify(updatedProfiles))
+          console.log('✅ allUserProfiles updated successfully, total count:', updatedProfiles.length)
+        } catch (storageError) {
+          console.warn('⚠️ Storage full or blocked, trying with reduced data:', storageError)
+
+          // If storage is full, keep only recent profiles (last 50)
+          const recentProfiles = updatedProfiles.slice(-50)
+          try {
+            localStorage.setItem('allUserProfiles', JSON.stringify(recentProfiles))
+            console.log('✅ Saved recent profiles only, count:', recentProfiles.length)
+          } catch (finalError) {
+            console.error('❌ Final storage attempt failed:', finalError)
+            // Don't throw error - profile is still saved as userProfile
+            console.log('📝 Profile saved as userProfile but not added to list due to storage constraints')
+          }
+        }
       } catch (e) {
-        console.error('❌ Error updating allUserProfiles:', e)
-        throw new Error('Failed to update profiles list')
+        console.error('❌ Error in profile list operations:', e)
+        // Don't throw error - the main profile is already saved
+        console.log('📝 Profile creation continued despite list update issues')
       }
 
       // Dispatch auth state change event to update header and hide popup
