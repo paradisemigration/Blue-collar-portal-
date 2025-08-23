@@ -469,8 +469,22 @@ export default function CreateProfile() {
     const updated = current.includes(language)
       ? current.filter(l => l !== language)
       : [...current, language]
+
+    console.log('🌐 Language toggle:', {
+      language,
+      current,
+      updated,
+      isAdding: !current.includes(language)
+    })
+
     setValue('languagesSpoken', updated)
     trigger('languagesSpoken')
+
+    // Verify the value was set
+    setTimeout(() => {
+      const newValue = getValues('languagesSpoken')
+      console.log('✅ Language value after toggle:', newValue)
+    }, 50)
   }
 
   const handleFieldFocus = (fieldName: string) => {
