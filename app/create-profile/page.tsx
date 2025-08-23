@@ -681,93 +681,89 @@ export default function CreateProfile() {
     setIsSubmitting(true)
 
     try {
-      console.log('📝 Creating worker profile...')
+      console.log('📝 Creating user and worker profile in database...')
 
-      // Create worker profile with unique ID
-      const workerProfile = {
-        id: `worker_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        ...data,
-        profilePicture: profilePicturePreview || `https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face`,
-        availability: true,
-        createdAt: new Date(),
-        updatedAt: new Date()
+      // Step 1: Register user
+      const registerResponse = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          phone: data.phoneNumber,
+          fullName: data.fullName,
+          userType: 'worker'
+        })
+      })
+
+      if (!registerResponse.ok) {
+        const errorData = await registerResponse.json()
+        if (registerResponse.status === 409) {
+          // User already exists, try to login
+          console.log('👤 User already exists, attempting login...')
+          const loginResponse = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: data.email
+            })
+          })
+
+          if (!loginResponse.ok) {
+            throw new Error('Login failed for existing user')
+          }
+        } else {
+          throw new Error(errorData.error || 'Failed to register user')
+        }
       }
 
-      console.log('💾 Saving profile to localStorage...')
-      console.log('👤 Profile data:', workerProfile)
+      console.log('✅ User registration/login successful')
 
-      // Save to localStorage with error handling
-      try {
-        localStorage.setItem('userProfile', JSON.stringify(workerProfile))
-        console.log('✅ userProfile saved successfully')
-      } catch (e) {
-        console.error('❌ Error saving userProfile:', e)
-        throw new Error('Failed to save user profile to storage')
+      // Step 2: Create worker profile
+      const profileResponse = await fetch('/api/profiles/workers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Include cookies for session
+        body: JSON.stringify({
+          jobCategory: data.jobCategory,
+          jobTitle: data.jobTitle,
+          customJobTitle: data.customJobTitle,
+          jobProfile: data.jobProfile,
+          yearsExperience: data.yearsExperience,
+          city: data.city,
+          country: data.country,
+          expectedSalary: data.expectedSalary,
+          visaStatus: data.visaStatus,
+          languagesSpoken: data.languagesSpoken,
+          aboutMe: data.aboutMe,
+          profilePictureUrl: profilePicturePreview || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+        })
+      })
+
+      if (!profileResponse.ok) {
+        const errorData = await profileResponse.json()
+        throw new Error(errorData.error || 'Failed to create profile')
       }
 
-      // Set login state
+      console.log('✅ Worker profile created successfully in database')
+
+      // Update localStorage for backward compatibility (optional)
       try {
+        const profileData = await profileResponse.json()
+        localStorage.setItem('userProfile', JSON.stringify(profileData.profile))
         localStorage.setItem('isLoggedIn', 'true')
-        localStorage.setItem('authProvider', 'profile')
-        console.log('✅ Login state set successfully')
-      } catch (e) {
-        console.error('❌ Error setting login state:', e)
-        throw new Error('Failed to set login state')
+        localStorage.setItem('authProvider', 'database')
+        console.log('✅ localStorage updated for compatibility')
+      } catch (storageError) {
+        console.warn('⚠️ localStorage update failed, but profile is saved in database:', storageError)
       }
 
-      // Also save to all profiles list with robust error handling
-      try {
-        let existingProfiles = []
-
-        // Try to get existing profiles, handle corrupted data
-        try {
-          const profilesData = localStorage.getItem('allUserProfiles')
-          if (profilesData) {
-            const parsed = JSON.parse(profilesData)
-            if (Array.isArray(parsed)) {
-              existingProfiles = parsed
-            } else {
-              console.warn('⚠️ allUserProfiles is not an array, resetting to empty array')
-              existingProfiles = []
-            }
-          }
-        } catch (parseError) {
-          console.warn('⚠️ Error parsing allUserProfiles, resetting to empty array:', parseError)
-          existingProfiles = []
-          // Clear corrupted data
-          localStorage.removeItem('allUserProfiles')
-        }
-
-        console.log('📋 Existing profiles count:', existingProfiles.length)
-
-        // Create updated profiles list
-        const updatedProfiles = [...existingProfiles.filter((p: any) => p && p.id && p.id !== workerProfile.id), workerProfile]
-
-        // Try to save, with fallback if storage is full
-        try {
-          localStorage.setItem('allUserProfiles', JSON.stringify(updatedProfiles))
-          console.log('✅ allUserProfiles updated successfully, total count:', updatedProfiles.length)
-        } catch (storageError) {
-          console.warn('⚠️ Storage full or blocked, trying with reduced data:', storageError)
-
-          // If storage is full, keep only recent profiles (last 50)
-          const recentProfiles = updatedProfiles.slice(-50)
-          try {
-            localStorage.setItem('allUserProfiles', JSON.stringify(recentProfiles))
-            console.log('✅ Saved recent profiles only, count:', recentProfiles.length)
-          } catch (finalError) {
-            console.error('❌ Final storage attempt failed:', finalError)
-            // Don't throw error - profile is still saved as userProfile
-            console.log('📝 Profile saved as userProfile but not added to list due to storage constraints')
-          }
-        }
-      } catch (e) {
-        console.error('❌ Error in profile list operations:', e)
-        // Don't throw error - the main profile is already saved
-        console.log('📝 Profile creation continued despite list update issues')
-      }
-
-      // Dispatch auth state change event to update header and hide popup
+      // Dispatch auth state change event to update header
       console.log('📡 Dispatching auth state change event...')
       window.dispatchEvent(new Event('authStateChanged'))
 
@@ -781,33 +777,22 @@ export default function CreateProfile() {
     } catch (error) {
       console.error('❌ Error creating profile:', error)
 
-      // More specific error messages with recovery options
+      // More specific error messages
       let errorMessage = 'Error creating profile. Please try again.'
-      let showRecoveryOption = false
 
       if (error instanceof Error) {
-        if (error.message.includes('storage') || error.message.includes('quota') || error.message.includes('localStorage')) {
-          errorMessage = `Storage Error: ${error.message}\n\nYour browser storage may be full or corrupted. Would you like to clear it and try again?`
-          showRecoveryOption = true
-        } else if (error.message.includes('login')) {
-          errorMessage = 'Login state error: Please refresh the page and try again.'
-        } else if (error.message.includes('profiles list')) {
-          errorMessage = 'Profile list update failed, but your main profile was saved. Please refresh the page to continue.'
+        if (error.message.includes('register') || error.message.includes('login')) {
+          errorMessage = `Account Error: ${error.message}`
+        } else if (error.message.includes('profile')) {
+          errorMessage = `Profile Error: ${error.message}`
+        } else if (error.message.includes('network') || error.message.includes('fetch')) {
+          errorMessage = 'Network error: Please check your internet connection and try again.'
         } else {
-          errorMessage = `Profile creation failed: ${error.message}\n\nThis might be due to browser storage issues.`
-          showRecoveryOption = true
+          errorMessage = `Profile creation failed: ${error.message}`
         }
       }
 
-      if (showRecoveryOption) {
-        const shouldClear = confirm(`${errorMessage}\n\nClick OK to clear storage and refresh, or Cancel to try again without clearing.`)
-        if (shouldClear) {
-          clearLocalStorageAndRetry()
-          return // Don't show additional alert
-        }
-      } else {
-        alert(errorMessage)
-      }
+      alert(errorMessage)
     } finally {
       setIsSubmitting(false)
     }
