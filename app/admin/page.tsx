@@ -1439,8 +1439,8 @@ console.log('✨ All profiles will then appear in your development environment!'
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Domain Info Banner - Show different content based on domain */}
         {(() => {
-          const isProductionDomain = window.location.hostname.includes('gogethires.com')
-          const isDevelopmentDomain = !isProductionDomain
+          const isProductionDomain = isClient && window.location.hostname.includes('gogethires.com')
+          const isDevelopmentDomain = isClient && !isProductionDomain
 
           if (isProductionDomain) {
             return (
