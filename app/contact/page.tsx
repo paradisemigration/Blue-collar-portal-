@@ -1,5 +1,8 @@
 'use client'
 
+// Make this page dynamic to avoid SSR issues
+export const dynamic = 'force-dynamic'
+
 import { useState } from 'react'
 import { 
   PhoneIcon, 
