@@ -102,11 +102,13 @@ export default function AdminDashboard() {
               if (profile.createdAt) profile.createdAt = new Date(profile.createdAt)
               if (profile.updatedAt) profile.updatedAt = new Date(profile.updatedAt)
               return profile
-            }).filter(profile =>
-              !profile.id?.startsWith('demo') &&
-              !profile.email?.includes('demo') &&
-              !['ahmed.hassan@email.com', 'maria.santos@email.com', 'omar.rashid@email.com'].includes(profile.email)
-            )
+            })
+            // TEMPORARILY REMOVED FILTERING TO SEE ALL PROFILES
+            // .filter(profile =>
+            //   !profile.id?.startsWith('demo') &&
+            //   !profile.email?.includes('demo') &&
+            //   !['ahmed.hassan@email.com', 'maria.santos@email.com', 'omar.rashid@email.com'].includes(profile.email)
+            // )
 
             console.log(`📋 Processed ${processedProfiles.length} real profiles from allUserProfiles`)
 
