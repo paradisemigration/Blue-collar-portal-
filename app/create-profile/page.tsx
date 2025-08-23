@@ -805,6 +805,10 @@ export default function CreateProfile() {
             if (!loginResponse.ok) {
               throw new Error('Login failed for existing user')
             }
+          } else if (registerResponse.status === 503 && errorData.fallback) {
+            // Database not configured, skip to localStorage fallback
+            console.log('🗄️ Database not configured, skipping to localStorage fallback')
+            throw new Error('Database not configured - using localStorage')
           } else {
             throw new Error(errorData.error || 'Failed to register user')
           }
