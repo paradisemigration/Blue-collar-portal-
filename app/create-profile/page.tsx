@@ -1720,6 +1720,14 @@ export default function CreateProfile() {
                       >
                         🧹 Clear Storage & Refresh
                       </button>
+
+                      <button
+                        type="button"
+                        onClick={checkDatabaseHealth}
+                        className="w-full px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200 transition-colors"
+                      >
+                        🏥 Check Database Health
+                      </button>
                     </div>
                   )}
 
