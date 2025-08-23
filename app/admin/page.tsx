@@ -1458,144 +1458,33 @@ console.log('��� All profiles will then appear in your development environ
                 </div>
               )}
             </div>
-            <div className="flex items-center gap-2 flex-wrap">
-              {(() => {
-                const isProductionDomain = isClient && window.location.hostname.includes('gogethires.com')
-                if (isClient && !isProductionDomain) {
-                  return (
-                    <>
-                      <button
-                        onClick={openProductionAdmin}
-                        className="bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-lg transition-colors text-xs border border-green-300/20 font-medium"
-                        title="Open production admin panel"
-                      >
-                        🌐 Production Admin
-                      </button>
-                      <div className="w-px h-6 bg-white/20"></div>
-                      <button
-                        onClick={generateExportScript}
-                        className="bg-indigo-500/20 hover:bg-indigo-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-indigo-300/20"
-                        title="Get script to export from gogethires.com"
-                      >
-                        📤 Export Script
-                      </button>
-                      <button
-                        onClick={importProfileData}
-                        className="bg-teal-500/20 hover:bg-teal-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-teal-300/20"
-                        title="Import profiles from gogethires.com"
-                      >
-                        📥 Import Data
-                      </button>
-                    </>
-                  )
-                }
-                return null
-              })()}
-              <div className="w-px h-6 bg-white/20"></div>
-              <button
-                onClick={checkLocalStorageProfiles}
-                className="bg-yellow-500/20 hover:bg-yellow-500/30 px-2 py-2 rounded-lg transition-colors text-xs font-medium"
-                title="Check localStorage profiles and migration status"
-              >
-                📊 Check Profiles
-              </button>
-              <button
-                onClick={migrateLocalStorageToDatabase}
-                className="bg-purple-500/20 hover:bg-purple-500/30 px-2 py-2 rounded-lg transition-colors text-xs font-medium border border-purple-300/20"
-                title="Migrate localStorage profiles to database"
-              >
-                🚀 Migrate to Database
-              </button>
-              <button
-                onClick={seedDatabaseWithSampleData}
-                className="bg-green-500/20 hover:bg-green-500/30 px-2 py-2 rounded-lg transition-colors text-xs font-medium border border-green-300/20"
-                title="Add 160-240 comprehensive sample profiles covering 80+ job categories across all Gulf cities"
-              >
-                🌱 Seed Database (80+ Categories)
-              </button>
-              <button
-                onClick={checkSeedingStatus}
-                className="bg-indigo-500/20 hover:bg-indigo-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
-                title="Check database seeding status"
-              >
-                📊 Check Status
-              </button>
-              <button
-                onClick={checkSystemHealth}
-                className="bg-red-500/20 hover:bg-red-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
-                title="Check overall system health and database connectivity"
-              >
-                🏥 Health Check
-              </button>
-              <div className="w-px h-6 bg-white/20"></div>
-              <button
-                onClick={searchForProfile}
-                className="bg-yellow-500/20 hover:bg-yellow-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
-                title="Search for specific profile"
-              >
-                🔍 Search
-              </button>
-              <button
-                onClick={showAllLocalStorageData}
-                className="bg-blue-500/20 hover:bg-blue-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
-                title="Show all localStorage data"
-              >
-                📋 All Data
-              </button>
-              <button
-                onClick={debugLocalStorage}
-                className="bg-red-500/20 hover:bg-red-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
-                title="Debug localStorage"
-              >
-                🐛 Debug
-              </button>
-              <div className="w-px h-6 bg-white/20"></div>
-              <button
-                onClick={() => {
-                  cleanupSampleDataSilently()
-                  loadAdminData()
-                  alert('🧹 Sample data cleared! Only real user profiles remain.')
-                }}
-                className="bg-orange-500/20 hover:bg-orange-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-orange-300/20"
-                title="Clear sample and dummy data immediately"
-              >
-                🧹 Clear Sample Data Now
-              </button>
-              <button
-                onClick={clearAllProfiles}
-                className="bg-red-600/20 hover:bg-red-600/30 px-2 py-2 rounded-lg transition-colors text-xs"
-                title="Clear all profiles"
-              >
-                🗑️ Clear All
-              </button>
-              <div className="w-px h-6 bg-white/20"></div>
-              <button
-                onClick={refreshDatabaseData}
-                className="bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-1 border border-blue-300/20"
-                title="Refresh database data"
-              >
-                <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                Refresh DB
-              </button>
+            <div className="flex items-center gap-3">
               <button
                 onClick={loadAdminData}
-                className="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-1"
+                className="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium"
                 title="Refresh user data"
               >
-                <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
                 Refresh
               </button>
-              <Link href="/admin/seo" className="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition-colors">
-                <GlobeAltIcon className="h-4 w-4 inline mr-1" />
-                SEO
+              <div className="w-px h-6 bg-white/20"></div>
+              <Link
+                href="/"
+                className="bg-gray-500/20 hover:bg-gray-500/30 px-3 py-2 rounded-lg transition-colors text-sm"
+              >
+                🏠 Home
               </Link>
-              <div className="bg-white/20 rounded-full p-2">
-                <CogIcon className="h-5 w-5" />
-              </div>
+              <button
+                onClick={() => {
+                  localStorage.removeItem('adminAuth')
+                  window.location.href = '/admin-login'
+                }}
+                className="bg-red-500/20 hover:bg-red-500/30 px-3 py-2 rounded-lg transition-colors text-sm"
+              >
+                🚪 Logout
+              </button>
             </div>
           </div>
         </div>
