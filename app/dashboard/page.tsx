@@ -76,16 +76,32 @@ export default function Dashboard() {
       if (profileData) {
         const profile = JSON.parse(profileData)
 
+        console.log('🔍 Profile loaded from localStorage:', {
+          fullName: profile.fullName,
+          profilePicture: profile.profilePicture ? profile.profilePicture.substring(0, 50) + '...' : 'None',
+          profilePictureType: typeof profile.profilePicture,
+          isDataURL: profile.profilePicture?.startsWith('data:'),
+          isFile: profile.profilePicture && typeof profile.profilePicture === 'object'
+        })
+
         // Fix profile picture if it's stored incorrectly
         if (profile.profilePicture && typeof profile.profilePicture === 'object') {
           // If it's a File object (shows as [object Object]), use a default image
+          console.warn('⚠️ Profile picture is a File object, using default image')
           profile.profilePicture = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
         } else if (!profile.profilePicture || profile.profilePicture === '') {
           // If no profile picture, use default
+          console.log('ℹ️ No profile picture found, using default')
           profile.profilePicture = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+        } else if (profile.profilePicture.startsWith('data:')) {
+          // Base64 data URL - this is what we want!
+          console.log('✅ Found base64 profile picture!')
+        } else {
+          // Regular URL - keep as is
+          console.log('ℹ️ Found URL profile picture')
         }
 
-        console.log('✅ Profile loaded from localStorage:', profile.fullName)
+        console.log('✅ Final profile picture URL:', profile.profilePicture.substring(0, 50) + '...')
         setUserProfile(profile)
       } else {
         console.log('❌ No profile found in localStorage')
