@@ -94,7 +94,7 @@ export default function AdminDashboard() {
       const profiles: Worker[] = []
 
       // Debug: Check what's in localStorage
-      console.log('�� Admin Debug - Checking localStorage...')
+      console.log('🔍 Admin Debug - Checking localStorage...')
       console.log('userProfile exists:', !!localStorage.getItem('userProfile'))
       console.log('allUserProfiles exists:', !!localStorage.getItem('allUserProfiles'))
       console.log('isLoggedIn:', localStorage.getItem('isLoggedIn'))
@@ -891,6 +891,13 @@ export default function AdminDashboard() {
                 title="Create realistic user profiles"
               >
                 ➕ Real Users
+              </button>
+              <button
+                onClick={addMissingVanshikaProfile}
+                className="bg-purple-500/20 hover:bg-purple-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
+                title="Add missing Vanshika profile"
+              >
+                👤 Add Vanshika
               </button>
               <button
                 onClick={clearAllProfiles}
