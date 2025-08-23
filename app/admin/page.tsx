@@ -1316,8 +1316,8 @@ console.log('✨ All profiles will then appear in your development environment!'
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               {(() => {
-                const isProductionDomain = typeof window !== 'undefined' && window.location.hostname.includes('gogethires.com')
-                if (!isProductionDomain) {
+                const isProductionDomain = isClient && window.location.hostname.includes('gogethires.com')
+                if (isClient && !isProductionDomain) {
                   return (
                     <>
                       <button
