@@ -52,8 +52,18 @@ function generateSampleProfiles() {
   ]
   
   const sampleCities = [
-    'Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Doha', 'Kuwait City', 'Riyadh', 
-    'Jeddah', 'Muscat', 'Manama', 'Al Ain', 'Fujairah', 'Ras Al Khaimah'
+    // UAE
+    'Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Al Ain', 'Fujairah', 'Ras Al Khaimah', 'Umm Al Quwain',
+    // Saudi Arabia
+    'Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Medina', 'Khobar', 'Tabuk', 'Abha',
+    // Qatar
+    'Doha', 'Al Rayyan', 'Al Wakrah', 'Al Khor', 'Umm Salal', 'Al Daayen',
+    // Kuwait
+    'Kuwait City', 'Hawalli', 'Farwaniya', 'Ahmadi', 'Jahra', 'Mubarak Al-Kabeer',
+    // Oman
+    'Muscat', 'Salalah', 'Nizwa', 'Sur', 'Sohar', 'Rustaq', 'Barka', 'Ibri',
+    // Bahrain
+    'Manama', 'Riffa', 'Muharraq', 'Hamad Town', 'Isa Town', 'Sitra'
   ]
   
   const firstNames = [
