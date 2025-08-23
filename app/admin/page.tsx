@@ -655,7 +655,7 @@ export default function AdminDashboard() {
       }
     }
 
-    console.log('🔍 COMPLETE LOCALSTORAGE DUMP:', allData)
+    console.log('��� COMPLETE LOCALSTORAGE DUMP:', allData)
 
     // Create a formatted display
     let display = 'COMPLETE LOCALSTORAGE CONTENTS:\n\n'
@@ -762,7 +762,7 @@ export default function AdminDashboard() {
       summary += '• Profile was created in different browser\n'
       summary += '• localStorage was cleared\n'
       summary += '• Profile creation failed\n'
-      summary += '• Different domain/origin\n'
+      summary += '��� Different domain/origin\n'
     } else if (foundInAllProfiles.length > 0 && foundInCurrentUsers.length === 0) {
       summary += '⚠️ Profile exists in localStorage but not loaded in admin!\n'
       summary += 'Try clicking Refresh button.\n'
@@ -1051,6 +1051,70 @@ console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportDat
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Domain Info Banner */}
+        <div className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-start justify-between">
+            <div className="flex items-start gap-3">
+              <div className="bg-blue-500 rounded-full p-2 mt-0.5">
+                <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold text-blue-900 mb-1">
+                  🌐 Cross-Domain Profile Management
+                </h3>
+                <p className="text-blue-700 text-sm mb-2">
+                  This admin panel shows profiles from this domain. To see real user profiles from <strong>gogethires.com</strong>, use the import tools below.
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={generateExportScript}
+                    className="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700 transition-colors"
+                  >
+                    📤 Get Export Script
+                  </button>
+                  <button
+                    onClick={importProfileData}
+                    className="bg-teal-600 text-white px-3 py-1 rounded text-xs hover:bg-teal-700 transition-colors"
+                  >
+                    📥 Import Profiles
+                  </button>
+                  <button
+                    onClick={() => {
+                      const instructions = `
+How to import real user profiles:
+
+1. Open gogethires.com/admin in new tab
+2. Press F12 (Developer Tools)
+3. Click "📤 Get Export Script" here to copy the script
+4. Paste script in gogethires.com console
+5. Copy the exported data
+6. Come back here and click "📥 Import Profiles"
+7. Paste the data and click OK
+
+This will sync all real user profiles to this admin panel.
+                      `
+                      alert(instructions.trim())
+                    }}
+                    className="bg-gray-600 text-white px-3 py-1 rounded text-xs hover:bg-gray-700 transition-colors"
+                  >
+                    ❓ Help
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => document.querySelector('[data-domain-banner]')?.remove()}
+              className="text-blue-400 hover:text-blue-600 p-1"
+              title="Dismiss banner"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
         {/* Stats Overview */}
         {/* Debug Info Section */}
         {users.length === 0 && (
