@@ -306,7 +306,13 @@ export async function GET(request: NextRequest) {
       totalProfiles: profiles.length,
       sampleProfiles: sampleProfiles.length,
       realProfiles: profiles.length - sampleProfiles.length,
-      needsSeeding: sampleProfiles.length < 30
+      needsSeeding: sampleProfiles.length < 160, // Expecting 160+ comprehensive profiles
+      expectedProfiles: '160-240 profiles (2-3 per job category)',
+      coverage: {
+        jobCategories: 80,
+        cities: 40,
+        countries: 6
+      }
     })
 
   } catch (error) {
