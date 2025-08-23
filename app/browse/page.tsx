@@ -23,7 +23,6 @@ import {
   UserGroupIcon
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, FilterOptions } from '../../types'
-import { generateDummyWorkers } from '../../utils/dummyData'
 
 // Load real worker data from localStorage and combine with dummy data
 const loadAllWorkers = (): Worker[] => {
