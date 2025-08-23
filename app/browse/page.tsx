@@ -24,14 +24,52 @@ import {
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, FilterOptions } from '../../types'
 
-// Load real worker data from localStorage and combine with dummy data
-const loadAllWorkers = (): Worker[] => {
+// Load worker data from database API
+const loadAllWorkers = async (): Promise<Worker[]> => {
+  try {
+    console.log('🔍 Browse Page - Loading workers from database...')
+
+    // Fetch from database API
+    const response = await fetch('/api/profiles/workers', {
+      credentials: 'include' // Include cookies for session
+    })
+
+    if (!response.ok) {
+      console.warn('Failed to fetch profiles from database, falling back to localStorage')
+      return await loadWorkersFromLocalStorage()
+    }
+
+    const data = await response.json()
+
+    if (data.success && data.profiles) {
+      console.log(`✅ Browse - Loaded ${data.profiles.length} profiles from database`)
+
+      // Convert date strings back to Date objects
+      const workers = data.profiles.map((profile: any) => ({
+        ...profile,
+        createdAt: profile.createdAt ? new Date(profile.createdAt) : new Date(),
+        updatedAt: profile.updatedAt ? new Date(profile.updatedAt) : new Date()
+      }))
+
+      return workers
+    }
+
+    return []
+  } catch (error) {
+    console.error('Error loading workers from database:', error)
+    console.log('Falling back to localStorage...')
+    return await loadWorkersFromLocalStorage()
+  }
+}
+
+// Fallback function for localStorage (backward compatibility)
+const loadWorkersFromLocalStorage = async (): Promise<Worker[]> => {
   try {
     const workers: Worker[] = []
 
     // Only access localStorage in browser environment
     if (typeof window !== 'undefined') {
-      console.log('🔍 Browse Page - Loading workers from localStorage...')
+      console.log('🔍 Browse Page - Loading workers from localStorage (fallback)...')
 
       // Load individual profile
       const userProfile = localStorage.getItem('userProfile')
@@ -69,22 +107,13 @@ const loadAllWorkers = (): Worker[] => {
         }
       }
 
-      console.log(`✅ Browse - Loaded ${workers.length} real user profiles`)
-    }
-
-    console.log(`✅ Browse - Total real workers loaded: ${workers.length}`)
-
-    // Add domain detection logging
-    const isProductionDomain = typeof window !== 'undefined' && window.location.hostname.includes('gogethires.com')
-    if (typeof window !== 'undefined' && !isProductionDomain && workers.length === 0) {
-      console.log('⚠️ Development environment: Real user profiles from gogethires.com won\'t appear here')
-      console.log('💡 Use the import tools in admin panel to sync profiles from production')
+      console.log(`✅ Browse - Loaded ${workers.length} profiles from localStorage fallback`)
     }
 
     return workers
   } catch (error) {
-    console.error('Error loading workers:', error)
-    return [] // Return empty array instead of dummy data
+    console.error('Error loading workers from localStorage:', error)
+    return []
   }
 }
 
