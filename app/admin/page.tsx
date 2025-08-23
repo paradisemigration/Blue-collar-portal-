@@ -358,7 +358,7 @@ export default function AdminDashboard() {
         return
       }
 
-      setMigrationStatus(`🔄 Migrating ${profiles.length} profiles to database...`)
+      setMigrationStatus(`�� Migrating ${profiles.length} profiles to database...`)
       console.log(`🔄 Migrating ${profiles.length} profiles to database...`)
 
       // Send to migration API
@@ -1360,7 +1360,7 @@ console.log('2. Go back to your development admin panel');
 console.log('3. Click "📥 Import Data" button');
 console.log('4. Paste the data and click OK');
 console.log('');
-console.log('✨ All profiles will then appear in your development environment!');
+console.log('��� All profiles will then appear in your development environment!');
     `
 
     navigator.clipboard.writeText(script.trim()).then(() => {
@@ -1706,40 +1706,46 @@ console.log('✨ All profiles will then appear in your development environment!'
               <ExclamationTriangleIcon className="h-6 w-6 text-red-600" />
               <h3 className="text-lg font-semibold text-red-900">No User Profiles Found</h3>
             </div>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div>
                 <p className="text-red-700 mb-3">
-                  The admin panel cannot find any user profiles. This usually means profiles exist in localStorage but haven't been migrated to the database yet.
+                  The admin panel cannot find any user profiles. This could be due to:
                 </p>
                 <ul className="text-red-600 text-sm space-y-1 mb-4">
+                  <li>• Database not connected or configured</li>
+                  <li>• No sample data seeded yet</li>
                   <li>• Users created profiles before database was set up</li>
-                  <li>• Profiles are stored locally but not in database</li>
                   <li>• Cross-domain storage limitations</li>
-                  <li>• Migration hasn't been run yet</li>
                 </ul>
               </div>
-              
+
               <div className="bg-white rounded-lg p-4 border border-red-200">
-                <h4 className="text-red-900 font-medium mb-3">🚀 Quick Migration Steps:</h4>
+                <h4 className="text-red-900 font-medium mb-3">🚀 Setup Steps:</h4>
                 <div className="space-y-2 text-sm">
                   <button
-                    onClick={checkLocalStorageProfiles}
-                    className="w-full bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 text-left"
+                    onClick={checkSystemHealth}
+                    className="w-full bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 text-left"
                   >
-                    1️⃣ Check Profile Status
+                    1️⃣ Check System Health
+                  </button>
+                  <button
+                    onClick={seedDatabaseWithSampleData}
+                    className="w-full bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 text-left"
+                  >
+                    2️⃣ Seed Sample Data (30 profiles)
                   </button>
                   <button
                     onClick={migrateLocalStorageToDatabase}
                     className="w-full bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 text-left"
                   >
-                    2️⃣ Migrate to Database
+                    3️⃣ Migrate Existing Data
                   </button>
                   <button
                     onClick={refreshDatabaseData}
-                    className="w-full bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 text-left"
+                    className="w-full bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 text-left"
                   >
-                    3️⃣ Refresh & View Profiles
+                    4️⃣ Refresh & View Profiles
                   </button>
                 </div>
               </div>
@@ -1747,7 +1753,7 @@ console.log('✨ All profiles will then appear in your development environment!'
 
             <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
               <p className="text-blue-800 text-sm">
-                💡 <strong>If you're on a different domain:</strong> Use the "📤 Export Script" and "📥 Import Data" buttons to sync profiles from gogethires.com
+                💡 <strong>First time setup:</strong> Connect to Neon database, then click "🌱 Seed Database" to add 30 sample profiles permanently.
               </p>
             </div>
           </div>
