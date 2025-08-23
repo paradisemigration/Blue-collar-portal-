@@ -605,6 +605,39 @@ export default function AdminDashboard() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Overview */}
+        {/* Debug Info Section */}
+        {users.length === 0 && (
+          <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <ExclamationTriangleIcon className="h-5 w-5 text-red-600" />
+              <h3 className="text-lg font-semibold text-red-900">No User Profiles Found</h3>
+            </div>
+            <p className="text-red-700 mb-3">
+              The admin panel cannot find any user profiles. This could mean:
+            </p>
+            <ul className="text-red-600 text-sm space-y-1 mb-4">
+              <li>• No users have created profiles yet</li>
+              <li>• Profiles are stored in a different browser/domain</li>
+              <li>• localStorage was cleared or corrupted</li>
+              <li>• There's a data loading issue</li>
+            </ul>
+            <div className="flex gap-2 text-sm">
+              <button
+                onClick={showAllLocalStorageData}
+                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+              >
+                📋 Check All Data
+              </button>
+              <button
+                onClick={createTestProfile}
+                className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+              >
+                ➕ Create Test Profiles
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-lg p-6 border">
             <div className="flex items-center justify-between">
