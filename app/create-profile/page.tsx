@@ -558,10 +558,28 @@ export default function CreateProfile() {
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
+      console.log('📷 File selected:', {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        sizeInMB: (file.size / 1024 / 1024).toFixed(2)
+      })
+
       setValue('profilePicture', file)
       const reader = new FileReader()
       reader.onload = () => {
-        setProfilePicturePreview(reader.result as string)
+        const result = reader.result as string
+        console.log('🔄 File converted to base64:', {
+          length: result.length,
+          type: typeof result,
+          isDataURL: result.startsWith('data:'),
+          mimeType: result.split(',')[0],
+          sizeInKB: (result.length / 1024).toFixed(2)
+        })
+        setProfilePicturePreview(result)
+      }
+      reader.onerror = (error) => {
+        console.error('❌ FileReader error:', error)
       }
       reader.readAsDataURL(file)
     }
