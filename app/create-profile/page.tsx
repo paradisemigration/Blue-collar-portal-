@@ -1505,32 +1505,53 @@ export default function CreateProfile() {
                   )}
                 </button>
               ) : (
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !validateStep(4)}
-                  className={`
-                    px-6 py-2.5 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 text-sm
-                    ${validateStep(4) && !isSubmitting
-                      ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg transform hover:scale-105'
-                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    }
-                  `}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                      </svg>
-                      <span>Creating...</span>
-                    </>
-                  ) : (
-                    <>
-                      <CheckCircleIcon className="h-4 w-4" />
-                      <span>Complete</span>
-                    </>
+                <div className="space-y-3">
+                  {/* Debug Button (Development only) */}
+                  {process.env.NODE_ENV === 'development' && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const values = getValues()
+                        console.log('🔧 DEBUG - Current form values:', values)
+                        console.log('🔧 DEBUG - Languages:', values.languagesSpoken)
+                        console.log('🔧 DEBUG - Validation step 4:', validateStep(4))
+                        console.log('🔧 DEBUG - Touched fields:', Array.from(touchedFields))
+                        console.log('🔧 DEBUG - Duplicate error:', duplicateError)
+                        alert(`Debug Info:\nLanguages: ${values.languagesSpoken?.length || 0} selected\nStep 4 valid: ${validateStep(4)}\nCheck console for details`)
+                      }}
+                      className="w-full px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 transition-colors"
+                    >
+                      🔧 Debug Form State
+                    </button>
                   )}
-                </button>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !validateStep(4)}
+                    className={`
+                      w-full px-6 py-2.5 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center space-x-2 text-sm
+                      ${validateStep(4) && !isSubmitting
+                        ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg transform hover:scale-105'
+                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      }
+                    `}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                        </svg>
+                        <span>Creating...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircleIcon className="h-4 w-4" />
+                        <span>Complete</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               )}
             </div>
           </div>
