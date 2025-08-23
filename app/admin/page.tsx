@@ -433,6 +433,67 @@ export default function AdminDashboard() {
     alert(`Created 8 sample user profiles:\n${sampleProfiles.map(p => `• ${p.fullName} (${p.jobTitle}, ${p.city})`).join('\n')}\n\nClick Refresh to see them in the dashboard.`)
   }
 
+  const clearAllProfiles = () => {
+    if (confirm('Are you sure you want to clear ALL user profiles? This cannot be undone.')) {
+      localStorage.removeItem('userProfile')
+      localStorage.removeItem('allUserProfiles')
+      localStorage.removeItem('isLoggedIn')
+      localStorage.removeItem('authProvider')
+      setUsers([])
+      calculateStats([])
+      console.log('🗑️ All profiles cleared')
+      alert('All profiles have been cleared. You can now create fresh profiles.')
+    }
+  }
+
+  const showAllLocalStorageData = () => {
+    const allData: Record<string, any> = {}
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (key) {
+        try {
+          const value = localStorage.getItem(key)
+          if (value && (value.startsWith('{') || value.startsWith('['))) {
+            allData[key] = JSON.parse(value)
+          } else {
+            allData[key] = value
+          }
+        } catch (e) {
+          allData[key] = localStorage.getItem(key) + ' (parse error)'
+        }
+      }
+    }
+
+    console.log('🔍 COMPLETE LOCALSTORAGE DUMP:', allData)
+
+    // Create a formatted display
+    let display = 'COMPLETE LOCALSTORAGE CONTENTS:\n\n'
+    Object.entries(allData).forEach(([key, value]) => {
+      display += `${key}:\n`
+      if (typeof value === 'object') {
+        if (Array.isArray(value)) {
+          display += `  Array with ${value.length} items\n`
+          value.forEach((item, index) => {
+            if (typeof item === 'object' && item.fullName) {
+              display += `    [${index}] ${item.fullName} (${item.jobTitle || 'N/A'})\n`
+            } else {
+              display += `    [${index}] ${JSON.stringify(item).substring(0, 50)}...\n`
+            }
+          })
+        } else if (value.fullName) {
+          display += `  Profile: ${value.fullName} (${value.jobTitle || 'N/A'})\n`
+        } else {
+          display += `  Object: ${JSON.stringify(value).substring(0, 100)}...\n`
+        }
+      } else {
+        display += `  ${value}\n`
+      }
+      display += '\n'
+    })
+
+    alert(display)
+  }
+
   if (!isAuthenticated && !loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
