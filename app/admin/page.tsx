@@ -1108,20 +1108,38 @@ console.log('✨ All profiles will then appear in your development environment!'
               <p className="text-purple-100 mt-1">Manage users, profiles, and platform content</p>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
-              <button
-                onClick={generateExportScript}
-                className="bg-indigo-500/20 hover:bg-indigo-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-indigo-300/20"
-                title="Get script to export from gogethires.com"
-              >
-                📤 Export Script
-              </button>
-              <button
-                onClick={importProfileData}
-                className="bg-teal-500/20 hover:bg-teal-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-teal-300/20"
-                title="Import profiles from gogethires.com"
-              >
-                📥 Import Data
-              </button>
+              {(() => {
+                const isProductionDomain = typeof window !== 'undefined' && window.location.hostname.includes('gogethires.com')
+                if (!isProductionDomain) {
+                  return (
+                    <>
+                      <button
+                        onClick={openProductionAdmin}
+                        className="bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-lg transition-colors text-xs border border-green-300/20 font-medium"
+                        title="Open production admin panel"
+                      >
+                        🌐 Production Admin
+                      </button>
+                      <div className="w-px h-6 bg-white/20"></div>
+                      <button
+                        onClick={generateExportScript}
+                        className="bg-indigo-500/20 hover:bg-indigo-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-indigo-300/20"
+                        title="Get script to export from gogethires.com"
+                      >
+                        📤 Export Script
+                      </button>
+                      <button
+                        onClick={importProfileData}
+                        className="bg-teal-500/20 hover:bg-teal-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-teal-300/20"
+                        title="Import profiles from gogethires.com"
+                      >
+                        📥 Import Data
+                      </button>
+                    </>
+                  )
+                }
+                return null
+              })()}
               <div className="w-px h-6 bg-white/20"></div>
               <button
                 onClick={searchForProfile}
