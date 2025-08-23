@@ -1757,7 +1757,7 @@ console.log('��� All profiles will then appear in your development environ
 
             <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
               <p className="text-blue-800 text-sm">
-                💡 <strong>First time setup:</strong> Connect to Neon database, then click "🌱 Seed Database" to add 30 sample profiles permanently.
+                💡 <strong>First time setup:</strong> Connect to Neon database, then click "🌱 Seed Database" to add 160-240 comprehensive sample profiles covering 80+ job categories across all Gulf cities.
               </p>
             </div>
           </div>
