@@ -615,11 +615,25 @@ export default function CreateProfile() {
   }
 
   const onSubmit = async (data: WorkerFormData) => {
-    if (!validateStep(4)) return
+    console.log('🚀 onSubmit triggered with data:', data)
+
+    // Enhanced validation check with detailed logging
+    const isValidStep4 = validateStep(4)
+    console.log('✅ Step 4 validation result:', isValidStep4)
+
+    if (!isValidStep4) {
+      const currentValues = getValues()
+      console.error('❌ Step 4 validation failed. Current values:', currentValues)
+      console.error('❌ Languages selected:', currentValues.languagesSpoken)
+      alert('Please ensure all required fields are filled:\n• Select at least one language\n• Complete any missing information')
+      return
+    }
 
     setIsSubmitting(true)
-    
+
     try {
+      console.log('📝 Creating worker profile...')
+
       // Create worker profile with unique ID
       const workerProfile = {
         id: `worker_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -630,29 +644,68 @@ export default function CreateProfile() {
         updatedAt: new Date()
       }
 
-      // Save to localStorage
-      localStorage.setItem('userProfile', JSON.stringify(workerProfile))
+      console.log('💾 Saving profile to localStorage...')
+      console.log('👤 Profile data:', workerProfile)
+
+      // Save to localStorage with error handling
+      try {
+        localStorage.setItem('userProfile', JSON.stringify(workerProfile))
+        console.log('✅ userProfile saved successfully')
+      } catch (e) {
+        console.error('❌ Error saving userProfile:', e)
+        throw new Error('Failed to save user profile to storage')
+      }
 
       // Set login state
-      localStorage.setItem('isLoggedIn', 'true')
-      localStorage.setItem('authProvider', 'profile')
+      try {
+        localStorage.setItem('isLoggedIn', 'true')
+        localStorage.setItem('authProvider', 'profile')
+        console.log('✅ Login state set successfully')
+      } catch (e) {
+        console.error('❌ Error setting login state:', e)
+        throw new Error('Failed to set login state')
+      }
 
       // Also save to all profiles list
-      const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
-      const updatedProfiles = [...existingProfiles.filter((p: any) => p.id !== workerProfile.id), workerProfile]
-      localStorage.setItem('allUserProfiles', JSON.stringify(updatedProfiles))
+      try {
+        const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
+        console.log('📋 Existing profiles count:', existingProfiles.length)
+
+        const updatedProfiles = [...existingProfiles.filter((p: any) => p.id !== workerProfile.id), workerProfile]
+        localStorage.setItem('allUserProfiles', JSON.stringify(updatedProfiles))
+        console.log('✅ allUserProfiles updated successfully, total count:', updatedProfiles.length)
+      } catch (e) {
+        console.error('❌ Error updating allUserProfiles:', e)
+        throw new Error('Failed to update profiles list')
+      }
 
       // Dispatch auth state change event to update header and hide popup
+      console.log('📡 Dispatching auth state change event...')
       window.dispatchEvent(new Event('authStateChanged'))
+
+      console.log('🎉 Profile creation successful! Redirecting to dashboard...')
 
       // Success animation
       setTimeout(() => {
         router.push('/dashboard')
       }, 1500)
-      
+
     } catch (error) {
-      console.error('Error creating profile:', error)
-      alert('Error creating profile. Please try again.')
+      console.error('❌ Error creating profile:', error)
+
+      // More specific error messages
+      let errorMessage = 'Error creating profile. Please try again.'
+      if (error instanceof Error) {
+        if (error.message.includes('storage')) {
+          errorMessage = 'Storage error: Please clear browser cache and try again.'
+        } else if (error.message.includes('login')) {
+          errorMessage = 'Login state error: Please refresh the page and try again.'
+        } else {
+          errorMessage = `Profile creation failed: ${error.message}`
+        }
+      }
+
+      alert(errorMessage)
     } finally {
       setIsSubmitting(false)
     }
