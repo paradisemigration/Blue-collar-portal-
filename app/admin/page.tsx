@@ -131,8 +131,29 @@ export default function AdminDashboard() {
 
       console.log(`✅ Admin Dashboard loaded ${uniqueProfiles.length} unique user profiles`)
       uniqueProfiles.forEach(profile => {
-        console.log(`- ${profile.fullName} (${profile.jobTitle}, ${profile.city})`)
+        console.log(`- ${profile.fullName} (${profile.jobTitle}, ${profile.city}) - ID: ${profile.id}`)
       })
+
+      // Show detailed localStorage info
+      const rawUserProfile = localStorage.getItem('userProfile')
+      const rawAllProfiles = localStorage.getItem('allUserProfiles')
+      console.log('📊 localStorage Summary:')
+      console.log(`- userProfile: ${rawUserProfile ? 'EXISTS' : 'MISSING'}`)
+      console.log(`- allUserProfiles: ${rawAllProfiles ? 'EXISTS' : 'MISSING'}`)
+
+      if (rawAllProfiles) {
+        try {
+          const parsed = JSON.parse(rawAllProfiles)
+          console.log(`- allUserProfiles contains ${Array.isArray(parsed) ? parsed.length : 'INVALID'} items`)
+          if (Array.isArray(parsed)) {
+            parsed.forEach((p, i) => {
+              console.log(`  [${i}] ${p.fullName || 'UNNAMED'} (${p.jobTitle || 'NO_JOB'}) - ${p.email || 'NO_EMAIL'}`)
+            })
+          }
+        } catch (e) {
+          console.error('Error parsing allUserProfiles:', e)
+        }
+      }
 
       setUsers(uniqueProfiles)
       calculateStats(uniqueProfiles)
