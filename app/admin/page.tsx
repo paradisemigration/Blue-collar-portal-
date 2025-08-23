@@ -805,6 +805,111 @@ export default function AdminDashboard() {
     alert(`✅ Added missing profile:\n\nVanshika\nLogistics Assistant, Dubai\n\nClick Refresh to see the profile in the dashboard.`)
   }
 
+  const importProfilesFromProduction = () => {
+    const instructions = `
+To import real user profiles from gogethires.com:
+
+1. Open gogethires.com/admin in a new tab
+2. Open Developer Tools (F12)
+3. Go to Console tab
+4. Copy and paste this command:
+
+// Export profiles from gogethires.com
+const exportData = {
+  userProfile: localStorage.getItem('userProfile'),
+  allUserProfiles: localStorage.getItem('allUserProfiles'),
+  isLoggedIn: localStorage.getItem('isLoggedIn'),
+  authProvider: localStorage.getItem('authProvider')
+};
+console.log('COPY THIS DATA:');
+console.log(JSON.stringify(exportData, null, 2));
+
+5. Copy the output data
+6. Come back to this admin panel
+7. Click "📋 Import Data" button and paste the data
+
+This will sync real user profiles from production to this environment.
+    `
+
+    alert(instructions.trim())
+  }
+
+  const importProfileData = () => {
+    const data = prompt('Paste the exported profile data from gogethires.com:')
+    if (!data) return
+
+    try {
+      const parsedData = JSON.parse(data)
+
+      if (parsedData.userProfile) {
+        localStorage.setItem('userProfile', parsedData.userProfile)
+        console.log('✅ Imported userProfile')
+      }
+
+      if (parsedData.allUserProfiles) {
+        localStorage.setItem('allUserProfiles', parsedData.allUserProfiles)
+        console.log('✅ Imported allUserProfiles')
+      }
+
+      if (parsedData.isLoggedIn) {
+        localStorage.setItem('isLoggedIn', parsedData.isLoggedIn)
+        console.log('✅ Imported isLoggedIn')
+      }
+
+      if (parsedData.authProvider) {
+        localStorage.setItem('authProvider', parsedData.authProvider)
+        console.log('✅ Imported authProvider')
+      }
+
+      // Parse and count profiles
+      let profileCount = 0
+      if (parsedData.allUserProfiles) {
+        try {
+          const profiles = JSON.parse(parsedData.allUserProfiles)
+          profileCount = Array.isArray(profiles) ? profiles.length : 0
+        } catch (e) {
+          console.warn('Error counting profiles:', e)
+        }
+      }
+
+      alert(`✅ Successfully imported ${profileCount} user profiles from production!\n\nClick Refresh to see them in the dashboard.`)
+
+      // Auto-refresh after import
+      setTimeout(() => loadAdminData(), 500)
+
+    } catch (error) {
+      console.error('Import error:', error)
+      alert('❌ Error importing data. Please check the format and try again.')
+    }
+  }
+
+  const generateExportScript = () => {
+    const script = `
+// Run this script on gogethires.com to export user profiles
+const exportData = {
+  userProfile: localStorage.getItem('userProfile'),
+  allUserProfiles: localStorage.getItem('allUserProfiles'),
+  isLoggedIn: localStorage.getItem('isLoggedIn'),
+  authProvider: localStorage.getItem('authProvider')
+};
+
+console.log('='.repeat(50));
+console.log('GOGETHIRES.COM PROFILE EXPORT');
+console.log('='.repeat(50));
+console.log('Copy everything between the lines below:');
+console.log('-'.repeat(50));
+console.log(JSON.stringify(exportData, null, 2));
+console.log('-'.repeat(50));
+console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportData.allUserProfiles).length : 0);
+    `
+
+    navigator.clipboard.writeText(script.trim()).then(() => {
+      alert(`✅ Export script copied to clipboard!\n\n1. Go to gogethires.com/admin\n2. Open Developer Tools (F12)\n3. Paste the script in Console\n4. Copy the export data\n5. Come back here and click "📋 Import Data"`)
+    }).catch(() => {
+      alert(`Copy this script manually:\n\n${script.trim()}`)
+    })
+  }
+
   if (!isAuthenticated && !loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
