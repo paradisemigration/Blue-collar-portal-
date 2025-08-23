@@ -902,6 +902,13 @@ export default function CreateProfile() {
 
         // Fallback: Create profile in localStorage
         console.log('📝 Creating profile in localStorage as fallback...')
+        console.log('🖼️ Profile picture for localStorage:', {
+          hasFile: !!data.profilePicture,
+          isFile: data.profilePicture instanceof File,
+          hasPreview: !!profilePicturePreview,
+          previewType: typeof profilePicturePreview,
+          previewStart: profilePicturePreview?.substring(0, 50)
+        })
         await createProfileInLocalStorage(data)
         console.log('✅ Profile created successfully in localStorage')
       }
