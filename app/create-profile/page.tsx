@@ -836,20 +836,42 @@ export default function CreateProfile() {
     } catch (error) {
       console.error('❌ Error creating profile:', error)
 
+      // Final fallback: try localStorage even if everything else failed
+      try {
+        console.log('🔄 Final fallback: Attempting to save profile in localStorage...')
+        await createProfileInLocalStorage(data)
+
+        // Success with localStorage fallback
+        alert('✅ Profile created successfully!\n\n(Saved locally - will sync to database when connection is available)')
+
+        // Dispatch auth state change and redirect
+        window.dispatchEvent(new Event('authStateChanged'))
+        setTimeout(() => {
+          router.push('/dashboard')
+        }, 1500)
+
+        return // Exit successfully
+      } catch (localStorageError) {
+        console.error('❌ Final localStorage fallback also failed:', localStorageError)
+      }
+
       // More specific error messages
       let errorMessage = 'Error creating profile. Please try again.'
 
       if (error instanceof Error) {
         if (error.message.includes('register') || error.message.includes('login')) {
-          errorMessage = `Account Error: ${error.message}`
+          errorMessage = `Account Error: ${error.message}\n\nTry refreshing the page or check if the database is connected.`
         } else if (error.message.includes('profile')) {
-          errorMessage = `Profile Error: ${error.message}`
+          errorMessage = `Profile Error: ${error.message}\n\nThe profile data is valid but couldn't be saved. Please try again.`
         } else if (error.message.includes('network') || error.message.includes('fetch')) {
-          errorMessage = 'Network error: Please check your internet connection and try again.'
+          errorMessage = 'Network error: Please check your internet connection and try again.\n\nIf the problem persists, the database may be unavailable.'
         } else {
-          errorMessage = `Profile creation failed: ${error.message}`
+          errorMessage = `Profile creation failed: ${error.message}\n\nTip: Try connecting to the Neon database in admin panel.`
         }
       }
+
+      // Add troubleshooting info
+      errorMessage += '\n\n🔧 Troubleshooting:\n• Check if database is connected\n• Try refreshing the page\n• Contact support if issue persists'
 
       alert(errorMessage)
     } finally {
