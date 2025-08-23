@@ -638,6 +638,60 @@ export default function AdminDashboard() {
     }
   }
 
+  const clearSampleData = () => {
+    if (confirm('Are you sure you want to clear all SAMPLE and DUMMY data? This will only remove test profiles, not real user profiles.')) {
+      const allProfiles = localStorage.getItem('allUserProfiles')
+      let realProfiles: Worker[] = []
+
+      if (allProfiles) {
+        try {
+          const profiles = JSON.parse(allProfiles)
+          // Filter out sample/dummy data - keep only profiles that look like real user submissions
+          realProfiles = profiles.filter((profile: any) => {
+            const isTestProfile =
+              profile.id?.includes('test_') ||
+              profile.id?.includes('worker_') ||
+              profile.email?.includes('.real@') ||
+              profile.email?.includes('@test.com') ||
+              profile.email?.includes('himanshu') ||
+              profile.fullName?.includes('Test User') ||
+              profile.aboutMe?.includes('Test profile created') ||
+              profile.aboutMe?.includes('Experienced cook with 5 years in Gulf region') ||
+              profile.aboutMe?.includes('Dedicated housemaid with excellent') ||
+              profile.aboutMe?.includes('Skilled construction worker') ||
+              profile.aboutMe?.includes('Caring nanny with') ||
+              profile.aboutMe?.includes('Professional driver with') ||
+              profile.aboutMe?.includes('Reliable cleaner with') ||
+              profile.aboutMe?.includes('Certified electrician with') ||
+              profile.aboutMe?.includes('Professional housekeeper with')
+
+            return !isTestProfile
+          })
+
+          console.log(`🗑️ Removed ${profiles.length - realProfiles.length} sample profiles, kept ${realProfiles.length} real profiles`)
+        } catch (e) {
+          console.error('Error filtering profiles:', e)
+        }
+      }
+
+      // Update localStorage with only real profiles
+      if (realProfiles.length > 0) {
+        localStorage.setItem('allUserProfiles', JSON.stringify(realProfiles))
+        localStorage.setItem('userProfile', JSON.stringify(realProfiles[0]))
+      } else {
+        localStorage.removeItem('userProfile')
+        localStorage.removeItem('allUserProfiles')
+        localStorage.removeItem('isLoggedIn')
+        localStorage.removeItem('authProvider')
+      }
+
+      // Reload admin data
+      loadAdminData()
+
+      alert(`✅ Cleared sample data successfully!\n\nRemoved: ${allProfiles ? JSON.parse(allProfiles).length - realProfiles.length : 0} sample profiles\nKept: ${realProfiles.length} real user profiles`)
+    }
+  }
+
   const showAllLocalStorageData = () => {
     const allData: Record<string, any> = {}
     for (let i = 0; i < localStorage.length; i++) {
@@ -1159,7 +1213,7 @@ This will sync all real user profiles to this admin panel.
                 onClick={showAllLocalStorageData}
                 className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
               >
-                📋 Check All Data
+                �� Check All Data
               </button>
               <button
                 onClick={searchForProfile}
