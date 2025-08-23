@@ -9,7 +9,7 @@ function isAdmin(request: NextRequest): boolean {
 
 // Generate comprehensive sample profiles for the database (80 categories x cities)
 function generateSampleProfiles() {
-  // Complete list of 80+ job categories from the browse page
+  // Complete list of 80+ job categories matching the JobTitle type
   const sampleJobs = [
     // Domestic & Personal Care Workers
     'Nanny (Childcare Worker)', 'Housemaid', 'Cook (Home-based)', 'Elderly Caregiver', 'Babysitter',
@@ -18,13 +18,14 @@ function generateSampleProfiles() {
     // Construction & Infrastructure
     'Construction Laborer', 'Mason', 'Carpenter', 'Electrician', 'Plumber', 'Welder', 'Painter',
     'Steel Fixer', 'Scaffold Worker', 'Tile Setter', 'HVAC Technician', 'Crane Operator',
-    'Heavy Equipment Operator', 'Site Supervisor', 'Road Construction Worker',
+    'Heavy Equipment Operator', 'Site Supervisor', 'Road Construction Worker', 'Roofer', 'Glazier',
+    'Pipe Fitter', 'Concrete Mixer', 'Excavator Operator',
 
-    // Automotive & Technical
+    // Mechanical & Technical
     'Auto Mechanic', 'Diesel Mechanic', 'Machine Operator', 'CNC Machine Operator', 'Fitter',
     'Maintenance Technician', 'Elevator Technician', 'AC Technician', 'Forklift Operator', 'Lathe Machine Operator',
 
-    // Manufacturing & Industrial
+    // Manufacturing & Factory
     'Factory Worker', 'Assembly Line Worker', 'Packer', 'Warehouse Associate', 'Quality Checker',
     'Production Supervisor', 'Fabricator', 'Loader/Unloader',
 
@@ -32,23 +33,30 @@ function generateSampleProfiles() {
     'Truck Driver', 'Delivery Driver', 'Bus Driver', 'Light Vehicle Driver', 'Logistics Assistant',
     'Dispatch Coordinator', 'Heavy Vehicle Driver',
 
-    // Cleaning & Sanitation
-    'Cleaner', 'Housekeeping Staff', 'Janitor', 'Building Maintenance Worker', 'Car Wash Attendant', 'Office Cleaner',
+    // Cleaning & Maintenance
+    'Cleaner', 'Housekeeping Staff', 'Janitor', 'Building Maintenance Worker', 'Car Wash Attendant',
+    'Office Cleaner', 'Road Worker', 'Building Maintenance', 'Pool Cleaner', 'Landscaper', 'Window Cleaner',
 
     // Hospitality & Food
     'Cook', 'Kitchen Helper', 'Waiter', 'Dishwasher', 'Restaurant Cleaner', 'Barista', 'Food Delivery Rider',
+    'Food Preparation Worker',
 
-    // Security & Safety
-    'Security Guard', 'Watchman', 'Lifeguard',
+    // Security & General Services
+    'Security Guard', 'Watchman', 'Lifeguard', 'Maintenance Helper', 'General Helper',
 
-    // General Services
-    'Maintenance Helper', 'General Helper', 'Tailor', 'Ironing Staff', 'Textile Factory Worker',
+    // Garments & Tailoring
+    'Tailor', 'Ironing Staff', 'Textile Factory Worker',
 
-    // Agriculture & Livestock
+    // Agriculture & Farming
     'Farm Worker', 'Livestock Handler', 'Greenhouse Worker',
 
-    // Other Services
-    'Petrol Pump Attendant', 'Office Boy', 'Tea Boy', 'Baggage Handler', 'Laundry Worker', 'Pest Control Worker'
+    // Other Common Jobs
+    'Petrol Pump Attendant', 'Office Boy', 'Tea Boy', 'Baggage Handler', 'Laundry Worker', 'Pest Control Worker',
+    'Cashier', 'Shop Assistant', 'Inventory Clerk', 'Loading Worker', 'Moving Helper', 'Cleaning Supervisor',
+    'Maintenance Supervisor',
+
+    // Legacy titles for compatibility
+    'Driver', 'Maid', 'Gardener', 'Mechanic', 'Construction Worker', 'Warehouse Worker'
   ]
   
   const sampleCities = [
