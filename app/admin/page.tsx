@@ -1516,6 +1516,13 @@ console.log('✨ All profiles will then appear in your development environment!'
               >
                 📊 Check Status
               </button>
+              <button
+                onClick={checkSystemHealth}
+                className="bg-red-500/20 hover:bg-red-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
+                title="Check overall system health and database connectivity"
+              >
+                🏥 Health Check
+              </button>
               <div className="w-px h-6 bg-white/20"></div>
               <button
                 onClick={searchForProfile}
