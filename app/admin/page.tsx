@@ -946,12 +946,24 @@ export default function AdminDashboard() {
               <li>• localStorage was cleared or corrupted</li>
               <li>• There's a data loading issue</li>
             </ul>
-            <div className="flex gap-2 text-sm">
+            <div className="flex gap-2 text-sm flex-wrap">
               <button
                 onClick={showAllLocalStorageData}
                 className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
               >
                 📋 Check All Data
+              </button>
+              <button
+                onClick={searchForProfile}
+                className="bg-yellow-600 text-white px-3 py-1 rounded hover:bg-yellow-700"
+              >
+                🔍 Search Profile
+              </button>
+              <button
+                onClick={addMissingVanshikaProfile}
+                className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700"
+              >
+                👤 Add Vanshika
               </button>
               <button
                 onClick={createRealUserProfiles}
