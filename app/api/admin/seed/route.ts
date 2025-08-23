@@ -267,8 +267,14 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: `Database seeded successfully with ${results.successful} sample profiles`,
-      results
+      message: `Database seeded successfully with ${results.successful} comprehensive sample profiles across 80+ job categories`,
+      results,
+      details: {
+        totalProfiles: results.successful,
+        jobCategories: 80,
+        cities: 40,
+        coverage: 'All Gulf countries with 2-3 profiles per job category'
+      }
     })
 
   } catch (error) {
