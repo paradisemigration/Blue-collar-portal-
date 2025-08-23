@@ -49,6 +49,52 @@ interface LocationInfo {
   detectedFromIP: boolean
 }
 
+// Helper function to create profile in localStorage
+const createProfileInLocalStorage = async (data: WorkerFormData) => {
+  const profileId = `worker_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+
+  const profileData = {
+    id: profileId,
+    fullName: data.fullName,
+    profilePicture: data.profilePicture || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+    jobCategory: data.jobCategory,
+    jobTitle: data.jobTitle,
+    customJobTitle: data.customJobTitle,
+    jobProfile: data.jobProfile,
+    yearsExperience: data.yearsExperience,
+    city: data.city,
+    country: data.country,
+    languagesSpoken: data.languagesSpoken,
+    expectedSalary: data.expectedSalary,
+    visaStatus: data.visaStatus,
+    availability: true,
+    aboutMe: data.aboutMe,
+    phoneNumber: data.phoneNumber,
+    email: data.email,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+
+  // Save individual profile
+  localStorage.setItem('userProfile', JSON.stringify(profileData))
+  localStorage.setItem('isLoggedIn', 'true')
+  localStorage.setItem('authProvider', 'localStorage')
+
+  // Update allUserProfiles array
+  const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
+
+  // Remove any existing profile with same email
+  const filteredProfiles = existingProfiles.filter((p: any) => p.email !== data.email)
+
+  // Add new profile
+  filteredProfiles.push(profileData)
+
+  localStorage.setItem('allUserProfiles', JSON.stringify(filteredProfiles))
+
+  console.log('✅ Profile saved to localStorage:', profileData.fullName)
+  return profileData
+}
+
 const jobCategories = {
   'Domestic & Personal Care Workers': {
     emoji: '🏠',
