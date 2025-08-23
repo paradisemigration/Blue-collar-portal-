@@ -1737,7 +1737,7 @@ console.log('��� All profiles will then appear in your development environ
                     onClick={seedDatabaseWithSampleData}
                     className="w-full bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 text-left"
                   >
-                    2️⃣ Seed Sample Data (30 profiles)
+                    2️⃣ Seed Comprehensive Data (80+ categories)
                   </button>
                   <button
                     onClick={migrateLocalStorageToDatabase}
