@@ -22,6 +22,7 @@ import {
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { JobTitle, City, Country } from '../../types'
+import ProfileSuccessPopup from '../../components/ProfileSuccessPopup'
 
 interface WorkerFormData {
   fullName: string
