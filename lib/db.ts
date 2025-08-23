@@ -194,6 +194,15 @@ export const db = {
   // Delete session
   async deleteSession(sessionToken: string) {
     await query('DELETE FROM user_sessions WHERE session_token = $1', [sessionToken])
+  },
+
+  // Update user password
+  async updateUserPassword(userId: string, hashedPassword: string) {
+    const result = await query(
+      'UPDATE users SET password_hash = $1, updated_at = NOW() WHERE id = $2 RETURNING *',
+      [hashedPassword, userId]
+    )
+    return result.rows[0]
   }
 }
 
