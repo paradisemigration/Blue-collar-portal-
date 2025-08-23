@@ -73,19 +73,11 @@ const loadAllWorkers = (): Worker[] => {
       console.log(`✅ Browse - Loaded ${workers.length} real user profiles`)
     }
 
-    // Add comprehensive dummy data
-    const dummyWorkers = generateDummyWorkers()
-    dummyWorkers.forEach((dummyWorker) => {
-      if (!workers.find(w => w.id === dummyWorker.id)) {
-        workers.push(dummyWorker)
-      }
-    })
-
-    console.log(`✅ Browse - Total workers (real + dummy): ${workers.length}`)
+    console.log(`✅ Browse - Total real workers loaded: ${workers.length}`)
     return workers
   } catch (error) {
     console.error('Error loading workers:', error)
-    return generateDummyWorkers() // Fallback to dummy data
+    return [] // Return empty array instead of dummy data
   }
 }
 
