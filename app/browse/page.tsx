@@ -117,7 +117,7 @@ const generateSampleData = (): Worker[] => {
 const getJobCategory = (jobTitle: JobTitle): string => {
   const categoryMap: Record<string, string> = {
     'Cook': 'Hospitality & Food',
-    'Waiter/Waitress': 'Hospitality & Food',
+    'Waiter': 'Hospitality & Food',
     'Housemaid': 'Domestic & Personal Care Workers',
     'Cleaner': 'Domestic & Personal Care Workers',
     'Housekeeper (Residential)': 'Domestic & Personal Care Workers',
@@ -131,14 +131,14 @@ const getJobCategory = (jobTitle: JobTitle): string => {
     'Painter': 'Construction & Infrastructure',
     'Carpenter': 'Construction & Infrastructure',
     'Welder': 'Construction & Infrastructure',
-    'Mason (Bricklayer)': 'Construction & Infrastructure',
+    'Mason': 'Construction & Infrastructure',
     'HVAC Technician': 'Construction & Infrastructure',
     'Security Guard': 'Security & Safety',
-    'Gardener (Landscaper)': 'Agriculture & Landscaping',
+    'Landscaper': 'Agriculture & Landscaping',
     'Mechanic': 'Automotive & Technical',
     'Factory Worker': 'Manufacturing & Industrial',
-    'Warehouse Worker': 'Manufacturing & Industrial',
-    'Maintenance Worker': 'General Services'
+    'Warehouse Associate': 'Manufacturing & Industrial',
+    'Maintenance Helper': 'General Services'
   }
   return categoryMap[jobTitle] || 'Other'
 }
