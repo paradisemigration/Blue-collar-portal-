@@ -204,7 +204,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.log('🌱 Starting database seeding with sample data...')
+    console.log('🌱 Starting comprehensive database seeding with 80+ job categories across all Gulf cities...')
 
     const sampleProfiles = generateSampleProfiles()
     const results = {
