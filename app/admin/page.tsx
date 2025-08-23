@@ -941,6 +941,89 @@ export default function AdminDashboard() {
     alert(`✅ Added missing profile:\n\nVanshika\nLogistics Assistant, Dubai\n\nClick Refresh to see the profile in the dashboard.`)
   }
 
+  const migrateLocalStorageToDatabase = async () => {
+    if (!confirm('This will migrate all localStorage profiles to the database. Continue?')) {
+      return
+    }
+
+    try {
+      // Get profiles from localStorage
+      const profiles: any[] = []
+
+      // Get individual profile
+      const userProfile = localStorage.getItem('userProfile')
+      if (userProfile) {
+        try {
+          const profile = JSON.parse(userProfile)
+          profiles.push(profile)
+        } catch (e) {
+          console.warn('Error parsing userProfile for migration:', e)
+        }
+      }
+
+      // Get all profiles
+      const allProfiles = localStorage.getItem('allUserProfiles')
+      if (allProfiles) {
+        try {
+          const parsedProfiles = JSON.parse(allProfiles)
+          if (Array.isArray(parsedProfiles)) {
+            parsedProfiles.forEach(profile => {
+              if (!profiles.find(p => p.email === profile.email)) {
+                profiles.push(profile)
+              }
+            })
+          }
+        } catch (e) {
+          console.warn('Error parsing allUserProfiles for migration:', e)
+        }
+      }
+
+      if (profiles.length === 0) {
+        alert('No profiles found in localStorage to migrate.')
+        return
+      }
+
+      console.log(`🔄 Migrating ${profiles.length} profiles to database...`)
+
+      // Send to migration API
+      const response = await fetch('/api/admin/migrate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-token': 'admin-secret-token'
+        },
+        body: JSON.stringify({ profiles })
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        const { successful, failed, errors } = result.results
+        let message = `Migration completed!\n\n✅ Successful: ${successful}\n❌ Failed: ${failed}`
+
+        if (errors.length > 0) {
+          message += `\n\nErrors:\n${errors.slice(0, 3).join('\n')}`
+          if (errors.length > 3) {
+            message += `\n... and ${errors.length - 3} more errors`
+          }
+        }
+
+        alert(message)
+
+        // Reload admin data to show migrated profiles
+        if (successful > 0) {
+          loadAdminData()
+        }
+      } else {
+        throw new Error(result.error)
+      }
+
+    } catch (error) {
+      console.error('Migration failed:', error)
+      alert(`Migration failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    }
+  }
+
   const importProfilesFromProduction = () => {
     const instructions = `
 To import real user profiles from gogethires.com:
