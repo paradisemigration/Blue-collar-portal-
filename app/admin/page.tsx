@@ -67,12 +67,23 @@ export default function AdminDashboard() {
       // Load all user profiles from localStorage
       const profiles: Worker[] = []
 
+      // Debug: Check what's in localStorage
+      console.log('🔍 Admin Debug - Checking localStorage...')
+      console.log('userProfile exists:', !!localStorage.getItem('userProfile'))
+      console.log('allUserProfiles exists:', !!localStorage.getItem('allUserProfiles'))
+      console.log('isLoggedIn:', localStorage.getItem('isLoggedIn'))
+      console.log('authProvider:', localStorage.getItem('authProvider'))
+
       // Check for individual profile
       const userProfile = localStorage.getItem('userProfile')
       if (userProfile) {
         try {
           const profile = JSON.parse(userProfile)
+          // Convert date strings back to Date objects
+          if (profile.createdAt) profile.createdAt = new Date(profile.createdAt)
+          if (profile.updatedAt) profile.updatedAt = new Date(profile.updatedAt)
           profiles.push(profile)
+          console.log('📋 Found userProfile:', profile.fullName)
         } catch (e) {
           console.warn('Error parsing userProfile:', e)
         }
@@ -83,26 +94,48 @@ export default function AdminDashboard() {
       if (allProfiles) {
         try {
           const parsedProfiles = JSON.parse(allProfiles)
+          console.log('📋 Raw allUserProfiles:', parsedProfiles)
+
           if (Array.isArray(parsedProfiles)) {
-            // Filter out demo profiles that might have been stored
-            const realProfiles = parsedProfiles.filter(profile =>
+            // Convert date strings back to Date objects and filter
+            const processedProfiles = parsedProfiles.map(profile => {
+              if (profile.createdAt) profile.createdAt = new Date(profile.createdAt)
+              if (profile.updatedAt) profile.updatedAt = new Date(profile.updatedAt)
+              return profile
+            }).filter(profile =>
               !profile.id?.startsWith('demo') &&
               !profile.email?.includes('demo') &&
               !['ahmed.hassan@email.com', 'maria.santos@email.com', 'omar.rashid@email.com'].includes(profile.email)
             )
-            profiles.push(...realProfiles)
+
+            console.log(`📋 Processed ${processedProfiles.length} real profiles from allUserProfiles`)
+
+            // Merge with individual profile (avoid duplicates)
+            processedProfiles.forEach(profile => {
+              if (!profiles.find(p => p.id === profile.id)) {
+                profiles.push(profile)
+              }
+            })
           }
         } catch (e) {
           console.warn('Error parsing allUserProfiles:', e)
         }
       }
 
-      // Only show real user profiles, no demo data
-      setUsers(profiles)
-      calculateStats(profiles)
+      // Remove duplicates by ID
+      const uniqueProfiles = profiles.filter((profile, index, self) =>
+        index === self.findIndex(p => p.id === profile.id)
+      )
+
+      console.log(`✅ Admin Dashboard loaded ${uniqueProfiles.length} unique user profiles`)
+      uniqueProfiles.forEach(profile => {
+        console.log(`- ${profile.fullName} (${profile.jobTitle}, ${profile.city})`)
+      })
+
+      setUsers(uniqueProfiles)
+      calculateStats(uniqueProfiles)
       setLoading(false)
 
-      console.log(`Loaded ${profiles.length} real user profiles for admin dashboard`)
     } catch (error) {
       console.error('Error loading admin data:', error)
       setLoading(false)
