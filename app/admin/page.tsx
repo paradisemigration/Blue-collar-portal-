@@ -970,6 +970,21 @@ console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportDat
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               <button
+                onClick={generateExportScript}
+                className="bg-indigo-500/20 hover:bg-indigo-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-indigo-300/20"
+                title="Get script to export from gogethires.com"
+              >
+                📤 Export Script
+              </button>
+              <button
+                onClick={importProfileData}
+                className="bg-teal-500/20 hover:bg-teal-500/30 px-2 py-2 rounded-lg transition-colors text-xs border border-teal-300/20"
+                title="Import profiles from gogethires.com"
+              >
+                📥 Import Data
+              </button>
+              <div className="w-px h-6 bg-white/20"></div>
+              <button
                 onClick={searchForProfile}
                 className="bg-yellow-500/20 hover:bg-yellow-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
                 title="Search for specific profile"
@@ -990,6 +1005,7 @@ console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportDat
               >
                 🐛 Debug
               </button>
+              <div className="w-px h-6 bg-white/20"></div>
               <button
                 onClick={createRealUserProfiles}
                 className="bg-green-500/20 hover:bg-green-500/30 px-2 py-2 rounded-lg transition-colors text-xs"
@@ -1011,6 +1027,7 @@ console.log('Profiles found:', exportData.allUserProfiles ? JSON.parse(exportDat
               >
                 🗑️ Clear
               </button>
+              <div className="w-px h-6 bg-white/20"></div>
               <button
                 onClick={loadAdminData}
                 className="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-1"
