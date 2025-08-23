@@ -234,12 +234,20 @@ const loadWorkersFromLocalStorage = async (): Promise<Worker[]> => {
       }
 
       console.log(`✅ Browse - Loaded ${workers.length} profiles from localStorage fallback`)
+
+      // If localStorage has profiles, return them
+      if (workers.length > 0) {
+        return workers
+      }
     }
 
-    return workers
+    // If no localStorage data, return sample data
+    console.log('📋 No localStorage data found, using sample data (30 profiles)')
+    return generateSampleData()
   } catch (error) {
     console.error('Error loading workers from localStorage:', error)
-    return []
+    console.log('📋 LocalStorage error, using sample data fallback (30 profiles)')
+    return generateSampleData()
   }
 }
 
