@@ -27,6 +27,106 @@ import {
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, FilterOptions } from '../../types'
 
+// Generate sample data for demonstration
+const generateSampleData = (): Worker[] => {
+  const sampleJobs: JobTitle[] = [
+    'Cook', 'Housemaid', 'Driver', 'Nanny (Childcare Worker)', 'Cleaner',
+    'Electrician', 'Construction Laborer', 'Security Guard', 'Gardener (Landscaper)',
+    'Housekeeper (Residential)', 'Plumber', 'Painter', 'Mechanic', 'Waiter/Waitress',
+    'Delivery Driver', 'Carpenter', 'Welder', 'Mason (Bricklayer)', 'HVAC Technician',
+    'Factory Worker', 'Logistics Assistant', 'Maintenance Worker', 'Warehouse Worker'
+  ]
+
+  const sampleCities: City[] = [
+    'Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Doha', 'Kuwait City', 'Riyadh',
+    'Jeddah', 'Muscat', 'Manama', 'Al Ain', 'Fujairah', 'Ras Al Khaimah'
+  ]
+
+  const firstNames = [
+    'Ahmed', 'Mohammed', 'Ali', 'Omar', 'Hassan', 'Khalid', 'Abdullah', 'Ibrahim',
+    'Priya', 'Ravi', 'Anjali', 'Suresh', 'Deepak', 'Kavya', 'Rajesh', 'Sunita',
+    'Maria', 'Anna', 'Elena', 'Rosa', 'Carmen', 'Sofia', 'Isabella', 'Lucia',
+    'James', 'John', 'Michael', 'David', 'Robert', 'William', 'Richard', 'Joseph'
+  ]
+
+  const lastNames = [
+    'Ahmed', 'Hassan', 'Ali', 'Khan', 'Kumar', 'Sharma', 'Patel', 'Singh',
+    'Garcia', 'Rodriguez', 'Martinez', 'Lopez', 'Gonzalez', 'Wilson', 'Johnson',
+    'Smith', 'Brown', 'Davis', 'Miller', 'Jones', 'Williams', 'Taylor'
+  ]
+
+  const countries = ['UAE', 'Qatar', 'Kuwait', 'Saudi Arabia', 'Oman', 'Bahrain']
+  const visaStatuses = ['Work Visa', 'Residence Visa', 'Visit Visa']
+  const languages = [
+    ['English', 'Arabic'], ['English', 'Hindi'], ['English', 'Urdu'],
+    ['Arabic', 'French'], ['English', 'Spanish'], ['English', 'Filipino'],
+    ['English', 'Hindi', 'Arabic'], ['English', 'Bengali'], ['English', 'Tamil'],
+    ['Arabic', 'English', 'French']
+  ]
+
+  return Array.from({ length: 30 }, (_, index) => {
+    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)]
+    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)]
+    const jobTitle = sampleJobs[Math.floor(Math.random() * sampleJobs.length)]
+    const city = sampleCities[Math.floor(Math.random() * sampleCities.length)]
+    const country = countries[Math.floor(Math.random() * countries.length)]
+    const experience = Math.floor(Math.random() * 15) + 1
+    const salary = Math.floor(Math.random() * 4000) + 1500
+
+    return {
+      id: `sample_${index + 1}`,
+      fullName: `${firstName} ${lastName}`,
+      profilePicture: `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?w=400&h=400&fit=crop&crop=face`,
+      jobCategory: getJobCategory(jobTitle),
+      jobTitle,
+      customJobTitle: undefined,
+      jobProfile: `Experienced ${jobTitle.toLowerCase()} with ${experience} years of professional experience in the Gulf region.`,
+      yearsExperience: experience,
+      city,
+      country,
+      languagesSpoken: languages[Math.floor(Math.random() * languages.length)],
+      expectedSalary: salary,
+      visaStatus: visaStatuses[Math.floor(Math.random() * visaStatuses.length)] as any,
+      availability: Math.random() > 0.2,
+      aboutMe: `Professional ${jobTitle.toLowerCase()} with ${experience} years of experience. Dedicated, reliable, and hardworking individual seeking new opportunities in ${city}.`,
+      phoneNumber: `+971${Math.floor(Math.random() * 90000000) + 10000000}`,
+      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@email.com`,
+      createdAt: new Date(Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000),
+      updatedAt: new Date(Date.now() - Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000)
+    }
+  })
+}
+
+// Helper function to get job category
+const getJobCategory = (jobTitle: JobTitle): string => {
+  const categoryMap: Record<string, string> = {
+    'Cook': 'Hospitality & Food',
+    'Waiter/Waitress': 'Hospitality & Food',
+    'Housemaid': 'Domestic & Personal Care Workers',
+    'Cleaner': 'Domestic & Personal Care Workers',
+    'Housekeeper (Residential)': 'Domestic & Personal Care Workers',
+    'Nanny (Childcare Worker)': 'Domestic & Personal Care Workers',
+    'Driver': 'Transport & Logistics',
+    'Delivery Driver': 'Transport & Logistics',
+    'Logistics Assistant': 'Transport & Logistics',
+    'Electrician': 'Construction & Infrastructure',
+    'Construction Laborer': 'Construction & Infrastructure',
+    'Plumber': 'Construction & Infrastructure',
+    'Painter': 'Construction & Infrastructure',
+    'Carpenter': 'Construction & Infrastructure',
+    'Welder': 'Construction & Infrastructure',
+    'Mason (Bricklayer)': 'Construction & Infrastructure',
+    'HVAC Technician': 'Construction & Infrastructure',
+    'Security Guard': 'Security & Safety',
+    'Gardener (Landscaper)': 'Agriculture & Landscaping',
+    'Mechanic': 'Automotive & Technical',
+    'Factory Worker': 'Manufacturing & Industrial',
+    'Warehouse Worker': 'Manufacturing & Industrial',
+    'Maintenance Worker': 'General Services'
+  }
+  return categoryMap[jobTitle] || 'Other'
+}
+
 // Load worker data from database API
 const loadAllWorkers = async (): Promise<Worker[]> => {
   try {
@@ -38,13 +138,19 @@ const loadAllWorkers = async (): Promise<Worker[]> => {
     })
 
     if (!response.ok) {
-      console.warn('Failed to fetch profiles from database, falling back to localStorage')
-      return await loadWorkersFromLocalStorage()
+      console.warn('Failed to fetch profiles from database, falling back to localStorage and sample data')
+      const localStorageData = await loadWorkersFromLocalStorage()
+      if (localStorageData.length > 0) {
+        return localStorageData
+      }
+      // If no localStorage data, return sample data
+      console.log('📋 Using sample data (30 profiles)')
+      return generateSampleData()
     }
 
     const data = await response.json()
 
-    if (data.success && data.profiles) {
+    if (data.success && data.profiles && data.profiles.length > 0) {
       console.log(`✅ Browse - Loaded ${data.profiles.length} profiles from database`)
 
       // Convert date strings back to Date objects
