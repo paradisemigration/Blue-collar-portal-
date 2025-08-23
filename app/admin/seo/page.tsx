@@ -1,5 +1,8 @@
 'use client'
 
+// Make this page dynamic to avoid SSR issues
+export const dynamic = 'force-dynamic'
+
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeftIcon, GlobeAltIcon, PencilIcon, CheckIcon } from '@heroicons/react/24/outline'
