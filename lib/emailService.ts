@@ -15,7 +15,7 @@ const createTransporter = () => {
     return null
   }
 
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.GMAIL_USER,
@@ -191,7 +191,7 @@ This is an automated message. Please do not reply to this email.
             </div>
             
             <div class="next-steps">
-                <h3 style="color: #374151;">���� What's Next?</h3>
+                <h3 style="color: #374151;">🚀 What's Next?</h3>
                 <ol>
                     <li><strong>Log in to your account</strong> using the credentials above</li>
                     <li><strong>Change your password</strong> to something secure and memorable</li>
