@@ -938,12 +938,46 @@ export default function CreateProfile() {
       console.log('📡 Dispatching auth state change event...')
       window.dispatchEvent(new Event('authStateChanged'))
 
-      console.log('🎉 Profile creation successful! Redirecting to dashboard...')
+      console.log('🎉 Profile creation successful! Sending welcome email and showing success popup...')
 
-      // Success animation
-      setTimeout(() => {
-        router.push('/dashboard')
-      }, 1500)
+      // Set user data for popup
+      setCreatedUserData({
+        fullName: data.fullName,
+        email: data.email
+      })
+
+      // Try to send welcome email
+      try {
+        console.log('📧 Attempting to send welcome email...')
+        const emailResponse = await fetch('/api/auth/send-welcome-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: 'temp_user_id', // This will be replaced with actual user ID from database
+            fullName: data.fullName,
+            email: data.email,
+            jobTitle: data.jobTitle,
+            city: data.city,
+            country: data.country
+          })
+        })
+
+        if (emailResponse.ok) {
+          console.log('✅ Welcome email sent successfully')
+        } else {
+          const emailError = await emailResponse.json()
+          console.warn('⚠️ Welcome email failed:', emailError)
+          // Continue to show popup even if email fails
+        }
+      } catch (emailError) {
+        console.warn('⚠️ Error sending welcome email:', emailError)
+        // Continue to show popup even if email fails
+      }
+
+      // Show success popup
+      setShowSuccessPopup(true)
 
     } catch (error) {
       console.error('❌ Error creating profile:', error)
@@ -983,7 +1017,7 @@ export default function CreateProfile() {
       }
 
       // Add troubleshooting info
-      errorMessage += '\n\n🔧 Troubleshooting:\n• Check if database is connected\n• Try refreshing the page\n• Contact support if issue persists'
+      errorMessage += '\n\n🔧 Troubleshooting:\n��� Check if database is connected\n• Try refreshing the page\n• Contact support if issue persists'
 
       alert(errorMessage)
     } finally {
