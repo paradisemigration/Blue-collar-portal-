@@ -848,6 +848,17 @@ export default function CreateProfile() {
   const onSubmit = async (data: WorkerFormData) => {
     console.log('🚀 onSubmit triggered with data:', data)
 
+    // Final duplicate check before submission
+    console.log('🔍 Final duplicate check before submission...')
+    const emailIsDuplicate = await checkDuplicate('email', data.email)
+    const phoneIsDuplicate = await checkDuplicate('phoneNumber', data.phoneNumber)
+
+    if (emailIsDuplicate || phoneIsDuplicate) {
+      console.error('❌ Duplicate found during final check, blocking submission')
+      alert('⚠️ Cannot create profile: An account with this email or phone number already exists.\n\nPlease sign in to your existing account or use different contact details.')
+      return
+    }
+
     // Enhanced validation check with detailed logging
     const isValidStep4 = validateStep(4)
     console.log('✅ Step 4 validation result:', isValidStep4)
