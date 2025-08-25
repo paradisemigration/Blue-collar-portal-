@@ -19,6 +19,16 @@ export default function Login() {
     if (credentials) {
       setUserCredentials(JSON.parse(credentials))
     }
+
+    // Check for email parameter in URL (from create-profile redirect)
+    const urlParams = new URLSearchParams(window.location.search)
+    const emailParam = urlParams.get('email')
+    if (emailParam) {
+      setFormData(prev => ({
+        ...prev,
+        loginId: emailParam
+      }))
+    }
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
