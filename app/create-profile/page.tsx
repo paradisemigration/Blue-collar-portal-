@@ -1220,7 +1220,7 @@ export default function CreateProfile() {
                   <p className="text-amber-800 text-sm font-medium">{duplicateError}</p>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-3">
                     <Link
-                      href="/login"
+                      href={`/login${watchedValues.email ? `?email=${encodeURIComponent(watchedValues.email)}` : ''}`}
                       className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 w-full sm:w-auto justify-center"
                     >
                       Sign In Instead →
