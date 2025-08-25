@@ -342,7 +342,7 @@ export default function BrowseWorkers() {
   const [isSubscribed, setIsSubscribed] = useState(false) // Set to false to show payment flow
   const [filters, setFilters] = useState<FilterOptions>({})
   const [workers, setWorkers] = useState<Worker[]>([])
-  const [displayCount, setDisplayCount] = useState(30)
+  const [displayCount, setDisplayCount] = useState(60)
   const [isLoading, setIsLoading] = useState(false)
   const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null)
 
