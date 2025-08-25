@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Info - System Status</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .status-section { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin: 15px 0; }
+        .status-good { border-left: 4px solid #28a745; }
+        .status-warning { border-left: 4px solid #ffc107; }
+        .status-error { border-left: 4px solid #dc3545; }
+        h2 { color: #333; margin-top: 0; }
+        .code { background: #e9ecef; padding: 10px; border-radius: 4px; font-family: monospace; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        .result { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🔧 System Debug Information</h1>
+    
+    <div class="status-section status-good">
+        <h2>🗄️ Database Connection Test</h2>
+        <button onclick="testDatabase()">Test Database API</button>
+        <div id="dbResult" class="result">Click button to test...</div>
+    </div>
+
+    <div class="status-section status-warning">
+        <h2>👥 Profile Loading Test</h2>
+        <button onclick="testProfilesAPI()">Test Profiles API</button>
+        <div id="profilesResult" class="result">Click button to test...</div>
+    </div>
+
+    <div class="status-section status-good">
+        <h2>🔍 Duplicate Check Test</h2>
+        <button onclick="testDuplicateCheck()">Test Duplicate Prevention</button>
+        <div id="duplicateResult" class="result">Click button to test...</div>
+    </div>
+
+    <div class="status-section status-warning">
+        <h2>🖥️ Page Loading Test</h2>
+        <button onclick="testPages()">Test Page Loading</button>
+        <div id="pagesResult" class="result">Click button to test...</div>
+    </div>
+
+    <div class="status-section status-good">
+        <h2>📱 localStorage Analysis</h2>
+        <button onclick="analyzeLocalStorage()">Analyze localStorage</button>
+        <div id="storageResult" class="result">Click button to test...</div>
+    </div>
+
+    <script>
+        async function testDatabase() {
+            const result = document.getElementById('dbResult');
+            result.innerHTML = '🔄 Testing database connection...';
+            
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                
+                result.innerHTML = `
+                    <strong>Database Status:</strong> ${data.status}<br>
+                    <strong>Connection:</strong> ${data.checks.database.status}<br>
+                    <strong>Message:</strong> ${data.checks.database.message}<br>
+                    <strong>Total Profiles:</strong> ${data.checks.database.details?.totalProfiles || 'N/A'}
+                `;
+            } catch (error) {
+                result.innerHTML = `❌ Error: ${error.message}`;
+            }
+        }
+
+        async function testProfilesAPI() {
+            const result = document.getElementById('profilesResult');
+            result.innerHTML = '🔄 Testing profiles API...';
+            
+            try {
+                const response = await fetch('/api/profiles/workers');
+                const data = await response.json();
+                
+                if (data.success) {
+                    result.innerHTML = `
+                        <strong>✅ Profiles API Working</strong><br>
+                        <strong>Total Profiles:</strong> ${data.profiles.length}<br>
+                        <strong>Sample Profile Names:</strong> ${data.profiles.slice(0, 5).map(p => p.fullName).join(', ')}
+                    `;
+                } else {
+                    result.innerHTML = `❌ API Error: ${data.error}`;
+                }
+            } catch (error) {
+                result.innerHTML = `❌ Error: ${error.message}`;
+            }
+        }
+
+        async function testDuplicateCheck() {
+            const result = document.getElementById('duplicateResult');
+            result.innerHTML = '🔄 Testing duplicate check...';
+            
+            try {
+                // Test with existing email
+                const response1 = await fetch('/api/auth/check-existing', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: 'himanshu.kumar@gmail.com' })
+                });
+                const data1 = await response1.json();
+                
+                // Test with new email
+                const response2 = await fetch('/api/auth/check-existing', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: 'new.user@test.com' })
+                });
+                const data2 = await response2.json();
+                
+                result.innerHTML = `
+                    <strong>✅ Duplicate Check Working</strong><br>
+                    <strong>Existing Email Test:</strong> ${data1.exists ? '✅ Found duplicate' : '❌ Should find duplicate'}<br>
+                    <strong>New Email Test:</strong> ${!data2.exists ? '✅ No duplicate found' : '❌ Should not find duplicate'}<br>
+                    <strong>Existing User:</strong> ${data1.fullName || 'N/A'}
+                `;
+            } catch (error) {
+                result.innerHTML = `❌ Error: ${error.message}`;
+            }
+        }
+
+        async function testPages() {
+            const result = document.getElementById('pagesResult');
+            result.innerHTML = '🔄 Testing page loading...';
+            
+            const pages = [
+                { name: 'Browse Page', url: '/browse' },
+                { name: 'Create Profile', url: '/create-profile' },
+                { name: 'Admin Panel', url: '/admin' }
+            ];
+            
+            const results = [];
+            
+            for (const page of pages) {
+                try {
+                    const response = await fetch(page.url);
+                    results.push(`${page.name}: ${response.status === 200 ? '✅' : '❌'} (${response.status})`);
+                } catch (error) {
+                    results.push(`${page.name}: ❌ Error`);
+                }
+            }
+            
+            result.innerHTML = results.join('<br>');
+        }
+
+        function analyzeLocalStorage() {
+            const result = document.getElementById('storageResult');
+            
+            const userProfile = localStorage.getItem('userProfile');
+            const allProfiles = localStorage.getItem('allUserProfiles');
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
+            let profileCount = 0;
+            let profileNames = [];
+            
+            if (allProfiles) {
+                try {
+                    const profiles = JSON.parse(allProfiles);
+                    profileCount = profiles.length;
+                    profileNames = profiles.slice(0, 5).map(p => p.fullName || 'No Name');
+                } catch (e) {
+                    profileNames = ['Error parsing profiles'];
+                }
+            }
+            
+            result.innerHTML = `
+                <strong>localStorage Analysis:</strong><br>
+                <strong>User Profile:</strong> ${userProfile ? '✅ Found' : '❌ None'}<br>
+                <strong>All Profiles:</strong> ${profileCount} profiles<br>
+                <strong>Sample Names:</strong> ${profileNames.join(', ')}<br>
+                <strong>Logged In:</strong> ${isLoggedIn || 'No'}<br>
+                <strong>Total localStorage Keys:</strong> ${Object.keys(localStorage).length}
+            `;
+        }
+    </script>
+</body>
+</html>
