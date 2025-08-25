@@ -132,9 +132,9 @@ const loadAllWorkers = async (): Promise<Worker[]> => {
         return localStorageData
       }
 
-      // If no localStorage data, return sample data
-      console.log('📋 Using sample data (30 profiles)')
-      return generateSampleData()
+      // If no localStorage data, return minimal fallback
+      console.log('📋 Using minimal fallback data - database appears empty')
+      return generateMinimalSampleData()
     }
 
     // If no database data, fall back to localStorage
@@ -144,9 +144,9 @@ const loadAllWorkers = async (): Promise<Worker[]> => {
       return localStorageData
     }
 
-    // If no localStorage data either, return sample data
-    console.log('📋 No data found anywhere, using sample data (30 profiles)')
-    return generateSampleData()
+    // Final fallback: minimal sample data
+    console.log('📋 No data found anywhere, using minimal fallback data')
+    return generateMinimalSampleData()
   } catch (error) {
     console.error('Error loading workers from database:', error)
     console.log('Falling back to localStorage and sample data...')
