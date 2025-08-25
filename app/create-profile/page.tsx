@@ -514,7 +514,7 @@ export default function CreateProfile() {
     setShowCustomJobTitle(selectedJobTitle === 'Other')
   }, [selectedJobTitle])
 
-  // Check for duplicate entries
+  // Check for duplicate entries in database first, then localStorage fallback
   const checkDuplicate = async (field: 'phoneNumber' | 'email', value: string) => {
     if (!value) {
       setDuplicateError('')
@@ -522,7 +522,65 @@ export default function CreateProfile() {
     }
 
     try {
-      // Check existing profiles in localStorage
+      // First check database via API
+      console.log(`🔍 Checking database for existing ${field}:`, value)
+
+      const checkData = field === 'email' ? { email: value } : { phone: value }
+
+      const response = await fetch('/api/auth/check-existing', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(checkData)
+      })
+
+      if (response.ok) {
+        const result = await response.json()
+
+        if (result.exists) {
+          console.log('🚨 Duplicate found in database:', result)
+
+          // Show specific error message with redirect option
+          const fieldName = field === 'phoneNumber' ? 'mobile number' : 'email address'
+
+          setDuplicateError(`⚠️ An account with this ${fieldName} already exists. ` +
+            (result.hasWorkerProfile
+              ? 'Please sign in to access your existing profile.'
+              : 'Please sign in to complete your profile setup.'
+            ))
+
+          // Smooth scroll to error section
+          setTimeout(() => {
+            const errorElement = document.querySelector('[data-duplicate-error]')
+            if (errorElement) {
+              errorElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'nearest'
+              })
+            }
+          }, 100)
+
+          return true
+        }
+
+        // No duplicate found in database
+        setDuplicateError('')
+        return false
+      } else {
+        // Database check failed, fallback to localStorage check
+        console.warn('Database check failed, falling back to localStorage')
+      }
+    } catch (error) {
+      console.error('Database duplicate check failed:', error)
+      // Fall through to localStorage check
+    }
+
+    try {
+      // Fallback: Check existing profiles in localStorage
+      console.log(`🔍 Fallback: Checking localStorage for existing ${field}:`, value)
+
       const existingProfiles = JSON.parse(localStorage.getItem('allUserProfiles') || '[]')
       const isDuplicate = existingProfiles.some((profile: any) =>
         profile[field] === value
@@ -530,8 +588,8 @@ export default function CreateProfile() {
 
       if (isDuplicate) {
         const message = field === 'phoneNumber'
-          ? `⚠️ This mobile number is already registered. Please use a different number or sign in to your existing account.`
-          : `⚠️ This email address is already registered. Please use a different email or sign in to your existing account.`
+          ? `⚠️ This mobile number is already registered locally. Please use a different number or clear your browser data.`
+          : `⚠️ This email address is already registered locally. Please use a different email or clear your browser data.`
         setDuplicateError(message)
 
         // Smooth scroll to error section
@@ -552,7 +610,7 @@ export default function CreateProfile() {
       setDuplicateError('')
       return false
     } catch (error) {
-      console.error('Error checking duplicates:', error)
+      console.error('Error checking localStorage duplicates:', error)
       setDuplicateError('')
       return false
     }
