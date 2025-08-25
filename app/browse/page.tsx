@@ -27,90 +27,35 @@ import {
 } from '@heroicons/react/24/outline'
 import { Worker, JobTitle, City, Country, FilterOptions } from '../../types'
 
-// Generate sample data for demonstration
-const generateSampleData = (): Worker[] => {
-  const sampleJobs: JobTitle[] = [
-    'Cook', 'Housemaid', 'Driver', 'Nanny (Childcare Worker)', 'Cleaner',
-    'Electrician', 'Construction Laborer', 'Security Guard', 'Landscaper',
-    'Housekeeper (Residential)', 'Plumber', 'Painter', 'Mechanic', 'Waiter',
-    'Delivery Driver', 'Carpenter', 'Welder', 'Mason', 'HVAC Technician',
-    'Factory Worker', 'Logistics Assistant', 'Maintenance Helper', 'Warehouse Associate'
-  ]
+// Minimal fallback sample data (only used if database is completely empty)
+const generateMinimalSampleData = (): Worker[] => {
+  console.log('🚨 Database appears to be empty, generating minimal fallback data')
 
-  const sampleCities: City[] = [
-    'Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Doha', 'Kuwait City', 'Riyadh',
-    'Jeddah', 'Muscat', 'Manama', 'Al Ain', 'Fujairah', 'Ras Al Khaimah'
-  ]
-
-  const firstNames = [
-    'Ahmed', 'Mohammed', 'Ali', 'Omar', 'Hassan', 'Khalid', 'Abdullah', 'Ibrahim',
-    'Priya', 'Ravi', 'Anjali', 'Suresh', 'Deepak', 'Kavya', 'Rajesh', 'Sunita',
-    'Maria', 'Anna', 'Elena', 'Rosa', 'Carmen', 'Sofia', 'Isabella', 'Lucia',
-    'James', 'John', 'Michael', 'David', 'Robert', 'William', 'Richard', 'Joseph'
-  ]
-
-  const lastNames = [
-    'Ahmed', 'Hassan', 'Ali', 'Khan', 'Kumar', 'Sharma', 'Patel', 'Singh',
-    'Garcia', 'Rodriguez', 'Martinez', 'Lopez', 'Gonzalez', 'Wilson', 'Johnson',
-    'Smith', 'Brown', 'Davis', 'Miller', 'Jones', 'Williams', 'Taylor'
-  ]
-
-  const countries: Country[] = ['UAE', 'Qatar', 'Kuwait', 'Saudi Arabia', 'Oman', 'Bahrain']
-  const visaStatuses: Array<'Work Visa' | 'Visit Visa' | 'Freelance Visa' | 'Expired Visa' | 'No Visa'> = ['Work Visa', 'Visit Visa', 'Freelance Visa']
-  const languages = [
-    ['English', 'Arabic'], ['English', 'Hindi'], ['English', 'Urdu'],
-    ['Arabic', 'French'], ['English', 'Spanish'], ['English', 'Filipino'],
-    ['English', 'Hindi', 'Arabic'], ['English', 'Bengali'], ['English', 'Tamil'],
-    ['Arabic', 'English', 'French']
-  ]
-
-  // Predefined profile picture URLs that are known to work
-  const profilePictures = [
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1494790108755-2616b612b593?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=400&h=400&fit=crop&crop=face'
-  ]
-
-  return Array.from({ length: 30 }, (_, index) => {
-    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)]
-    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)]
-    const jobTitle = sampleJobs[Math.floor(Math.random() * sampleJobs.length)]
-    const city = sampleCities[Math.floor(Math.random() * sampleCities.length)]
-    const country = countries[Math.floor(Math.random() * countries.length)]
-    const experience = Math.floor(Math.random() * 15) + 1
-    const salary = Math.floor(Math.random() * 4000) + 1500
-
-    return {
-      id: `sample_${index + 1}`,
-      fullName: `${firstName} ${lastName}`,
-      profilePicture: profilePictures[index % profilePictures.length],
-      jobCategory: getJobCategory(jobTitle),
-      jobTitle,
+  const fallbackProfiles = [
+    {
+      id: 'fallback_1',
+      fullName: 'Ahmed Hassan',
+      profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+      jobCategory: 'Construction & Infrastructure',
+      jobTitle: 'Electrician' as JobTitle,
       customJobTitle: undefined,
-      jobProfile: `Experienced ${jobTitle.toLowerCase()} with ${experience} years of professional experience in the Gulf region.`,
-      yearsExperience: experience,
-      city,
-      country,
-      languagesSpoken: languages[Math.floor(Math.random() * languages.length)],
-      expectedSalary: salary,
-      visaStatus: visaStatuses[Math.floor(Math.random() * visaStatuses.length)] as any,
-      availability: Math.random() > 0.2,
-      aboutMe: `Professional ${jobTitle.toLowerCase()} with ${experience} years of experience. Dedicated, reliable, and hardworking individual seeking new opportunities in ${city}.`,
-      phoneNumber: `+971${Math.floor(Math.random() * 90000000) + 10000000}`,
-      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@email.com`,
-      createdAt: new Date(Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000),
-      updatedAt: new Date(Date.now() - Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000)
+      jobProfile: 'Experienced electrician with 5 years of professional experience',
+      yearsExperience: 5,
+      city: 'Dubai' as City,
+      country: 'UAE' as Country,
+      languagesSpoken: ['English', 'Arabic'],
+      expectedSalary: 3500,
+      visaStatus: 'Work Visa' as const,
+      availability: true,
+      aboutMe: 'Professional electrician seeking new opportunities in Dubai.',
+      phoneNumber: '+971501234567',
+      email: 'ahmed.hassan@fallback.com',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
-  })
+  ]
+
+  return fallbackProfiles
 }
 
 // Helper function to get job category
