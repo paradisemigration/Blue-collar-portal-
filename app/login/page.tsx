@@ -29,6 +29,7 @@ export default function Login() {
         ...prev,
         loginId: emailParam
       }))
+      setRedirectMessage('An account with this email already exists. Please sign in to access your profile.')
     }
   }, [])
 
