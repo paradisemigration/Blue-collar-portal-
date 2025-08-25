@@ -299,6 +299,7 @@ export default function BrowseWorkers() {
         const allWorkers = await loadAllWorkers()
         setWorkers(allWorkers)
         console.log(`✅ Browse - Set ${allWorkers.length} workers in state`)
+        console.log('🔍 First 3 workers loaded:', allWorkers.slice(0, 3).map(w => ({ name: w.fullName, job: w.jobTitle, city: w.city })))
       } catch (error) {
         console.error('Failed to load workers:', error)
       } finally {
@@ -411,7 +412,7 @@ export default function BrowseWorkers() {
             <div className="flex justify-center items-center gap-6 sm:gap-8 text-sm text-gray-500">
               <div className="flex items-center gap-2">
                 <UserGroupIcon className="h-5 w-5 text-primary-500" />
-                <span>{workers.length > 0 ? `${workers.length}+` : '250+'} Profiles</span>
+                <span>{workers.length || '250+'} Profiles</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckBadgeIcon className="h-5 w-5 text-green-500" />
