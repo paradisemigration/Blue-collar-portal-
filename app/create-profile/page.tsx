@@ -263,7 +263,7 @@ const jobCategories = {
     ]
   },
   'Garments & Tailoring': {
-    emoji: '🧵',
+    emoji: '����',
     jobs: [
       'Tailor',
       'Ironing Staff',
@@ -850,14 +850,22 @@ export default function CreateProfile() {
 
     // Final duplicate check before submission
     console.log('🔍 Final duplicate check before submission...')
+    console.log('📧 Checking email:', data.email)
+    console.log('📱 Checking phone:', data.phoneNumber)
+
     const emailIsDuplicate = await checkDuplicate('email', data.email)
     const phoneIsDuplicate = await checkDuplicate('phoneNumber', data.phoneNumber)
+
+    console.log('📧 Email duplicate result:', emailIsDuplicate)
+    console.log('📱 Phone duplicate result:', phoneIsDuplicate)
 
     if (emailIsDuplicate || phoneIsDuplicate) {
       console.error('❌ Duplicate found during final check, blocking submission')
       alert('⚠️ Cannot create profile: An account with this email or phone number already exists.\n\nPlease sign in to your existing account or use different contact details.')
       return
     }
+
+    console.log('✅ No duplicates found, proceeding with profile creation...')
 
     // Enhanced validation check with detailed logging
     const isValidStep4 = validateStep(4)

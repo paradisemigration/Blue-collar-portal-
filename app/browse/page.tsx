@@ -346,7 +346,7 @@ export default function BrowseWorkers() {
   const clearFilters = () => {
     setFilters({})
     setSearchTerm('')
-    setDisplayCount(30)
+    setDisplayCount(60)
   }
 
   const loadMoreWorkers = () => {
