@@ -307,9 +307,9 @@ export async function GET(request: NextRequest) {
     const realProfiles = allProfiles.filter(p => p.email && !p.email.includes('@sample.gogethires.com'))
 
     // Get unique job categories and cities in database
-    const uniqueJobTitles = [...new Set(allProfiles.map(p => p.job_title))].length
-    const uniqueCities = [...new Set(allProfiles.map(p => p.city))].length
-    const uniqueCountries = [...new Set(allProfiles.map(p => p.country))].length
+    const uniqueJobTitles = Array.from(new Set(allProfiles.map(p => p.job_title))).length
+    const uniqueCities = Array.from(new Set(allProfiles.map(p => p.city))).length
+    const uniqueCountries = Array.from(new Set(allProfiles.map(p => p.country))).length
 
     const expectedProfiles = 240 // Approximately 80 job titles × 3 profiles each
 
