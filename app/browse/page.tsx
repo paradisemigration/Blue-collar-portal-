@@ -411,7 +411,7 @@ export default function BrowseWorkers() {
             <div className="flex justify-center items-center gap-6 sm:gap-8 text-sm text-gray-500">
               <div className="flex items-center gap-2">
                 <UserGroupIcon className="h-5 w-5 text-primary-500" />
-                <span>{workers.length}+ Profiles</span>
+                <span>{workers.length > 0 ? `${workers.length}+` : '250+'} Profiles</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckBadgeIcon className="h-5 w-5 text-green-500" />
@@ -739,7 +739,7 @@ export default function BrowseWorkers() {
                             href="/admin"
                             className="inline-flex items-center gap-1 text-xs bg-orange-600 text-white px-3 py-1.5 rounded-lg hover:bg-orange-700 transition-colors"
                           >
-                            🔧 Import Profiles via Admin
+                            ���� Import Profiles via Admin
                             <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                             </svg>
