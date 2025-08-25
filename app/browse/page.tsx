@@ -104,9 +104,9 @@ const loadAllWorkers = async (): Promise<Worker[]> => {
       if (localStorageData.length > 0) {
         return localStorageData
       }
-      // If no localStorage data, return sample data
-      console.log('📋 Using sample data (30 profiles)')
-      return generateSampleData()
+      // If no localStorage data, return minimal fallback
+      console.log('📋 Using minimal fallback data - no localStorage profiles found')
+      return generateMinimalSampleData()
     }
 
     const data = await response.json()
