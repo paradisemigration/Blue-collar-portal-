@@ -63,6 +63,15 @@ export const db = {
     return result.rows[0]
   },
 
+  // Get user by phone number
+  async getUserByPhone(phone: string) {
+    const result = await query(
+      'SELECT * FROM users WHERE phone = $1 AND is_active = true',
+      [phone]
+    )
+    return result.rows[0]
+  },
+
   // Get user by ID
   async getUserById(id: string) {
     const result = await query(
