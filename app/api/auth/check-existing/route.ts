@@ -36,13 +36,8 @@ export async function POST(request: NextRequest) {
     // If no email duplicate found, check by phone
     if (!existingUser && phone) {
       try {
-        // Check if we have a getUserByPhone method, if not we'll query directly
-        const result = await db.query(
-          'SELECT * FROM users WHERE phone = $1 AND is_active = true',
-          [phone]
-        )
-        if (result.rows.length > 0) {
-          existingUser = result.rows[0]
+        existingUser = await db.getUserByPhone(phone)
+        if (existingUser) {
           duplicateField = 'phone'
         }
       } catch (error) {
