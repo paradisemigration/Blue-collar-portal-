@@ -407,7 +407,7 @@ export default function BrowseWorkers() {
     setIsLoading(true)
     // Simulate loading delay
     setTimeout(() => {
-      setDisplayCount(prev => prev + 30)
+      setDisplayCount(prev => prev + 60)
       setIsLoading(false)
     }, 500)
   }
