@@ -149,16 +149,16 @@ const loadAllWorkers = async (): Promise<Worker[]> => {
     return generateMinimalSampleData()
   } catch (error) {
     console.error('Error loading workers from database:', error)
-    console.log('Falling back to localStorage and sample data...')
+    console.log('Falling back to localStorage and minimal data...')
 
     const localStorageData = await loadWorkersFromLocalStorage()
     if (localStorageData.length > 0) {
       return localStorageData
     }
 
-    // Final fallback: sample data
-    console.log('📋 Using sample data as final fallback (30 profiles)')
-    return generateSampleData()
+    // Final fallback: minimal data
+    console.log('📋 Using minimal fallback data due to database error')
+    return generateMinimalSampleData()
   }
 }
 
