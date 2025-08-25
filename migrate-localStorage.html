@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage Profile Migration Tool</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background-color: #f5f5f5; 
+        }
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
+        h1 { color: #2563eb; margin-bottom: 30px; }
+        h2 { color: #1d4ed8; margin-top: 30px; margin-bottom: 15px; }
+        .profile-item { 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            padding: 15px; 
+            margin: 10px 0; 
+        }
+        .profile-name { font-weight: bold; color: #1e40af; margin-bottom: 8px; }
+        .profile-details { font-size: 14px; color: #64748b; line-height: 1.5; }
+        button { 
+            background: #2563eb; 
+            color: white; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            margin: 10px 5px; 
+            transition: background-color 0.2s; 
+        }
+        button:hover { background: #1d4ed8; }
+        button.secondary { background: #64748b; }
+        button.secondary:hover { background: #475569; }
+        .stats { 
+            background: #ecfdf5; 
+            border: 1px solid #bbf7d0; 
+            border-radius: 8px; 
+            padding: 20px; 
+            margin: 20px 0; 
+        }
+        .stats h3 { color: #065f46; margin: 0 0 10px 0; }
+        .export-data { 
+            background: #f1f5f9; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 8px; 
+            padding: 15px; 
+            margin: 20px 0; 
+            font-family: monospace; 
+            font-size: 12px; 
+            max-height: 300px; 
+            overflow-y: auto; 
+        }
+        .error { color: #dc2626; font-weight: bold; }
+        .success { color: #059669; font-weight: bold; }
+        .warning { color: #d97706; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 localStorage Profile Migration Tool</h1>
+        <p>This tool helps you check for existing user profiles in localStorage and migrate them to the database.</p>
+        
+        <div class="stats">
+            <h3>📊 Current Status</h3>
+            <div id="statusInfo">Checking localStorage...</div>
+        </div>
+
+        <h2>🔍 Found Profiles</h2>
+        <div id="profilesList">Loading...</div>
+
+        <h2>🚀 Actions</h2>
+        <button onclick="checkLocalStorage()">🔄 Refresh Check</button>
+        <button onclick="exportForMigration()">📤 Export for Migration</button>
+        <button onclick="migrateToDatabase()" class="secondary">🗄️ Migrate to Database</button>
+
+        <h2>📋 Export Data (for manual migration)</h2>
+        <div id="exportData" class="export-data">Click "Export for Migration" to see migration data...</div>
+    </div>
+
+    <script>
+        let foundProfiles = [];
+
+        function checkLocalStorage() {
+            console.log('🔍 Checking localStorage for profiles...');
+            
+            const statusDiv = document.getElementById('statusInfo');
+            const profilesDiv = document.getElementById('profilesList');
+            
+            foundProfiles = [];
+            let statusInfo = '';
+
+            // Check individual profile
+            const userProfile = localStorage.getItem('userProfile');
+            if (userProfile) {
+                try {
+                    const profile = JSON.parse(userProfile);
+                    foundProfiles.push(profile);
+                    statusInfo += `✅ Individual profile found: ${profile.fullName || 'Unknown'}<br>`;
+                } catch (e) {
+                    statusInfo += `❌ Error parsing individual profile<br>`;
+                }
+            } else {
+                statusInfo += `❌ No individual profile found<br>`;
+            }
+
+            // Check all profiles
+            const allProfiles = localStorage.getItem('allUserProfiles');
+            if (allProfiles) {
+                try {
+                    const profiles = JSON.parse(allProfiles);
+                    if (Array.isArray(profiles)) {
+                        profiles.forEach(profile => {
+                            if (!foundProfiles.find(p => p.email === profile.email)) {
+                                foundProfiles.push(profile);
+                            }
+                        });
+                        statusInfo += `✅ Multiple profiles found: ${profiles.length} total<br>`;
+                    }
+                } catch (e) {
+                    statusInfo += `❌ Error parsing multiple profiles<br>`;
+                }
+            } else {
+                statusInfo += `❌ No multiple profiles found<br>`;
+            }
+
+            // Filter out sample/test data
+            const realProfiles = foundProfiles.filter(profile => {
+                const isTestProfile = 
+                    profile.id?.includes('test_') ||
+                    profile.id?.includes('sample_') ||
+                    profile.email?.includes('@test.com') ||
+                    profile.email?.includes('demo') ||
+                    profile.fullName?.includes('Test User');
+                return !isTestProfile;
+            });
+
+            statusInfo += `<br><strong>📊 Summary:</strong><br>`;
+            statusInfo += `Total found: ${foundProfiles.length}<br>`;
+            statusInfo += `Real profiles: ${realProfiles.length}<br>`;
+            statusInfo += `Test/Sample profiles: ${foundProfiles.length - realProfiles.length}<br>`;
+
+            statusDiv.innerHTML = statusInfo;
+
+            // Display profiles
+            if (realProfiles.length > 0) {
+                let profilesHtml = '';
+                realProfiles.forEach((profile, index) => {
+                    profilesHtml += `
+                        <div class="profile-item">
+                            <div class="profile-name">${profile.fullName || 'No Name'}</div>
+                            <div class="profile-details">
+                                📧 Email: ${profile.email || 'No Email'}<br>
+                                💼 Job: ${profile.jobTitle || profile.customJobTitle || 'No Job'}<br>
+                                📍 Location: ${profile.city || 'No City'}, ${profile.country || 'No Country'}<br>
+                                📱 Phone: ${profile.phoneNumber || profile.phone || 'No Phone'}<br>
+                                ⏰ Created: ${profile.createdAt || 'Unknown'}
+                            </div>
+                        </div>
+                    `;
+                });
+                profilesDiv.innerHTML = profilesHtml;
+            } else {
+                profilesDiv.innerHTML = '<p class="warning">No real user profiles found in localStorage.</p>';
+            }
+
+            // Update found profiles for export
+            foundProfiles = realProfiles;
+        }
+
+        function exportForMigration() {
+            if (foundProfiles.length === 0) {
+                document.getElementById('exportData').innerHTML = '<span class="error">No profiles to export. Run "Refresh Check" first.</span>';
+                return;
+            }
+
+            const exportObj = {
+                profiles: foundProfiles,
+                timestamp: new Date().toISOString(),
+                source: 'localStorage-migration-tool'
+            };
+
+            const exportJson = JSON.stringify(exportObj, null, 2);
+            document.getElementById('exportData').innerHTML = exportJson;
+
+            console.log('📤 Export data generated:', exportObj);
+            
+            // Also copy to clipboard if possible
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(JSON.stringify(foundProfiles, null, 2)).then(() => {
+                    alert('✅ Profile data copied to clipboard! You can paste this into the migration API.');
+                }).catch(err => {
+                    console.error('Failed to copy to clipboard:', err);
+                });
+            }
+        }
+
+        async function migrateToDatabase() {
+            if (foundProfiles.length === 0) {
+                alert('❌ No profiles to migrate. Run "Refresh Check" first.');
+                return;
+            }
+
+            if (!confirm(`🚀 Migrate ${foundProfiles.length} profiles to database?\n\nThis will send all found localStorage profiles to the migration API.`)) {
+                return;
+            }
+
+            try {
+                console.log('🔄 Starting migration...');
+                
+                const response = await fetch('/api/admin/migrate-localStorage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-admin-token': 'admin-secret-token'
+                    },
+                    body: JSON.stringify({ profiles: foundProfiles })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(`✅ Migration completed!\n\nSuccessful: ${result.results.successful}\nFailed: ${result.results.failed}\nSkipped: ${result.results.skipped}`);
+                    
+                    // Refresh status after migration
+                    checkLocalStorage();
+                } else {
+                    alert(`❌ Migration failed: ${result.error}`);
+                }
+            } catch (error) {
+                console.error('Migration error:', error);
+                alert(`❌ Migration error: ${error.message}`);
+            }
+        }
+
+        // Auto-check on page load
+        document.addEventListener('DOMContentLoaded', checkLocalStorage);
+    </script>
+</body>
+</html>
