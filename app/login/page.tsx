@@ -8,6 +8,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [userCredentials, setUserCredentials] = useState<any>(null)
+  const [redirectMessage, setRedirectMessage] = useState('')
   const [formData, setFormData] = useState({
     loginId: '',
     password: ''
