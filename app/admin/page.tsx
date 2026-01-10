@@ -1446,48 +1446,99 @@ console.log('��� All profiles will then appear in your development environ
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Admin Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-              <p className="text-purple-100 mt-1">Manage users, profiles, and platform content</p>
-              {migrationStatus && (
-                <div className="mt-2 bg-white/10 rounded px-3 py-1 text-sm">
-                  {migrationStatus}
-                </div>
-              )}
-            </div>
-            <div className="flex items-center gap-3">
+      {/* Admin Header - Mobile Friendly */}
+      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 z-40 shadow-lg">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          {/* Top Bar */}
+          <div className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-3 flex-1">
               <button
-                onClick={loadAdminData}
-                className="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium"
-                title="Refresh user data"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="lg:hidden p-2 hover:bg-white/10 rounded-lg transition-colors"
               >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-                Refresh
               </button>
-              <div className="w-px h-6 bg-white/20"></div>
-              <Link
-                href="/"
-                className="bg-gray-500/20 hover:bg-gray-500/30 px-3 py-2 rounded-lg transition-colors text-sm"
-              >
-                🏠 Home
-              </Link>
+              <div>
+                <h1 className="text-xl sm:text-2xl font-bold">Admin Panel</h1>
+                <p className="text-xs sm:text-sm text-slate-300">Manage profiles & users</p>
+              </div>
+            </div>
+            <button
+              onClick={loadAdminData}
+              className="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg transition-colors text-sm font-medium"
+              title="Refresh user data"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span className="hidden md:inline">Refresh</span>
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden pb-4 border-t border-white/10">
+              <div className="grid grid-cols-2 gap-2 mt-4">
+                <button
+                  onClick={() => {
+                    loadAdminData()
+                    setIsMobileMenuOpen(false)
+                  }}
+                  className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg transition-colors text-sm font-medium"
+                  title="Refresh user data"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  <span>Refresh</span>
+                </button>
+                <Link
+                  href="/"
+                  className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg transition-colors text-sm font-medium"
+                >
+                  <span>🏠</span>
+                  <span>Home</span>
+                </Link>
+              </div>
               <button
                 onClick={() => {
                   localStorage.removeItem('adminAuth')
                   window.location.href = '/admin-login'
                 }}
-                className="bg-red-500/20 hover:bg-red-500/30 px-3 py-2 rounded-lg transition-colors text-sm"
+                className="w-full mt-2 flex items-center justify-center gap-2 bg-red-500/20 hover:bg-red-500/30 px-3 py-2 rounded-lg transition-colors text-sm font-medium"
               >
-                🚪 Logout
+                <span>🚪</span>
+                <span>Logout</span>
               </button>
             </div>
+          )}
+
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center justify-end gap-2 pb-4 border-t border-white/10 mt-3 pt-3">
+            <Link
+              href="/"
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg transition-colors text-sm"
+            >
+              🏠 Home
+            </Link>
+            <button
+              onClick={() => {
+                localStorage.removeItem('adminAuth')
+                window.location.href = '/admin-login'
+              }}
+              className="flex items-center gap-2 bg-red-500/20 hover:bg-red-500/30 px-3 py-2 rounded-lg transition-colors text-sm"
+            >
+              🚪 Logout
+            </button>
           </div>
+
+          {migrationStatus && (
+            <div className="mt-3 mb-2 bg-white/10 rounded px-3 py-2 text-sm border border-white/20">
+              {migrationStatus}
+            </div>
+          )}
         </div>
       </div>
 
