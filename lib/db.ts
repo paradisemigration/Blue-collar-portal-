@@ -138,13 +138,12 @@ export const db = {
     return result.rows[0]
   },
 
-  // Get all worker profiles (active users only)
+  // Get all worker profiles (including profiles from inactive user accounts)
   async getAllWorkerProfiles() {
     const result = await query(
       `SELECT wp.*, u.email, u.phone, u.full_name, u.is_active
        FROM worker_profiles wp
-       JOIN users u ON wp.user_id = u.id
-       WHERE u.is_active = true
+       LEFT JOIN users u ON wp.user_id = u.id
        ORDER BY wp.created_at DESC`
     )
     return result.rows
