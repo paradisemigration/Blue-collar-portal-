@@ -27,11 +27,9 @@ export async function GET(request: NextRequest) {
       profileId: profile.id,
       fullName: profile.full_name,
       email: profile.email,
-      phone: profile.phone,
+      phoneNumber: profile.phone,
       profilePicture: profile.profile_picture_url || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
-      jobCategory: profile.job_category,
       jobTitle: profile.job_title,
-      customJobTitle: profile.custom_job_title,
       yearsExperience: profile.years_experience,
       city: profile.city,
       country: profile.country,
@@ -39,7 +37,7 @@ export async function GET(request: NextRequest) {
       visaStatus: profile.visa_status,
       languagesSpoken: profile.languages_spoken || [],
       aboutMe: profile.about_me,
-      availability: profile.availability,
+      availability: profile.availability || false,
       createdAt: profile.created_at,
       updatedAt: profile.updated_at
     }))
