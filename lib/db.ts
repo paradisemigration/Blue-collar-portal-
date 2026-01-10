@@ -81,6 +81,15 @@ export const db = {
     return result.rows[0]
   },
 
+  // Update user active status
+  async updateUserActiveStatus(userId: string, isActive: boolean) {
+    const result = await query(
+      'UPDATE users SET is_active = $1, updated_at = NOW() WHERE id = $2 RETURNING *',
+      [isActive, userId]
+    )
+    return result.rows[0]
+  },
+
   // Create worker profile
   async createWorkerProfile(profileData: {
     userId: string
