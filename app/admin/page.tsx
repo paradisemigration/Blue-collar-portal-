@@ -1704,52 +1704,52 @@ console.log('��� All profiles will then appear in your development environ
           </div>
         )}
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <div className="flex items-center">
-              <div className="bg-blue-100 rounded-lg p-3">
-                <UserGroupIcon className="h-6 w-6 text-blue-600" />
+        {/* Stats Overview - Mobile Optimized */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg sm:rounded-xl shadow-sm p-4 sm:p-6 border border-blue-200 hover:shadow-md transition-shadow">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
+              <div className="bg-blue-500 rounded-lg p-2 sm:p-3 w-fit">
+                <UserGroupIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">{stats.totalUsers}</h3>
-                <p className="text-sm text-gray-600">Total Users</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <div className="flex items-center">
-              <div className="bg-green-100 rounded-lg p-3">
-                <MapPinIcon className="h-6 w-6 text-green-600" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">{Object.keys(stats.usersByCity).length}</h3>
-                <p className="text-sm text-gray-600">Cities Covered</p>
+              <div className="mt-3 sm:mt-0">
+                <p className="text-xs text-blue-600 font-medium uppercase tracking-wide">Total Users</p>
+                <h3 className="text-2xl sm:text-3xl font-bold text-blue-900 mt-1">{stats.totalUsers}</h3>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <div className="flex items-center">
-              <div className="bg-purple-100 rounded-lg p-3">
-                <BriefcaseIcon className="h-6 w-6 text-purple-600" />
+          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg sm:rounded-xl shadow-sm p-4 sm:p-6 border border-green-200 hover:shadow-md transition-shadow">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
+              <div className="bg-green-500 rounded-lg p-2 sm:p-3 w-fit">
+                <MapPinIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">{Object.keys(stats.usersByJob).length}</h3>
-                <p className="text-sm text-gray-600">Job Types</p>
+              <div className="mt-3 sm:mt-0">
+                <p className="text-xs text-green-600 font-medium uppercase tracking-wide">Cities</p>
+                <h3 className="text-2xl sm:text-3xl font-bold text-green-900 mt-1">{Object.keys(stats.usersByCity).length}</h3>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <div className="flex items-center">
-              <div className="bg-yellow-100 rounded-lg p-3">
-                <GlobeAltIcon className="h-6 w-6 text-yellow-600" />
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg sm:rounded-xl shadow-sm p-4 sm:p-6 border border-purple-200 hover:shadow-md transition-shadow">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
+              <div className="bg-purple-500 rounded-lg p-2 sm:p-3 w-fit">
+                <BriefcaseIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">{Object.keys(stats.usersByCountry).length}</h3>
-                <p className="text-sm text-gray-600">Countries</p>
+              <div className="mt-3 sm:mt-0">
+                <p className="text-xs text-purple-600 font-medium uppercase tracking-wide">Job Types</p>
+                <h3 className="text-2xl sm:text-3xl font-bold text-purple-900 mt-1">{Object.keys(stats.usersByJob).length}</h3>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg sm:rounded-xl shadow-sm p-4 sm:p-6 border border-amber-200 hover:shadow-md transition-shadow">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
+              <div className="bg-amber-500 rounded-lg p-2 sm:p-3 w-fit">
+                <GlobeAltIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+              </div>
+              <div className="mt-3 sm:mt-0">
+                <p className="text-xs text-amber-600 font-medium uppercase tracking-wide">Countries</p>
+                <h3 className="text-2xl sm:text-3xl font-bold text-amber-900 mt-1">{Object.keys(stats.usersByCountry).length}</h3>
               </div>
             </div>
           </div>
