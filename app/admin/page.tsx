@@ -1805,96 +1805,142 @@ console.log('��� All profiles will then appear in your development environ
           </div>
         </div>
 
-        {/* Users Table */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">
-              User Profiles ({filteredUsers.length})
+        {/* Users Section - Mobile Responsive */}
+        <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="px-4 sm:px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-slate-50 to-slate-100">
+            <h2 className="text-base sm:text-lg font-bold text-gray-900">
+              User Profiles <span className="text-sm font-normal text-gray-600">({filteredUsers.length})</span>
             </h2>
           </div>
 
-          <div className="overflow-x-auto">
+          {/* Mobile Card View - Hidden on larger screens */}
+          <div className="block lg:hidden divide-y divide-gray-200">
+            {filteredUsers.length === 0 ? (
+              <div className="text-center py-8 px-4">
+                <UserGroupIcon className="mx-auto h-12 w-12 text-gray-400" />
+                <h3 className="mt-2 text-sm font-medium text-gray-900">No users found</h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  {users.length === 0
+                    ? "No user profiles exist yet."
+                    : "No users match your search criteria."}
+                </p>
+              </div>
+            ) : (
+              filteredUsers.map((user) => (
+                <div key={user.id} className="p-4 hover:bg-gray-50 transition-colors">
+                  <div className="flex items-start gap-3 mb-3">
+                    <img
+                      className="h-12 w-12 rounded-full object-cover flex-shrink-0"
+                      src={user.profilePicture}
+                      alt={user.fullName}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-bold text-gray-900 truncate">{user.fullName}</h3>
+                      <p className="text-xs text-gray-500">ID: {user.id?.substring(0, 8)}...</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 mb-3 text-xs">
+                    <div>
+                      <p className="text-gray-500 font-medium">Job</p>
+                      <p className="text-gray-900 font-semibold text-xs truncate">{user.jobTitle}</p>
+                      <p className="text-gray-600 text-xs">{user.city}, {user.country}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-medium">Experience</p>
+                      <p className="text-gray-900 font-semibold">{user.yearsExperience}y</p>
+                      <p className="text-gray-600 text-xs">AED {user.expectedSalary?.toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-medium">Email</p>
+                      <p className="text-gray-900 font-semibold text-xs truncate">{user.email}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-medium">Phone</p>
+                      <p className="text-gray-900 font-semibold text-xs">{user.phoneNumber?.substring(0, 10)}...</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                    <p className="text-xs text-gray-500">
+                      {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/admin/edit-user/${user.id}`}
+                        className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                        title="Edit user"
+                      >
+                        <PencilIcon className="h-4 w-4" />
+                      </Link>
+                      <button
+                        onClick={() => alert(`User Details:\n\nName: ${user.fullName}\nEmail: ${user.email}\nJob: ${user.jobTitle}\nLocation: ${user.city}, ${user.country}\nExperience: ${user.yearsExperience} years\nSalary: AED ${user.expectedSalary?.toLocaleString()}\nVisa: ${user.visaStatus}\nLanguages: ${user.languagesSpoken?.join(', ')}\nAbout: ${user.aboutMe}`)}
+                        className="p-1.5 text-green-600 hover:bg-green-50 rounded transition-colors"
+                        title="View details"
+                      >
+                        <EyeIcon className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => deleteUser(user.id)}
+                        className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors"
+                        title="Delete user"
+                      >
+                        <TrashIcon className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Desktop Table View - Hidden on smaller screens */}
+          <div className="hidden lg:block overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    User
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Job & Location
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Experience
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Contact
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Created
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">User</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Job & Location</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Experience</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Contact</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Created</th>
+                  <th className="px-6 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50">
+                  <tr key={user.id} className="hover:bg-blue-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <img
-                          className="h-10 w-10 rounded-full object-cover"
-                          src={user.profilePicture}
-                          alt={user.fullName}
-                        />
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">
-                            {user.fullName}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            ID: {user.id?.substring(0, 8)}...
-                          </div>
+                      <div className="flex items-center gap-3">
+                        <img className="h-10 w-10 rounded-full object-cover" src={user.profilePicture} alt={user.fullName} />
+                        <div>
+                          <div className="text-sm font-medium text-gray-900">{user.fullName}</div>
+                          <div className="text-xs text-gray-500">ID: {user.id?.substring(0, 8)}...</div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{user.jobTitle}</div>
-                      <div className="text-sm text-gray-500">{user.city}, {user.country}</div>
+                      <div className="text-sm font-medium text-gray-900">{user.jobTitle}</div>
+                      <div className="text-sm text-gray-600">{user.city}, {user.country}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{user.yearsExperience} years</div>
-                      <div className="text-sm text-gray-500">AED {user.expectedSalary?.toLocaleString()}</div>
+                      <div className="text-sm font-medium text-gray-900">{user.yearsExperience} yrs</div>
+                      <div className="text-sm text-gray-600">AED {user.expectedSalary?.toLocaleString()}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{user.email}</div>
-                      <div className="text-sm text-gray-500">{user.phoneNumber}</div>
+                      <div className="text-sm text-gray-600">{user.phoneNumber}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
-                      </div>
+                      <div className="text-sm text-gray-900">{user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href={`/admin/edit-user/${user.id}`}
-                          className="text-indigo-600 hover:text-indigo-900"
-                          title="Edit user"
-                        >
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center justify-center gap-2">
+                        <Link href={`/admin/edit-user/${user.id}`} className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors" title="Edit user">
                           <PencilIcon className="h-4 w-4" />
                         </Link>
-                        <button
-                          onClick={() => alert(`User Details:\n\nName: ${user.fullName}\nEmail: ${user.email}\nJob: ${user.jobTitle}\nLocation: ${user.city}, ${user.country}\nExperience: ${user.yearsExperience} years\nSalary: AED ${user.expectedSalary?.toLocaleString()}\nVisa: ${user.visaStatus}\nLanguages: ${user.languagesSpoken?.join(', ')}\nAbout: ${user.aboutMe}`)}
-                          className="text-green-600 hover:text-green-900"
-                          title="View details"
-                        >
+                        <button onClick={() => alert(`User Details:\n\nName: ${user.fullName}\nEmail: ${user.email}\nJob: ${user.jobTitle}\nLocation: ${user.city}, ${user.country}\nExperience: ${user.yearsExperience} years\nSalary: AED ${user.expectedSalary?.toLocaleString()}\nVisa: ${user.visaStatus}\nLanguages: ${user.languagesSpoken?.join(', ')}\nAbout: ${user.aboutMe}`)} className="p-1.5 text-green-600 hover:bg-green-50 rounded transition-colors" title="View details">
                           <EyeIcon className="h-4 w-4" />
                         </button>
-                        <button
-                          onClick={() => deleteUser(user.id)}
-                          className="text-red-600 hover:text-red-900"
-                          title="Delete user"
-                        >
+                        <button onClick={() => deleteUser(user.id)} className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors" title="Delete user">
                           <TrashIcon className="h-4 w-4" />
                         </button>
                       </div>
@@ -1903,20 +1949,18 @@ console.log('��� All profiles will then appear in your development environ
                 ))}
               </tbody>
             </table>
+            {filteredUsers.length === 0 && (
+              <div className="text-center py-12">
+                <UserGroupIcon className="mx-auto h-12 w-12 text-gray-400" />
+                <h3 className="mt-2 text-sm font-medium text-gray-900">No users found</h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  {users.length === 0
+                    ? "No user profiles exist yet. Users can create profiles through the main website."
+                    : "No users match the current search criteria. Try adjusting your filters."}
+                </p>
+              </div>
+            )}
           </div>
-
-          {filteredUsers.length === 0 && (
-            <div className="text-center py-12">
-              <UserGroupIcon className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-2 text-sm font-medium text-gray-900">No users found</h3>
-              <p className="mt-1 text-sm text-gray-500">
-                {users.length === 0 
-                  ? "No user profiles exist yet. Users can create profiles through the main website."
-                  : "No users match the current search criteria. Try adjusting your filters."
-                }
-              </p>
-            </div>
-          )}
         </div>
 
         {/* City-Job Combinations */}
