@@ -1755,10 +1755,12 @@ console.log('��� All profiles will then appear in your development environ
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-8">
-          <div className="flex flex-col sm:flex-row gap-4">
+        {/* Filters - Mobile Optimized */}
+        <div className="bg-white rounded-lg sm:rounded-xl shadow-sm p-4 sm:p-6 border border-gray-100 mb-6 sm:mb-8">
+          <div className="space-y-3 sm:space-y-0 sm:flex sm:flex-col md:flex-row md:gap-4">
+            {/* Search Input */}
             <div className="flex-1">
+              <label className="text-xs font-medium text-gray-600 uppercase tracking-wide block mb-2 md:hidden">Search</label>
               <div className="relative">
                 <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                 <input
@@ -1766,16 +1768,18 @@ console.log('��� All profiles will then appear in your development environ
                   placeholder="Search by name, email, or job title..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                 />
               </div>
             </div>
-            
-            <div className="sm:w-48">
+
+            {/* City Select */}
+            <div className="sm:flex-1 md:w-auto">
+              <label className="text-xs font-medium text-gray-600 uppercase tracking-wide block mb-2 md:hidden">City</label>
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full md:w-48 px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
               >
                 <option value="">All Cities</option>
                 {Object.keys(stats.usersByCity).sort().map(city => (
@@ -1784,11 +1788,13 @@ console.log('��� All profiles will then appear in your development environ
               </select>
             </div>
 
-            <div className="sm:w-48">
+            {/* Job Select */}
+            <div className="sm:flex-1 md:w-auto">
+              <label className="text-xs font-medium text-gray-600 uppercase tracking-wide block mb-2 md:hidden">Job Type</label>
               <select
                 value={selectedJob}
                 onChange={(e) => setSelectedJob(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full md:w-48 px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
               >
                 <option value="">All Jobs</option>
                 {Object.keys(stats.usersByJob).sort().map(job => (
