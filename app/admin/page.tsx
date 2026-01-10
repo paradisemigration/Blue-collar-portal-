@@ -52,6 +52,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true)
   const [migrationStatus, setMigrationStatus] = useState<string>('')
   const [isClient, setIsClient] = useState(true)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     if (!isClient) return
