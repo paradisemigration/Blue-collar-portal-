@@ -129,13 +129,24 @@ export const db = {
     return result.rows[0]
   },
 
-  // Get all worker profiles
+  // Get all worker profiles (active users only)
   async getAllWorkerProfiles() {
     const result = await query(
-      `SELECT wp.*, u.email, u.phone, u.full_name 
-       FROM worker_profiles wp 
-       JOIN users u ON wp.user_id = u.id 
-       WHERE u.is_active = true 
+      `SELECT wp.*, u.email, u.phone, u.full_name, u.is_active
+       FROM worker_profiles wp
+       JOIN users u ON wp.user_id = u.id
+       WHERE u.is_active = true
+       ORDER BY wp.created_at DESC`
+    )
+    return result.rows
+  },
+
+  // Get ALL worker profiles including inactive users (for diagnostics)
+  async getAllWorkerProfilesIncludingInactive() {
+    const result = await query(
+      `SELECT wp.*, u.email, u.phone, u.full_name, u.is_active
+       FROM worker_profiles wp
+       LEFT JOIN users u ON wp.user_id = u.id
        ORDER BY wp.created_at DESC`
     )
     return result.rows
