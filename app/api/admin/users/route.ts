@@ -45,7 +45,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       users: formattedUsers,
-      totalCount: formattedUsers.length
+      totalCount: formattedUsers.length,
+      diagnostic: {
+        activeWorkerProfiles: formattedUsers.length,
+        message: 'Showing only active user profiles (where user.is_active = true)'
+      }
     })
 
   } catch (error) {
